@@ -1,3 +1,3 @@
-export const template = (name: string): string => {
-	return `Hello ${name}. Nice to meet you.`;
-};
+export * from './enums/shapes';
+export * from './simple/Indices';
+export * from './simple/Fraction';

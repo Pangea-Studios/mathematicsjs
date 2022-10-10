@@ -1,7 +1,5 @@
-const { template } = require('../dist/index.cjs');
+const { Indices } = require('../dist/index.cjs');
 
-test('Prints a welcome statement with username.', () => {
-	expect(template(process.env.REPL_OWNER)).toBe(
-		`Hello ${process.env.REPL_OWNER}. Nice to meet you.`,
-	);
+test('Multiply number to a power', () => {
+	expect(Indices.power(2, 3)).toBe(8);
 });
