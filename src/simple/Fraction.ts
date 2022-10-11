@@ -1,3 +1,5 @@
+import { gcd2 } from '../util'
+
 export class Faction {
 	public numerator: number;
 	public denominator: number;
@@ -33,17 +35,10 @@ export class Faction {
 	}
 
 	simplified() {
-		let a = this.numerator;
-		let b = this.denominator;
-		let c;
-		while (b) {
-			c = a % b;
-			a = b;
-			b = c;
-		}
-		this.simplifiedNumerator = this.numerator / a;
-		this.simplifiedDenominator = this.denominator / a;
-		return [this.numerator / a, this.denominator / a];
+		const gcd = gcd2(this.numerator,this.denominator)
+		this.simplifiedNumerator = this.numerator / gcd;
+		this.simplifiedDenominator = this.denominator / gcd;
+		return [this.numerator / gcd, this.denominator / gcd];
 	}
 
 	decimal() {
