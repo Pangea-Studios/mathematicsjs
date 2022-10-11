@@ -53,8 +53,7 @@ export class Faction {
 		return `${this.numerator}/${this.denominator}`;
 	}
 	toSimplifiedString() {
-		if (!this.simplifiedDenominator || this.simplifiedNumerator)
-			throw new Error('The Fraction has not been simplified yet.');
-		return `${this.simplifiedNumerator}/${this.simplifiedDenominator}`;
+		const x = this.simplified();
+		return "${x[0]}/${x[1]}";
 	}
 }
