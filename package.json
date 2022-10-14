@@ -1,6 +1,5 @@
 {
-	"name": "",
-	"private": "true",
+	"name": "@pangea-studios/math",
 	"version": "0.0.1",
 	"description": "",
 	"sideEffects": false,
@@ -32,11 +31,11 @@
 		"build": "cross-env NODE_ENV=build rimraf ./dist/** && rollup --config"
 	},
 	"repository": {
-		"type": "",
-		"url": ""
+		"type": "git",
+		"url": "https://github.com/Pangea-Studios/mathematicsjs"
 	},
 	"keywords": [],
-	"author": "name <example@example.com> (https://example.com)",
+	"author": "Pangea Studios",
 	"license": "MIT",
 	"bugs": {
 		"url": ""

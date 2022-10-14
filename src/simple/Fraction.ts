@@ -1,4 +1,4 @@
-import { gcd2 } from '../util'
+import { gcd2 } from '../util';
 
 export class Faction {
 	public numerator: number;
@@ -35,7 +35,7 @@ export class Faction {
 	}
 
 	simplified() {
-		const gcd = gcd2(this.numerator,this.denominator)
+		const gcd = gcd2(this.numerator, this.denominator);
 		this.simplifiedNumerator = this.numerator / gcd;
 		this.simplifiedDenominator = this.denominator / gcd;
 		return [this.numerator / gcd, this.denominator / gcd];
@@ -54,6 +54,6 @@ export class Faction {
 	}
 	toSimplifiedString() {
 		const x = this.simplified();
-		return "${x[0]}/${x[1]}";
+		return `${x[0]}/${x[1]}`;
 	}
 }
