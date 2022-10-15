@@ -1,5 +1,5 @@
 {
-  "name": "pangea-studios-math-docs",
+  "name": "math",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -38,7 +38,7 @@
     ]
   },
   "engines": {
-    "node": ">=16.14"
+    "node": ">=14.2"
   },
   "repository": "https://github.com/Pangea-Studios/mathematicsjs.git",
   "author": "Noinkin <87577662+Noinkin@users.noreply.github.com>",
