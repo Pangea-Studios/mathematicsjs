@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkmath=self.webpackChunkmath||[]).push([[693],{6422:e=>{e.exports=JSON.parse('{"label":"reference","permalink":"/docs/tags/reference","allTagsPath":"/docs/tags","count":1,"items":[{"id":"reference/home","title":"Reference Home","description":"","permalink":"/docs/reference/home"}]}')}}]);
