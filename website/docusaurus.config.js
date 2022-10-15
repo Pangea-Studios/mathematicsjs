@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
     title: 'Math',
     tagline: 'The future of math in JavaScript',
-    url: 'https://pangea-studios.github.io/mathematicsjs/',
+    url: 'https://pangea-studios.github.io/',
     baseUrl: '/mathematicsjs/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
