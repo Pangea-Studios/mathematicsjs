@@ -38,7 +38,7 @@
     ]
   },
   "engines": {
-    "node": ">=14.2"
+    "node": ">=16.14"
   },
   "repository": "https://github.com/Pangea-Studios/mathematicsjs.git",
   "author": "Noinkin <87577662+Noinkin@users.noreply.github.com>",
