@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - gh-pages
+  pull_request:
 
 jobs:
   deploy:
@@ -37,7 +38,7 @@ jobs:
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.ref == 'refs/origin/gh-pages' }}
+        if: ${{ github.ref == 'refs/heads/gh-pages' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
