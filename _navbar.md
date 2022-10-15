@@ -1,1 +1,0 @@
-* [Guide](/guide/getting-started.md)
