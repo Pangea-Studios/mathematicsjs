@@ -14,6 +14,7 @@ jobs:
         node-version: '16.14'
     - run: npm install
     - run: npm run build
+    - run: git commit -m "[Pangea Studios] Build"
     - run: cd dist
     - run: git mv -f index.cjs index.js
     - run: cd ..
