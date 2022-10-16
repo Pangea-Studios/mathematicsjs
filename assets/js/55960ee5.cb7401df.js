@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkmath=self.webpackChunkmath||[]).push([[121],{8070:e=>{e.exports=JSON.parse('[{"label":"reference","permalink":"/mathematicsjs/docs/tags/reference","count":1}]')}}]);
