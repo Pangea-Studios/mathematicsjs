@@ -12,6 +12,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '16.14'
+    - run: npm install
     - run: npm run build
     - run: git mv dist/index.cjs dist/index.js
     - run: npm run build:docs
