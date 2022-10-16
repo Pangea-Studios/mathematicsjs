@@ -14,7 +14,9 @@ jobs:
         node-version: '16.14'
     - run: npm install
     - run: npm run build
-    - run: git mv dist/index.cjs dist/index.js
+    - run: cd dist
+    - run: git mv index.cjs index.js
+    - run: cd ..
     - run: npm run build:docs
 
     - name: Pushes docs folder
