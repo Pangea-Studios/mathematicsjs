@@ -1,5 +1,8 @@
 import { gcd2 } from '../util';
 
+/**
+ * Creates a Fraction.
+ */
 export class Faction {
 	public numerator: number;
 	public denominator: number;
