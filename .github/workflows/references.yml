@@ -14,10 +14,10 @@ jobs:
         node-version: '16.14'
     - run: npm install
     - run: npm run build
-    - run: git commit -m "[Pangea Studios] Build"
-    - run: cd dist
     - run: git config --global user.email noinkin@gmail.com
     - run: git config --global user.name PangeaStudios
+    - run: git commit -m "[Pangea Studios] Build"
+    - run: cd dist
     - run: git mv -f index.cjs index.js
     - run: cd ..
     - run: npm run build:docs
