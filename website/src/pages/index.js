@@ -15,7 +15,7 @@ function HomepageHeader() {
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className={styles.buttons}>
           <div
-            className="button button--secondary button--lg">
+            className="button disabled button--outline button--secondary button--lg">
             npm i @pangea-studios/math
           </div>
         </div>
@@ -29,7 +29,7 @@ export default function Home() {
   return (
     <Layout
       title={`${siteConfig.title}`}
-      description="The documenation for math">
+      description="The documentation for math">
       <HomepageHeader />
       <main>
         <HomepageFeatures />

@@ -36,8 +36,23 @@ const config = {
                     sidebarPath: require.resolve('./sidebars.js'),
                     // Please change this to your repo.
                     // Remove this to remove the "edit this page" links.
-                    editUrl:
-                        'https://github.com/pangea-studios/math/tree/gh-pages',
+                    editUrl: ({ versionDocsDirPath, docPath }) =>
+                        `https://github.com/pangea-studios/math/edit/docs/website/${versionDocsDirPath}/${docPath}`,
+                    editLocalizedFiles: false,
+                    editCurrentVersion: false,
+                    showLastUpdateAuthor: true,
+                    showLastUpdateTime: true,
+                    disableVersioning: false,
+                    includeCurrentVersion: true,
+                    lastVersion: undefined,
+                    versions: {
+                        current: {
+                            label: 'math v0.0.1',
+                            path: '0.0.1',
+                            banner: 'none',
+                        },
+                    },
+                    onlyIncludeVersions: ['current'],
                 },
                 theme: {
                     customCss: require.resolve('./src/css/custom.css'),
@@ -49,34 +64,60 @@ const config = {
     themeConfig:
         /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         ({
+            announcementBar: {
+                id: 'under_development',
+                content:
+                    'The docs are currently under development, expect a lot of changes.',
+                backgroundColor: '#25c2a0',
+                textColor: '#FFFFFF',
+                isCloseable: false,
+            },
             navbar: {
-                title: 'Math',
-                logo: {
-                    alt: 'Math Logo',
-                    src: 'img/logo.svg',
-                },
+                style: 'primary',
                 items: [
+                    {
+                        to: '/',
+                        label: 'Math',
+                        position: 'left',
+                        className: 'button button--lg button--primary',
+                    },
                     {
                         type: 'doc',
                         docId: 'intro',
                         position: 'left',
                         label: 'Docs',
+                        className: 'button button--lg button--primary',
                     },
                     {
                         type: 'doc',
-                        docId: 'guide/getting-started',
+                        docId: 'guide/home/getting-started',
                         position: 'left',
                         label: 'Guide',
+                        className: 'button button--lg button--primary',
                     },
                     {
                         type: 'doc',
                         docId: 'reference/home',
                         position: 'left',
                         label: 'Reference',
+                        className: 'button button--lg button--primary',
                     },
                     {
                         href: 'https://github.com/pangea-studios/mathematicsjs',
                         label: 'GitHub',
+                        position: 'left',
+                        className: 'button button--lg button--primary',
+                    },
+                    {
+                        type: 'docsVersionDropdown',
+                        position: 'left',
+                        dropdownItemsAfter: [
+                            { to: '/versions', label: 'All versions' },
+                        ],
+                        dropdownActiveClassDisabled: true,
+                    },
+                    {
+                        type: 'search',
                         position: 'right',
                     },
                 ],
@@ -84,6 +125,11 @@ const config = {
             footer: {
                 style: 'dark',
                 copyright: `Copyright © ${new Date().getFullYear()} Pangea Studios.`,
+            },
+            colorMode: {
+                defaultMode: 'dark',
+                disableSwitch: false,
+                respectPrefersColorScheme: true,
             },
             prism: {
                 theme: lightCodeTheme,

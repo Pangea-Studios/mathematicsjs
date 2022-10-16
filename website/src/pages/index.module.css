@@ -10,6 +10,14 @@
   overflow: hidden;
 }
 
+.versions {
+	color: #000000
+}
+
+.versions:hover {
+	color: #000000
+}
+
 @media screen and (max-width: 996px) {
   .heroBanner {
     padding: 2rem;
