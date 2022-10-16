@@ -1,0 +1,26 @@
+name: Docs References
+
+on: push
+
+jobs:
+  copy-file:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Build Docs
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.14'
+    - run: npm run build
+    - run: git mv dist/index.cjs dist/index.js
+    - run: npm run build:docs
+
+    - name: Pushes docs folder
+      uses: datalbry/copy_folder_to_another_repo_action@1.0.0
+      with:
+        personal_token: ${{ secrets.PERSONAL_TOKEN }}
+        source_folder: 'docs'
+        destination_repo: 'pangea-studios/mathematicsjs'
+        destination_folder: 'website/docs/reference/classes'
+        commit_msg: '[Pangea Studios] Update Reference' 

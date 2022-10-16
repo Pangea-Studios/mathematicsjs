@@ -6,7 +6,6 @@ export type nOF = { numerator: number; denominator: number } | number;
 
 /**
  * Class for all indices related functions.
- * @name Indices
  */
 export class Indices {
 	/**

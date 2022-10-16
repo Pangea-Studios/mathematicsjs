@@ -28,7 +28,8 @@
 		"lint:fix": "eslint src --config ./eslint.config.json --fix",
 		"format": "prettier --check . --config ./prettier.config.json",
 		"format:fix": "prettier --write . --config ./prettier.config.json",
-		"build": "cross-env NODE_ENV=build rimraf ./dist/** && rollup --config"
+		"build": "cross-env NODE_ENV=build rollup --config",
+		"build:doc": "node dist/documentation.cjs"
 	},
 	"repository": {
 		"type": "git",
