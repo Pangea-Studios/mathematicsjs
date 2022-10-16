@@ -19,7 +19,7 @@ jobs:
     - run: git commit --allow-empty -m "[Pangea Studios] Build"
     - run: git push origin main
     - run: cd dist
-    - run: git mv -f index.cjs index.js
+    - run: git mv -v -f index.cjs index.js
     - run: cd ..
     - run: npm run build:docs
 
