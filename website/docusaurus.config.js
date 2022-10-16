@@ -61,6 +61,16 @@ const config = {
         ],
     ],
 
+    themes: [
+        [
+            require.resolve('@easyops-cn/docusaurus-search-local'),
+            {
+                hashed: true,
+                language: ['en', 'zh'],
+            },
+        ],
+    ],
+
     themeConfig:
         /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         ({
