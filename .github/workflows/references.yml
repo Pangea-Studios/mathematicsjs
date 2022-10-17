@@ -14,10 +14,6 @@ jobs:
         node-version: '16.14'
     - run: npm install
     - run: npm run build
-    - run: git config --global user.email noinkin@gmail.com
-    - run: git config --global user.name PangeaStudios
-    - run: git commit --allow-empty -m "[Pangea Studios] Build"
-    - run: git push origin main
     - run: npm run build:doc
 
     - name: Pushes docs folder
@@ -27,4 +23,4 @@ jobs:
         source_folder: 'docs'
         destination_repo: 'pangea-studios/mathematicsjs'
         destination_folder: 'website/docs/reference/classes'
-        commit_msg: '[Pangea Studios] Update Reference' 
+        commit_msg: '[Pangea Studios] Build && Update Reference' 
