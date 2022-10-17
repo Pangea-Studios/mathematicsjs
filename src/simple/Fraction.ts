@@ -52,6 +52,7 @@ export class Faction {
 
 	/**
 	 * Needs JSDoc
+	 * @returns {number}
 	 */
 	decimal() {
 		return this.numerator / this.denominator;
