@@ -70,6 +70,7 @@
 		"ts-jest": "^28.0.4",
 		"typescript": "^4.7.3"
 	},
+	"dependencies": {},
 	"directories": {
 		"test": "tests"
 	}
