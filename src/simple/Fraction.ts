@@ -40,6 +40,9 @@ export class Faction {
 		return this;
 	}
 
+	/**
+	 * Needs JSDoc
+	 */
 	simplified() {
 		const gcd = gcd2(this.numerator, this.denominator);
 		this.simplifiedNumerator = this.numerator / gcd;
