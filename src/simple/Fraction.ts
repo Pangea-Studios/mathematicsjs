@@ -57,6 +57,9 @@ export class Faction {
 		return this.numerator / this.denominator;
 	}
 
+	/**
+	 * Needs JSDoc
+	 */
 	percentage() {
 		return (this.numerator / this.denominator) * 100;
 	}
