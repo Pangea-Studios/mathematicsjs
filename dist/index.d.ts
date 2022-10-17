@@ -2,10 +2,6 @@ declare enum Circles {
     pi = 3.141592653589793
 }
 
-declare type nOF = {
-    numerator: number;
-    denominator: number;
-} | number;
 /**
  * Class for all indices related functions.
  */
@@ -13,7 +9,7 @@ declare class Indices {
     /**
      * Returns the inputted number multiplied by itself the specified amount of times
      * @param {number} number - The number to multiply by itself
-     * @param {nOF} [power] - The amount of times to multiply number by itself
+     * @param {(number|Object)} [power=2] - The amount of times to multiply number by itself
      * @example <caption>Example 1 - Without specifying a power</caption>
      * // returns 25
      * Indices.power(5)
@@ -22,7 +18,7 @@ declare class Indices {
      * Indices.power(2, 3)
      * @returns {number} The inputted number multiplied by itself the specified amount of times
      */
-    static power(number: number, power: nOF): number;
+    static power(number: number, power: any): number;
 }
 
 /**
@@ -33,11 +29,60 @@ declare class Faction {
     denominator: number;
     simplifiedNumerator: number;
     simplifiedDenominator: number;
+    /**
+     * Creates the fraction
+     * @param {number} numerator - The numerator(upper number) of the fraction
+     * @param {number} denominator - The denominator(lower number) of the fraction
+     * @example <caption>Example - Create Fraction</caption>
+     * // returns { numerator: 3, denominator: 6 }
+     * new Fraction(3,6)
+     * @returns {Object}
+     */
     constructor(numerator: number, denominator: number);
+    /**
+     * Simplify the number
+     * @example <caption>Example - Simplify Fraction</caption>
+     * // Returns [1,2]
+     * const myFraction = new Fraction(3,6)
+     * myFraction.simplified()
+     * @returns {number[]} Simplified Fraction
+     */
     simplified(): number[];
+    /**
+     * Converts the fraction to a decimal
+     * @example <caption>Example - Convert Fraction to Decimal</caption>
+     * // returns 0.5
+     * const myFraction = new Fraction(3,6)
+     * myFraction.decimal()
+     * @returns {number} Decimal
+     */
     decimal(): number;
+    /**
+     * Converts the fraction to a percentage
+     * @example <caption>Example - Convert Fraction to Percentage</caption>
+     * // returns 50
+     * const myFraction = new Fraction(3,6)
+     * myFraction.percentage()
+     * @returns {number} Percentage
+     */
     percentage(): number;
+    /**
+     * Converts the fraction to a string
+     * @example <caption>Example - Convert Fraction to String</caption>
+     * // returns "3/6"
+     * const myFraction = new Fraction(3,6)
+     * myFraction.toString()
+     * @returns {string} Fraction String
+     */
     toString(): string;
+    /**
+     * Converts the fraction to a simplified string
+     * @example <caption>Example - Convert Fraction Simplified String</caption>
+     * // returns "1/2"
+     * const myFraction = new Fraction(3,6)
+     * myFraction.toSimplifiedString()
+     * @returns {string} Simplified Fraction String
+     */
     toSimplifiedString(): string;
 }
 
@@ -67,4 +112,4 @@ declare function gcd2(a: number, b: number): number;
  */
 declare function gcd(arr: number[]): number;
 
-export { Circles, Faction, Indices, gcd, gcd2, nOF };
+export { Circles, Faction, Indices, gcd, gcd2 };

@@ -1,5 +1,3 @@
-export type nOF = { numerator: number; denominator: number } | number;
-
 /**
  * Class for all indices related functions.
  */
@@ -7,7 +5,7 @@ export class Indices {
 	/**
 	 * Returns the inputted number multiplied by itself the specified amount of times
 	 * @param {number} number - The number to multiply by itself
-	 * @param {nOF} [power] - The amount of times to multiply number by itself
+	 * @param {(number|Object)} [power=2] - The amount of times to multiply number by itself
 	 * @example <caption>Example 1 - Without specifying a power</caption>
 	 * // returns 25
 	 * Indices.power(5)
@@ -16,7 +14,7 @@ export class Indices {
 	 * Indices.power(2, 3)
 	 * @returns {number} The inputted number multiplied by itself the specified amount of times
 	 */
-	static power(number: number, power: nOF): number {
+	static power(number: number, power: any): number {
 		if (typeof power != 'number' && !power.denominator)
 			throw new Error(
 				'TypeError: power must be a number or an object with a denominator or numerator',

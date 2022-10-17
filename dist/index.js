@@ -10,7 +10,7 @@ class Indices {
     /**
      * Returns the inputted number multiplied by itself the specified amount of times
      * @param {number} number - The number to multiply by itself
-     * @param {nOF} [power] - The amount of times to multiply number by itself
+     * @param {(number|Object)} [power=2] - The amount of times to multiply number by itself
      * @example <caption>Example 1 - Without specifying a power</caption>
      * // returns 25
      * Indices.power(5)
@@ -90,6 +90,15 @@ function gcd(arr) {
  * Creates a Fraction.
  */
 class Faction {
+    /**
+     * Creates the fraction
+     * @param {number} numerator - The numerator(upper number) of the fraction
+     * @param {number} denominator - The denominator(lower number) of the fraction
+     * @example <caption>Example - Create Fraction</caption>
+     * // returns { numerator: 3, denominator: 6 }
+     * new Fraction(3,6)
+     * @returns {Object}
+     */
     constructor(numerator, denominator) {
         if (Math.floor(numerator) != numerator) {
             numerator.toString().split('.')[1].length || 0;
@@ -101,21 +110,61 @@ class Faction {
         this.denominator = denominator;
         return this;
     }
+    /**
+     * Simplify the number
+     * @example <caption>Example - Simplify Fraction</caption>
+     * // Returns [1,2]
+     * const myFraction = new Fraction(3,6)
+     * myFraction.simplified()
+     * @returns {number[]} Simplified Fraction
+     */
     simplified() {
         const gcd = gcd2(this.numerator, this.denominator);
         this.simplifiedNumerator = this.numerator / gcd;
         this.simplifiedDenominator = this.denominator / gcd;
         return [this.numerator / gcd, this.denominator / gcd];
     }
+    /**
+     * Converts the fraction to a decimal
+     * @example <caption>Example - Convert Fraction to Decimal</caption>
+     * // returns 0.5
+     * const myFraction = new Fraction(3,6)
+     * myFraction.decimal()
+     * @returns {number} Decimal
+     */
     decimal() {
         return this.numerator / this.denominator;
     }
+    /**
+     * Converts the fraction to a percentage
+     * @example <caption>Example - Convert Fraction to Percentage</caption>
+     * // returns 50
+     * const myFraction = new Fraction(3,6)
+     * myFraction.percentage()
+     * @returns {number} Percentage
+     */
     percentage() {
         return (this.numerator / this.denominator) * 100;
     }
+    /**
+     * Converts the fraction to a string
+     * @example <caption>Example - Convert Fraction to String</caption>
+     * // returns "3/6"
+     * const myFraction = new Fraction(3,6)
+     * myFraction.toString()
+     * @returns {string} Fraction String
+     */
     toString() {
         return `${this.numerator}/${this.denominator}`;
     }
+    /**
+     * Converts the fraction to a simplified string
+     * @example <caption>Example - Convert Fraction Simplified String</caption>
+     * // returns "1/2"
+     * const myFraction = new Fraction(3,6)
+     * myFraction.toSimplifiedString()
+     * @returns {string} Simplified Fraction String
+     */
     toSimplifiedString() {
         const x = this.simplified();
         return `${x[0]}/${x[1]}`;
