@@ -4,7 +4,8 @@ const fs = require('fs');
 const path = require('path');
 
 
-const outputDir = 'docs';
+const outputDir = 'classes';
+const outputDir1 = 'functions'
 
 /* get template data */
 const templateData = jsdoc2md.getTemplateDataSync({ files: 'dist/index.js' });
@@ -14,6 +15,11 @@ const classNames = templateData.reduce((classNames, identifier) => {
     if (identifier.kind === 'class') classNames.push(identifier.name);
     return classNames;
 }, []);
+
+const functionNames = templateData.reduce((functionNames, identifier) => {
+	if (identifier.kind === 'function') functionNames.push(identifier.name)
+	return functionNames
+}, [])
 
 /* create a documentation file for each class */
 for (const className of classNames) {
@@ -28,4 +34,22 @@ for (const className of classNames) {
 	} catch (err) {
 		console.log(err)
 	}
+}
+
+for (const functionName of functionNames) {
+    const template = `{{#function name="${functionName}"}}{{>docs}}{{/function}}`;
+    console.log(`rendering ${functionName}, template: ${template}`);
+    const output = jsdoc2md.renderSync({
+        data: templateData,
+        template: template,
+    });
+    try {
+        fs.writeFileSync(
+            path.resolve(__dirname + `/../${outputDir1}/${functionName}.md`),
+            output,
+            { encoding: 'utf-8', flag: 'w+' },
+        );
+    } catch (err) {
+        console.log(err);
+    }
 }

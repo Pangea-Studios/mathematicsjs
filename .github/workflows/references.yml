@@ -5,7 +5,8 @@ on:
     branches:
       - main
     paths:
-      - 'docs/**'
+      - 'functions/**'
+      - 'classes/**'
 
 jobs:
   copy-file:
@@ -13,11 +14,22 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Pushes docs folder
+    - name: Pushes classes folder
       uses: andstor/copycat-action@v3
       with:
         personal_token: ${{ secrets.PERSONAL_TOKEN }}
-        src_path: /docs/
+        src_path: /classes/
+        src_branch: main
+        dst_path: /website/docs/reference/
+        dst_branch: docs
+        dst_owner: Pangea-Studios
+        dst_repo_name: mathematicsjs
+    
+    - name: Pushes functions folder
+      uses: andstor/copycat-action@v3
+      with:
+        personal_token: ${{ secrets.PERSONAL_TOKEN }}
+        src_path: /functions/
         src_branch: main
         dst_path: /website/docs/reference/
         dst_branch: docs
