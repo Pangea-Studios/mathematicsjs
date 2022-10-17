@@ -1,6 +1,11 @@
 name: Docs References
 
-on: push
+on: 
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
 
 jobs:
   copy-file:
@@ -15,6 +20,8 @@ jobs:
     - run: npm install
     - run: npm run build
     - run: npm run build:doc
+    - run: git commit --allow-empty -m "[Pangea Studios] Build"
+    - run: git push origin main
 
     - name: Pushes docs folder
       uses: andstor/copycat-action@v3

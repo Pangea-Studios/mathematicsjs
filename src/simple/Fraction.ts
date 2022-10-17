@@ -8,6 +8,9 @@ export class Faction {
 	public denominator: number;
 	public simplifiedNumerator: number;
 	public simplifiedDenominator: number;
+	/**
+	 * Needs JSDoc
+	 */
 	constructor(numerator: number, denominator: number) {
 		let newNum = numerator,
 			newDen = denominator,
