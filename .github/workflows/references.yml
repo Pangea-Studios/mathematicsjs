@@ -18,7 +18,7 @@ jobs:
     - run: git config --global user.name PangeaStudios
     - run: git commit --allow-empty -m "[Pangea Studios] Build"
     - run: git push origin main
-    - run: npm run build:docs
+    - run: npm run build:doc
 
     - name: Pushes docs folder
       uses: datalbry/copy_folder_to_another_repo_action@1.0.0
