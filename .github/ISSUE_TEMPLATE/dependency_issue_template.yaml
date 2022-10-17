@@ -1,12 +1,14 @@
 name: Dependency Issue Template
 description: Use this to report an issue with a dependency
 body:
-  - type: input
+  - type: textarea
     id: issue
     attributes:
       label: Explain the issue
-      description:
-      placeholder: <dependency> is not compiling correctly
+      description: 
+      placeholder: Tell us what you see!
+      value: "A bug happened!"
+      render: shell
     validations:
       required: true
   - type: dropdown
