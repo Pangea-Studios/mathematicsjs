@@ -5,25 +5,13 @@ on:
     branches:
       - main
     paths:
-      - 'src/**'
+      - 'docs/**'
 
 jobs:
   copy-file:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-
-    - name: Build Docs
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16.14'
-    - run: npm install
-    - run: npm run build
-    - run: npm run build:doc
-    - run: git config --global user.email "noinkin@gmail.com"
-    - run: git config --global user.name "Pangea Studios Builds"
-    - run: git commit --allow-empty -m "[Pangea Studios] Build"
-    - run: git push origin main
 
     - name: Pushes docs folder
       uses: andstor/copycat-action@v3
