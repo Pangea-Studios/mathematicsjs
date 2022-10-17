@@ -29,7 +29,7 @@
 		"format": "prettier --check . --config ./prettier.config.json",
 		"format:fix": "prettier --write . --config ./prettier.config.json",
 		"build": "rollup --config",
-		"build:doc": "node dist/documentation.cjs"
+		"build:doc": "node dist/document.cjs"
 	},
 	"repository": {
 		"type": "git",
