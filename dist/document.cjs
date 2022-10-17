@@ -23,9 +23,9 @@ for (const className of classNames) {
         data: templateData,
         template: template,
 	});
-	fs.writeFileSync(
-        path.resolve(__dirname + `/../${outputDir}/${className}.md`),
-        ''
-    );
-    fs.writeFileSync(path.resolve(__dirname + `/../${outputDir}/${className}.md`), output, { encoding: 'utf-8', flag: "w+" });
+	try {
+		fs.writeFileSync(path.resolve(__dirname + `/../${outputDir}/${className}.md`), output, { encoding: 'utf-8', flag: "w+" });
+	} catch (err) {
+		console.log(err)
+	}
 }

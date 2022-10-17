@@ -42,6 +42,7 @@ export class Faction {
 
 	/**
 	 * Needs JSDoc
+	 * @returns {number[]}
 	 */
 	simplified() {
 		const gcd = gcd2(this.numerator, this.denominator);
