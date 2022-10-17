@@ -20,9 +20,9 @@ jobs:
       uses: andstor/copycat-action@v3
       with:
         personal_token: ${{ secrets.PERSONAL_TOKEN }}
-        src_path: /dist/
+        src_path: /docs/
         src_branch: main
-        dst_path: /website/docs/reference/ref/
+        dst_path: /website/docs/reference/
         dst_branch: docs
         dst_owner: Pangea-Studios
         dst_repo_name: mathematicsjs
