@@ -7,7 +7,7 @@ const path = require('path');
 const outputDir = 'docs';
 
 /* get template data */
-const templateData = jsdoc2md.getTemplateDataSync({ files: 'index.js' });
+const templateData = jsdoc2md.getTemplateDataSync({ files: 'dist/index.js' });
 
 /* reduce templateData to an array of class names */
 const classNames = templateData.reduce((classNames, identifier) => {
