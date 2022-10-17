@@ -84,7 +84,7 @@ myFraction.toString()
 <a name="Faction+toSimplifiedString"></a>
 
 ### faction.toSimplifiedString() ⇒ <code>string</code>
-Converts the fraction to a simplified string
+Converts the fraction to a simplified string.
 
 **Kind**: instance method of [<code>Faction</code>](#Faction)  
 **Returns**: <code>string</code> - Simplified Fraction String  
