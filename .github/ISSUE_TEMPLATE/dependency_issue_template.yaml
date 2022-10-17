@@ -1,0 +1,21 @@
+name: Dependency Issue Template
+description: Use this to report an issue with a dependency
+body:
+  - type: input
+    id: issue
+    attributes:
+      label: Explain the issue
+      description:
+      placeholder: <dependency> is not compiling correctly
+    validations:
+      required: true
+  - type: dropdown
+    id: Reported
+    attributes:
+      label: Has it been reported to the Dependency
+      description: 
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true
