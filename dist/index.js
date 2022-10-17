@@ -4,9 +4,6 @@ var Circles;
 })(Circles || (Circles = {}));
 
 /**
- * @author Noinkin
- */
-/**
  * Class for all indices related functions.
  */
 class Indices {

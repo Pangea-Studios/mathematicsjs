@@ -1,7 +1,3 @@
-/**
- * @author Noinkin
- */
-
 export type nOF = { numerator: number; denominator: number } | number;
 
 /**

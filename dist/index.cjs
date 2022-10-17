@@ -8,9 +8,6 @@ exports.Circles = void 0;
 })(exports.Circles || (exports.Circles = {}));
 
 /**
- * @author Noinkin
- */
-/**
  * Class for all indices related functions.
  */
 class Indices {

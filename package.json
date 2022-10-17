@@ -5,10 +5,10 @@
 	"sideEffects": false,
 	"type": "module",
 	"main": "./dist/index.cjs",
-	"module": "./dist/index.mjs",
+	"module": "./dist/index.js",
 	"exports": {
 		".": {
-			"import": "./dist/index.mjs",
+			"import": "./dist/index.js",
 			"require": "./dist/index.cjs",
 			"default": "./dist/index.cjs"
 		}

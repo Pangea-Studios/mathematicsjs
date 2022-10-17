@@ -19,7 +19,7 @@ module.exports = [
 				preferConst: true,
 			},
 			{
-				file: `dist/index.mjs`,
+				file: `dist/index.js`,
 				format: 'esm',
 				preferConst: true,
 			},

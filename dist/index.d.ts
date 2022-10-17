@@ -2,9 +2,6 @@ declare enum Circles {
     pi = 3.141592653589793
 }
 
-/**
- * @author Noinkin
- */
 declare type nOF = {
     numerator: number;
     denominator: number;
