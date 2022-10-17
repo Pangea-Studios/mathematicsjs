@@ -17,10 +17,12 @@ jobs:
     - run: npm run build:doc
 
     - name: Pushes docs folder
-      uses: datalbry/copy_folder_to_another_repo_action@1.0.0
+      uses: andstor/copycat-action@v3
       with:
         personal_token: ${{ secrets.PERSONAL_TOKEN }}
-        source_folder: 'docs'
-        destination_repo: 'pangea-studios/mathematicsjs'
-        destination_folder: 'website/docs/reference/classes'
-        commit_msg: '[Pangea Studios] Build && Update Reference' 
+        src_path: /dist/
+        src_branch: main
+        dst_path: /website/docs/reference/ref/
+        dst_branch: docs
+        dst_owner: Pangea-Studios
+        dst_repo_name: mathematicsjs
