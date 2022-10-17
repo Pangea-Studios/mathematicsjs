@@ -23,5 +23,5 @@ for (const className of classNames) {
         data: templateData,
         template: template,
     });
-    fs.writeFileSync(path.resolve(outputDir, `${className}.md`), output);
+    fs.writeFileSync(`${outputDir}/${className}.md`, output);
 }
