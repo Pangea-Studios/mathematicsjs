@@ -50,6 +50,9 @@ export class Faction {
 		return [this.numerator / gcd, this.denominator / gcd];
 	}
 
+	/**
+	 * Needs JSDoc
+	 */
 	decimal() {
 		return this.numerator / this.denominator;
 	}
