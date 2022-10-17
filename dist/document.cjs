@@ -4,8 +4,8 @@ const fs = require('fs');
 const path = require('path');
 
 
-const outputDir = 'classes';
-const outputDir1 = 'functions'
+const outputDir = 'docs/classes';
+const outputDir1 = 'docs/functions'
 
 /* get template data */
 const templateData = jsdoc2md.getTemplateDataSync({ files: 'dist/index.js' });

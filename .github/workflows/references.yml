@@ -18,18 +18,7 @@ jobs:
       uses: andstor/copycat-action@v3
       with:
         personal_token: ${{ secrets.PERSONAL_TOKEN }}
-        src_path: /classes/
-        src_branch: main
-        dst_path: /website/docs/reference/
-        dst_branch: docs
-        dst_owner: Pangea-Studios
-        dst_repo_name: mathematicsjs
-    
-    - name: Pushes functions folder
-      uses: andstor/copycat-action@v3
-      with:
-        personal_token: ${{ secrets.PERSONAL_TOKEN }}
-        src_path: /functions/
+        src_path: /docs/
         src_branch: main
         dst_path: /website/docs/reference/
         dst_branch: docs
