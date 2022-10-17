@@ -36,8 +36,8 @@ const config = {
                     sidebarPath: require.resolve('./sidebars.js'),
                     // Please change this to your repo.
                     // Remove this to remove the "edit this page" links.
-                    editUrl: ({ versionDocsDirPath, docPath }) =>
-                        `https://github.com/pangea-studios/math/edit/docs/website/${versionDocsDirPath}/${docPath}`,
+                    editUrl: ({ docPath }) =>
+                        `https://github.com/pangea-studios/math/blob/docs/website/docs/${docPath}`,
                     editLocalizedFiles: false,
                     editCurrentVersion: false,
                     showLastUpdateAuthor: true,
