@@ -42,17 +42,7 @@ const config = {
                     editCurrentVersion: false,
                     showLastUpdateAuthor: true,
                     showLastUpdateTime: true,
-                    disableVersioning: false,
-                    includeCurrentVersion: true,
-                    lastVersion: undefined,
-                    versions: {
-                        current: {
-                            label: 'math v0.0.1',
-                            path: '0.0.1',
-                            banner: 'none',
-                        },
-                    },
-                    onlyIncludeVersions: ['current'],
+                    disableVersioning: true,
                 },
                 theme: {
                     customCss: require.resolve('./src/css/custom.css'),
@@ -117,15 +107,13 @@ const config = {
                         label: 'GitHub',
                         position: 'left',
                         className: 'button button--lg button--primary',
-                    },
-                    {
-                        type: 'docsVersionDropdown',
-                        position: 'left',
-                        dropdownItemsAfter: [
-                            { to: '/versions', label: 'All versions' },
-                        ],
-                        dropdownActiveClassDisabled: true,
-                    },
+					},
+					{
+						href: '/versions',
+						label: 'Versions',
+						position: 'right',
+						className: 'button button--lg button--primary',
+					},
                     {
                         type: 'search',
                         position: 'right',

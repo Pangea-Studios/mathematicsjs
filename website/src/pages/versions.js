@@ -14,7 +14,7 @@ function HomepageHeader() {
                 <p className="hero__subtitle">
                     {versions.map((item) => {
                         return (
-							<a className={styles.versions} href={'docs/' + item + '/intro'}>{item}</a>
+							<a className={styles.versions}>{item}<br /></a>
                         );
                     })}
                 </p>
