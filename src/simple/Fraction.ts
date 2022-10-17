@@ -66,6 +66,7 @@ export class Faction {
 
 	/**
 	 * Needs JSDoc
+	 * @returns {string}
 	 */
 	toString() {
 		return `${this.numerator}/${this.denominator}`;
