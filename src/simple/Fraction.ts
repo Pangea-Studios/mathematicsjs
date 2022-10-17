@@ -71,6 +71,10 @@ export class Faction {
 	toString() {
 		return `${this.numerator}/${this.denominator}`;
 	}
+	/**
+	 * Needs JSDoc
+	 * @returns {string}
+	 */
 	toSimplifiedString() {
 		const x = this.simplified();
 		return `${x[0]}/${x[1]}`;
