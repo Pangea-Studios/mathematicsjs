@@ -6,10 +6,10 @@ Returns the inputted number multiplied by itself the specified amount of times
 **Kind**: static method of [<code>Indices</code>](#Indices)  
 **Returns**: <code>number</code> - The inputted number multiplied by itself the specified amount of times  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| number | <code>number</code> | The number to multiply by itself |
-| [power] | <code>nOF</code> | The amount of times to multiply number by itself |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| number | <code>number</code> |  | The number to multiply by itself |
+| [power] | <code>number</code> \| <code>Object</code> | <code>2</code> | The amount of times to multiply number by itself |
 
 **Example** *(Example 1 - Without specifying a power)*  
 ```js
