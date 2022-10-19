@@ -68,9 +68,9 @@ const config = {
                 id: 'under_development',
                 content:
                     'The docs are currently under development, expect a lot of changes.',
-                backgroundColor: '#25c2a0',
+                backgroundColor: '#000000',
                 textColor: '#FFFFFF',
-                isCloseable: false,
+                isCloseable: true,
             },
             navbar: {
                 style: 'primary',
