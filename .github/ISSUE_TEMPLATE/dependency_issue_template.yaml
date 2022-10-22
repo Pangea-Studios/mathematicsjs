@@ -1,23 +1,23 @@
 name: Dependency Issue Template
 description: Use this to report an issue with a dependency
 body:
-  - type: textarea
-    id: issue
-    attributes:
-      label: Explain the issue
-      description: 
-      placeholder: Tell us what you see!
-      value: "A bug happened!"
-      render: shell
-    validations:
-      required: true
-  - type: dropdown
-    id: Reported
-    attributes:
-      label: Has it been reported to the Dependency
-      description: 
-      options:
-        - "Yes"
-        - "No"
-    validations:
-      required: true
+    - type: textarea
+      id: issue
+      attributes:
+          label: Explain the issue
+          description:
+          placeholder: Tell us what you see!
+          value: 'A bug happened!'
+          render: shell
+      validations:
+          required: true
+    - type: dropdown
+      id: Reported
+      attributes:
+          label: Has it been reported to the Dependency
+          description:
+          options:
+              - 'Yes'
+              - 'No'
+      validations:
+          required: true

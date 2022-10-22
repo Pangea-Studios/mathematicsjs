@@ -90,6 +90,8 @@ declare class Faction {
  * Find the GCD of 2 numbers
  * @param {number} a - The first number
  * @param {number} b - The second number
+ * @param {Object} [options] Extra options
+ * @param {number} [options.base] The base of the numbers you inputted
  * @example <caption>Example 1 - Non Prime Numbers</caption>
  * // returns 2
  * gcd(8,12)
@@ -98,10 +100,12 @@ declare class Faction {
  * gcd(5,7)
  * @returns {number} The GCD of the two inputted numbers
  */
-declare function gcd2(a: number, b: number): number;
+declare function gcd2(a: number, b: number, options?: Object): number;
 /**
  * Find the GCD of the inputted numbers
  * @param {number[]} arr - The numbers to find the GCD of
+ * @param {Object} [options] Extra options
+ * @param {number} [options.base] The base of the numbers you inputted
  * @example <caption>Example 1 - Non Prime Numbers</caption>
  * // returns 2
  * gcd([8,12,16])
@@ -110,6 +114,17 @@ declare function gcd2(a: number, b: number): number;
  * gcd([7,13,5])
  * @returns {number} The GCD of the inputted numbers
  */
-declare function gcd(arr: number[]): number;
+declare function gcd(arr: number[], options?: Object): number;
+/**
+ * Convert a number to a different base
+ * @param {number|string} number - The inputted number
+ * @param {number} baseN - The base of the inputted number
+ * @param {number} toBaseN - The base to convert to
+ * @example <caption>Example - Converting Base 10 to Base 36</caption>
+ * // returns 'zz'
+ * baseNtoBaseN(3535, 10, 36)
+ * @returns {number|string} The inputted number in the specified base
+ */
+declare function baseNtoBaseN(number: number | string, baseN: number, toBaseN: number): string | number;
 
-export { Circles, Faction, Indices, gcd, gcd2 };
+export { Circles, Faction, Indices, baseNtoBaseN, gcd, gcd2 };
