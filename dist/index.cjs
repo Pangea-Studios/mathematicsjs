@@ -52,8 +52,8 @@ class Indices {
 
 /**
  * Find the GCD of 2 numbers
- * @param {number} a The first number
- * @param {number} b The second number
+ * @param {number} a - The first number
+ * @param {number} b - The second number
  * @example <caption>Example 1 - Non Prime Numbers</caption>
  * // returns 2
  * gcd(8,12)
@@ -69,7 +69,7 @@ function gcd2(a, b) {
 }
 /**
  * Find the GCD of the inputted numbers
- * @param {number[]} arr The numbers to find the GCD of
+ * @param {number[]} arr - The numbers to find the GCD of
  * @example <caption>Example 1 - Non Prime Numbers</caption>
  * // returns 2
  * gcd([8,12,16])
