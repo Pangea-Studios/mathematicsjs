@@ -1,6 +1,6 @@
 <a name="gcd"></a>
 
-## gcd(arr) ⇒ <code>number</code>
+## gcd(arr, [options]) ⇒ <code>number</code>
 Find the GCD of the inputted numbers
 
 **Kind**: global function  
@@ -9,6 +9,8 @@ Find the GCD of the inputted numbers
 | Param | Type | Description |
 | --- | --- | --- |
 | arr | <code>Array.&lt;number&gt;</code> | The numbers to find the GCD of |
+| [options] | <code>Object</code> | Extra options |
+| [options.base] | <code>number</code> | The base of the numbers you inputted |
 
 **Example** *(Example 1 - Non Prime Numbers)*  
 ```js
