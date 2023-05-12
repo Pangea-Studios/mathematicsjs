@@ -8,6 +8,7 @@ const outputDir1 = 'docs/functions';
 
 /* get template data */
 const templateData = jsdoc2md.getTemplateDataSync({ files: 'dist/index.js' });
+console.log(templateData);
 
 /* reduce templateData to an array of class names */
 const classNames = templateData.reduce((classNames, identifier) => {
@@ -16,7 +17,7 @@ const classNames = templateData.reduce((classNames, identifier) => {
 }, []);
 
 const functionNames = templateData.reduce((functionNames, identifier) => {
-	if (identifier.kind === 'function') functionNames.push(identifier.name);
+	if (identifier.kind === 'function' && identifier.scope === 'global') functionNames.push(identifier.name);
 	return functionNames;
 }, []);
 
