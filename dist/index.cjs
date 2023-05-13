@@ -2,6 +2,14 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+/**
+ * Enum for Circle Related values.
+ * @enum
+ * @readonly
+ * @example <caption>Example - Value of pi</caption>
+ * // returns 3.141592653589793
+ * Circles.pi
+ */
 exports.Circles = void 0;
 (function (Circles) {
     Circles[Circles["pi"] = 3.141592653589793] = "pi";
