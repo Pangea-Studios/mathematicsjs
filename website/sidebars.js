@@ -50,6 +50,6 @@ module.exports = {
       	    type: 'doc',
       	    id: 'home',
             label: 'Home',
-        },
+        }
     ],
 };
