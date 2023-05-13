@@ -48,7 +48,7 @@ module.exports = {
         },
         {
       	    type: 'doc',
-      	    id: 'home',
+      	    id: 'reference/home',
             label: 'Home',
         }
     ],
