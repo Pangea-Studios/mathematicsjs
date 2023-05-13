@@ -12,28 +12,28 @@
  * gcd(5,7)
  * @returns {number} The GCD of the two inputted numbers
  */
-export function gcd2(a: number, b: number, options?: Object): number {
-    if (!options) options = {};
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    if (options.base) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        a = baseNtoBaseN(a, options.base, 10);
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        b = baseNtoBaseN(b, options.base, 10);
-    }
-    if (a === 0) return b;
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+export function gcd2(a: number, b: number, options?: object): number {
+	if (!options) options = {};
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore
 	if (options.base) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        return baseNtoBaseN(gcd2(a % b, a, options), 10, options.base);
-    } else {
-        return gcd2(a % b, a, options);
-    }
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
+		a = baseNtoBaseN(a, options.base, 10);
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
+		b = baseNtoBaseN(b, options.base, 10);
+	}
+	if (a === 0) return b;
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore
+	if (options.base) {
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
+		return baseNtoBaseN(gcd2(a % b, a, options), 10, options.base);
+	} else {
+		return gcd2(a % b, a, options);
+	}
 }
 
 /**
@@ -49,8 +49,8 @@ export function gcd2(a: number, b: number, options?: Object): number {
  * gcd([7,13,5])
  * @returns {number} The GCD of the inputted numbers
  */
-export function gcd(arr: number[], options?: Object): number {
-	if(!options) options = {}
+export function gcd(arr: number[], options?: object): number {
+	if(!options) options = {};
 	const n = arr.length;
 	let result = arr[0];
 	for (let i = 1; i < n; i++) {
@@ -81,7 +81,7 @@ export function baseNtoBaseN(
 	if (baseN > 36 || baseN < 2 || toBaseN > 36 || toBaseN < 2) {
 		return null;
 	}
-	let base10 = parseInt(number.toString(), baseN);
+	const base10 = parseInt(number.toString(), baseN);
 	if (toBaseN === 10) {
 		return base10;
 	} else {

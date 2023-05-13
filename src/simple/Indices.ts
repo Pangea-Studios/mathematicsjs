@@ -5,7 +5,7 @@ export class Indices {
 	/**
 	 * Returns the inputted number multiplied by itself the specified amount of times
 	 * @param {number} number - The number to multiply by itself
-	 * @param {(number|Object)} [power=2] - The amount of times to multiply number by itself
+	 * @param {(number|object)} [power=2] - The amount of times to multiply number by itself
 	 * @example <caption>Example 1 - Without specifying a power</caption>
 	 * // returns 25
 	 * Indices.power(5)
@@ -14,18 +14,16 @@ export class Indices {
 	 * Indices.power(2, 3)
 	 * @returns {number} The inputted number multiplied by itself the specified amount of times
 	 */
-	static power(number: number, power: any): number {
-		if (typeof power != 'number' && !power.denominator)
-			throw new Error(
-				'TypeError: power must be a number or an object with a denominator or numerator',
-			);
+	static power(number: number, power: (number | object)): number {
 		let p: number;
-		if (typeof number === 'object') {
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
+		if (
+			typeof power === 'object' &&
+            'numerator' in power &&
+            'denominator' in power &&
+            typeof power.numerator === 'number' &&
+            typeof power.denominator === 'number'
+		) {
 			if (power.denominator && power.numerator) {
-				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-				// @ts-ignore
 				p = power.numerator / power.denominator;
 			} else {
 				throw new Error(
