@@ -15,7 +15,7 @@ Returns the inputted number multiplied by itself the specified amount of times
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | number | <code>number</code> |  | The number to multiply by itself |
-| [power] | <code>number</code> \| <code>Object</code> | <code>2</code> | The amount of times to multiply number by itself |
+| [power] | <code>number</code> \| <code>object</code> | <code>2</code> | The amount of times to multiply number by itself |
 
 **Example** *(Example 1 - Without specifying a power)*  
 ```js
