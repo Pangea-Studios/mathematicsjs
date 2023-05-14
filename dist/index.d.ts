@@ -1,23 +1,11 @@
 /**
- * Enum for Circle Related values.
- * @enum
- * @readonly
- * @example <caption>Example - Value of pi</caption>
- * // returns 3.141592653589793
- * Circles.pi
- */
-declare enum Circles {
-    pi = 3.141592653589793
-}
-
-/**
  * Class for all indices related functions.
  */
 declare class Indices {
     /**
      * Returns the inputted number multiplied by itself the specified amount of times
      * @param {number} number - The number to multiply by itself
-     * @param {(number|Object)} [power=2] - The amount of times to multiply number by itself
+     * @param {(number|object)} [power=2] - The amount of times to multiply number by itself
      * @example <caption>Example 1 - Without specifying a power</caption>
      * // returns 25
      * Indices.power(5)
@@ -26,7 +14,7 @@ declare class Indices {
      * Indices.power(2, 3)
      * @returns {number} The inputted number multiplied by itself the specified amount of times
      */
-    static power(number: number, power: any): number;
+    static power(number: number, power: (number | object)): number;
 }
 
 /**
@@ -108,7 +96,7 @@ declare class Faction {
  * gcd(5,7)
  * @returns {number} The GCD of the two inputted numbers
  */
-declare function gcd2(a: number, b: number, options?: Object): number;
+declare function gcd2(a: number, b: number, options?: object): number;
 /**
  * Find the GCD of the inputted numbers
  * @param {number[]} arr - The numbers to find the GCD of
@@ -122,7 +110,7 @@ declare function gcd2(a: number, b: number, options?: Object): number;
  * gcd([7,13,5])
  * @returns {number} The GCD of the inputted numbers
  */
-declare function gcd(arr: number[], options?: Object): number;
+declare function gcd(arr: number[], options?: object): number;
 /**
  * Convert a number to a different base
  * @param {number|string} number - The inputted number
@@ -135,4 +123,4 @@ declare function gcd(arr: number[], options?: Object): number;
  */
 declare function baseNtoBaseN(number: number | string, baseN: number, toBaseN: number): string | number;
 
-export { Circles, Faction, Indices, baseNtoBaseN, gcd, gcd2 };
+export { Faction, Indices, baseNtoBaseN, gcd, gcd2 };

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const typescript = require('@rollup/plugin-typescript');
 const { babel } = require('@rollup/plugin-babel');
 const { nodeResolve: resolve } = require('@rollup/plugin-node-resolve');
@@ -37,7 +38,7 @@ module.exports = [
 				 to minify the final bundle: */
 			// terser(),
 		],
-		external: [...builtinModules, ...Object.keys(dependencies)],
+		external: [...builtinModules],
 	},
 	{
 		input: 'dist/dts/index.d.ts',

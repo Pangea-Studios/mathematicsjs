@@ -3,26 +3,13 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 /**
- * Enum for Circle Related values.
- * @enum
- * @readonly
- * @example <caption>Example - Value of pi</caption>
- * // returns 3.141592653589793
- * Circles.pi
- */
-exports.Circles = void 0;
-(function (Circles) {
-    Circles[Circles["pi"] = 3.141592653589793] = "pi";
-})(exports.Circles || (exports.Circles = {}));
-
-/**
  * Class for all indices related functions.
  */
 class Indices {
     /**
      * Returns the inputted number multiplied by itself the specified amount of times
      * @param {number} number - The number to multiply by itself
-     * @param {(number|Object)} [power=2] - The amount of times to multiply number by itself
+     * @param {(number|object)} [power=2] - The amount of times to multiply number by itself
      * @example <caption>Example 1 - Without specifying a power</caption>
      * // returns 25
      * Indices.power(5)
@@ -32,15 +19,13 @@ class Indices {
      * @returns {number} The inputted number multiplied by itself the specified amount of times
      */
     static power(number, power) {
-        if (typeof power != 'number' && !power.denominator)
-            throw new Error('TypeError: power must be a number or an object with a denominator or numerator');
         let p;
-        if (typeof number === 'object') {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
+        if (typeof power === 'object' &&
+            'numerator' in power &&
+            'denominator' in power &&
+            typeof power.numerator === 'number' &&
+            typeof power.denominator === 'number') {
             if (power.denominator && power.numerator) {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
                 p = power.numerator / power.denominator;
             }
             else {
@@ -138,7 +123,7 @@ function baseNtoBaseN(number, baseN, toBaseN) {
     if (baseN > 36 || baseN < 2 || toBaseN > 36 || toBaseN < 2) {
         return null;
     }
-    let base10 = parseInt(number.toString(), baseN);
+    const base10 = parseInt(number.toString(), baseN);
     if (toBaseN === 10) {
         return base10;
     }
