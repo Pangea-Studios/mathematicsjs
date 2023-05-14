@@ -143,58 +143,66 @@ declare function convertBase(number: number | string, fromBase: number, toBase: 
  * @example <caption>Example 1 - Create Circle by Radius</caption>
  * // returns { radius: 1, diameter: 2, circumference: 3.14, area: 3.14 }
  * new Circle({ radius: 1 })
- * @example <caption>Example 1 - Create Circle by Diameter</caption>
+ * @example <caption>Example 2 - Create Circle by Diameter</caption>
  * // returns { radius: 1, diameter: 2, circumference: 3.14, area: 3.14 }
  * new Circle({ diameter: 2 })
- * @example <caption>Example 1 - Create Circle by Circumference</caption>
+ * @example <caption>Example 3 - Create Circle by Circumference</caption>
  * // returns { radius: 1, diameter: 2, circumference: 3.14, area: 3.14 }
  * new Circle({ circumference: 3.14 })
- * @example <caption>Example 1 - Create Circle by Area</caption>
+ * @example <caption>Example 4 - Create Circle by Area</caption>
  * // returns { radius: 1, diameter: 2, circumference: 3.14, area: 3.14 }
  * new Circle({ area: 3.14 })
- * @returns {Object}
- * @see https://en.wikipedia.org/wiki/Circumference
- * @see https://en.wikipedia.org/wiki/Area
- * @see https://en.wikipedia.org/wiki/Pi
- * @see https://en.wikipedia.org/wiki/Radius
- * @see https://en.wikipedia.org/wiki/Diameter
+ * @returns {Object} All Measurements
  */
 declare class Circle {
+    /**
+     * Gets the radius
+     * @type {number}
+     * @example <caption>Example - Get Radius</caption>
+     * // returns 1
+     * new Circle({ diameter: 2 }).radius
+     * @returns {number}
+     * @see https://en.wikipedia.org/wiki/Radius
+     */
     radius: number;
     /**
      * Gets the circumference
+     * @type {number}
      * @example <caption>Example - Get Circumference</caption>
-     * // returns 3
-     * new Circle(1).circumference
+     * // returns 3.14
+     * new Circle({ radius: 1 }).circumference
      * @returns {number}
      * @see https://en.wikipedia.org/wiki/Circumference
      */
     readonly circumference: number;
     /**
      * Gets the diameter
+     * @type {number}
      * @example <caption>Example - Get Diameter</caption>
      * // returns 2
-     * new Circle(1).diameter
+     * new Circle({ radius: 1 }).diameter
      * @returns {number}
-     * @see https://en.wikipedia.org/wiki/Circumference
+     * @see https://en.wikipedia.org/wiki/Diameter
      */
     readonly diameter: number;
     /**
      * Gets the area
+     * @type {number}
      * @example <caption>Example - Get Area</caption>
      * // returns 3.14
-     * new Circle(1).area
+     * new Circle({ radius: 1 }).area
      * @returns {number}
-     * @see https://en.wikipedia.org/wiki/Circumference
+     * @see https://en.wikipedia.org/wiki/Area
      */
     readonly area: number;
     /**
      * Gets the value of pi
+     * @type {number}
      * @example <caption>Example - Get Pi</caption>
      * // returns 3.14
-     * new Circle(1).pi
+     * Circle.pi
      * @returns {number}
-     * @see https://en.wikipedia.org/wiki/Circumference
+     * @see https://en.wikipedia.org/wiki/Pi
      */
     readonly pi: number;
     /**

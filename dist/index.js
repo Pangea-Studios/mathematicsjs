@@ -234,21 +234,16 @@ class Faction {
  * @example <caption>Example 1 - Create Circle by Radius</caption>
  * // returns { radius: 1, diameter: 2, circumference: 3.14, area: 3.14 }
  * new Circle({ radius: 1 })
- * @example <caption>Example 1 - Create Circle by Diameter</caption>
+ * @example <caption>Example 2 - Create Circle by Diameter</caption>
  * // returns { radius: 1, diameter: 2, circumference: 3.14, area: 3.14 }
  * new Circle({ diameter: 2 })
- * @example <caption>Example 1 - Create Circle by Circumference</caption>
+ * @example <caption>Example 3 - Create Circle by Circumference</caption>
  * // returns { radius: 1, diameter: 2, circumference: 3.14, area: 3.14 }
  * new Circle({ circumference: 3.14 })
- * @example <caption>Example 1 - Create Circle by Area</caption>
+ * @example <caption>Example 4 - Create Circle by Area</caption>
  * // returns { radius: 1, diameter: 2, circumference: 3.14, area: 3.14 }
  * new Circle({ area: 3.14 })
- * @returns {Object}
- * @see https://en.wikipedia.org/wiki/Circumference
- * @see https://en.wikipedia.org/wiki/Area
- * @see https://en.wikipedia.org/wiki/Pi
- * @see https://en.wikipedia.org/wiki/Radius
- * @see https://en.wikipedia.org/wiki/Diameter
+ * @returns {Object} All Measurements
  */
 class Circle {
     /**
@@ -280,11 +275,12 @@ class Circle {
     constructor({ radius, diameter, circumference, area, }) {
         /**
          * Gets the value of pi
+         * @type {number}
          * @example <caption>Example - Get Pi</caption>
          * // returns 3.14
-         * new Circle(1).pi
+         * Circle.pi
          * @returns {number}
-         * @see https://en.wikipedia.org/wiki/Circumference
+         * @see https://en.wikipedia.org/wiki/Pi
          */
         this.pi = Math.PI;
         if (isNaN(radius) || radius <= 0) {
