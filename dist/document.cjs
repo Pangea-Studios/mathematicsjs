@@ -16,7 +16,8 @@ const classNames = templateData.reduce((classNames, identifier) => {
 }, []);
 
 const functionNames = templateData.reduce((functionNames, identifier) => {
-	if (identifier.kind === 'function' && identifier.scope === 'global') functionNames.push(identifier.name);
+	if (identifier.kind === 'function' && identifier.scope === 'global')
+		functionNames.push(identifier.name);
 	return functionNames;
 }, []);
 

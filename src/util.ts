@@ -50,7 +50,7 @@ export function gcd2(a: number, b: number, options?: object): number {
  * @returns {number} The GCD of the inputted numbers
  */
 export function gcd(arr: number[], options?: object): number {
-	if(!options) options = {};
+	if (!options) options = {};
 	const n = arr.length;
 	let result = arr[0];
 	for (let i = 1; i < n; i++) {

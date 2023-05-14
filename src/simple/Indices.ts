@@ -14,14 +14,19 @@ export class Indices {
 	 * Indices.power(2, 3)
 	 * @returns {number} The inputted number multiplied by itself the specified amount of times
 	 */
-	static power(number: number, power: (number | object)): number {
+	static power(number: number, power: number | object): number {
 		let p: number;
 		if (
 			typeof power === 'object' &&
-            'numerator' in power &&
-            'denominator' in power
+			'numerator' in power &&
+			'denominator' in power
 		) {
-			if (power.denominator && power.numerator && typeof power.numerator === 'number' && typeof power.denominator === 'number' ) {
+			if (
+				power.denominator &&
+				power.numerator &&
+				typeof power.numerator === 'number' &&
+				typeof power.denominator === 'number'
+			) {
 				p = power.numerator / power.denominator;
 			} else {
 				throw new Error(
