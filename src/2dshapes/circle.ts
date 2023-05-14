@@ -8,16 +8,16 @@
  * @example <caption>Example 1 - Create Circle by Radius</caption>
  * // returns { radius: 1, diameter: 2, circumference: 3.14, area: 3.14 }
  * new Circle({ radius: 1 })
- * @example <caption>Example 1 - Create Circle by Diameter</caption>
+ * @example <caption>Example 2 - Create Circle by Diameter</caption>
  * // returns { radius: 1, diameter: 2, circumference: 3.14, area: 3.14 }
  * new Circle({ diameter: 2 })
- * @example <caption>Example 1 - Create Circle by Circumference</caption>
+ * @example <caption>Example 3 - Create Circle by Circumference</caption>
  * // returns { radius: 1, diameter: 2, circumference: 3.14, area: 3.14 }
  * new Circle({ circumference: 3.14 })
- * @example <caption>Example 1 - Create Circle by Area</caption>
+ * @example <caption>Example 4 - Create Circle by Area</caption>
  * // returns { radius: 1, diameter: 2, circumference: 3.14, area: 3.14 }
  * new Circle({ area: 3.14 })
- * @returns {Object}
+ * @returns {Object} All Measurements
  */
 export class Circle {
 	/**
