@@ -35,17 +35,17 @@ export function gcd(arr: number[], options?: object): number {
  */
 export function gcd2(a: number, b: number, options?: object): number {
     if (!options) options = {};
-	const base = options['base'] || 10;
+    const base = options['base'] || 10;
     a = Math.abs(a);
     b = Math.abs(b);
-    while (b > 0) {
-        const temp = b;
+    while (b !== 0) {
+        const t = b;
         b = a % b;
-        a = temp;
+        a = t;
     }
 
     // If the base is not 10, convert the GCD to the desired base
-    if (base != 10) {
+    if (base !== 10) {
         a = parseInt(a.toString(base), 10);
     }
     return a;
