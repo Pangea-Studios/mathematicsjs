@@ -1,10 +1,10 @@
 <a name="gcd2"></a>
 
 ## gcd2(a, b, [options]) ⇒ <code>number</code>
-Find the GCD of 2 numbers
+Find the GCD of two numbers
 
 **Kind**: global function  
-**Returns**: <code>number</code> - The GCD of the two inputted numbers  
+**Returns**: <code>number</code> - The GCD of the two numbers  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -13,13 +13,3 @@ Find the GCD of 2 numbers
 | [options] | <code>Object</code> | Extra options |
 | [options.base] | <code>number</code> | The base of the numbers you inputted |
 
-**Example** *(Example 1 - Non Prime Numbers)*  
-```js
-// returns 2
-gcd(8,12)
-```
-**Example** *(Example 2 - Prime Numbers)*  
-```js
-// returns 1
-gcd(5,7)
-```
