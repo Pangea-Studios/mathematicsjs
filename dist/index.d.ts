@@ -83,21 +83,6 @@ declare class Faction {
 }
 
 /**
- * Find the GCD of 2 numbers
- * @param {number} a - The first number
- * @param {number} b - The second number
- * @param {Object} [options] Extra options
- * @param {number} [options.base] The base of the numbers you inputted
- * @example <caption>Example 1 - Non Prime Numbers</caption>
- * // returns 2
- * gcd(8,12)
- * @example <caption>Example 2 - Prime Numbers</caption>
- * // returns 1
- * gcd(5,7)
- * @returns {number} The GCD of the two inputted numbers
- */
-declare function gcd2(a: number, b: number, options?: object): number;
-/**
  * Find the GCD of the inputted numbers
  * @param {number[]} arr - The numbers to find the GCD of
  * @param {Object} [options] Extra options
@@ -112,15 +97,14 @@ declare function gcd2(a: number, b: number, options?: object): number;
  */
 declare function gcd(arr: number[], options?: object): number;
 /**
- * Convert a number to a different base
- * @param {number|string} number - The inputted number
- * @param {number} baseN - The base of the inputted number
- * @param {number} toBaseN - The base to convert to
- * @example <caption>Example - Converting Base 10 to Base 36</caption>
- * // returns 'zz'
- * baseNtoBaseN(3535, 10, 36)
- * @returns {number|string} The inputted number in the specified base
+ * Find the GCD of two numbers
+ * @param {number} a - The first number
+ * @param {number} b - The second number
+ * @param {Object} [options] Extra options
+ * @param {number} [options.base] The base of the numbers you inputted
+ * @returns {number} The GCD of the two numbers
  */
+declare function gcd2(a: number, b: number, options?: object): number;
 /**
  * Converts a number from one base to another.
  * @param {number|string} number - The inputted number to be converted.
@@ -136,10 +120,10 @@ declare function convertBase(number: number | string, fromBase: number, toBase: 
 /**
  * Creates a circle
  * @param {Object} options
- * @param {number} options.radius - The radius of the circle
- * @param {number} options.diameter - The diameter of the circle
- * @param {number} options.circumference - The circumference of the circle
- * @param {number} options.area - The area of the circle
+ * @param {number} [options.radius] - The radius of the circle
+ * @param {number} [options.diameter] - The diameter of the circle
+ * @param {number} [options.circumference] - The circumference of the circle
+ * @param {number} [options.area] - The area of the circle
  * @example <caption>Example 1 - Create Circle by Radius</caption>
  * // returns { radius: 1, diameter: 2, circumference: 3.14, area: 3.14 }
  * new Circle({ radius: 1 })

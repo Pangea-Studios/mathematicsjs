@@ -27,10 +27,10 @@ Creates a circle
 | Param | Type | Description |
 | --- | --- | --- |
 | options | <code>Object</code> |  |
-| options.radius | <code>number</code> | The radius of the circle |
-| options.diameter | <code>number</code> | The diameter of the circle |
-| options.circumference | <code>number</code> | The circumference of the circle |
-| options.area | <code>number</code> | The area of the circle |
+| [options.radius] | <code>number</code> | The radius of the circle |
+| [options.diameter] | <code>number</code> | The diameter of the circle |
+| [options.circumference] | <code>number</code> | The circumference of the circle |
+| [options.area] | <code>number</code> | The area of the circle |
 
 **Example** *(Example 1 - Create Circle by Radius)*  
 ```js

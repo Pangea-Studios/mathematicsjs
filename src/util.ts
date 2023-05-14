@@ -33,9 +33,9 @@ export function gcd(arr: number[], options?: object): number {
  * @param {number} [options.base] The base of the numbers you inputted
  * @returns {number} The GCD of the two numbers
  */
-function gcd2(a: number, b: number, options?: object): number {
+export function gcd2(a: number, b: number, options?: object): number {
     if (!options) options = {};
-    let base = options['base'] || 10;
+	const base = options['base'] || 10;
     a = Math.abs(a);
     b = Math.abs(b);
     while (b > 0) {
