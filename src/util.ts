@@ -62,17 +62,6 @@ export function gcd(arr: number[], options?: object): number {
     }
     return result;
 }
-
-/**
- * Convert a number to a different base
- * @param {number|string} number - The inputted number
- * @param {number} baseN - The base of the inputted number
- * @param {number} toBaseN - The base to convert to
- * @example <caption>Example - Converting Base 10 to Base 36</caption>
- * // returns 'zz'
- * baseNtoBaseN(3535, 10, 36)
- * @returns {number|string} The inputted number in the specified base
- */
 /**
  * Converts a number from one base to another.
  * @param {number|string} number - The inputted number to be converted.

@@ -1,10 +1,10 @@
 /**
  * Creates a circle
  * @param {Object} options
- * @param {number} options.radius - The radius of the circle
- * @param {number} options.diameter - The diameter of the circle
- * @param {number} options.circumference - The circumference of the circle
- * @param {number} options.area - The area of the circle
+ * @param {number} [options.radius] - The radius of the circle
+ * @param {number} [options.diameter] - The diameter of the circle
+ * @param {number} [options.circumference] - The circumference of the circle
+ * @param {number} [options.area] - The area of the circle
  * @example <caption>Example 1 - Create Circle by Radius</caption>
  * // returns { radius: 1, diameter: 2, circumference: 3.14, area: 3.14 }
  * new Circle({ radius: 1 })
@@ -141,6 +141,8 @@ export class Circle {
             this.diameter = this.radius * 2;
             this.circumference = 2 * Math.PI * this.radius;
             this.area = area;
-        }
+		} else {
+			throw new Error('ValueError: At least one of following: Radius, Diameter, Circumference, or Area must be specified');
+		}
     }
 }
