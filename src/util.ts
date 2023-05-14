@@ -1,42 +1,4 @@
 /**
- * Find the GCD of 2 numbers
- * @param {number} a - The first number
- * @param {number} b - The second number
- * @param {Object} [options] Extra options
- * @param {number} [options.base] The base of the numbers you inputted
- * @example <caption>Example 1 - Non Prime Numbers</caption>
- * // returns 2
- * gcd(8,12)
- * @example <caption>Example 2 - Prime Numbers</caption>
- * // returns 1
- * gcd(5,7)
- * @returns {number} The GCD of the two inputted numbers
- */
-export function gcd2(a: number, b: number, options?: object): number {
-    if (!options) options = {};
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    if (options.base) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        a = baseNtoBaseN(a, options.base, 10);
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        b = baseNtoBaseN(b, options.base, 10);
-    }
-    if (a === 0) return b;
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    if (options.base) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        return baseNtoBaseN(gcd2(a % b, a, options), 10, options.base);
-    } else {
-        return gcd2(a % b, a, options);
-    }
-}
-
-/**
  * Find the GCD of the inputted numbers
  * @param {number[]} arr - The numbers to find the GCD of
  * @param {Object} [options] Extra options
@@ -62,6 +24,33 @@ export function gcd(arr: number[], options?: object): number {
     }
     return result;
 }
+
+/**
+ * Find the GCD of two numbers
+ * @param {number} a - The first number
+ * @param {number} b - The second number
+ * @param {Object} [options] Extra options
+ * @param {number} [options.base] The base of the numbers you inputted
+ * @returns {number} The GCD of the two numbers
+ */
+function gcd2(a: number, b: number, options?: object): number {
+    if (!options) options = {};
+    let base = options['base'] || 10;
+    a = Math.abs(a);
+    b = Math.abs(b);
+    while (b > 0) {
+        const temp = b;
+        b = a % b;
+        a = temp;
+    }
+
+    // If the base is not 10, convert the GCD to the desired base
+    if (base != 10) {
+        a = parseInt(a.toString(base), 10);
+    }
+    return a;
+}
+
 /**
  * Converts a number from one base to another.
  * @param {number|string} number - The inputted number to be converted.
