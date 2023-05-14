@@ -3,7 +3,7 @@ import { gcd2 } from '../util';
 /**
  * Creates a Fraction.
  */
-export class Faction {
+export class Fraction {
     public numerator: number;
     public denominator: number;
     public simplifiedNumerator: number;
@@ -25,7 +25,7 @@ export class Faction {
         const sign = denominator < 0 ? -1 : 1;
         numerator *= sign;
         denominator *= sign;
-        const gcd = Fraction.gcd(numerator, denominator);
+        const gcd = gcd2(numerator, denominator);
         this.numerator = sign * (numerator / gcd);
         this.denominator = denominator / gcd;
     }
