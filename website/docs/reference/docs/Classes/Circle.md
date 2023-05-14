@@ -22,6 +22,7 @@ Creates a circle
 ### new Circle(options)
 Creates a circle
 
+**Returns**: <code>Object</code> - All Measurements  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -36,17 +37,17 @@ Creates a circle
 // returns { radius: 1, diameter: 2, circumference: 3.14, area: 3.14 }
 new Circle({ radius: 1 })
 ```
-**Example** *(Example 1 - Create Circle by Diameter)*  
+**Example** *(Example 2 - Create Circle by Diameter)*  
 ```js
 // returns { radius: 1, diameter: 2, circumference: 3.14, area: 3.14 }
 new Circle({ diameter: 2 })
 ```
-**Example** *(Example 1 - Create Circle by Circumference)*  
+**Example** *(Example 3 - Create Circle by Circumference)*  
 ```js
 // returns { radius: 1, diameter: 2, circumference: 3.14, area: 3.14 }
 new Circle({ circumference: 3.14 })
 ```
-**Example** *(Example 1 - Create Circle by Area)*  
+**Example** *(Example 4 - Create Circle by Area)*  
 ```js
 // returns { radius: 1, diameter: 2, circumference: 3.14, area: 3.14 }
 new Circle({ area: 3.14 })
@@ -57,9 +58,9 @@ new Circle({ area: 3.14 })
 Gets the value of pi
 
 **Kind**: instance property of [<code>Circle</code>](#Circle)  
-**See**: https://en.wikipedia.org/wiki/Circumference  
+**See**: https://en.wikipedia.org/wiki/Pi  
 **Example** *(Example - Get Pi)*  
 ```js
 // returns 3.14
-new Circle(1).pi
+Circle.pi
 ```
