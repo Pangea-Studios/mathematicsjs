@@ -17,7 +17,7 @@ const config = {
     // GitHub pages deployment config.
     // If you aren't using GitHub pages, you don't need these.
     organizationName: 'Pangea-Studios', // Usually your GitHub org/user name.
-    projectName: 'Math', // Usually your repo name.
+    projectName: 'mathematicsjs', // Usually your repo name.
 
     // Even if you don't use internalization, you can use this field to set useful
     // metadata like html lang. For example, if your site is Chinese, you may want
@@ -37,7 +37,7 @@ const config = {
                     // Please change this to your repo.
                     // Remove this to remove the "edit this page" links.
                     editUrl: ({ docPath }) =>
-                        `https://github.com/pangea-studios/math/blob/docs/website/docs/${docPath}`,
+                        `https://github.com/Pangea-Studios/mathematicsjs/blob/docs/website/docs/${docPath}`,
                     editLocalizedFiles: false,
                     editCurrentVersion: false,
                     showLastUpdateAuthor: true,
