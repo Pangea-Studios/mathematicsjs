@@ -60,6 +60,9 @@ export class Circle {
 	 * @see https://en.wikipedia.org/wiki/Circumference
 	 */
 	constructor(radius: number) {
+		if (radius <= 0) {
+			throw new Error('ValueError: Radius must be greater than 0');
+		}
 		this.radius = radius;
 		this.diameter = radius * 2;
 		this.circumference = 2 * Math.PI * this.radius;
