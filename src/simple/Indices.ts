@@ -19,11 +19,9 @@ export class Indices {
 		if (
 			typeof power === 'object' &&
             'numerator' in power &&
-            'denominator' in power &&
-            typeof power.numerator === 'number' &&
-            typeof power.denominator === 'number'
+            'denominator' in power
 		) {
-			if (power.denominator && power.numerator) {
+			if (power.denominator && power.numerator && typeof power.numerator === 'number' && typeof power.denominator === 'number' ) {
 				p = power.numerator / power.denominator;
 			} else {
 				throw new Error(

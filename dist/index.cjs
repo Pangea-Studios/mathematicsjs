@@ -22,10 +22,8 @@ class Indices {
         let p;
         if (typeof power === 'object' &&
             'numerator' in power &&
-            'denominator' in power &&
-            typeof power.numerator === 'number' &&
-            typeof power.denominator === 'number') {
-            if (power.denominator && power.numerator) {
+            'denominator' in power) {
+            if (power.denominator && power.numerator && typeof power.numerator === 'number' && typeof power.denominator === 'number') {
                 p = power.numerator / power.denominator;
             }
             else {
