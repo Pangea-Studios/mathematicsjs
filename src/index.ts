@@ -2,4 +2,4 @@ export * from './simple/Indices';
 export * from './simple/Fraction';
 export * from './util';
 export * from './2dshapes/circle';
-export * from './equations/Equation';
+export * from './matrices/Matrices';

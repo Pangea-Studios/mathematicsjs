@@ -40,6 +40,100 @@ export class Matrix {
 
         return result;
     }
+
+    /**
+     * Adds two matrices.
+     *
+     * @param {number[][]} matrixA - The first matrix to add.
+     * @param {number[][]} matrixB - The second matrix to add.
+     * @returns {number[][]} The resulting matrix from the addition.
+     * @throws {Error} If the matrices have different dimensions.
+     */
+    addMatrices(matrixA: number[][], matrixB: number[][]): number[][] {
+        const numRowsA = matrixA.length;
+        const numColsA = matrixA[0].length;
+        const numRowsB = matrixB.length;
+        const numColsB = matrixB[0].length;
+
+        if (numRowsA !== numRowsB || numColsA !== numColsB) {
+            throw new Error('Matrices must have same dimensions to be added');
+        }
+
+        const result = [];
+
+        for (let i = 0; i < numRowsA; i++) {
+            result[i] = [];
+            for (let j = 0; j < numColsA; j++) {
+                result[i][j] = matrixA[i][j] + matrixB[i][j];
+            }
+        }
+
+        return result;
+    }
+    /**
+     * Divides two matrices.
+     *
+     * @param {number[][]} matrixA - The first matrix to divide.
+     * @param {number[][]} matrixB - The second matrix to divide.
+     * @returns {number[][]} The resulting matrix from the division.
+     * @throws {Error} If the matrices have different dimensions or if any element of matrixB is zero.
+     */
+    divideMatrices(matrixA: number[][], matrixB: number[][]): number[][] {
+        const numRowsA = matrixA.length;
+        const numColsA = matrixA[0].length;
+        const numRowsB = matrixB.length;
+        const numColsB = matrixB[0].length;
+
+        if (numRowsA !== numRowsB || numColsA !== numColsB) {
+            throw new Error('Matrices must have same dimensions to be divided');
+        }
+
+        const result = [];
+
+        for (let i = 0; i < numRowsA; i++) {
+            result[i] = [];
+            for (let j = 0; j < numColsA; j++) {
+                if (matrixB[i][j] === 0) {
+                    throw new Error('Cannot divide by zero');
+                }
+                result[i][j] = matrixA[i][j] / matrixB[i][j];
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Subtracts two matrices.
+     *
+     * @param {number[][]} matrixA - The first matrix to subtract.
+     * @param {number[][]} matrixB - The second matrix to subtract.
+     * @returns {number[][]} The resulting matrix from the subtraction.
+     * @throws {Error} If the matrices have different dimensions.
+     */
+    subtractMatrices(matrixA: number[][], matrixB: number[][]): number[][] {
+        const numRowsA = matrixA.length;
+        const numColsA = matrixA[0].length;
+        const numRowsB = matrixB.length;
+        const numColsB = matrixB[0].length;
+
+        if (numRowsA !== numRowsB || numColsA !== numColsB) {
+            throw new Error('Matrices must have same dimensions to be subtracted');
+        }
+
+        const result = [];
+
+        for (let i = 0; i < numRowsA; i++) {
+            result[i] = [];
+            for (let j = 0; j < numColsA; j++) {
+                result[i][j] = matrixA[i][j] - matrixB[i][j];
+            }
+        }
+
+        return result;
+    }
+
+
     /**
      * Multiplies a matrix by a scalar.
      *
@@ -57,6 +151,33 @@ export class Matrix {
             result[i] = [];
             for (let j = 0; j < numCols; j++) {
                 result[i][j] = matrix[i][j] * scalar;
+            }
+        }
+
+        return result;
+    }
+    /**
+     * Divides a matrix by a scalar.
+     *
+     * @param {number[][]} matrix - The matrix to divide.
+     * @param {number} scalar - The scalar to divide the matrix by.
+     * @returns {number[][]} The resulting matrix from the division.
+     * @throws {Error} If the scalar is zero.
+     */
+    divideMatrixByScalar(matrix: number[][], scalar: number): number[][] {
+        if (scalar === 0) {
+            throw new Error('Cannot divide by zero');
+        }
+
+        const numRows = matrix.length;
+        const numCols = matrix[0].length;
+
+        const result = [];
+
+        for (let i = 0; i < numRows; i++) {
+            result[i] = [];
+            for (let j = 0; j < numCols; j++) {
+                result[i][j] = matrix[i][j] / scalar;
             }
         }
 
