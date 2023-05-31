@@ -12,17 +12,17 @@
  * @returns {number} The GCD of the inputted numbers
  */
 export function gcd(arr: number[], options?: object): number {
-    if (!options) options = {};
-    const n = arr.length;
-    let result = arr[0];
-    for (let i = 1; i < n; i++) {
-        result = gcd2(arr[i], result, options);
+	if (!options) options = {};
+	const n = arr.length;
+	let result = arr[0];
+	for (let i = 1; i < n; i++) {
+		result = gcd2(arr[i], result, options);
 
-        if (result == 1) {
-            return 1;
-        }
-    }
-    return result;
+		if (result == 1) {
+			return 1;
+		}
+	}
+	return result;
 }
 
 /**
@@ -34,21 +34,21 @@ export function gcd(arr: number[], options?: object): number {
  * @returns {number} The GCD of the two numbers
  */
 export function gcd2(a: number, b: number, options?: object): number {
-    if (!options) options = {};
-    const base = options['base'] || 10;
-    a = Math.abs(a);
-    b = Math.abs(b);
-    while (b !== 0) {
-        const t = b;
-        b = a % b;
-        a = t;
-    }
+	if (!options) options = {};
+	const base = options['base'] || 10;
+	a = Math.abs(a);
+	b = Math.abs(b);
+	while (b !== 0) {
+		const t = b;
+		b = a % b;
+		a = t;
+	}
 
-    // If the base is not 10, convert the GCD to the desired base
-    if (base !== 10) {
-        a = parseInt(a.toString(base), 10);
-    }
-    return a;
+	// If the base is not 10, convert the GCD to the desired base
+	if (base !== 10) {
+		a = parseInt(a.toString(base), 10);
+	}
+	return a;
 }
 
 /**
@@ -62,19 +62,19 @@ export function gcd2(a: number, b: number, options?: object): number {
  * @returns {number|string} - The inputted number in the specified base.
  */
 export function convertBase(
-    number: number | string,
-    fromBase: number,
-    toBase: number,
+	number: number | string,
+	fromBase: number,
+	toBase: number,
 ) {
-    if (fromBase > 36 || fromBase < 2 || toBase > 36 || toBase < 2) {
-        return null;
-    }
+	if (fromBase > 36 || fromBase < 2 || toBase > 36 || toBase < 2) {
+		return null;
+	}
 
-    const base10 = parseInt(number.toString(), fromBase);
+	const base10 = parseInt(number.toString(), fromBase);
 
-    if (toBase === 10) {
-        return base10;
-    } else {
-        return base10.toString(toBase);
-    }
+	if (toBase === 10) {
+		return base10;
+	} else {
+		return base10.toString(toBase);
+	}
 }
