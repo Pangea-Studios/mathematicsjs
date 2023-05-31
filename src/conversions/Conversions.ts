@@ -1,4 +1,13 @@
 export class Conversions {
+	/**
+	 * Converts a length from one unit to another.
+	 *
+	 * @param {number} value - The value to convert.
+	 * @param {string} fromUnit - The unit of the input value.
+	 * @param {string} toUnit - The desired unit for the output value.
+	 * @throws {Error} Unknown unit: {fromUnit} or Unknown unit: {toUnit} if the provided units are not recognized.
+	 * @return {number} The converted length in the desired unit.
+	 */
 	static convertLength(value: number, fromUnit: string, toUnit: string): number {
 		// Convert input to meters
 		let meters: number;
@@ -107,4 +116,49 @@ export class Conversions {
 		return output;
 	}
 
+	/**
+	 * Converts a temperature value from one unit to another.
+	 *
+	 * @param {number} value - the value to convert
+	 * @param {string} fromUnit - the unit of the input value (kelvin, celsius, or fahrenheit)
+	 * @param {string} toUnit - the desired output unit (kelvin, celsius, or fahrenheit)
+	 * @return {number} - the converted temperature value in the specified output unit
+	 */
+	static convertTemperature(value: number, fromUnit: string, toUnit: string): number {
+		// Convert input to Kelvin
+		let kelvin: number;
+		switch (fromUnit) {
+			case "kelvin":
+				kelvin = value;
+				break;
+			case "celsius":
+				kelvin = value + 273.15;
+				break;
+			case "fahrenheit":
+				kelvin = (value + 459.67) * (5 / 9);
+				break;
+			default:
+				throw new Error(`Unknown unit: ${fromUnit}`);
+		}
+
+		// Convert Kelvin to output unit
+		let output: number;
+		switch (toUnit) {
+			case "kelvin":
+				output = kelvin;
+				break;
+			case "celsius":
+				output = kelvin - 273.15;
+				break;
+			case "fahrenheit":
+				output = kelvin * (9 / 5) - 459.67;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${toUnit}`);
+		}
+
+		return output;
+	}
+	  
+	  
 }
