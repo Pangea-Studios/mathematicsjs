@@ -49,8 +49,8 @@ export class Indices {
 	 * @param {number} root - the root to use for the calculation.
 	 * @return {number} the result of the nth root calculation.
 	 * needs obj compatatbility
-	 */ 
+	 */
 	static root(number: number, root: number): number {
-		return this.power(number, 1/root)
+		return this.power(number, 1 / root);
 	}
 }
