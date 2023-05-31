@@ -80,7 +80,7 @@ export class Conversions {
     return { meters, inches, feet, yards, nauticalMiles, paces };
   }
 
-    /**
+  /**
    * Converts nautical miles to other length units.
    *
    * @param {number} nauticalMiles - The length in nautical miles to convert.
@@ -102,7 +102,7 @@ export class Conversions {
    * @param {number} paces - The length in paces to convert.
    * @return {object} An object containing the converted lengths in meters, inches, feet, yards, miles and nautical miles.
    */
-  function pacesToOtherLengths(paces: number): object {
+  static pacesToOtherLengths(paces: number): object {
     const meters = paces * 0.762;
     const inches = paces * 29.5;
     const feet = paces * 2.5;
@@ -111,7 +111,109 @@ export class Conversions {
     const nauticalMiles = paces / 6076.11549;
     return { meters, inches, feet, yards, miles, nauticalMiles };
   }
+  /**
+   * Converts Kelvin to other temperature units.
+   *
+   * @param {number} kelvin - The temperature in Kelvin to convert.
+   * @return {object} An object containing the converted temperatures in Celsius and Fahrenheit.
+   */
+  static kelvinToOtherTemperatures(kelvin: number): object {
+    const celsius = kelvin - 273.15;
+    const fahrenheit = celsius * (9 / 5) + 32;
+    return { celsius, fahrenheit };
+  }
 
+  /**
+   * Converts Celsius to other temperature units.
+   *
+   * @param {number} celsius - The temperature in Celsius to convert.
+   * @return {object} An object containing the converted temperatures in Kelvin and Fahrenheit.
+   */
+  static celsiusToOtherTemperatures(celsius: number): object {
+    const kelvin = celsius + 273.15;
+    const fahrenheit = celsius * (9 / 5) + 32;
+    return { kelvin, fahrenheit };
+  }
 
+  /**
+   * Converts Fahrenheit to other temperature units.
+   *
+   * @param {number} fahrenheit - The temperature in Fahrenheit to convert.
+   * @return {object} An object containing the converted temperatures in Celsius and Kelvin.
+   */
+  static fahrenheitToOtherTemperatures(fahrenheit: number): object {
+    const celsius = (fahrenheit - 32) * (5 / 9);
+    const kelvin = celsius + 273.15;
+    return { celsius, kelvin };
+  }
+    /**
+   * Converts degrees to other angle units.
+   *
+   * @param {number} degrees - The angle in degrees to convert.
+   * @return {object} An object containing the converted angles in gradians, radians, minutes and seconds.
+   */
+  static degreesToOtherAngles(degrees: number): object {
+    const gradians = degrees * 10 / 9;
+    const radians = degrees * Math.PI / 180;
+    const minutes = degrees * 60;
+    const seconds = degrees * 3600;
+    return { gradians, radians, minutes, seconds };
+  }
+
+  /**
+   * Converts gradians to other angle units.
+   *
+   * @param {number} gradians - The angle in gradians to convert.
+   * @return {object} An object containing the converted angles in degrees, radians, minutes and seconds.
+   */
+  static gradiansToOtherAngles(gradians: number): object {
+    const degrees = gradians * 9 / 10;
+    const radians = degrees * Math.PI / 180;
+    const minutes = degrees * 60;
+    const seconds = degrees * 3600;
+    return { degrees, radians, minutes, seconds };
+  }
+
+  /**
+   * Converts radians to other angle units.
+   *
+   * @param {number} radians - The angle in radians to convert.
+   * @return {object} An object containing the converted angles in degrees, gradians, minutes and seconds.
+   */
+  static radiansToOtherAngles(radians: number): object {
+    const degrees = radians * 180 / Math.PI;
+    const gradians = degrees * 10 / 9;
+    const minutes = degrees * 60;
+    const seconds = degrees * 3600;
+    return { degrees, gradians, minutes, seconds };
+  }
+
+  /**
+   * Converts minutes to other angle units.
+   *
+   * @param {number} minutes - The angle in minutes to convert.
+   * @return {object} An object containing the converted angles in degrees, gradians, radians and seconds.
+   */
+  static minutesToOtherAngles(minutes: number): object {
+    const degrees = minutes / 60;
+    const gradians = degrees * 10 / 9;
+    const radians = degrees * Math.PI / 180;
+    const seconds = degrees * 3600;
+    return { degrees, gradians, radians, seconds };
+  }
+
+  /**
+   * Converts seconds to other angle units.
+   *
+   * @param {number} seconds - The angle in seconds to convert.
+   * @return {object} An object containing the converted angles in degrees, gradians, radians and minutes.
+   */
+  static secondsToOtherAngles(seconds: number): object {
+    const degrees = seconds / 3600;
+    const gradians = degrees * 10 / 9;
+    const radians = degrees * Math.PI / 180;
+    const minutes = degrees * 60;
+    return { degrees, gradians, radians, minutes };
+  }
 
 }
