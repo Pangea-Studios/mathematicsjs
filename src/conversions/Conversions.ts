@@ -80,4 +80,38 @@ export class Conversions {
     return { meters, inches, feet, yards, nauticalMiles, paces };
   }
 
+    /**
+   * Converts nautical miles to other length units.
+   *
+   * @param {number} nauticalMiles - The length in nautical miles to convert.
+   * @return {object} An object containing the converted lengths in meters, inches, feet, yards, miles and paces.
+   */
+  static nauticalMilesToOtherLengths(nauticalMiles: number): object {
+    const meters = nauticalMiles * 1852;
+    const inches = nauticalMiles * 72913.386;
+    const feet = nauticalMiles * 6076.12;
+    const yards = nauticalMiles * 2025.372;
+    const miles = nauticalMiles * 1.15078;
+    const paces = nauticalMiles * 6076.11549;
+    return { meters, inches, feet, yards, miles, paces };
+  }
+
+  /**
+   * Converts paces to other length units.
+   *
+   * @param {number} paces - The length in paces to convert.
+   * @return {object} An object containing the converted lengths in meters, inches, feet, yards, miles and nautical miles.
+   */
+  function pacesToOtherLengths(paces: number): object {
+    const meters = paces * 0.762;
+    const inches = paces * 29.5;
+    const feet = paces * 2.5;
+    const yards = paces * 0.9144;
+    const miles = paces / 2112;
+    const nauticalMiles = paces / 6076.11549;
+    return { meters, inches, feet, yards, miles, nauticalMiles };
+  }
+
+
+
 }
