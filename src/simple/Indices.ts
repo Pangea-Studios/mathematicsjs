@@ -42,4 +42,15 @@ export class Indices {
 		if (!power) p = 2;
 		return number ** p;
 	}
+	/**
+	 * Calculates the nth root of a given number.
+	 *
+	 * @param {number} number - the number to calculate the nth root of.
+	 * @param {number} root - the root to use for the calculation.
+	 * @return {number} the result of the nth root calculation.
+	 * needs obj compatatbility
+	 */ 
+	static root(number: number, root: number): number {
+		return this.power(number, 1/root)
+	}
 }
