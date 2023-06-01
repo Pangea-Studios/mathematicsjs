@@ -10,7 +10,6 @@ export const lengthEnum = {
 	Centimeters: 'CENTIMETERS',
 	Meters: 'METERS',
 	Kilometers: 'KILOMETERS',
-	Megameters: 'MEGAMETERS',
 	Micrometers: 'MICROMETERS',
 	Nanometers: 'NANOMETERS',
 	Picometers: 'PICOMETERS',
@@ -94,13 +93,13 @@ export class Conversions {
 		let meters: number;
 		switch (fromUnit) {
 			case 'MILLIMETERS':
-				meters = value * 0.001;
+				meters = value / 1000;
 				break;
 			case 'DECIMETERS':
-				meters = value * 0.1;
+				meters = value / 10;
 				break;
 			case 'CENTIMETERS':
-				meters = value * 0.01;
+				meters = value / 100;
 				break;
 			case 'METERS':
 				meters = value;
@@ -108,14 +107,11 @@ export class Conversions {
 			case 'KILOMETERS':
 				meters = value * 1000;
 				break;
-			case 'MEGAMETERS':
-				meters = value * 1000000;
-				break;
 			case 'MICROMETERS':
-				meters = value * 0.000001;
+				meters = value / 1000000;
 				break;
 			case 'NANOMETERS':
-				meters = value / 0.000000001;
+				meters = value / 1000000000;
 				break;
 			case 'PICOMETERS':
 				meters = value / 1000000000000;
@@ -159,9 +155,6 @@ export class Conversions {
 				break;
 			case 'KILOMETERS':
 				output = meters / 1000;
-				break;
-			case 'MEGAMETERS':
-				output = meters / 1000000;
 				break;
 			case 'MICROMETERS':
 				output = meters * 1000000;
@@ -362,7 +355,7 @@ export class Conversions {
 				throw new Error(`Unknown unit: ${fromUnit}`);
 		}
 
-		// Convert degrees to output unit
+		// Convert mass to output unit
 		let output: number;
 		switch (toUnit) {
 			case 'GRAMS':
@@ -401,7 +394,6 @@ export class Conversions {
 			case 'IMPERIAL_TONS':
 				output = grams / 1016047;
 				break;
-
 			default:
 				throw new Error(`Unknown unit: ${toUnit}`);
 		}
@@ -409,14 +401,6 @@ export class Conversions {
 		return output;
 	}
 
-	/**
-	 * Converts a volume value from one unit to another unit.
-	 *
-	 * @param {number} value - the volume value to be converted
-	 * @param {typeof volumeEnum|string} fromUnit - the unit of the input value to be converted
-	 * @param {typeof volumeEnum|string} toUnit - the unit to which the input value needs to be converted
-	 * @return {number} - the converted volume value
-	 */
 	static convertVolume(
 		value: number,
 		fromUnit: typeof volumeEnum | string,
@@ -461,9 +445,9 @@ export class Conversions {
 				litres = value * 1000000000;
 				break;
 			case 'CUBIC_YARDS':
-				litres = value * 1760;
+				litres = value / 1760;
 				break;
-			case 'MILLILITRES':
+			case 'MILLILITERS':
 				litres = value * 0.001;
 				break;
 			case 'IMPERIAL_GALLONS':
@@ -536,7 +520,7 @@ export class Conversions {
 				output = litres * 1000000;
 				break;
 			case 'CUBIC_MICROMETERS':
-				output = litres * 1000000000000000
+				output = litres * 1000000000000000;
 				break;
 			case 'CUBIC_NANOMETERS':
 				output = litres * 1000000000000000000000000;
