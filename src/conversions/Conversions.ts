@@ -437,6 +437,14 @@ export class Conversions {
 		return output;
 	}
 
+	/**
+	 * Converts a volume value from one unit to another.
+	 *
+	 * @param {number} value - The value to be converted.
+	 * @param {VolumeType | string} fromUnit - The unit to convert from.
+	 * @param {VolumeType | string} toUnit - The unit to convert to.
+	 * @return {number} The converted value.
+	 */
 	static convertVolume(
 		value: number,
 		fromUnit: typeof volumeEnum | string,

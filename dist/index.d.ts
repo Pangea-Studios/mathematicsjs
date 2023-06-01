@@ -301,28 +301,28 @@ declare type OperationsInput = number | {
 /**
  * Calculates the sum of all numbers and fraction inputs.
  *
- * @param {OperationsInput[]} inputs - An array of OperationsInput objects.
+ * @param {Array.<number | {numerator: number, denominator: number}>} inputs - An array of OperationsInput objects.
  * @return {number} The sum of all numbers and fractions.
  */
 declare function add(inputs: OperationsInput[]): number;
 /**
  * Subtracts all the numbers and fractions in the given array of operations.
  *
- * @param {OperationsInput[]} inputs - An array of numbers and fractions to subtract.
+ * @param {Array.<number | {numerator: number, denominator: number}>} inputs - An array of numbers and fractions to subtract.
  * @return {number} The result of subtracting all the inputs.
  */
 declare function subtract(inputs: OperationsInput[]): number;
 /**
  * Multiplies a list of numbers and/or fractions.
  *
- * @param {OperationsInput[]} inputs - An array of numbers and/or fractions to multiply.
+ * @param {Array.<number | {numerator: number, denominator: number}>} inputs - An array of numbers and/or fractions to multiply.
  * @return {number} The result of multiplying all inputs together.
  */
 declare function multiply(inputs: OperationsInput[]): number;
 /**
  * Divides a list of numbers and/or fractions and returns the result.
  *
- * @param {OperationsInput[]} inputs - An array of numbers and/or objects with a numerator and denominator.
+ * @param {Array.<number | {numerator: number, denominator: number}>} inputs - An array of numbers and/or objects with a numerator and denominator.
  * @return {number} - The result of dividing all the numbers/fractions in the input array.
  */
 declare function divide(inputs: OperationsInput[]): number;
@@ -475,6 +475,14 @@ declare class Conversions {
      * @return {number} The converted value.
      */
     static convertMass(value: number, fromUnit: typeof massEnum | string, toUnit: typeof massEnum | string): number;
+    /**
+     * Converts a volume value from one unit to another.
+     *
+     * @param {number} value - The value to be converted.
+     * @param {VolumeType | string} fromUnit - The unit to convert from.
+     * @param {VolumeType | string} toUnit - The unit to convert to.
+     * @return {number} The converted value.
+     */
     static convertVolume(value: number, fromUnit: typeof volumeEnum | string, toUnit: typeof volumeEnum | string): number;
 }
 

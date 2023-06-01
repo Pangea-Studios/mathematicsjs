@@ -8,5 +8,5 @@ Calculates the sum of all numbers and fraction inputs.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| inputs | <code>Array.&lt;OperationsInput&gt;</code> | An array of OperationsInput objects. |
+| inputs | <code>Array.&lt;(number\|{numerator: number, denominator: number})&gt;</code> | An array of OperationsInput objects. |
 

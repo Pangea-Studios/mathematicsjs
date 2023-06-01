@@ -8,5 +8,5 @@ Multiplies a list of numbers and/or fractions.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| inputs | <code>Array.&lt;OperationsInput&gt;</code> | An array of numbers and/or fractions to multiply. |
+| inputs | <code>Array.&lt;(number\|{numerator: number, denominator: number})&gt;</code> | An array of numbers and/or fractions to multiply. |
 

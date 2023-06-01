@@ -3,7 +3,7 @@ type OperationsInput = number | { numerator: number; denominator: number };
 /**
  * Calculates the sum of all numbers and fraction inputs.
  *
- * @param {OperationsInput[]} inputs - An array of OperationsInput objects.
+ * @param {Array.<number | {numerator: number, denominator: number}>} inputs - An array of OperationsInput objects.
  * @return {number} The sum of all numbers and fractions.
  */
 export function add(inputs: OperationsInput[]) {
@@ -25,7 +25,7 @@ export function add(inputs: OperationsInput[]) {
 /**
  * Subtracts all the numbers and fractions in the given array of operations.
  *
- * @param {OperationsInput[]} inputs - An array of numbers and fractions to subtract.
+ * @param {Array.<number | {numerator: number, denominator: number}>} inputs - An array of numbers and fractions to subtract.
  * @return {number} The result of subtracting all the inputs.
  */
 export function subtract(inputs: OperationsInput[]) {
@@ -55,7 +55,7 @@ export function subtract(inputs: OperationsInput[]) {
 /**
  * Multiplies a list of numbers and/or fractions.
  *
- * @param {OperationsInput[]} inputs - An array of numbers and/or fractions to multiply.
+ * @param {Array.<number | {numerator: number, denominator: number}>} inputs - An array of numbers and/or fractions to multiply.
  * @return {number} The result of multiplying all inputs together.
  */
 export function multiply(inputs: OperationsInput[]) {
@@ -85,7 +85,7 @@ export function multiply(inputs: OperationsInput[]) {
 /**
  * Divides a list of numbers and/or fractions and returns the result.
  *
- * @param {OperationsInput[]} inputs - An array of numbers and/or objects with a numerator and denominator.
+ * @param {Array.<number | {numerator: number, denominator: number}>} inputs - An array of numbers and/or objects with a numerator and denominator.
  * @return {number} - The result of dividing all the numbers/fractions in the input array.
  */
 export function divide(inputs: OperationsInput[]) {

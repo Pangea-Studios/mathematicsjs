@@ -478,7 +478,7 @@ class Matrix {
 /**
  * Calculates the sum of all numbers and fraction inputs.
  *
- * @param {OperationsInput[]} inputs - An array of OperationsInput objects.
+ * @param {Array.<number | {numerator: number, denominator: number}>} inputs - An array of OperationsInput objects.
  * @return {number} The sum of all numbers and fractions.
  */
 function add(inputs) {
@@ -498,7 +498,7 @@ function add(inputs) {
 /**
  * Subtracts all the numbers and fractions in the given array of operations.
  *
- * @param {OperationsInput[]} inputs - An array of numbers and fractions to subtract.
+ * @param {Array.<number | {numerator: number, denominator: number}>} inputs - An array of numbers and fractions to subtract.
  * @return {number} The result of subtracting all the inputs.
  */
 function subtract(inputs) {
@@ -528,7 +528,7 @@ function subtract(inputs) {
 /**
  * Multiplies a list of numbers and/or fractions.
  *
- * @param {OperationsInput[]} inputs - An array of numbers and/or fractions to multiply.
+ * @param {Array.<number | {numerator: number, denominator: number}>} inputs - An array of numbers and/or fractions to multiply.
  * @return {number} The result of multiplying all inputs together.
  */
 function multiply(inputs) {
@@ -558,7 +558,7 @@ function multiply(inputs) {
 /**
  * Divides a list of numbers and/or fractions and returns the result.
  *
- * @param {OperationsInput[]} inputs - An array of numbers and/or objects with a numerator and denominator.
+ * @param {Array.<number | {numerator: number, denominator: number}>} inputs - An array of numbers and/or objects with a numerator and denominator.
  * @return {number} - The result of dividing all the numbers/fractions in the input array.
  */
 function divide(inputs) {
@@ -994,6 +994,14 @@ class Conversions {
         }
         return output;
     }
+    /**
+     * Converts a volume value from one unit to another.
+     *
+     * @param {number} value - The value to be converted.
+     * @param {VolumeType | string} fromUnit - The unit to convert from.
+     * @param {VolumeType | string} toUnit - The unit to convert to.
+     * @return {number} The converted value.
+     */
     static convertVolume(value, fromUnit, toUnit) {
         let litres;
         switch (fromUnit) {

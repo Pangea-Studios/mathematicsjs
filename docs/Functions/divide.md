@@ -8,5 +8,5 @@ Divides a list of numbers and/or fractions and returns the result.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| inputs | <code>Array.&lt;OperationsInput&gt;</code> | An array of numbers and/or objects with a numerator and denominator. |
+| inputs | <code>Array.&lt;(number\|{numerator: number, denominator: number})&gt;</code> | An array of numbers and/or objects with a numerator and denominator. |
 

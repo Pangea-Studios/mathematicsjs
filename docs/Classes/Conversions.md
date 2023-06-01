@@ -10,6 +10,7 @@ Class containing all conversions.
     * [.convertTemperature(value, fromUnit, toUnit)](#Conversions.convertTemperature) ⇒ <code>number</code>
     * [.convertAngle(value, fromUnit, toUnit)](#Conversions.convertAngle) ⇒ <code>number</code>
     * [.convertMass(value, fromUnit, toUnit)](#Conversions.convertMass) ⇒ <code>number</code>
+    * [.convertVolume(value, fromUnit, toUnit)](#Conversions.convertVolume) ⇒ <code>number</code>
 
 <a name="Conversions.convertLength"></a>
 
@@ -70,4 +71,18 @@ Converts a mass value from one unit to another.
 | value | <code>number</code> | The value to be converted. |
 | fromUnit | <code>MassType</code> \| <code>string</code> | The unit to convert from. |
 | toUnit | <code>MassType</code> \| <code>string</code> | The unit to convert to. |
+
+<a name="Conversions.convertVolume"></a>
+
+### Conversions.convertVolume(value, fromUnit, toUnit) ⇒ <code>number</code>
+Converts a volume value from one unit to another.
+
+**Kind**: static method of [<code>Conversions</code>](#Conversions)  
+**Returns**: <code>number</code> - The converted value.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| value | <code>number</code> | The value to be converted. |
+| fromUnit | [<code>VolumeType</code>](#VolumeType) \| <code>string</code> | The unit to convert from. |
+| toUnit | [<code>VolumeType</code>](#VolumeType) \| <code>string</code> | The unit to convert to. |
 

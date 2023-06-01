@@ -8,5 +8,5 @@ Subtracts all the numbers and fractions in the given array of operations.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| inputs | <code>Array.&lt;OperationsInput&gt;</code> | An array of numbers and fractions to subtract. |
+| inputs | <code>Array.&lt;(number\|{numerator: number, denominator: number})&gt;</code> | An array of numbers and fractions to subtract. |
 
