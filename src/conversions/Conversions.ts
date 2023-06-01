@@ -1,9 +1,27 @@
+/**
+ * @typedef {string} TemperatureType
+ * @typedef {string} LengthType
+ * @typedef {string} AngleType
+ * @typedef {string} MassType
+ * @typedef {string} VolumeType
+ */
+
+/**
+ * Enum for temperature measurements
+ * @readonly
+ * @enum {TemperatureType}
+ */
 export const temperatureEnum = {
 	Kelvin: 'KELVIN',
 	Celsius: 'CELSIUS',
 	Fahrenheit: 'FAHRENHEIT',
 } as const;
 
+/**
+ * Enum for length measurements
+ * @readonly
+ * @enum {LengthType}
+ */
 export const lengthEnum = {
 	Millimeters: 'MILLIMETERS',
 	Decimeters: 'DECIMETERS',
@@ -21,6 +39,11 @@ export const lengthEnum = {
 	Paces: 'PACES',
 } as const;
 
+/**
+ * Enum for angle measurements
+ * @readonly
+ * @enum {AngleType}
+ */
 export const angleEnum = {
 	Degrees: 'DEGREES',
 	Radians: 'RADIANS',
@@ -29,6 +52,11 @@ export const angleEnum = {
 	Seconds: 'SECONDS',
 } as const;
 
+/**
+ * Enum for mass measurements
+ * @readonly
+ * @enum {MassType}
+ */
 export const massEnum = {
 	Grams: 'GRAMS',
 	Kilograms: 'KILOGRAMS',
@@ -44,6 +72,11 @@ export const massEnum = {
 	Picograms: 'PICOGRAMS',
 } as const;
 
+/**
+ * Enum for volume measurements
+ * @readonly
+ * @enum {VolumeType}
+ */
 export const volumeEnum = {
 	CubicMeters: 'CUBIC_METERS',
 	CubicFeet: 'CUBIC_FEET',
@@ -72,16 +105,19 @@ export const volumeEnum = {
 	USTablespoons: 'US_TABLESPOONS',
 	FluidOunces: 'FLUID_OUNCES',
 	USLegalCups: 'US_LEGAL_CUPS',
-	USLiqidPints: 'US_LIQUID_PINTS',
+	USLiquidPints: 'US_LIQUID_PINTS',
 } as const;
 
+/**
+ * Class containing all conversions.
+ */
 export class Conversions {
 	/**
 	 * Converts a length value from one unit to another.
 	 *
 	 * @param {number} value - The value to be converted.
-	 * @param {typeof lengthEnum | string} fromUnit - The unit to convert from.
-	 * @param {typeof lengthEnum | string} toUnit - The unit to convert to.
+	 * @param {LengthType | string} fromUnit - The unit to convert from.
+	 * @param {LengthType | string} toUnit - The unit to convert to.
 	 * @return {number} - The converted value.
 	 */
 	static convertLength(
@@ -194,8 +230,8 @@ export class Conversions {
 	 * Converts a temperature value from one unit to another.
 	 *
 	 * @param {number} value - The temperature value to convert.
-	 * @param {typeof temperatureEnum | string} fromUnit - The unit of the input value.
-	 * @param {typeof temperatureEnum | string} toUnit - The desired output unit.
+	 * @param {TemperatureType | string} fromUnit - The unit of the input value.
+	 * @param {TemperatureType | string} toUnit - The desired output unit.
 	 * @throws {Error} Unknown unit: fromUnit or toUnit, if the unit is not recognized.
 	 * @return {number} The temperature value converted to the desired unit.
 	 */
@@ -243,8 +279,8 @@ export class Conversions {
 	 * Converts an angle value from one unit of measurement to another.
 	 *
 	 * @param {number} value - The value of the angle to be converted.
-	 * @param {typeof angleEnum | string} fromUnit - The unit of measurement of the input angle.
-	 * @param {typeof angleEnum | string} toUnit - The unit of measurement to which the angle needs to be converted.
+	 * @param {AngleType | string} fromUnit - The unit of measurement of the input angle.
+	 * @param {AngleType | string} toUnit - The unit of measurement to which the angle needs to be converted.
 	 * @return {number} The value of the input angle converted to the specified unit of measurement.
 	 */
 	static convertAngle(
@@ -303,8 +339,8 @@ export class Conversions {
 	 * Converts a mass value from one unit to another.
 	 *
 	 * @param {number} value - The value to be converted.
-	 * @param {typeof massEnum | string} fromUnit - The unit to convert from.
-	 * @param {typeof massEnum | string} toUnit - The unit to convert to.
+	 * @param {MassType | string} fromUnit - The unit to convert from.
+	 * @param {MassType | string} toUnit - The unit to convert to.
 	 * @return {number} The converted value.
 	 */
 	static convertMass(
