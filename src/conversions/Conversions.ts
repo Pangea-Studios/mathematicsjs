@@ -94,13 +94,13 @@ export class Conversions {
 		let meters: number;
 		switch (fromUnit) {
 			case 'MILLIMETERS':
-				meters = value / 1000;
+				meters = value * 0.001;
 				break;
 			case 'DECIMETERS':
-				meters = value / 10;
+				meters = value * 0.1;
 				break;
 			case 'CENTIMETERS':
-				meters = value / 100;
+				meters = value * 0.01;
 				break;
 			case 'METERS':
 				meters = value;
@@ -112,10 +112,10 @@ export class Conversions {
 				meters = value * 1000000;
 				break;
 			case 'MICROMETERS':
-				meters = value / 1000000;
+				meters = value * 0.000001;
 				break;
 			case 'NANOMETERS':
-				meters = value / 1000000000;
+				meters = value / 0.000000001;
 				break;
 			case 'PICOMETERS':
 				meters = value / 1000000000000;
@@ -409,6 +409,14 @@ export class Conversions {
 		return output;
 	}
 
+	/**
+	 * Converts a volume value from one unit to another unit.
+	 *
+	 * @param {number} value - the volume value to be converted
+	 * @param {typeof volumeEnum|string} fromUnit - the unit of the input value to be converted
+	 * @param {typeof volumeEnum|string} toUnit - the unit to which the input value needs to be converted
+	 * @return {number} - the converted volume value
+	 */
 	static convertVolume(
 		value: number,
 		fromUnit: typeof volumeEnum | string,
