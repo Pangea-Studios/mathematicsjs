@@ -12,6 +12,28 @@ export const angleEnum = {
 	Octants: 'OCTANTS',
 } as const;
 
+export const lengthEnum = {
+	Picometers: 'PICOMETERS',
+	Nanometers: 'NANOMETERS',
+	Micrometers: 'MICROMETERS',
+	Millimeters: 'MILLIMETERS',
+	Centimeters: 'CENTIMETERS',
+	Decimeters: 'DECIMETERS',
+	Meters: 'METERS',
+	Hectometers: 'HECTOMETERS',
+	Kilometers: 'KILOMETERS',
+	Astronomical_Unit: 'ASTRONOMICAL_UNIT',
+	Parsec: 'PARSEC',
+	Light_Years: 'LIGHT_YEARS',
+	Inches: 'INCHES',
+	Feet: 'FEET',
+	Yards: 'YARDS',
+	Miles: 'MILES',
+	Nautical_Miles: 'NAUTICAL_MILES',
+	Fathoms: 'FATHOMS',
+	Furlongs: 'FURLONGS',
+} as const;
+
 export class Conversions {
 	/**
 	 * Converts an angle from one unit to another.
@@ -22,7 +44,11 @@ export class Conversions {
 	 * @throws {Error} Unknown unit: {fromUnit} or Unknown unit: {toUnit} if the provided units are not recognized.
 	 * @return {number} The converted angle value.
 	 */
-	static convertAngle(value: number, fromUnit: typeof angleEnum | string, toUnit: typeof angleEnum | string,): number {
+	static convertAngle(
+		value: number,
+		fromUnit: typeof angleEnum | string,
+		toUnit: typeof angleEnum | string,
+	): number {
 		let degrees: number;
 		switch (fromUnit) {
 			case 'ARCMINUTES':
@@ -96,6 +122,146 @@ export class Conversions {
 				break;
 			case 'OCTANTS':
 				output = degrees / 45;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${toUnit}`);
+		}
+		return output;
+	}
+	/**
+	 * Converts a length value from one unit to another.
+	 *
+	 * @param {number} value - The value to convert.
+	 * @param {typeof lengthEnum | string} fromUnit - The unit to convert from.
+	 * @param {typeof lengthEnum | string} toUnit - The unit to convert to.
+	 * @return {number} The converted value.
+	 */
+	static convertLength(
+		value: number,
+		fromUnit: typeof lengthEnum | string,
+		toUnit: typeof lengthEnum | string,
+	): number {
+		let meters: number;
+		switch (fromUnit) {
+			case 'PICOMETERS':
+				meters = value * 1e-12;
+				break;
+			case 'NANOMETERS':
+				meters = value * 1e-9;
+				break;
+			case 'MICROMETERS':
+				meters = value * 1e-6;
+				break;
+			case 'MILLIMETERS':
+				meters = value * 0.001;
+				break;
+			case 'CENTIMETERS':
+				meters = value * 0.01;
+				break;
+			case 'DECIMETERS':
+				meters = value * 0.1;
+				break;
+			case 'METERS':
+				meters = value * 1;
+				break;
+			case 'HECTOMETERS':
+				meters = value * 100;
+				break;
+			case 'KILOMETERS':
+				meters = value * 1000;
+				break;
+			case 'ASTRONOMICAL_UNIT':
+				meters = value * 149598550000;
+				break;
+			case 'PARSEC':
+				meters = value * 30856776000000000;
+				break;
+			case 'LIGHT_YEARS':
+				meters = value * 9460528405000000;
+				break;
+			case 'INCHES':
+				meters = value * (1 / 39.370079);
+				break;
+			case 'FEET':
+				meters = value * (1 / 3.28084);
+				break;
+			case 'YARDS':
+				meters = value * (1 / 1.093613);
+				break;
+			case 'MILES':
+				meters = value * 1609.344;
+				break;
+			case 'NAUTICAL_MILES':
+				meters = value * 1852;
+				break;
+			case 'FATHOMS':
+				meters = value * 1.8288;
+				break;
+			case 'FURLONGS':
+				meters = value * 201.168;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${fromUnit}`);
+		}
+
+		let output: number;
+		switch (toUnit) {
+			case 'PICOMETERS':
+				output = meters / 1e-12;
+				break;
+			case 'NANOMETERS':
+				output = meters / 1e-9;
+				break;
+			case 'MICROMETERS':
+				output = meters / 1e-6;
+				break;
+			case 'MILLIMETERS':
+				output = meters / 0.001;
+				break;
+			case 'CENTIMETERS':
+				output = meters / 0.01;
+				break;
+			case 'DECIMETERS':
+				output = meters / 0.1;
+				break;
+			case 'METERS':
+				output = meters / 1;
+				break;
+			case 'HECTOMETERS':
+				output = meters / 100;
+				break;
+			case 'KILOMETERS':
+				output = meters / 1000;
+				break;
+			case 'ASTRONOMICAL_UNIT':
+				output = meters / 149598550000;
+				break;
+			case 'PARSEC':
+				output = meters / 30856776000000000;
+				break;
+			case 'LIGHT_YEARS':
+				output = meters / 9460528405000000;
+				break;
+			case 'INCHES':
+				output = meters / (1 / 39.370079);
+				break;
+			case 'FEET':
+				output = meters / (1 / 3.28084);
+				break;
+			case 'YARDS':
+				output = meters / (1 / 1.093613);
+				break;
+			case 'MILES':
+				output = meters / 1609.344;
+				break;
+			case 'NAUTICAL_MILES':
+				output = meters / 1852;
+				break;
+			case 'FATHOMS':
+				output = meters / 1.8288;
+				break;
+			case 'FURLONGS':
+				output = meters / 201.168;
 				break;
 			default:
 				throw new Error(`Unknown unit: ${toUnit}`);

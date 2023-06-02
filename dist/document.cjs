@@ -23,9 +23,9 @@ const functionNames = templateData.reduce((functionNames, identifier) => {
 }, []);
 
 const enumNames = templateData.reduce((enumNames, identifier) => {
-    if (identifier.kind === 'enum' && identifier.scope === 'global')
-        enumNames.push(identifier.name);
-    return enumNames;
+	if (identifier.kind === 'enum' && identifier.scope === 'global')
+		enumNames.push(identifier.name);
+	return enumNames;
 }, []);
 
 /* create a documentation file for each class */
@@ -82,7 +82,7 @@ This reference has been auto-generated and therefore is not guaranteed to be usi
 }
 
 for (const enumName of enumNames) {
-    const template = `{{#enum name="${enumName}"}}
+	const template = `{{#enum name="${enumName}"}}
 
 :::caution
 
@@ -91,18 +91,18 @@ This reference has been auto-generated and therefore is not guaranteed to be usi
 :::
 
 {{>docs}}{{/enum}}`;
-    console.log(`rendering ${enumName}, template: ${template}`);
-    const output = jsdoc2md.renderSync({
-        data: templateData,
-        template: template,
-    });
-    try {
-        fs.writeFileSync(
-            path.resolve(__dirname + `/../${outputDir2}/${enumName}.md`),
-            output,
-            { encoding: 'utf-8', flag: 'w+' },
-        );
-    } catch (err) {
-        console.log(err);
-    }
+	console.log(`rendering ${enumName}, template: ${template}`);
+	const output = jsdoc2md.renderSync({
+		data: templateData,
+		template: template,
+	});
+	try {
+		fs.writeFileSync(
+			path.resolve(__dirname + `/../${outputDir2}/${enumName}.md`),
+			output,
+			{ encoding: 'utf-8', flag: 'w+' },
+		);
+	} catch (err) {
+		console.log(err);
+	}
 }
