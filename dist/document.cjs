@@ -30,7 +30,15 @@ const enumNames = templateData.reduce((enumNames, identifier) => {
 
 /* create a documentation file for each class */
 for (const className of classNames) {
-	const template = `{{#class name="${className}"}}{{>docs}}{{/class}}`;
+	const template = `{{#class name="${className}"}}
+
+:::caution
+
+This reference has been auto-generated and therefore is not guaranteed to be using the stable release.
+
+:::
+
+{{>docs}}{{/class}}`;
 	console.log(`rendering ${className}, template: ${template}`);
 	const output = jsdoc2md.renderSync({
 		data: templateData,
@@ -48,7 +56,15 @@ for (const className of classNames) {
 }
 
 for (const functionName of functionNames) {
-	const template = `{{#function name="${functionName}"}}{{>docs}}{{/function}}`;
+	const template = `{{#function name="${functionName}"}}
+
+:::caution
+
+This reference has been auto-generated and therefore is not guaranteed to be using the stable release.
+
+:::
+
+{{>docs}}{{/function}}`;
 	console.log(`rendering ${functionName}, template: ${template}`);
 	const output = jsdoc2md.renderSync({
 		data: templateData,
@@ -66,7 +82,15 @@ for (const functionName of functionNames) {
 }
 
 for (const enumName of enumNames) {
-    const template = `{{#enum name="${enumName}"}}{{>docs}}{{/enum}}`;
+    const template = `{{#enum name="${enumName}"}}
+
+:::caution
+
+This reference has been auto-generated and therefore is not guaranteed to be using the stable release.
+
+:::
+
+{{>docs}}{{/enum}}`;
     console.log(`rendering ${enumName}, template: ${template}`);
     const output = jsdoc2md.renderSync({
         data: templateData,
