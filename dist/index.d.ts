@@ -444,6 +444,7 @@ declare class Conversions {
      * @param {number} value - The value to be converted.
      * @param {LengthType | string} fromUnit - The unit to convert from.
      * @param {LengthType | string} toUnit - The unit to convert to.
+     * @throws {Error} - If the conversion is not possible or invalid unit.
      * @return {number} - The converted value.
      */
     static convertLength(value: number, fromUnit: typeof lengthEnum | string, toUnit: typeof lengthEnum | string): number;
@@ -453,7 +454,7 @@ declare class Conversions {
      * @param {number} value - The temperature value to convert.
      * @param {TemperatureType | string} fromUnit - The unit of the input value.
      * @param {TemperatureType | string} toUnit - The desired output unit.
-     * @throws {Error} Unknown unit: fromUnit or toUnit, if the unit is not recognized.
+     * @throws {Error} - If the conversion is not possible or invalid unit.
      * @return {number} The temperature value converted to the desired unit.
      */
     static convertTemperature(value: number, fromUnit: typeof temperatureEnum | string, toUnit: typeof temperatureEnum | string): number;
@@ -463,6 +464,7 @@ declare class Conversions {
      * @param {number} value - The value of the angle to be converted.
      * @param {AngleType | string} fromUnit - The unit of measurement of the input angle.
      * @param {AngleType | string} toUnit - The unit of measurement to which the angle needs to be converted.
+     * @throws {Error} - If the conversion is not possible or invalid unit.
      * @return {number} The value of the input angle converted to the specified unit of measurement.
      */
     static convertAngle(value: number, fromUnit: typeof angleEnum | string, toUnit: typeof angleEnum | string): number;
@@ -472,6 +474,7 @@ declare class Conversions {
      * @param {number} value - The value to be converted.
      * @param {MassType | string} fromUnit - The unit to convert from.
      * @param {MassType | string} toUnit - The unit to convert to.
+     * @throws {Error} - If the conversion is not possible or invalid unit.
      * @return {number} The converted value.
      */
     static convertMass(value: number, fromUnit: typeof massEnum | string, toUnit: typeof massEnum | string): number;
@@ -481,6 +484,7 @@ declare class Conversions {
      * @param {number} value - The value to be converted.
      * @param {VolumeType | string} fromUnit - The unit to convert from.
      * @param {VolumeType | string} toUnit - The unit to convert to.
+     * @throws {Error} - If the conversion is not possible or invalid unit.
      * @return {number} The converted value.
      */
     static convertVolume(value: number, fromUnit: typeof volumeEnum | string, toUnit: typeof volumeEnum | string): number;

@@ -699,6 +699,7 @@ class Conversions {
      * @param {number} value - The value to be converted.
      * @param {LengthType | string} fromUnit - The unit to convert from.
      * @param {LengthType | string} toUnit - The unit to convert to.
+     * @throws {Error} - If the conversion is not possible or invalid unit.
      * @return {number} - The converted value.
      */
     static convertLength(value, fromUnit, toUnit) {
@@ -806,7 +807,7 @@ class Conversions {
      * @param {number} value - The temperature value to convert.
      * @param {TemperatureType | string} fromUnit - The unit of the input value.
      * @param {TemperatureType | string} toUnit - The desired output unit.
-     * @throws {Error} Unknown unit: fromUnit or toUnit, if the unit is not recognized.
+     * @throws {Error} - If the conversion is not possible or invalid unit.
      * @return {number} The temperature value converted to the desired unit.
      */
     static convertTemperature(value, fromUnit, toUnit) {
@@ -848,6 +849,7 @@ class Conversions {
      * @param {number} value - The value of the angle to be converted.
      * @param {AngleType | string} fromUnit - The unit of measurement of the input angle.
      * @param {AngleType | string} toUnit - The unit of measurement to which the angle needs to be converted.
+     * @throws {Error} - If the conversion is not possible or invalid unit.
      * @return {number} The value of the input angle converted to the specified unit of measurement.
      */
     static convertAngle(value, fromUnit, toUnit) {
@@ -901,6 +903,7 @@ class Conversions {
      * @param {number} value - The value to be converted.
      * @param {MassType | string} fromUnit - The unit to convert from.
      * @param {MassType | string} toUnit - The unit to convert to.
+     * @throws {Error} - If the conversion is not possible or invalid unit.
      * @return {number} The converted value.
      */
     static convertMass(value, fromUnit, toUnit) {
@@ -996,6 +999,7 @@ class Conversions {
      * @param {number} value - The value to be converted.
      * @param {VolumeType | string} fromUnit - The unit to convert from.
      * @param {VolumeType | string} toUnit - The unit to convert to.
+     * @throws {Error} - If the conversion is not possible or invalid unit.
      * @return {number} The converted value.
      */
     static convertVolume(value, fromUnit, toUnit) {
