@@ -1,3 +1,10 @@
+
+:::caution
+
+This reference has been auto-generated and therefore is not guaranteed to be using the stable release.
+
+:::
+
 <a name="subtract"></a>
 
 ## subtract(inputs) ⇒ <code>number</code>

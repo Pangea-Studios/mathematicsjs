@@ -1,3 +1,10 @@
+
+:::caution
+
+This reference has been auto-generated and therefore is not guaranteed to be using the stable release.
+
+:::
+
 <a name="volumeEnum"></a>
 
 ## volumeEnum : <code>enum</code>

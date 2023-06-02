@@ -1,3 +1,10 @@
+
+:::caution
+
+This reference has been auto-generated and therefore is not guaranteed to be using the stable release.
+
+:::
+
 <a name="Conversions"></a>
 
 ## Conversions
@@ -19,6 +26,10 @@ Converts a length value from one unit to another.
 
 **Kind**: static method of [<code>Conversions</code>](#Conversions)  
 **Returns**: <code>number</code> - - The converted value.  
+**Throws**:
+
+- <code>Error</code> - If the conversion is not possible or invalid unit.
+
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -35,7 +46,7 @@ Converts a temperature value from one unit to another.
 **Returns**: <code>number</code> - The temperature value converted to the desired unit.  
 **Throws**:
 
-- <code>Error</code> Unknown unit: fromUnit or toUnit, if the unit is not recognized.
+- <code>Error</code> - If the conversion is not possible or invalid unit.
 
 
 | Param | Type | Description |
@@ -51,6 +62,10 @@ Converts an angle value from one unit of measurement to another.
 
 **Kind**: static method of [<code>Conversions</code>](#Conversions)  
 **Returns**: <code>number</code> - The value of the input angle converted to the specified unit of measurement.  
+**Throws**:
+
+- <code>Error</code> - If the conversion is not possible or invalid unit.
+
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -65,6 +80,10 @@ Converts a mass value from one unit to another.
 
 **Kind**: static method of [<code>Conversions</code>](#Conversions)  
 **Returns**: <code>number</code> - The converted value.  
+**Throws**:
+
+- <code>Error</code> - If the conversion is not possible or invalid unit.
+
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -79,6 +98,10 @@ Converts a volume value from one unit to another.
 
 **Kind**: static method of [<code>Conversions</code>](#Conversions)  
 **Returns**: <code>number</code> - The converted value.  
+**Throws**:
+
+- <code>Error</code> - If the conversion is not possible or invalid unit.
+
 
 | Param | Type | Description |
 | --- | --- | --- |
