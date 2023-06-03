@@ -34,6 +34,19 @@ export const lengthEnum = {
 	Furlongs: 'FURLONGS',
 } as const;
 
+export const timeEnum = {
+	Picoseconds: 'PICOSECONDS',
+	Nanoseconds: 'NANOSECONDS',
+	Microseconds: 'MICROSECONDS',
+	Milliseconds: 'MILLISECONDS',
+	Seconds: 'SECONDS',
+	Minutes: 'MINUTES',
+	Hours: 'HOURS',
+	Days: 'DAYS',
+	Weeks: 'WEEKS',
+	Fortnights: 'FORTNIGHTS',
+} as const;
+
 export class Conversions {
 	/**
 	 * Converts an angle from one unit to another.
@@ -262,6 +275,93 @@ export class Conversions {
 				break;
 			case 'FURLONGS':
 				output = meters / 201.168;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${toUnit}`);
+		}
+		return output;
+	}
+
+	/**
+	 * Converts a time value from one unit to another.
+	 *
+	 * @param {number} value - The value to convert.
+	 * @param {typeof timeEnum | string} fromUnit - The unit of the input value.
+	 * @param {typeof timeEnum | string} toUnit - The desired unit of the output value.
+	 * @returns {number} - The converted value in the desired unit.
+	 */
+	static convertTime(
+		value: number,
+		fromUnit: typeof timeEnum | string,
+		toUnit: typeof timeEnum | string,
+	): number {
+		let seconds: number;
+		switch (fromUnit) {
+			case 'PICOSECONDS':
+				seconds = value * 1e-12;
+				break;
+			case 'NANOSECONDS':
+				seconds = value * 1e-9;
+				break;
+			case 'MICROSECONDS':
+				seconds = value * 1e-6;
+				break;
+			case 'MILLISECONDS':
+				seconds = value * 0.001;
+				break;
+			case 'SECONDS':
+				seconds = value * 1;
+				break;
+			case 'MINUTES':
+				seconds = value * 60;
+				break;
+			case 'HOURS':
+				seconds = value * 3600;
+				break;
+			case 'DAYS':
+				seconds = value * 86400;
+				break;
+			case 'WEEKS':
+				seconds = value * 604800;
+				break;
+			case 'FORTNIGHTS':
+				seconds = value * 1209600;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${fromUnit}`);
+		}
+
+		let output: number;
+		switch (toUnit) {
+			case 'PICOSECONDS':
+				output = seconds / 1e-12;
+				break;
+			case 'NANOSECONDS':
+				output = seconds / 1e-9;
+				break;
+			case 'MICROSECONDS':
+				output = seconds / 1e-6;
+				break;
+			case 'MILLISECONDS':
+				output = seconds / 0.001;
+				break;
+			case 'SECONDS':
+				output = seconds / 1;
+				break;
+			case 'MINUTES':
+				output = seconds / 60;
+				break;
+			case 'HOURS':
+				output = seconds / 3600;
+				break;
+			case 'DAYS':
+				output = seconds / 86400;
+				break;
+			case 'WEEKS':
+				output = seconds / 604800;
+				break;
+			case 'FORTNIGHTS':
+				output = seconds / 1209600;
 				break;
 			default:
 				throw new Error(`Unknown unit: ${toUnit}`);
