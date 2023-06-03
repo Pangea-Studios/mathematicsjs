@@ -998,8 +998,6 @@ export class Conversions {
 		return output;
 	}
 
-<<<<<<< Updated upstream
-=======
 	/**
 	 * Converts an volume measurement from one unit to another.
 	 *
@@ -1008,7 +1006,6 @@ export class Conversions {
 	 * @param {VolumeType | string} toUnit - The unit to convert to.
 	 * @return {number} - The numerical value of the converted volume measurement in the toUnit.
 	 */
->>>>>>> Stashed changes
 	static convertVolume(
 		value: number,
 		fromUnit: typeof volumeEnum | string,
