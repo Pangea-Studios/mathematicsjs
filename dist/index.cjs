@@ -584,6 +584,23 @@ function divide(inputs) {
 
 class physicsFormulae {}
 
+/**
+ * @typedef {string} TemperatureType
+ * @typedef {string} LengthType
+ * @typedef {string} AngleType
+ * @typedef {string} MassType
+ * @typedef {string} VolumeType
+ * @typedef {string} EnergyType
+ * @typedef {string} SpeedType
+ * @typedef {string} TimeType
+ * @typedef {string} AreaType
+ * @typedef {string} PressureType
+ */
+/**
+ * Enum for energy measurements
+ * @readonly
+ * @enum {EnergyType}
+ */
 const energyEnum = {
 	Joules: 'JOULES',
 	Electronvolt: 'ELECTRONVOLT',
@@ -601,6 +618,39 @@ const energyEnum = {
 	US_Therms: 'US_THERMS',
 	Foot_pounds: 'FOOT-POUNDS',
 };
+/**
+ * Enum for volume measurements
+ * @readonly
+ * @enum {VolumeType}
+ */
+const volumeEnum = {
+	Liters: 'LITERS',
+	Milliliters: 'MILLILITERS',
+	Cubic_Meters: 'CUBIC_METERS',
+	Cubic_Centimeters: 'CUBIC_CENTIMETERS',
+	Cubic_Millimeters: 'CUBIC_MILLIMETERS',
+	Cubic_Inches: 'CUBIC_INCHES',
+	Cubic_Feet: 'CUBIC_FEET',
+	US_Liquid_Gallons: 'US_LIQUID_GALLONS',
+	US_Liquid_Quarts: 'US_LIQUID_QUARTS',
+	US_Liquid_Pints: 'US_LIQUID_PINTS',
+	US_Legal_Cups: 'US_LEGAL_CUPS',
+	US_Teaspoons: 'US_TEASPOONS',
+	US_Tablespoons: 'US_TABLESPOONS',
+	Fluid_Ounces: 'FLUID_OUNCES',
+	Imperial_Gallons: 'IMPERIAL_GALLONS',
+	Imperial_Quarts: 'IMPERIAL_QUARTS',
+	Imperial_Pints: 'IMPERIAL_PINTS',
+	Imperial_Cups: 'IMPERIAL_CUPS',
+	Imperial_Fluid_Ounces: 'IMPERIAL_FLUID_OUNCES',
+	Imperial_Teaspoons: 'IMPERIAL_TEASPOONS',
+	Imperial_Tablespoons: 'IMPERIAL_TABLESPOONS',
+};
+/**
+ * Enum for angle measurements
+ * @readonly
+ * @enum {AngleType}
+ */
 const angleEnum = {
 	Arcminutes: 'ARCMINUTES',
 	Arcseconds: 'ARCSECONDS',
@@ -635,6 +685,23 @@ const lengthEnum = {
 	Fathoms: 'FATHOMS',
 	Furlongs: 'FURLONGS',
 };
+/**
+ * Enum for speed measurements
+ * @readonly
+ * @enum {SpeedType}
+ */
+const speedEnum = {
+	Meters_per_Second: 'METERS_PER_SECOND',
+	Feet_per_Second: 'FEET_PER_SECOND',
+	Miles_per_Hour: 'MILES_PER_HOUR',
+	Kilometers_per_hour: 'KILOMETERS_PER_HOUR',
+	Knots: 'KNOTS',
+};
+/**
+ * Enum for time measurements
+ * @readonly
+ * @enum {TimeType}
+ */
 const timeEnum = {
 	Picoseconds: 'PICOSECONDS',
 	Nanoseconds: 'NANOSECONDS',
@@ -647,6 +714,26 @@ const timeEnum = {
 	Weeks: 'WEEKS',
 	Fortnights: 'FORTNIGHTS',
 };
+/**
+ * Enum for area measurements
+ * @readonly
+ * @enum {AreaType}
+ */
+const areaEnum = {
+	Square_Meters: 'SQUARE_METERS',
+	Square_Kilometers: 'SQUARE_KILOMETERS',
+	Square_Inches: 'SQUARE_INCHES',
+	Square_Feet: 'SQUARE_FEET',
+	Square_Yards: 'SQUARE_YARDS',
+	Square_Miles: 'SQUARE_MILES',
+	Acres: 'ACRES',
+	Hectares: 'HECTARES',
+};
+/**
+ * Enum for mass measurements
+ * @readonly
+ * @enum {MassType}
+ */
 const massEnum = {
 	Picograms: 'PICOGRAMS',
 	Nanograms: 'NANOGRAMS',
@@ -664,18 +751,48 @@ const massEnum = {
 	Earth_Masses: 'EARTH_MASSES',
 	Solar_Masses: 'SOLAR_MASSES',
 };
+/**
+ * Enum for temperature measurements
+ * @readonly
+ * @enum {TemperatureType}
+ */
 const temperatureEnum = {
+<<<<<<< Updated upstream
 	Celcius: 'CELCIUS',
+=======
+	Celsius: 'CELSIUS',
+>>>>>>> Stashed changes
 	Fahrenheit: 'FAHRENHEIT',
 	Klevin: 'KLEVIN',
 };
+/**
+ * Enum for pressure measurements
+ * @readonly
+ * @enum {PressureType}
+ */
+const pressureEnum = {
+	Bars: 'BARS',
+	Millibars: 'MILLIBARS',
+	Pascals: 'PASCALS',
+	Kilopascals: 'KILOPASCALS',
+	Pounds_per_Square_Inch: 'POUNDS_PER_SQUARE_INCH',
+	Torr: 'TORR',
+};
+/**
+ * Class for Conversions
+ */
 class Conversions {
 	/**
 	 * Converts an angle from one unit to another.
 	 *
 	 * @param {number} value - The value of the angle to convert.
+<<<<<<< Updated upstream
 	 * @param {typeof angleEnum | string} fromUnit - The unit of the input angle.
 	 * @param {typeof angleEnum | string} toUnit - The desired unit of the output angle.
+=======
+	 * @param {AngleType | string} fromUnit - The unit of the input angle.
+	 * @param {AngleType | string} toUnit - The desired unit of the output angle.
+>>>>>>> Stashed changes
 	 * @throws {Error} Unknown unit: {fromUnit} or Unknown unit: {toUnit} if the provided units are not recognized.
 	 * @return {number} The converted angle value.
 	 */
@@ -762,8 +879,13 @@ class Conversions {
 	 * Converts a length value from one unit to another.
 	 *
 	 * @param {number} value - The value to convert.
+<<<<<<< Updated upstream
 	 * @param {typeof lengthEnum | string} fromUnit - The unit to convert from.
 	 * @param {typeof lengthEnum | string} toUnit - The unit to convert to.
+=======
+	 * @param {LengthType | string} fromUnit - The unit to convert from.
+	 * @param {LengthType | string} toUnit - The unit to convert to.
+>>>>>>> Stashed changes
 	 * @return {number} The converted value.
 	 */
 	static convertLength(value, fromUnit, toUnit) {
@@ -897,8 +1019,13 @@ class Conversions {
 	 * Converts a time value from one unit to another.
 	 *
 	 * @param {number} value - The value to convert.
+<<<<<<< Updated upstream
 	 * @param {typeof timeEnum | string} fromUnit - The unit of the input value.
 	 * @param {typeof timeEnum | string} toUnit - The desired unit of the output value.
+=======
+	 * @param {TimeType | string} fromUnit - The unit of the input value.
+	 * @param {TimeType | string} toUnit - The desired unit of the output value.
+>>>>>>> Stashed changes
 	 * @returns {number} - The converted value in the desired unit.
 	 */
 	static convertTime(value, fromUnit, toUnit) {
@@ -978,8 +1105,13 @@ class Conversions {
 	 * Converts a mass value from one unit to another.
 	 *
 	 * @param {number} value - The mass value to be converted.
+<<<<<<< Updated upstream
 	 * @param {typeof massEnum | string} fromUnit - The unit to convert from.
 	 * @param {typeof massEnum | string} toUnit - The unit to convert to.
+=======
+	 * @param {MassType | string} fromUnit - The unit to convert from.
+	 * @param {MassType | string} toUnit - The unit to convert to.
+>>>>>>> Stashed changes
 	 * @return {number} The converted mass value.
 	 */
 	static convertMass(value, fromUnit, toUnit) {
@@ -1089,8 +1221,13 @@ class Conversions {
 	 * Convert an energy value from one unit to another.
 	 *
 	 * @param {number} value - the energy value to convert
+<<<<<<< Updated upstream
 	 * @param {typeof energyEnum | string} fromUnit - the unit of the input value
 	 * @param {typeof energyEnum | string} toUnit - the desired output unit
+=======
+	 * @param {EnergyType | string} fromUnit - the unit of the input value
+	 * @param {EnergyType | string} toUnit - the desired output unit
+>>>>>>> Stashed changes
 	 * @return {number} - the converted energy value
 	 */
 	static convertEnergy(value, fromUnit, toUnit) {
@@ -1200,8 +1337,13 @@ class Conversions {
 	 * Converts a temperature value from one unit to another.
 	 *
 	 * @param {number} value - The temperature value to be converted.
+<<<<<<< Updated upstream
 	 * @param {typeof temperatureEnum | string} fromUnit - The unit of the input temperature value.
 	 * @param {typeof temperatureEnum | string} toUnit - The unit of the output temperature value.
+=======
+	 * @param {TemperatureType | string} fromUnit - The unit of the input temperature value.
+	 * @param {TemperatureType | string} toUnit - The unit of the output temperature value.
+>>>>>>> Stashed changes
 	 * @return {number} The converted temperature value in the desired unit.
 	 */
 	static convertTemperature(value, fromUnit, toUnit) {
@@ -1235,19 +1377,373 @@ class Conversions {
 		}
 		return output;
 	}
+<<<<<<< Updated upstream
+=======
+	/**
+	 * Converts a speed value from one unit to another.
+	 *
+	 * @param {number} value - the value to be converted
+	 * @param {SpeedType | string} fromUnit - the unit to convert from
+	 * @param {SpeedType | string} toUnit - the unit to convert to
+	 * @return {number} - the converted value
+	 */
+	static convertSpeed(value, fromUnit, toUnit) {
+		let mps;
+		switch (fromUnit) {
+			case 'METERS_PER_SECOND':
+				mps = value * 1;
+				break;
+			case 'FEET_PER_SECOND':
+				mps = value * 0.3048;
+				break;
+			case 'MILES_PER_HOUR':
+				mps = value * 0.44704;
+				break;
+			case 'KILOMETERS_PER_HOUR':
+				mps = value * 0.277778;
+				break;
+			case 'KNOTS':
+				mps = value * 0.514444;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${fromUnit}`);
+		}
+		let output;
+		switch (toUnit) {
+			case 'METERS_PER_SECOND':
+				output = mps / 1;
+				break;
+			case 'FEET_PER_SECOND':
+				output = mps / 0.3048;
+				break;
+			case 'MILES_PER_HOUR':
+				output = mps / 0.44704;
+				break;
+			case 'KILOMETERS_PER_HOUR':
+				output = mps / 0.277778;
+				break;
+			case 'KNOTS':
+				output = mps / 0.514444;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${toUnit}`);
+		}
+		return output;
+	}
+	/**
+	 * Converts a pressure value from one unit to another.
+	 *
+	 * @param {number} value - The pressure value to convert.
+	 * @param {PressureType | string} fromUnit - The unit to convert from.
+	 * @param {PressureType | string} toUnit - The unit to convert to.
+	 * @return {number} The converted pressure value.
+	 */
+	static convertPressure(value, fromUnit, toUnit) {
+		let bars;
+		switch (fromUnit) {
+			case 'BARS':
+				bars = value * 1;
+				break;
+			case 'MILLIBARS':
+				bars = value * 0.001;
+				break;
+			case 'PASCALS':
+				bars = value * 1e-5;
+				break;
+			case 'KILOPASCALS':
+				bars = value * 0.01;
+				break;
+			case 'POUNDS_PER_SQUARE_INCH':
+				bars = value * 0.0689476;
+				break;
+			case 'TORR':
+				bars = value * 0.00133322;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${fromUnit}`);
+		}
+		let output;
+		switch (toUnit) {
+			case 'BARS':
+				output = bars / 1;
+				break;
+			case 'MILLIBARS':
+				output = bars / 0.001;
+				break;
+			case 'PASCALS':
+				output = bars / 1e-5;
+				break;
+			case 'KILOPASCALS':
+				output = bars / 0.01;
+				break;
+			case 'POUNDS_PER_SQUARE_INCH':
+				output = bars / 0.0689476;
+				break;
+			case 'TORR':
+				output = bars / 0.00133322;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${toUnit}`);
+		}
+		return output;
+	}
+	/**
+	 * Converts an area measurement from one unit to another.
+	 *
+	 * @param {number} value - The numerical value of the area measurement in the fromUnit.
+	 * @param {AreaType | string} fromUnit - The unit to convert from.
+	 * @param {AreaType | string} toUnit - The unit to convert to.
+	 * @return {number} - The numerical value of the converted area measurement in the toUnit.
+	 */
+	static convertArea(value, fromUnit, toUnit) {
+		let sqrm;
+		switch (fromUnit) {
+			case 'SQUARE_METERS':
+				sqrm = value * 1;
+				break;
+			case 'SQUARE_KILOMETERS':
+				sqrm = value * 1000000;
+				break;
+			case 'SQUARE_INCHES':
+				sqrm = value * (1 / 1550);
+				break;
+			case 'SQUARE_FEET':
+				sqrm = value * (1 / 10.764);
+				break;
+			case 'SQUARE_YARDS':
+				sqrm = value * (1 / 1.196);
+				break;
+			case 'SQUARE_MILES':
+				sqrm = value * 2590000.0;
+				break;
+			case 'ACRES':
+				sqrm = value * 4046.86;
+				break;
+			case 'HECTARES':
+				sqrm = value * 10000;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${fromUnit}`);
+		}
+		let output;
+		switch (toUnit) {
+			case 'SQUARE_METERS':
+				output = sqrm / 1;
+				break;
+			case 'SQUARE_KILOMETERS':
+				output = sqrm / 1000000;
+				break;
+			case 'SQUARE_INCHES':
+				output = sqrm / (1 / 1550);
+				break;
+			case 'SQUARE_FEET':
+				output = sqrm / (1 / 10.764);
+				break;
+			case 'SQUARE_YARDS':
+				output = sqrm / (1 / 1.196);
+				break;
+			case 'SQUARE_MILES':
+				output = sqrm / 2590000.0;
+				break;
+			case 'ACRES':
+				output = sqrm / 4046.86;
+				break;
+			case 'HECTARES':
+				output = sqrm / 10000;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${toUnit}`);
+		}
+		return output;
+	}
+	/**
+	 * Converts an volume measurement from one unit to another.
+	 *
+	 * @param {number} value - The numerical value of the volume measurement in the fromUnit.
+	 * @param {VolumeType | string} fromUnit - The unit to convert from.
+	 * @param {VolumeType | string} toUnit - The unit to convert to.
+	 * @return {number} - The numerical value of the converted volume measurement in the toUnit.
+	 */
+	static convertVolume(value, fromUnit, toUnit) {
+		let liters;
+		switch (fromUnit) {
+			case 'LITERS':
+				liters = value * 1;
+				break;
+			case 'MILLILITERS':
+				liters = value * 0.001;
+				break;
+			case 'CUBIC_METERS':
+				liters = value * 1000;
+				break;
+			case 'CUBIC_CENTIMETERS':
+				liters = value * 0.001;
+				break;
+			case 'CUBIC_MILLIMETERS':
+				liters = value * 1e-5;
+				break;
+			case 'CUBIC_INCHES':
+				liters = value * 0.0163871;
+				break;
+			case 'CUBIC_FEET':
+				liters = value * 28.3168;
+				break;
+			case 'US_LIQUID_GALLONS':
+				liters = value * 3.78541;
+				break;
+			case 'US_LIQID_QUARTS':
+				liters = value * 0.946353;
+				break;
+			case 'US_LIQUID_PINTS':
+				liters = value * 0.473176;
+				break;
+			case 'US_LEGAL_CUPS':
+				liters = value * 0.24;
+				break;
+			case 'US_TEASPOONS':
+				liters = value * 0.00492892;
+				break;
+			case 'US_TABLESPOONS':
+				liters = value * 0.0147868;
+				break;
+			case 'FLUID_OUNCES':
+				liters = value * 0.0295735;
+				break;
+			case 'IMPERIAL_GALLONS':
+				liters = value * 4.54609;
+				break;
+			case 'IMPERIAL_QUARTS':
+				liters = value * 1.13652;
+				break;
+			case 'IMPERIAL_PINTS':
+				liters = value * 0.568261;
+				break;
+			case 'IMPERIAL_CUPS':
+				liters = value * 0.284131;
+				break;
+			case 'IMPERIAL_FLUID_OUNCES':
+				liters = value * 0.0284131;
+				break;
+			case 'IMPERIAL_TEASPOONS':
+				liters = value * 0.00591939;
+				break;
+			case 'IMPERIAL_TABLESPOONS':
+				liters = value * 0.0177582;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${fromUnit}`);
+		}
+		let output;
+		switch (toUnit) {
+			case 'LITERS':
+				output = liters / 1;
+				break;
+			case 'MILLILITERS':
+				output = liters / 0.001;
+				break;
+			case 'CUBIC_METERS':
+				output = liters / 1000;
+				break;
+			case 'CUBIC_CENTIMETERS':
+				output = liters / 0.001;
+				break;
+			case 'CUBIC_MILLIMETERS':
+				output = liters / 1e-5;
+				break;
+			case 'CUBIC_INCHES':
+				output = liters / 0.0163871;
+				break;
+			case 'CUBIC_FEET':
+				output = liters / 28.3168;
+				break;
+			case 'US_LIQUID_GALLONS':
+				output = liters / 3.78541;
+				break;
+			case 'US_LIQUID_QUARTS':
+				output = liters / 0.946353;
+				break;
+			case 'US_LIQUID_PINTS':
+				output = liters / 0.473176;
+				break;
+			case 'US_LEGAL_CUPS':
+				output = liters / 0.24;
+				break;
+			case 'US_TEASPOONS':
+				output = liters / 0.00492892;
+				break;
+			case 'US_TABLESPOONS':
+				output = liters / 0.0147868;
+				break;
+			case 'FLUID_OUNCES':
+				output = liters / 0.0295735;
+				break;
+			case 'IMPERIAL_GALLONS':
+				output = liters / 4.54609;
+				break;
+			case 'IMPERIAL_QUARTS':
+				output = liters / 1.13652;
+				break;
+			case 'IMPERIAL_PINTS':
+				output = liters / 0.568261;
+				break;
+			case 'IMPERIAL_CUPS':
+				output = liters / 0.284131;
+				break;
+			case 'IMPERIAL_FLUID_OUNCES':
+				output = liters / 0.0284131;
+				break;
+			case 'IMPERIAL_TEASPOONS':
+				output = liters / 0.00591939;
+				break;
+			case 'IMPERIAL_TABLESPOONS':
+				output = liters / 0.0177582;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${toUnit}`);
+		}
+		return output;
+	}
+>>>>>>> Stashed changes
 }
 
+/**
+ * Class to find averages of an array of numbers
+ */
 class Averages {
+<<<<<<< Updated upstream
+=======
+	/**
+	 * Finds the mean of an array of numbers
+	 * @param {Array<number>} - The array of numbers to find the mean of
+	 * @return {number} - The mean of the inputted numbers
+	 */
+>>>>>>> Stashed changes
 	static mean(input) {
 		let output = add(input);
 		return (output /= input.length);
 	}
+<<<<<<< Updated upstream
+=======
+	/**
+	 * Finds the median of an array of numbers
+	 * @param {Array<number>} - The array of numbers to find the median of
+	 * @return {number} - The median of the inputted numbers
+	 */
+>>>>>>> Stashed changes
 	static median(input) {
 		let length = input.length;
 		length = length / 2;
 		if (length === Math.round(length)) return input[length];
 		return input[length - 0.5] / input[length + 0.5];
 	}
+<<<<<<< Updated upstream
+=======
+	/**
+	 * Finds the mode of an array of numbers
+	 * @param {Array<number>} - The array of numbers to find the mode of
+	 * @return {number} - The mode of the inputted numbers
+	 */
+>>>>>>> Stashed changes
 	static mode(input) {
 		if (input.length === 0) {
 			return 0;
@@ -1274,6 +1770,14 @@ class Averages {
 			});
 		return m[0].value;
 	}
+<<<<<<< Updated upstream
+=======
+	/**
+	 * Finds the range of an array of numbers
+	 * @param {Array<number>} - The array of numbers to find the range of
+	 * @return {number} - The range of the inputted numbers
+	 */
+>>>>>>> Stashed changes
 	static range(input) {
 		const max = input.reduce((a, b) => Math.max(a, b), -Infinity);
 		const min = input.reduce((a, b) => Math.min(a, b), -Infinity);
@@ -1289,6 +1793,7 @@ exports.Indices = Indices;
 exports.Matrix = Matrix;
 exports.add = add;
 exports.angleEnum = angleEnum;
+exports.areaEnum = areaEnum;
 exports.convertBase = convertBase;
 exports.divide = divide;
 exports.energyEnum = energyEnum;
@@ -1298,6 +1803,9 @@ exports.lengthEnum = lengthEnum;
 exports.massEnum = massEnum;
 exports.multiply = multiply;
 exports.physicsFormulae = physicsFormulae;
+exports.pressureEnum = pressureEnum;
+exports.speedEnum = speedEnum;
 exports.subtract = subtract;
 exports.temperatureEnum = temperatureEnum;
 exports.timeEnum = timeEnum;
+exports.volumeEnum = volumeEnum;

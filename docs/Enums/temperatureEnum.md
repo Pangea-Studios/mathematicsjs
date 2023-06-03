@@ -16,6 +16,6 @@ Enum for temperature measurements
 
 | Name       | Type                         | Default                 |
 | ---------- | ---------------------------- | ----------------------- |
-| Kelvin     | <code>TemperatureType</code> | <code>KELVIN</code>     |
 | Celsius    | <code>TemperatureType</code> | <code>CELSIUS</code>    |
 | Fahrenheit | <code>TemperatureType</code> | <code>FAHRENHEIT</code> |
+| Klevin     | <code>TemperatureType</code> | <code>KLEVIN</code>     |

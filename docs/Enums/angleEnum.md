@@ -14,10 +14,16 @@ Enum for angle measurements
 **Read only**: true  
 **Properties**
 
-| Name     | Type                   | Default               |
-| -------- | ---------------------- | --------------------- |
-| Degrees  | <code>AngleType</code> | <code>DEGREES</code>  |
-| Radians  | <code>AngleType</code> | <code>RADIANS</code>  |
-| Gradians | <code>AngleType</code> | <code>GRADIANS</code> |
-| Minutes  | <code>AngleType</code> | <code>MINUTES</code>  |
-| Seconds  | <code>AngleType</code> | <code>SECONDS</code>  |
+| Name         | Type                   | Default                   |
+| ------------ | ---------------------- | ------------------------- |
+| Arcminutes   | <code>AngleType</code> | <code>ARCMINUTES</code>   |
+| Arcseconds   | <code>AngleType</code> | <code>ARCSECONDS</code>   |
+| Degrees      | <code>AngleType</code> | <code>DEGREES</code>      |
+| Radians      | <code>AngleType</code> | <code>RADIANS</code>      |
+| Gradians     | <code>AngleType</code> | <code>GRADIANS</code>     |
+| Milliradians | <code>AngleType</code> | <code>MILLIRADIANS</code> |
+| Revolutions  | <code>AngleType</code> | <code>REVOLUTIONS</code>  |
+| Quadrants    | <code>AngleType</code> | <code>QUADRANTS</code>    |
+| Sextants     | <code>AngleType</code> | <code>SEXTANTS</code>     |
+| Signs        | <code>AngleType</code> | <code>SIGNS</code>        |
+| Octants      | <code>AngleType</code> | <code>OCTANTS</code>      |

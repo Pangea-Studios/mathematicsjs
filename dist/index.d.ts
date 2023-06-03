@@ -340,6 +340,23 @@ declare function divide(inputs: OperationsInput[]): number;
 
 declare class physicsFormulae {}
 
+/**
+ * @typedef {string} TemperatureType
+ * @typedef {string} LengthType
+ * @typedef {string} AngleType
+ * @typedef {string} MassType
+ * @typedef {string} VolumeType
+ * @typedef {string} EnergyType
+ * @typedef {string} SpeedType
+ * @typedef {string} TimeType
+ * @typedef {string} AreaType
+ * @typedef {string} PressureType
+ */
+/**
+ * Enum for energy measurements
+ * @readonly
+ * @enum {EnergyType}
+ */
 declare const energyEnum: {
 	readonly Joules: 'JOULES';
 	readonly Electronvolt: 'ELECTRONVOLT';
@@ -357,6 +374,39 @@ declare const energyEnum: {
 	readonly US_Therms: 'US_THERMS';
 	readonly Foot_pounds: 'FOOT-POUNDS';
 };
+/**
+ * Enum for volume measurements
+ * @readonly
+ * @enum {VolumeType}
+ */
+declare const volumeEnum: {
+	readonly Liters: 'LITERS';
+	readonly Milliliters: 'MILLILITERS';
+	readonly Cubic_Meters: 'CUBIC_METERS';
+	readonly Cubic_Centimeters: 'CUBIC_CENTIMETERS';
+	readonly Cubic_Millimeters: 'CUBIC_MILLIMETERS';
+	readonly Cubic_Inches: 'CUBIC_INCHES';
+	readonly Cubic_Feet: 'CUBIC_FEET';
+	readonly US_Liquid_Gallons: 'US_LIQUID_GALLONS';
+	readonly US_Liquid_Quarts: 'US_LIQUID_QUARTS';
+	readonly US_Liquid_Pints: 'US_LIQUID_PINTS';
+	readonly US_Legal_Cups: 'US_LEGAL_CUPS';
+	readonly US_Teaspoons: 'US_TEASPOONS';
+	readonly US_Tablespoons: 'US_TABLESPOONS';
+	readonly Fluid_Ounces: 'FLUID_OUNCES';
+	readonly Imperial_Gallons: 'IMPERIAL_GALLONS';
+	readonly Imperial_Quarts: 'IMPERIAL_QUARTS';
+	readonly Imperial_Pints: 'IMPERIAL_PINTS';
+	readonly Imperial_Cups: 'IMPERIAL_CUPS';
+	readonly Imperial_Fluid_Ounces: 'IMPERIAL_FLUID_OUNCES';
+	readonly Imperial_Teaspoons: 'IMPERIAL_TEASPOONS';
+	readonly Imperial_Tablespoons: 'IMPERIAL_TABLESPOONS';
+};
+/**
+ * Enum for angle measurements
+ * @readonly
+ * @enum {AngleType}
+ */
 declare const angleEnum: {
 	readonly Arcminutes: 'ARCMINUTES';
 	readonly Arcseconds: 'ARCSECONDS';
@@ -391,6 +441,23 @@ declare const lengthEnum: {
 	readonly Fathoms: 'FATHOMS';
 	readonly Furlongs: 'FURLONGS';
 };
+/**
+ * Enum for speed measurements
+ * @readonly
+ * @enum {SpeedType}
+ */
+declare const speedEnum: {
+	readonly Meters_per_Second: 'METERS_PER_SECOND';
+	readonly Feet_per_Second: 'FEET_PER_SECOND';
+	readonly Miles_per_Hour: 'MILES_PER_HOUR';
+	readonly Kilometers_per_hour: 'KILOMETERS_PER_HOUR';
+	readonly Knots: 'KNOTS';
+};
+/**
+ * Enum for time measurements
+ * @readonly
+ * @enum {TimeType}
+ */
 declare const timeEnum: {
 	readonly Picoseconds: 'PICOSECONDS';
 	readonly Nanoseconds: 'NANOSECONDS';
@@ -403,6 +470,26 @@ declare const timeEnum: {
 	readonly Weeks: 'WEEKS';
 	readonly Fortnights: 'FORTNIGHTS';
 };
+/**
+ * Enum for area measurements
+ * @readonly
+ * @enum {AreaType}
+ */
+declare const areaEnum: {
+	readonly Square_Meters: 'SQUARE_METERS';
+	readonly Square_Kilometers: 'SQUARE_KILOMETERS';
+	readonly Square_Inches: 'SQUARE_INCHES';
+	readonly Square_Feet: 'SQUARE_FEET';
+	readonly Square_Yards: 'SQUARE_YARDS';
+	readonly Square_Miles: 'SQUARE_MILES';
+	readonly Acres: 'ACRES';
+	readonly Hectares: 'HECTARES';
+};
+/**
+ * Enum for mass measurements
+ * @readonly
+ * @enum {MassType}
+ */
 declare const massEnum: {
 	readonly Picograms: 'PICOGRAMS';
 	readonly Nanograms: 'NANOGRAMS';
@@ -420,18 +507,48 @@ declare const massEnum: {
 	readonly Earth_Masses: 'EARTH_MASSES';
 	readonly Solar_Masses: 'SOLAR_MASSES';
 };
+/**
+ * Enum for temperature measurements
+ * @readonly
+ * @enum {TemperatureType}
+ */
 declare const temperatureEnum: {
+<<<<<<< Updated upstream
 	readonly Celcius: 'CELCIUS';
+=======
+	readonly Celsius: 'CELSIUS';
+>>>>>>> Stashed changes
 	readonly Fahrenheit: 'FAHRENHEIT';
 	readonly Klevin: 'KLEVIN';
 };
+/**
+ * Enum for pressure measurements
+ * @readonly
+ * @enum {PressureType}
+ */
+declare const pressureEnum: {
+	readonly Bars: 'BARS';
+	readonly Millibars: 'MILLIBARS';
+	readonly Pascals: 'PASCALS';
+	readonly Kilopascals: 'KILOPASCALS';
+	readonly Pounds_per_Square_Inch: 'POUNDS_PER_SQUARE_INCH';
+	readonly Torr: 'TORR';
+};
+/**
+ * Class for Conversions
+ */
 declare class Conversions {
 	/**
 	 * Converts an angle from one unit to another.
 	 *
 	 * @param {number} value - The value of the angle to convert.
+<<<<<<< Updated upstream
 	 * @param {typeof angleEnum | string} fromUnit - The unit of the input angle.
 	 * @param {typeof angleEnum | string} toUnit - The desired unit of the output angle.
+=======
+	 * @param {AngleType | string} fromUnit - The unit of the input angle.
+	 * @param {AngleType | string} toUnit - The desired unit of the output angle.
+>>>>>>> Stashed changes
 	 * @throws {Error} Unknown unit: {fromUnit} or Unknown unit: {toUnit} if the provided units are not recognized.
 	 * @return {number} The converted angle value.
 	 */
@@ -444,8 +561,13 @@ declare class Conversions {
 	 * Converts a length value from one unit to another.
 	 *
 	 * @param {number} value - The value to convert.
+<<<<<<< Updated upstream
 	 * @param {typeof lengthEnum | string} fromUnit - The unit to convert from.
 	 * @param {typeof lengthEnum | string} toUnit - The unit to convert to.
+=======
+	 * @param {LengthType | string} fromUnit - The unit to convert from.
+	 * @param {LengthType | string} toUnit - The unit to convert to.
+>>>>>>> Stashed changes
 	 * @return {number} The converted value.
 	 */
 	static convertLength(
@@ -457,8 +579,13 @@ declare class Conversions {
 	 * Converts a time value from one unit to another.
 	 *
 	 * @param {number} value - The value to convert.
+<<<<<<< Updated upstream
 	 * @param {typeof timeEnum | string} fromUnit - The unit of the input value.
 	 * @param {typeof timeEnum | string} toUnit - The desired unit of the output value.
+=======
+	 * @param {TimeType | string} fromUnit - The unit of the input value.
+	 * @param {TimeType | string} toUnit - The desired unit of the output value.
+>>>>>>> Stashed changes
 	 * @returns {number} - The converted value in the desired unit.
 	 */
 	static convertTime(
@@ -470,8 +597,13 @@ declare class Conversions {
 	 * Converts a mass value from one unit to another.
 	 *
 	 * @param {number} value - The mass value to be converted.
+<<<<<<< Updated upstream
 	 * @param {typeof massEnum | string} fromUnit - The unit to convert from.
 	 * @param {typeof massEnum | string} toUnit - The unit to convert to.
+=======
+	 * @param {MassType | string} fromUnit - The unit to convert from.
+	 * @param {MassType | string} toUnit - The unit to convert to.
+>>>>>>> Stashed changes
 	 * @return {number} The converted mass value.
 	 */
 	static convertMass(
@@ -483,8 +615,13 @@ declare class Conversions {
 	 * Convert an energy value from one unit to another.
 	 *
 	 * @param {number} value - the energy value to convert
+<<<<<<< Updated upstream
 	 * @param {typeof energyEnum | string} fromUnit - the unit of the input value
 	 * @param {typeof energyEnum | string} toUnit - the desired output unit
+=======
+	 * @param {EnergyType | string} fromUnit - the unit of the input value
+	 * @param {EnergyType | string} toUnit - the desired output unit
+>>>>>>> Stashed changes
 	 * @return {number} - the converted energy value
 	 */
 	static convertEnergy(
@@ -496,8 +633,13 @@ declare class Conversions {
 	 * Converts a temperature value from one unit to another.
 	 *
 	 * @param {number} value - The temperature value to be converted.
+<<<<<<< Updated upstream
 	 * @param {typeof temperatureEnum | string} fromUnit - The unit of the input temperature value.
 	 * @param {typeof temperatureEnum | string} toUnit - The unit of the output temperature value.
+=======
+	 * @param {TemperatureType | string} fromUnit - The unit of the input temperature value.
+	 * @param {TemperatureType | string} toUnit - The unit of the output temperature value.
+>>>>>>> Stashed changes
 	 * @return {number} The converted temperature value in the desired unit.
 	 */
 	static convertTemperature(
@@ -505,12 +647,96 @@ declare class Conversions {
 		fromUnit: typeof temperatureEnum | string,
 		toUnit: typeof temperatureEnum | string,
 	): number;
+<<<<<<< Updated upstream
+=======
+	/**
+	 * Converts a speed value from one unit to another.
+	 *
+	 * @param {number} value - the value to be converted
+	 * @param {SpeedType | string} fromUnit - the unit to convert from
+	 * @param {SpeedType | string} toUnit - the unit to convert to
+	 * @return {number} - the converted value
+	 */
+	static convertSpeed(
+		value: number,
+		fromUnit: typeof speedEnum | string,
+		toUnit: typeof speedEnum | string,
+	): number;
+	/**
+	 * Converts a pressure value from one unit to another.
+	 *
+	 * @param {number} value - The pressure value to convert.
+	 * @param {PressureType | string} fromUnit - The unit to convert from.
+	 * @param {PressureType | string} toUnit - The unit to convert to.
+	 * @return {number} The converted pressure value.
+	 */
+	static convertPressure(
+		value: number,
+		fromUnit: typeof pressureEnum | string,
+		toUnit: typeof pressureEnum | string,
+	): number;
+	/**
+	 * Converts an area measurement from one unit to another.
+	 *
+	 * @param {number} value - The numerical value of the area measurement in the fromUnit.
+	 * @param {AreaType | string} fromUnit - The unit to convert from.
+	 * @param {AreaType | string} toUnit - The unit to convert to.
+	 * @return {number} - The numerical value of the converted area measurement in the toUnit.
+	 */
+	static convertArea(
+		value: number,
+		fromUnit: typeof areaEnum | string,
+		toUnit: typeof areaEnum | string,
+	): number;
+	/**
+	 * Converts an volume measurement from one unit to another.
+	 *
+	 * @param {number} value - The numerical value of the volume measurement in the fromUnit.
+	 * @param {VolumeType | string} fromUnit - The unit to convert from.
+	 * @param {VolumeType | string} toUnit - The unit to convert to.
+	 * @return {number} - The numerical value of the converted volume measurement in the toUnit.
+	 */
+	static convertVolume(
+		value: number,
+		fromUnit: typeof volumeEnum | string,
+		toUnit: typeof volumeEnum | string,
+	): number;
+>>>>>>> Stashed changes
 }
 
+/**
+ * Class to find averages of an array of numbers
+ */
 declare class Averages {
+<<<<<<< Updated upstream
 	static mean(input: number[]): number;
 	static median(input: number[]): number;
 	static mode(input: number[]): any;
+=======
+	/**
+	 * Finds the mean of an array of numbers
+	 * @param {Array<number>} - The array of numbers to find the mean of
+	 * @return {number} - The mean of the inputted numbers
+	 */
+	static mean(input: number[]): number;
+	/**
+	 * Finds the median of an array of numbers
+	 * @param {Array<number>} - The array of numbers to find the median of
+	 * @return {number} - The median of the inputted numbers
+	 */
+	static median(input: number[]): number;
+	/**
+	 * Finds the mode of an array of numbers
+	 * @param {Array<number>} - The array of numbers to find the mode of
+	 * @return {number} - The mode of the inputted numbers
+	 */
+	static mode(input: number[]): any;
+	/**
+	 * Finds the range of an array of numbers
+	 * @param {Array<number>} - The array of numbers to find the range of
+	 * @return {number} - The range of the inputted numbers
+	 */
+>>>>>>> Stashed changes
 	static range(input: number[]): number;
 }
 
@@ -523,6 +749,10 @@ export {
 	Matrix,
 	add,
 	angleEnum,
+<<<<<<< Updated upstream
+=======
+	areaEnum,
+>>>>>>> Stashed changes
 	convertBase,
 	divide,
 	energyEnum,
@@ -532,7 +762,16 @@ export {
 	massEnum,
 	multiply,
 	physicsFormulae,
+<<<<<<< Updated upstream
 	subtract,
 	temperatureEnum,
 	timeEnum,
+=======
+	pressureEnum,
+	speedEnum,
+	subtract,
+	temperatureEnum,
+	timeEnum,
+	volumeEnum,
+>>>>>>> Stashed changes
 };

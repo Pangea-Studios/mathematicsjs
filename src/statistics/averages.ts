@@ -1,11 +1,24 @@
 import { add } from '../simple/operations';
 
+/**
+ * Class to find averages of an array of numbers
+ */
 export class Averages {
+	/**
+	 * Finds the mean of an array of numbers
+	 * @param {Array<number>} - The array of numbers to find the mean of
+	 * @return {number} - The mean of the inputted numbers
+	 */
 	static mean(input: number[]) {
 		let output = add(input);
 		return (output /= input.length);
 	}
 
+	/**
+	 * Finds the median of an array of numbers
+	 * @param {Array<number>} - The array of numbers to find the median of
+	 * @return {number} - The median of the inputted numbers
+	 */
 	static median(input: number[]) {
 		let length = input.length;
 		length = length / 2;
@@ -13,6 +26,11 @@ export class Averages {
 		return input[length - 0.5] / input[length + 0.5];
 	}
 
+	/**
+	 * Finds the mode of an array of numbers
+	 * @param {Array<number>} - The array of numbers to find the mode of
+	 * @return {number} - The mode of the inputted numbers
+	 */
 	static mode(input: number[]) {
 		if (input.length === 0) {
 			return 0;
@@ -42,6 +60,11 @@ export class Averages {
 		return m[0].value;
 	}
 
+	/**
+	 * Finds the range of an array of numbers
+	 * @param {Array<number>} - The array of numbers to find the range of
+	 * @return {number} - The range of the inputted numbers
+	 */
 	static range(input: number[]) {
 		const max = input.reduce((a, b) => Math.max(a, b), -Infinity);
 		const min = input.reduce((a, b) => Math.min(a, b), -Infinity);

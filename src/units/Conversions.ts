@@ -1,3 +1,21 @@
+/**
+ * @typedef {string} TemperatureType
+ * @typedef {string} LengthType
+ * @typedef {string} AngleType
+ * @typedef {string} MassType
+ * @typedef {string} VolumeType
+ * @typedef {string} EnergyType
+ * @typedef {string} SpeedType
+ * @typedef {string} TimeType
+ * @typedef {string} AreaType
+ * @typedef {string} PressureType
+ */
+
+/**
+ * Enum for energy measurements
+ * @readonly
+ * @enum {EnergyType}
+ */
 export const energyEnum = {
 	Joules: 'JOULES',
 	Electronvolt: 'ELECTRONVOLT',
@@ -16,6 +34,11 @@ export const energyEnum = {
 	Foot_pounds: 'FOOT-POUNDS',
 } as const;
 
+/**
+ * Enum for volume measurements
+ * @readonly
+ * @enum {VolumeType}
+ */
 export const volumeEnum = {
 	Liters: 'LITERS',
 	Milliliters: 'MILLILITERS',
@@ -40,6 +63,11 @@ export const volumeEnum = {
 	Imperial_Tablespoons: 'IMPERIAL_TABLESPOONS',
 } as const;
 
+/**
+ * Enum for angle measurements
+ * @readonly
+ * @enum {AngleType}
+ */
 export const angleEnum = {
 	Arcminutes: 'ARCMINUTES',
 	Arcseconds: 'ARCSECONDS',
@@ -76,6 +104,11 @@ export const lengthEnum = {
 	Furlongs: 'FURLONGS',
 } as const;
 
+/**
+ * Enum for speed measurements
+ * @readonly
+ * @enum {SpeedType}
+ */
 export const speedEnum = {
 	Meters_per_Second: 'METERS_PER_SECOND',
 	Feet_per_Second: 'FEET_PER_SECOND',
@@ -84,6 +117,11 @@ export const speedEnum = {
 	Knots: 'KNOTS',
 } as const;
 
+/**
+ * Enum for time measurements
+ * @readonly
+ * @enum {TimeType}
+ */
 export const timeEnum = {
 	Picoseconds: 'PICOSECONDS',
 	Nanoseconds: 'NANOSECONDS',
@@ -97,6 +135,11 @@ export const timeEnum = {
 	Fortnights: 'FORTNIGHTS',
 } as const;
 
+/**
+ * Enum for area measurements
+ * @readonly
+ * @enum {AreaType}
+ */
 export const areaEnum = {
 	Square_Meters: 'SQUARE_METERS',
 	Square_Kilometers: 'SQUARE_KILOMETERS',
@@ -108,6 +151,11 @@ export const areaEnum = {
 	Hectares: 'HECTARES',
 } as const;
 
+/**
+ * Enum for mass measurements
+ * @readonly
+ * @enum {MassType}
+ */
 export const massEnum = {
 	Picograms: 'PICOGRAMS',
 	Nanograms: 'NANOGRAMS',
@@ -126,12 +174,22 @@ export const massEnum = {
 	Solar_Masses: 'SOLAR_MASSES',
 } as const;
 
+/**
+ * Enum for temperature measurements
+ * @readonly
+ * @enum {TemperatureType}
+ */
 export const temperatureEnum = {
-	Celcius: 'CELCIUS',
+	Celsius: 'CELSIUS',
 	Fahrenheit: 'FAHRENHEIT',
 	Klevin: 'KLEVIN',
 } as const;
 
+/**
+ * Enum for pressure measurements
+ * @readonly
+ * @enum {PressureType}
+ */
 export const pressureEnum = {
 	Bars: 'BARS',
 	Millibars: 'MILLIBARS',
@@ -140,13 +198,17 @@ export const pressureEnum = {
 	Pounds_per_Square_Inch: 'POUNDS_PER_SQUARE_INCH',
 	Torr: 'TORR',
 } as const;
+
+/**
+ * Class for Conversions
+ */
 export class Conversions {
 	/**
 	 * Converts an angle from one unit to another.
 	 *
 	 * @param {number} value - The value of the angle to convert.
-	 * @param {typeof angleEnum | string} fromUnit - The unit of the input angle.
-	 * @param {typeof angleEnum | string} toUnit - The desired unit of the output angle.
+	 * @param {AngleType | string} fromUnit - The unit of the input angle.
+	 * @param {AngleType | string} toUnit - The desired unit of the output angle.
 	 * @throws {Error} Unknown unit: {fromUnit} or Unknown unit: {toUnit} if the provided units are not recognized.
 	 * @return {number} The converted angle value.
 	 */
@@ -238,8 +300,8 @@ export class Conversions {
 	 * Converts a length value from one unit to another.
 	 *
 	 * @param {number} value - The value to convert.
-	 * @param {typeof lengthEnum | string} fromUnit - The unit to convert from.
-	 * @param {typeof lengthEnum | string} toUnit - The unit to convert to.
+	 * @param {LengthType | string} fromUnit - The unit to convert from.
+	 * @param {LengthType | string} toUnit - The unit to convert to.
 	 * @return {number} The converted value.
 	 */
 	static convertLength(
@@ -379,8 +441,8 @@ export class Conversions {
 	 * Converts a time value from one unit to another.
 	 *
 	 * @param {number} value - The value to convert.
-	 * @param {typeof timeEnum | string} fromUnit - The unit of the input value.
-	 * @param {typeof timeEnum | string} toUnit - The desired unit of the output value.
+	 * @param {TimeType | string} fromUnit - The unit of the input value.
+	 * @param {TimeType | string} toUnit - The desired unit of the output value.
 	 * @returns {number} - The converted value in the desired unit.
 	 */
 	static convertTime(
@@ -466,8 +528,8 @@ export class Conversions {
 	 * Converts a mass value from one unit to another.
 	 *
 	 * @param {number} value - The mass value to be converted.
-	 * @param {typeof massEnum | string} fromUnit - The unit to convert from.
-	 * @param {typeof massEnum | string} toUnit - The unit to convert to.
+	 * @param {MassType | string} fromUnit - The unit to convert from.
+	 * @param {MassType | string} toUnit - The unit to convert to.
 	 * @return {number} The converted mass value.
 	 */
 	static convertMass(
@@ -583,8 +645,8 @@ export class Conversions {
 	 * Convert an energy value from one unit to another.
 	 *
 	 * @param {number} value - the energy value to convert
-	 * @param {typeof energyEnum | string} fromUnit - the unit of the input value
-	 * @param {typeof energyEnum | string} toUnit - the desired output unit
+	 * @param {EnergyType | string} fromUnit - the unit of the input value
+	 * @param {EnergyType | string} toUnit - the desired output unit
 	 * @return {number} - the converted energy value
 	 */
 	static convertEnergy(
@@ -700,8 +762,8 @@ export class Conversions {
 	 * Converts a temperature value from one unit to another.
 	 *
 	 * @param {number} value - The temperature value to be converted.
-	 * @param {typeof temperatureEnum | string} fromUnit - The unit of the input temperature value.
-	 * @param {typeof temperatureEnum | string} toUnit - The unit of the output temperature value.
+	 * @param {TemperatureType | string} fromUnit - The unit of the input temperature value.
+	 * @param {TemperatureType | string} toUnit - The unit of the output temperature value.
 	 * @return {number} The converted temperature value in the desired unit.
 	 */
 	static convertTemperature(
@@ -745,8 +807,8 @@ export class Conversions {
 	 * Converts a speed value from one unit to another.
 	 *
 	 * @param {number} value - the value to be converted
-	 * @param {typeof speedEnum | string} fromUnit - the unit to convert from
-	 * @param {typeof speedEnum | string} toUnit - the unit to convert to
+	 * @param {SpeedType | string} fromUnit - the unit to convert from
+	 * @param {SpeedType | string} toUnit - the unit to convert to
 	 * @return {number} - the converted value
 	 */
 	static convertSpeed(
@@ -802,8 +864,8 @@ export class Conversions {
 	 * Converts a pressure value from one unit to another.
 	 *
 	 * @param {number} value - The pressure value to convert.
-	 * @param {typeof pressureEnum|string} fromUnit - The unit to convert from.
-	 * @param {typeof pressureEnum|string} toUnit - The unit to convert to.
+	 * @param {PressureType | string} fromUnit - The unit to convert from.
+	 * @param {PressureType | string} toUnit - The unit to convert to.
 	 * @return {number} The converted pressure value.
 	 */
 	static convertPressure(
@@ -865,8 +927,8 @@ export class Conversions {
 	 * Converts an area measurement from one unit to another.
 	 *
 	 * @param {number} value - The numerical value of the area measurement in the fromUnit.
-	 * @param {typeof areaEnum | string} fromUnit - The unit to convert from.
-	 * @param {typeof areaEnum | string} toUnit - The unit to convert to.
+	 * @param {AreaType | string} fromUnit - The unit to convert from.
+	 * @param {AreaType | string} toUnit - The unit to convert to.
 	 * @return {number} - The numerical value of the converted area measurement in the toUnit.
 	 */
 	static convertArea(
@@ -936,6 +998,17 @@ export class Conversions {
 		return output;
 	}
 
+<<<<<<< Updated upstream
+=======
+	/**
+	 * Converts an volume measurement from one unit to another.
+	 *
+	 * @param {number} value - The numerical value of the volume measurement in the fromUnit.
+	 * @param {VolumeType | string} fromUnit - The unit to convert from.
+	 * @param {VolumeType | string} toUnit - The unit to convert to.
+	 * @return {number} - The numerical value of the converted volume measurement in the toUnit.
+	 */
+>>>>>>> Stashed changes
 	static convertVolume(
 		value: number,
 		fromUnit: typeof volumeEnum | string,
