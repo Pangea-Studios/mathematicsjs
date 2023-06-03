@@ -1,5 +1,5 @@
-const { Indices } = require('../dist/index.cjs');
+const { Averages } = require('../dist/index.cjs')
 
-test('Multiply number to a power', () => {
-	expect(Indices.power(2, 3)).toBe(8);
+test('Mode', () => {
+	expect(Averages.mode([1,2,1,2,1])).toBe(1);
 });

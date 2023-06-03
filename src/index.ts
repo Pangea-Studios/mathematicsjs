@@ -6,3 +6,4 @@ export * from './matrices/Matrices';
 export * from './simple/operations';
 export * from './formulae/physicsFormulae';
 export * from './conversions/Conversions';
+export * from './statistics/averages';
