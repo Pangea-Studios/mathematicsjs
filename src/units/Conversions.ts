@@ -209,7 +209,6 @@ export class Conversions {
 	 * @param {number} value - The value of the angle to convert.
 	 * @param {AngleType | string} fromUnit - The unit of the input angle.
 	 * @param {AngleType | string} toUnit - The desired unit of the output angle.
-	 * @throws {Error} Unknown unit: {fromUnit} or Unknown unit: {toUnit} if the provided units are not recognized.
 	 * @return {number} The converted angle value.
 	 */
 	static convertAngle(
