@@ -30,10 +30,7 @@ Class for Conversions
 Converts an angle from one unit to another.
 
 **Kind**: static method of [<code>Conversions</code>](#Conversions)  
-**Returns**: <code>number</code> - The converted angle value.  
-**Throws**:
-
-- <code>Error</code> Unknown unit: {fromUnit} or Unknown unit: {toUnit} if the provided units are not recognized.
+**Returns**: <code>number</code> - The converted angle value. 
 
 
 | Param | Type | Description |
