@@ -14,17 +14,20 @@ Enum for mass measurements
 **Read only**: true  
 **Properties**
 
-| Name         | Type                  | Default                    |
-| ------------ | --------------------- | -------------------------- |
-| Grams        | <code>MassType</code> | <code>GRAMS</code>         |
-| Kilograms    | <code>MassType</code> | <code>KILOGRAMS</code>     |
-| Milligrams   | <code>MassType</code> | <code>MILLIGRAMS</code>    |
-| Micrograms   | <code>MassType</code> | <code>MICROGRAMS</code>    |
-| Nanograms    | <code>MassType</code> | <code>NANOGRAMS</code>     |
-| Pounds       | <code>MassType</code> | <code>POUNDS</code>        |
-| Ounces       | <code>MassType</code> | <code>OUNCES</code>        |
-| Stone        | <code>MassType</code> | <code>STONE</code>         |
-| ImperialTons | <code>MassType</code> | <code>IMPERIAL_TONS</code> |
-| USTons       | <code>MassType</code> | <code>US_TONS</code>       |
-| Tonnes       | <code>MassType</code> | <code>TONNES</code>        |
-| Picograms    | <code>MassType</code> | <code>PICOGRAMS</code>     |
+| Name          | Type                  | Default                    |
+| ------------- | --------------------- | -------------------------- |
+| Picograms     | <code>MassType</code> | <code>PICOGRAMS</code>     |
+| Nanograms     | <code>MassType</code> | <code>NANOGRAMS</code>     |
+| Micrograms    | <code>MassType</code> | <code>MICROGRAMS</code>    |
+| Milligrams    | <code>MassType</code> | <code>MILLIGRAMS</code>    |
+| Grams         | <code>MassType</code> | <code>GRAMS</code>         |
+| Kilograms     | <code>MassType</code> | <code>KILOGRAMS</code>     |
+| Metric_Tonnes | <code>MassType</code> | <code>METRIC_TONNES</code> |
+| Carats        | <code>MassType</code> | <code>CARATS</code>        |
+| Long_Tons     | <code>MassType</code> | <code>LONG_TONS</code>     |
+| Short_Tons    | <code>MassType</code> | <code>SHORT_TONS</code>    |
+| Ounces        | <code>MassType</code> | <code>OUNCES</code>        |
+| Pounds        | <code>MassType</code> | <code>POUNDS</code>        |
+| Stone         | <code>MassType</code> | <code>STONE</code>         |
+| Earth_Masses  | <code>MassType</code> | <code>EARTH_MASSES</code>  |
+| Solar_Masses  | <code>MassType</code> | <code>SOLAR_MASSES</code>  |

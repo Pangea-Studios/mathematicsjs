@@ -8,16 +8,39 @@ This reference has been auto-generated and therefore is not guaranteed to be usi
 
 ## Conversions
 
-Class containing all conversions.
+Class for Conversions
 
 **Kind**: global class
 
 -   [Conversions](#Conversions)
-    -   [.convertLength(value, fromUnit, toUnit)](#Conversions.convertLength) ⇒ <code>number</code>
-    -   [.convertTemperature(value, fromUnit, toUnit)](#Conversions.convertTemperature) ⇒ <code>number</code>
     -   [.convertAngle(value, fromUnit, toUnit)](#Conversions.convertAngle) ⇒ <code>number</code>
+    -   [.convertLength(value, fromUnit, toUnit)](#Conversions.convertLength) ⇒ <code>number</code>
+    -   [.convertTime(value, fromUnit, toUnit)](#Conversions.convertTime) ⇒ <code>number</code>
     -   [.convertMass(value, fromUnit, toUnit)](#Conversions.convertMass) ⇒ <code>number</code>
+    -   [.convertEnergy(value, fromUnit, toUnit)](#Conversions.convertEnergy) ⇒ <code>number</code>
+    -   [.convertTemperature(value, fromUnit, toUnit)](#Conversions.convertTemperature) ⇒ <code>number</code>
+    -   [.convertSpeed(value, fromUnit, toUnit)](#Conversions.convertSpeed) ⇒ <code>number</code>
+    -   [.convertPressure(value, fromUnit, toUnit)](#Conversions.convertPressure) ⇒ <code>number</code>
+    -   [.convertArea(value, fromUnit, toUnit)](#Conversions.convertArea) ⇒ <code>number</code>
     -   [.convertVolume(value, fromUnit, toUnit)](#Conversions.convertVolume) ⇒ <code>number</code>
+
+<a name="Conversions.convertAngle"></a>
+
+### Conversions.convertAngle(value, fromUnit, toUnit) ⇒ <code>number</code>
+
+Converts an angle from one unit to another.
+
+**Kind**: static method of [<code>Conversions</code>](#Conversions)  
+**Returns**: <code>number</code> - The converted angle value.  
+**Throws**:
+
+-   <code>Error</code> Unknown unit: {fromUnit} or Unknown unit: {toUnit} if the provided units are not recognized.
+
+| Param    | Type                                          | Description                           |
+| -------- | --------------------------------------------- | ------------------------------------- |
+| value    | <code>number</code>                           | The value of the angle to convert.    |
+| fromUnit | <code>AngleType</code> \| <code>string</code> | The unit of the input angle.          |
+| toUnit   | <code>AngleType</code> \| <code>string</code> | The desired unit of the output angle. |
 
 <a name="Conversions.convertLength"></a>
 
@@ -26,52 +49,28 @@ Class containing all conversions.
 Converts a length value from one unit to another.
 
 **Kind**: static method of [<code>Conversions</code>](#Conversions)  
-**Returns**: <code>number</code> - - The converted value.  
-**Throws**:
+**Returns**: <code>number</code> - The converted value.
 
--   <code>Error</code> - If the conversion is not possible or invalid unit.
+| Param    | Type                                           | Description               |
+| -------- | ---------------------------------------------- | ------------------------- |
+| value    | <code>number</code>                            | The value to convert.     |
+| fromUnit | <code>LengthType</code> \| <code>string</code> | The unit to convert from. |
+| toUnit   | <code>LengthType</code> \| <code>string</code> | The unit to convert to.   |
 
-| Param    | Type                                           | Description                |
-| -------- | ---------------------------------------------- | -------------------------- |
-| value    | <code>number</code>                            | The value to be converted. |
-| fromUnit | <code>LengthType</code> \| <code>string</code> | The unit to convert from.  |
-| toUnit   | <code>LengthType</code> \| <code>string</code> | The unit to convert to.    |
+<a name="Conversions.convertTime"></a>
 
-<a name="Conversions.convertTemperature"></a>
+### Conversions.convertTime(value, fromUnit, toUnit) ⇒ <code>number</code>
 
-### Conversions.convertTemperature(value, fromUnit, toUnit) ⇒ <code>number</code>
-
-Converts a temperature value from one unit to another.
+Converts a time value from one unit to another.
 
 **Kind**: static method of [<code>Conversions</code>](#Conversions)  
-**Returns**: <code>number</code> - The temperature value converted to the desired unit.  
-**Throws**:
+**Returns**: <code>number</code> - - The converted value in the desired unit.
 
--   <code>Error</code> - If the conversion is not possible or invalid unit.
-
-| Param    | Type                                                | Description                       |
-| -------- | --------------------------------------------------- | --------------------------------- |
-| value    | <code>number</code>                                 | The temperature value to convert. |
-| fromUnit | <code>TemperatureType</code> \| <code>string</code> | The unit of the input value.      |
-| toUnit   | <code>TemperatureType</code> \| <code>string</code> | The desired output unit.          |
-
-<a name="Conversions.convertAngle"></a>
-
-### Conversions.convertAngle(value, fromUnit, toUnit) ⇒ <code>number</code>
-
-Converts an angle value from one unit of measurement to another.
-
-**Kind**: static method of [<code>Conversions</code>](#Conversions)  
-**Returns**: <code>number</code> - The value of the input angle converted to the specified unit of measurement.  
-**Throws**:
-
--   <code>Error</code> - If the conversion is not possible or invalid unit.
-
-| Param    | Type                                          | Description                                                       |
-| -------- | --------------------------------------------- | ----------------------------------------------------------------- |
-| value    | <code>number</code>                           | The value of the angle to be converted.                           |
-| fromUnit | <code>AngleType</code> \| <code>string</code> | The unit of measurement of the input angle.                       |
-| toUnit   | <code>AngleType</code> \| <code>string</code> | The unit of measurement to which the angle needs to be converted. |
+| Param    | Type                                         | Description                           |
+| -------- | -------------------------------------------- | ------------------------------------- |
+| value    | <code>number</code>                          | The value to convert.                 |
+| fromUnit | <code>TimeType</code> \| <code>string</code> | The unit of the input value.          |
+| toUnit   | <code>TimeType</code> \| <code>string</code> | The desired unit of the output value. |
 
 <a name="Conversions.convertMass"></a>
 
@@ -80,31 +79,100 @@ Converts an angle value from one unit of measurement to another.
 Converts a mass value from one unit to another.
 
 **Kind**: static method of [<code>Conversions</code>](#Conversions)  
-**Returns**: <code>number</code> - The converted value.  
-**Throws**:
+**Returns**: <code>number</code> - The converted mass value.
 
--   <code>Error</code> - If the conversion is not possible or invalid unit.
+| Param    | Type                                         | Description                     |
+| -------- | -------------------------------------------- | ------------------------------- |
+| value    | <code>number</code>                          | The mass value to be converted. |
+| fromUnit | <code>MassType</code> \| <code>string</code> | The unit to convert from.       |
+| toUnit   | <code>MassType</code> \| <code>string</code> | The unit to convert to.         |
 
-| Param    | Type                                         | Description                |
-| -------- | -------------------------------------------- | -------------------------- |
-| value    | <code>number</code>                          | The value to be converted. |
-| fromUnit | <code>MassType</code> \| <code>string</code> | The unit to convert from.  |
-| toUnit   | <code>MassType</code> \| <code>string</code> | The unit to convert to.    |
+<a name="Conversions.convertEnergy"></a>
+
+### Conversions.convertEnergy(value, fromUnit, toUnit) ⇒ <code>number</code>
+
+Convert an energy value from one unit to another.
+
+**Kind**: static method of [<code>Conversions</code>](#Conversions)  
+**Returns**: <code>number</code> - - the converted energy value
+
+| Param    | Type                                           | Description                 |
+| -------- | ---------------------------------------------- | --------------------------- |
+| value    | <code>number</code>                            | the energy value to convert |
+| fromUnit | <code>EnergyType</code> \| <code>string</code> | the unit of the input value |
+| toUnit   | <code>EnergyType</code> \| <code>string</code> | the desired output unit     |
+
+<a name="Conversions.convertTemperature"></a>
+
+### Conversions.convertTemperature(value, fromUnit, toUnit) ⇒ <code>number</code>
+
+Converts a temperature value from one unit to another.
+
+**Kind**: static method of [<code>Conversions</code>](#Conversions)  
+**Returns**: <code>number</code> - The converted temperature value in the desired unit.
+
+| Param    | Type                                                | Description                               |
+| -------- | --------------------------------------------------- | ----------------------------------------- |
+| value    | <code>number</code>                                 | The temperature value to be converted.    |
+| fromUnit | <code>TemperatureType</code> \| <code>string</code> | The unit of the input temperature value.  |
+| toUnit   | <code>TemperatureType</code> \| <code>string</code> | The unit of the output temperature value. |
+
+<a name="Conversions.convertSpeed"></a>
+
+### Conversions.convertSpeed(value, fromUnit, toUnit) ⇒ <code>number</code>
+
+Converts a speed value from one unit to another.
+
+**Kind**: static method of [<code>Conversions</code>](#Conversions)  
+**Returns**: <code>number</code> - - the converted value
+
+| Param    | Type                                          | Description               |
+| -------- | --------------------------------------------- | ------------------------- |
+| value    | <code>number</code>                           | the value to be converted |
+| fromUnit | <code>SpeedType</code> \| <code>string</code> | the unit to convert from  |
+| toUnit   | <code>SpeedType</code> \| <code>string</code> | the unit to convert to    |
+
+<a name="Conversions.convertPressure"></a>
+
+### Conversions.convertPressure(value, fromUnit, toUnit) ⇒ <code>number</code>
+
+Converts a pressure value from one unit to another.
+
+**Kind**: static method of [<code>Conversions</code>](#Conversions)  
+**Returns**: <code>number</code> - The converted pressure value.
+
+| Param    | Type                                                              | Description                    |
+| -------- | ----------------------------------------------------------------- | ------------------------------ |
+| value    | <code>number</code>                                               | The pressure value to convert. |
+| fromUnit | [<code>PressureType</code>](#PressureType) \| <code>string</code> | The unit to convert from.      |
+| toUnit   | [<code>PressureType</code>](#PressureType) \| <code>string</code> | The unit to convert to.        |
+
+<a name="Conversions.convertArea"></a>
+
+### Conversions.convertArea(value, fromUnit, toUnit) ⇒ <code>number</code>
+
+Converts an area measurement from one unit to another.
+
+**Kind**: static method of [<code>Conversions</code>](#Conversions)  
+**Returns**: <code>number</code> - - The numerical value of the converted area measurement in the toUnit.
+
+| Param    | Type                                         | Description                                                  |
+| -------- | -------------------------------------------- | ------------------------------------------------------------ |
+| value    | <code>number</code>                          | The numerical value of the area measurement in the fromUnit. |
+| fromUnit | <code>AreaType</code> \| <code>string</code> | The unit to convert from.                                    |
+| toUnit   | <code>AreaType</code> \| <code>string</code> | The unit to convert to.                                      |
 
 <a name="Conversions.convertVolume"></a>
 
 ### Conversions.convertVolume(value, fromUnit, toUnit) ⇒ <code>number</code>
 
-Converts a volume value from one unit to another.
+Converts an volume measurement from one unit to another.
 
 **Kind**: static method of [<code>Conversions</code>](#Conversions)  
-**Returns**: <code>number</code> - The converted value.  
-**Throws**:
+**Returns**: <code>number</code> - - The numerical value of the converted volume measurement in the toUnit.
 
--   <code>Error</code> - If the conversion is not possible or invalid unit.
-
-| Param    | Type                                                          | Description                |
-| -------- | ------------------------------------------------------------- | -------------------------- |
-| value    | <code>number</code>                                           | The value to be converted. |
-| fromUnit | [<code>VolumeType</code>](#VolumeType) \| <code>string</code> | The unit to convert from.  |
-| toUnit   | [<code>VolumeType</code>](#VolumeType) \| <code>string</code> | The unit to convert to.    |
+| Param    | Type                                           | Description                                                    |
+| -------- | ---------------------------------------------- | -------------------------------------------------------------- |
+| value    | <code>number</code>                            | The numerical value of the volume measurement in the fromUnit. |
+| fromUnit | <code>VolumeType</code> \| <code>string</code> | The unit to convert from.                                      |
+| toUnit   | <code>VolumeType</code> \| <code>string</code> | The unit to convert to.                                        |
