@@ -47,6 +47,24 @@ export const timeEnum = {
 	Fortnights: 'FORTNIGHTS',
 } as const;
 
+export const massEnum = {
+	Picograms: 'PICOGRAMS',
+	Nanograms: 'NANOGRAMS',
+	Micrograms: 'MICROGRAMS',
+	Milligrams: 'MILLIGRAMS',
+	Grams: 'GRAMS',
+	Kilograms: 'KILOGRAMS',
+	Metric_Tonnes: 'METRIC_TONNES',
+	Carats: 'CARATS',
+	Long_Tons: 'LONG_TONS',
+	Short_Tons: 'SHORT_TONS',
+	Ounces: 'OUNCES',
+	Pounds: 'POUNDS',
+	Stone: 'STONE',
+	Earth_Masses: 'EARTH_MASSES',
+	Solar_Masses: 'SOLAR_MASSES',
+} as const;
+
 export class Conversions {
 	/**
 	 * Converts an angle from one unit to another.
@@ -362,6 +380,123 @@ export class Conversions {
 				break;
 			case 'FORTNIGHTS':
 				output = seconds / 1209600;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${toUnit}`);
+		}
+		return output;
+	}
+
+	/**
+	 * Converts a mass value from one unit to another.
+	 *
+	 * @param {number} value - The mass value to be converted.
+	 * @param {typeof massEnum | string} fromUnit - The unit to convert from.
+	 * @param {typeof massEnum | string} toUnit - The unit to convert to.
+	 * @return {number} The converted mass value.
+	 */
+	static convertMass(
+		value: number,
+		fromUnit: typeof massEnum | string,
+		toUnit: typeof massEnum | string,
+	): number {
+		let grams: number;
+		switch (fromUnit) {
+			case 'PICOGRAMS':
+				grams = value * 1e-12;
+				break;
+			case 'NANOGRAMS':
+				grams = value * 1e-9;
+				break;
+			case 'MICROGRAMS':
+				grams = value * 1e-6;
+				break;
+			case 'MILLIGRAMS':
+				grams = value * 0.001;
+				break;
+			case 'GRAMS':
+				grams = value * 1;
+				break;
+			case 'KILOGRAMS':
+				grams = value * 1000;
+				break;
+			case 'METRIC_TONNES':
+				grams = value * 1000000;
+				break;
+			case 'CARATS':
+				grams = value * 0.2;
+				break;
+			case 'LONG_TONS':
+				grams = value * 1016046.9088;
+				break;
+			case 'SHORT_TONS':
+				grams = value * 907184.74;
+				break;
+			case 'OUNCES':
+				grams = value * 28.349523;
+				break;
+			case 'POUNDS':
+				grams = value * 453.59237;
+				break;
+			case 'STONE':
+				grams = value * 6350.29318;
+				break;
+			case 'EARTH_MASSES':
+				grams = value * 5.98e27;
+				break;
+			case 'SOLAR_MASSES':
+				grams = value * 1.9889999999999998e33;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${fromUnit}`);
+		}
+
+		let output: number;
+		switch (toUnit) {
+			case 'PICOGRAMS':
+				output = grams / 1e-12;
+				break;
+			case 'NANOGRAMS':
+				output = grams / 1e-9;
+				break;
+			case 'MICROGRAMS':
+				output = grams / 1e-6;
+				break;
+			case 'MILLIGRAMS':
+				output = grams / 0.001;
+				break;
+			case 'GRAMS':
+				output = grams / 1;
+				break;
+			case 'KILOGRAMS':
+				output = grams / 1000;
+				break;
+			case 'METRIC_TONNES':
+				output = grams / 1000000;
+				break;
+			case 'CARATS':
+				output = grams / 0.2;
+				break;
+			case 'LONG_TONS':
+				output = grams / 1016046.9088;
+				break;
+			case 'SHORT_TONS':
+				output = grams / 907184.74;
+				break;
+			case 'OUNCES':
+				output = grams / 28.349523;
+				break;
+			case 'POUNDS':
+				output = grams / 453.59237;
+				break;
+			case 'STONE':
+				output = grams / 6350.29318;
+				break;
+			case 'EARTH_MASSES':
+				output = grams / 5.98e27;
+				break;
+			case 'SOLAR_MASSES':
+				output = grams / 1.9889999999999998e33;
 				break;
 			default:
 				throw new Error(`Unknown unit: ${toUnit}`);
