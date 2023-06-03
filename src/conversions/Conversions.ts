@@ -16,6 +16,30 @@ export const energyEnum = {
 	Foot_pounds: 'FOOT-POUNDS',
 } as const;
 
+export const volumeEnum = {
+    Liters:'LITERS',
+    Milliliters:'MILLILITERS',
+    Cubic_Meters:'CUBIC_METERS',
+    Cubic_Centimeters:'CUBIC_CENTIMETERS',
+    Cubic_Millimeters:'CUBIC_MILLIMETERS',
+    Cubic_Inches:'CUBIC_INCHES',
+    Cubic_Feet:'CUBIC_FEET',
+    US_Liquid_Gallons:'US_LIQUID_GALLONS',
+    US_Liquid_Quarts:'US_LIQUID_QUARTS',
+    US_Liquid_Pints:'US_LIQUID_PINTS',
+    US_Legal_Cups:'US_LEGAL_CUPS',
+    US_Teaspoons:'US_TEASPOONS',
+    US_Tablespoons:'US_TABLESPOONS',
+    Fluid_Ounces:'FLUID_OUNCES',
+    Imperial_Gallons:'IMPERIAL_GALLONS',
+    Imperial_Quarts:'IMPERIAL_QUARTS',
+    Imperial_Pints:'IMPERIAL_PINTS',
+    Imperial_Cups:'IMPERIAL_CUPS',
+    Imperial_Fluid_Ounces:'IMPERIAL_FLUID_OUNCES',
+    Imperial_Teaspoons:'IMPERIAL_TEASPOONS',
+    Imperial_Tablespoons:'IMPERIAL_TABLESPOONS',
+} as const;
+
 export const angleEnum = {
 	Arcminutes: 'ARCMINUTES',
 	Arcseconds: 'ARCSECONDS',
@@ -905,6 +929,148 @@ export class Conversions {
 				break;
 			case 'HECTARES':
 				output = sqrm / 10000;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${toUnit}`);
+		}
+		return output;
+	}
+
+	static convertVolume(value: number,fromUnit: typeof volumeEnum | string,toUnit: typeof volumeEnum | string,): number {
+		let liters: number;
+		switch (fromUnit) {
+			case 'LITERS':
+				liters = value * 1;
+				break;
+			case 'MILLILITERS':
+				liters = value * 0.001;
+				break;
+			case 'CUBIC_METERS':
+				liters = value * 1000;
+				break;
+			case 'CUBIC_CENTIMETERS':
+				liters = value * 0.001;
+				break;
+			case 'CUBIC_MILLIMETERS':
+				liters = value * 1e-05;
+				break;
+			case 'CUBIC_INCHES':
+				liters = value * 0.0163871;
+				break;
+			case 'CUBIC_FEET':
+				liters = value * 28.3168;
+				break;
+			case 'US_LIQUID_GALLONS':
+				liters = value * 3.78541;
+				break;
+			case 'US_LIQID_QUARTS':
+				liters = value * 0.946353;
+				break;
+			case 'US_LIQUID_PINTS':
+				liters = value * 0.473176;
+				break;
+			case 'US_LEGAL_CUPS':
+				liters = value * 0.24;
+				break;
+			case 'US_TEASPOONS':
+				liters = value * 0.00492892;
+				break;
+			case 'US_TABLESPOONS':
+				liters = value * 0.0147868;
+				break;
+			case 'FLUID_OUNCES':
+				liters = value * 0.0295735;
+				break;
+			case 'IMPERIAL_GALLONS':
+				liters = value * 4.54609;
+				break;
+			case 'IMPERIAL_QUARTS':
+				liters = value * 1.13652;
+				break;
+			case 'IMPERIAL_PINTS':
+				liters = value * 0.568261;
+				break;
+			case 'IMPERIAL_CUPS':
+				liters = value * 0.284131;
+				break;
+			case 'IMPERIAL_FLUID_OUNCES':
+				liters = value * 0.0284131;
+				break;
+			case 'IMPERIAL_TEASPOONS':
+				liters = value * 0.00591939;
+				break;
+			case 'IMPERIAL_TABLESPOONS':
+				liters = value * 0.0177582;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${fromUnit}`);
+		}
+	
+	
+		let output: number;
+		switch (toUnit) {
+			case 'LITERS':
+				output = liters / 1;
+				break;
+			case 'MILLILITERS':
+				output = liters / 0.001;
+				break;
+			case 'CUBIC_METERS':
+				output = liters / 1000;
+				break;
+			case 'CUBIC_CENTIMETERS':
+				output = liters / 0.001;
+				break;
+			case 'CUBIC_MILLIMETERS':
+				output = liters / 1e-05;
+				break;
+			case 'CUBIC_INCHES':
+				output = liters / 0.0163871;
+				break;
+			case 'CUBIC_FEET':
+				output = liters / 28.3168;
+				break;
+			case 'US_LIQUID_GALLONS':
+				output = liters / 3.78541;
+				break;
+			case 'US_LIQUID_QUARTS':
+				output = liters / 0.946353;
+				break;
+			case 'US_LIQUID_PINTS':
+				output = liters / 0.473176;
+				break;
+			case 'US_LEGAL_CUPS':
+				output = liters / 0.24;
+				break;
+			case 'US_TEASPOONS':
+				output = liters / 0.00492892;
+				break;
+			case 'US_TABLESPOONS':
+				output = liters / 0.0147868;
+				break;
+			case 'FLUID_OUNCES':
+				output = liters / 0.0295735;
+				break;
+			case 'IMPERIAL_GALLONS':
+				output = liters / 4.54609;
+				break;
+			case 'IMPERIAL_QUARTS':
+				output = liters / 1.13652;
+				break;
+			case 'IMPERIAL_PINTS':
+				output = liters / 0.568261;
+				break;
+			case 'IMPERIAL_CUPS':
+				output = liters / 0.284131;
+				break;
+			case 'IMPERIAL_FLUID_OUNCES':
+				output = liters / 0.0284131;
+				break;
+			case 'IMPERIAL_TEASPOONS':
+				output = liters / 0.00591939;
+				break;
+			case 'IMPERIAL_TABLESPOONS':
+				output = liters / 0.0177582;
 				break;
 			default:
 				throw new Error(`Unknown unit: ${toUnit}`);
