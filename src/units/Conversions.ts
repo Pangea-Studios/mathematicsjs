@@ -17,27 +17,27 @@ export const energyEnum = {
 } as const;
 
 export const volumeEnum = {
-    Liters:'LITERS',
-    Milliliters:'MILLILITERS',
-    Cubic_Meters:'CUBIC_METERS',
-    Cubic_Centimeters:'CUBIC_CENTIMETERS',
-    Cubic_Millimeters:'CUBIC_MILLIMETERS',
-    Cubic_Inches:'CUBIC_INCHES',
-    Cubic_Feet:'CUBIC_FEET',
-    US_Liquid_Gallons:'US_LIQUID_GALLONS',
-    US_Liquid_Quarts:'US_LIQUID_QUARTS',
-    US_Liquid_Pints:'US_LIQUID_PINTS',
-    US_Legal_Cups:'US_LEGAL_CUPS',
-    US_Teaspoons:'US_TEASPOONS',
-    US_Tablespoons:'US_TABLESPOONS',
-    Fluid_Ounces:'FLUID_OUNCES',
-    Imperial_Gallons:'IMPERIAL_GALLONS',
-    Imperial_Quarts:'IMPERIAL_QUARTS',
-    Imperial_Pints:'IMPERIAL_PINTS',
-    Imperial_Cups:'IMPERIAL_CUPS',
-    Imperial_Fluid_Ounces:'IMPERIAL_FLUID_OUNCES',
-    Imperial_Teaspoons:'IMPERIAL_TEASPOONS',
-    Imperial_Tablespoons:'IMPERIAL_TABLESPOONS',
+	Liters: 'LITERS',
+	Milliliters: 'MILLILITERS',
+	Cubic_Meters: 'CUBIC_METERS',
+	Cubic_Centimeters: 'CUBIC_CENTIMETERS',
+	Cubic_Millimeters: 'CUBIC_MILLIMETERS',
+	Cubic_Inches: 'CUBIC_INCHES',
+	Cubic_Feet: 'CUBIC_FEET',
+	US_Liquid_Gallons: 'US_LIQUID_GALLONS',
+	US_Liquid_Quarts: 'US_LIQUID_QUARTS',
+	US_Liquid_Pints: 'US_LIQUID_PINTS',
+	US_Legal_Cups: 'US_LEGAL_CUPS',
+	US_Teaspoons: 'US_TEASPOONS',
+	US_Tablespoons: 'US_TABLESPOONS',
+	Fluid_Ounces: 'FLUID_OUNCES',
+	Imperial_Gallons: 'IMPERIAL_GALLONS',
+	Imperial_Quarts: 'IMPERIAL_QUARTS',
+	Imperial_Pints: 'IMPERIAL_PINTS',
+	Imperial_Cups: 'IMPERIAL_CUPS',
+	Imperial_Fluid_Ounces: 'IMPERIAL_FLUID_OUNCES',
+	Imperial_Teaspoons: 'IMPERIAL_TEASPOONS',
+	Imperial_Tablespoons: 'IMPERIAL_TABLESPOONS',
 } as const;
 
 export const angleEnum = {
@@ -936,7 +936,11 @@ export class Conversions {
 		return output;
 	}
 
-	static convertVolume(value: number,fromUnit: typeof volumeEnum | string,toUnit: typeof volumeEnum | string,): number {
+	static convertVolume(
+		value: number,
+		fromUnit: typeof volumeEnum | string,
+		toUnit: typeof volumeEnum | string,
+	): number {
 		let liters: number;
 		switch (fromUnit) {
 			case 'LITERS':
@@ -952,7 +956,7 @@ export class Conversions {
 				liters = value * 0.001;
 				break;
 			case 'CUBIC_MILLIMETERS':
-				liters = value * 1e-05;
+				liters = value * 1e-5;
 				break;
 			case 'CUBIC_INCHES':
 				liters = value * 0.0163871;
@@ -1005,8 +1009,7 @@ export class Conversions {
 			default:
 				throw new Error(`Unknown unit: ${fromUnit}`);
 		}
-	
-	
+
 		let output: number;
 		switch (toUnit) {
 			case 'LITERS':
@@ -1022,7 +1025,7 @@ export class Conversions {
 				output = liters / 0.001;
 				break;
 			case 'CUBIC_MILLIMETERS':
-				output = liters / 1e-05;
+				output = liters / 1e-5;
 				break;
 			case 'CUBIC_INCHES':
 				output = liters / 0.0163871;

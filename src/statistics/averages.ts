@@ -46,6 +46,6 @@ export class Averages {
 		const max = input.reduce((a, b) => Math.max(a, b), -Infinity);
 		const min = input.reduce((a, b) => Math.min(a, b), -Infinity);
 
-		return max-min
+		return max - min;
 	}
 }
