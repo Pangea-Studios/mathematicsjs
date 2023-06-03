@@ -52,6 +52,14 @@ export const lengthEnum = {
 	Furlongs: 'FURLONGS',
 } as const;
 
+export const speedEnum = {
+	Meters_per_Second: 'METERS_PER_SECOND',
+	Feet_per_Second: 'FEET_PER_SECOND',
+	Miles_per_Hour: 'MILES_PER_HOUR',
+	Kilometers_per_hour: 'KILOMETERS_PER_HOUR',
+	Knots: 'KNOTS',
+} as const;
+
 export const timeEnum = {
 	Picoseconds: 'PICOSECONDS',
 	Nanoseconds: 'NANOSECONDS',
@@ -63,6 +71,17 @@ export const timeEnum = {
 	Days: 'DAYS',
 	Weeks: 'WEEKS',
 	Fortnights: 'FORTNIGHTS',
+} as const;
+
+export const areaEnum = {
+	Square_Meters: 'SQUARE_METERS',
+	Square_Kilometers: 'SQUARE_KILOMETERS',
+	Square_Inches: 'SQUARE_INCHES',
+	Square_Feet: 'SQUARE_FEET',
+	Square_Yards: 'SQUARE_YARDS',
+	Square_Miles: 'SQUARE_MILES',
+	Acres: 'ACRES',
+	Hectares: 'HECTARES',
 } as const;
 
 export const massEnum = {
@@ -89,6 +108,14 @@ export const temperatureEnum = {
 	Klevin: 'KLEVIN',
 } as const;
 
+export const pressureEnum = {
+	Bars: 'BARS',
+	Millibars: 'MILLIBARS',
+	Pascals: 'PASCALS',
+	Kilopascals: 'KILOPASCALS',
+	Pounds_per_Square_Inch: 'POUNDS_PER_SQUARE_INCH',
+	Torr: 'TORR',
+} as const;
 export class Conversions {
 	/**
 	 * Converts an angle from one unit to another.
@@ -683,6 +710,201 @@ export class Conversions {
 				break;
 			case 'KLEVIN':
 				output = kelvin / 1;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${toUnit}`);
+		}
+		return output;
+	}
+
+	/**
+	 * Converts a speed value from one unit to another.
+	 *
+	 * @param {number} value - the value to be converted
+	 * @param {typeof speedEnum | string} fromUnit - the unit to convert from
+	 * @param {typeof speedEnum | string} toUnit - the unit to convert to
+	 * @return {number} - the converted value
+	 */
+	static convertSpeed(
+		value: number,
+		fromUnit: typeof speedEnum | string,
+		toUnit: typeof speedEnum | string,
+	): number {
+		let mps: number;
+		switch (fromUnit) {
+			case 'METERS_PER_SECOND':
+				mps = value * 1;
+				break;
+			case 'FEET_PER_SECOND':
+				mps = value * 0.3048;
+				break;
+			case 'MILES_PER_HOUR':
+				mps = value * 0.44704;
+				break;
+			case 'KILOMETERS_PER_HOUR':
+				mps = value * 0.277778;
+				break;
+			case 'KNOTS':
+				mps = value * 0.514444;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${fromUnit}`);
+		}
+
+		let output: number;
+		switch (toUnit) {
+			case 'METERS_PER_SECOND':
+				output = mps / 1;
+				break;
+			case 'FEET_PER_SECOND':
+				output = mps / 0.3048;
+				break;
+			case 'MILES_PER_HOUR':
+				output = mps / 0.44704;
+				break;
+			case 'KILOMETERS_PER_HOUR':
+				output = mps / 0.277778;
+				break;
+			case 'KNOTS':
+				output = mps / 0.514444;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${toUnit}`);
+		}
+		return output;
+	}
+
+	/**
+	 * Converts a pressure value from one unit to another.
+	 *
+	 * @param {number} value - The pressure value to convert.
+	 * @param {typeof pressureEnum|string} fromUnit - The unit to convert from.
+	 * @param {typeof pressureEnum|string} toUnit - The unit to convert to.
+	 * @return {number} The converted pressure value.
+	 */
+	static convertPressure(
+		value: number,
+		fromUnit: typeof pressureEnum | string,
+		toUnit: typeof pressureEnum | string,
+	): number {
+		let bars: number;
+		switch (fromUnit) {
+			case 'BARS':
+				bars = value * 1;
+				break;
+			case 'MILLIBARS':
+				bars = value * 0.001;
+				break;
+			case 'PASCALS':
+				bars = value * 1e-5;
+				break;
+			case 'KILOPASCALS':
+				bars = value * 0.01;
+				break;
+			case 'POUNDS_PER_SQUARE_INCH':
+				bars = value * 0.0689476;
+				break;
+			case 'TORR':
+				bars = value * 0.00133322;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${fromUnit}`);
+		}
+
+		let output: number;
+		switch (toUnit) {
+			case 'BARS':
+				output = bars / 1;
+				break;
+			case 'MILLIBARS':
+				output = bars / 0.001;
+				break;
+			case 'PASCALS':
+				output = bars / 1e-5;
+				break;
+			case 'KILOPASCALS':
+				output = bars / 0.01;
+				break;
+			case 'POUNDS_PER_SQUARE_INCH':
+				output = bars / 0.0689476;
+				break;
+			case 'TORR':
+				output = bars / 0.00133322;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${toUnit}`);
+		}
+		return output;
+	}
+
+	/**
+	 * Converts an area measurement from one unit to another.
+	 *
+	 * @param {number} value - The numerical value of the area measurement in the fromUnit.
+	 * @param {typeof areaEnum | string} fromUnit - The unit to convert from.
+	 * @param {typeof areaEnum | string} toUnit - The unit to convert to.
+	 * @return {number} - The numerical value of the converted area measurement in the toUnit.
+	 */
+	static convertArea(
+		value: number,
+		fromUnit: typeof areaEnum | string,
+		toUnit: typeof areaEnum | string,
+	): number {
+		let sqrm: number;
+		switch (fromUnit) {
+			case 'SQUARE_METERS':
+				sqrm = value * 1;
+				break;
+			case 'SQUARE_KILOMETERS':
+				sqrm = value * 1000000;
+				break;
+			case 'SQUARE_INCHES':
+				sqrm = value * (1 / 1550);
+				break;
+			case 'SQUARE_FEET':
+				sqrm = value * (1 / 10.764);
+				break;
+			case 'SQUARE_YARDS':
+				sqrm = value * (1 / 1.196);
+				break;
+			case 'SQUARE_MILES':
+				sqrm = value * 2590000.0;
+				break;
+			case 'ACRES':
+				sqrm = value * 4046.86;
+				break;
+			case 'HECTARES':
+				sqrm = value * 10000;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${fromUnit}`);
+		}
+
+		let output: number;
+		switch (toUnit) {
+			case 'SQUARE_METERS':
+				output = sqrm / 1;
+				break;
+			case 'SQUARE_KILOMETERS':
+				output = sqrm / 1000000;
+				break;
+			case 'SQUARE_INCHES':
+				output = sqrm / (1 / 1550);
+				break;
+			case 'SQUARE_FEET':
+				output = sqrm / (1 / 10.764);
+				break;
+			case 'SQUARE_YARDS':
+				output = sqrm / (1 / 1.196);
+				break;
+			case 'SQUARE_MILES':
+				output = sqrm / 2590000.0;
+				break;
+			case 'ACRES':
+				output = sqrm / 4046.86;
+				break;
+			case 'HECTARES':
+				output = sqrm / 10000;
 				break;
 			default:
 				throw new Error(`Unknown unit: ${toUnit}`);
