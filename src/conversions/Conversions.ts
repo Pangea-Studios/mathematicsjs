@@ -83,6 +83,12 @@ export const massEnum = {
 	Solar_Masses: 'SOLAR_MASSES',
 } as const;
 
+export const temperatureEnum = {
+	Celcius: 'CELCIUS',
+	Fahrenheit: 'FAHRENHEIT',
+	Klevin: 'KLEVIN',
+} as const;
+
 export class Conversions {
 	/**
 	 * Converts an angle from one unit to another.
@@ -632,6 +638,51 @@ export class Conversions {
 				break;
 			case 'FOOT-POUNDS':
 				output = joules / 1.35582;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${toUnit}`);
+		}
+		return output;
+	}
+
+	/**
+	 * Converts a temperature value from one unit to another.
+	 *
+	 * @param {number} value - The temperature value to be converted.
+	 * @param {typeof temperatureEnum | string} fromUnit - The unit of the input temperature value.
+	 * @param {typeof temperatureEnum | string} toUnit - The unit of the output temperature value.
+	 * @return {number} The converted temperature value in the desired unit.
+	 */
+	static convertTemperature(
+		value: number,
+		fromUnit: typeof temperatureEnum | string,
+		toUnit: typeof temperatureEnum | string,
+	): number {
+		let kelvin: number;
+		switch (fromUnit) {
+			case 'CELCIUS':
+				kelvin = value + 273.15;
+				break;
+			case 'FAHRENHEIT':
+				kelvin = ((value - 32) * 5) / 9 + 273.15;
+				break;
+			case 'KLEVIN':
+				kelvin = value * 1;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${fromUnit}`);
+		}
+
+		let output: number;
+		switch (toUnit) {
+			case 'CELCIUS':
+				output = kelvin - 273.15;
+				break;
+			case 'FAHRENHEIT':
+				output = ((kelvin - 273.15) * 9) / 5 + 32;
+				break;
+			case 'KLEVIN':
+				output = kelvin / 1;
 				break;
 			default:
 				throw new Error(`Unknown unit: ${toUnit}`);
