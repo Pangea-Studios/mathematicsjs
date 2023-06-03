@@ -1,3 +1,21 @@
+export const energyEnum = {
+	Joules: 'JOULES',
+	Electronvolt: 'ELECTRONVOLT',
+	Kiloelectronvolts: 'KILOELECTRONVOLTS',
+	Megaelectronvolts: 'MEGAELECTRONVOLTS',
+	Gigaelectronvolts: 'GIGAELECTRONVOLTS',
+	Teraelectronvolts: 'TERAELECTRONVOLTS',
+	Watts: 'WATTS',
+	Watt_Hours: 'WATT_HOURS',
+	Kilowatts: 'KILOWATTS',
+	Kilowatt_Hours: 'KILOWATT_HOURS',
+	Calories: 'CALORIES',
+	Kilocalories: 'KILOCALORIES',
+	British_Thermal_Units: 'BRITISH_THERMAL_UNITS',
+	US_Therms: 'US_THERMS',
+	Foot_pounds: 'FOOT-POUNDS',
+} as const;
+
 export const angleEnum = {
 	Arcminutes: 'ARCMINUTES',
 	Arcseconds: 'ARCSECONDS',
@@ -497,6 +515,123 @@ export class Conversions {
 				break;
 			case 'SOLAR_MASSES':
 				output = grams / 1.9889999999999998e33;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${toUnit}`);
+		}
+		return output;
+	}
+
+	/**
+	 * Convert an energy value from one unit to another.
+	 *
+	 * @param {number} value - the energy value to convert
+	 * @param {typeof energyEnum | string} fromUnit - the unit of the input value
+	 * @param {typeof energyEnum | string} toUnit - the desired output unit
+	 * @return {number} - the converted energy value
+	 */
+	static convertEnergy(
+		value: number,
+		fromUnit: typeof energyEnum | string,
+		toUnit: typeof energyEnum | string,
+	): number {
+		let joules: number;
+		switch (fromUnit) {
+			case 'JOULES':
+				joules = value * 1;
+				break;
+			case 'ELECTRONVOLT':
+				joules = value * 1.6022e-19;
+				break;
+			case 'KILOELECTRONVOLTS':
+				joules = value * 1.6022000000000002e-16;
+				break;
+			case 'MEGAELECTRONVOLTS':
+				joules = value * 1.6022e-13;
+				break;
+			case 'GIGAELECTRONVOLTS':
+				joules = value * 1.6022000000000002e-10;
+				break;
+			case 'TERAELECTRONVOLTS':
+				joules = value * 1.6022000000000001e-7;
+				break;
+			case 'WATTS':
+				joules = value * 1;
+				break;
+			case 'WATT_HOURS':
+				joules = value * 3600;
+				break;
+			case 'KILOWATTS':
+				joules = value * 1000;
+				break;
+			case 'KILOWATT_HOURS':
+				joules = value * 3600000;
+				break;
+			case 'CALORIES':
+				joules = value * 4.184;
+				break;
+			case 'KILOCALORIES':
+				joules = value * 4184;
+				break;
+			case 'BRITISH_THERMAL_UNITS':
+				joules = value * 1055.06;
+				break;
+			case 'US_THERMS':
+				joules = value * 105500000.0;
+				break;
+			case 'FOOT-POUNDS':
+				joules = value * 1.35582;
+				break;
+			default:
+				throw new Error(`Unknown unit: ${fromUnit}`);
+		}
+
+		let output: number;
+		switch (toUnit) {
+			case 'JOULES':
+				output = joules / 1;
+				break;
+			case 'ELECTRONVOLT':
+				output = joules / 1.6022e-19;
+				break;
+			case 'KILOELECTRONVOLTS':
+				output = joules / 1.6022000000000002e-16;
+				break;
+			case 'MEGAELECTRONVOLTS':
+				output = joules / 1.6022e-13;
+				break;
+			case 'GIGAELECTRONVOLTS':
+				output = joules / 1.6022000000000002e-10;
+				break;
+			case 'TERAELECTRONVOLTS':
+				output = joules / 1.6022000000000001e-7;
+				break;
+			case 'WATTS':
+				output = joules / 1;
+				break;
+			case 'WATT_HOURS':
+				output = joules / 3600;
+				break;
+			case 'KILOWATTS':
+				output = joules / 1000;
+				break;
+			case 'KILOWATT_HOURS':
+				output = joules / 3600000;
+				break;
+			case 'CALORIES':
+				output = joules / 4.184;
+				break;
+			case 'KILOCALORIES':
+				output = joules / 4184;
+				break;
+			case 'BRITISH_THERMAL_UNITS':
+				output = joules / 1055.06;
+				break;
+			case 'US_THERMS':
+				output = joules / 105500000.0;
+				break;
+			case 'FOOT-POUNDS':
+				output = joules / 1.35582;
 				break;
 			default:
 				throw new Error(`Unknown unit: ${toUnit}`);
