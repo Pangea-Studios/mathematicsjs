@@ -182,7 +182,7 @@ export const massEnum = {
 export const temperatureEnum = {
 	Celsius: 'CELSIUS',
 	Fahrenheit: 'FAHRENHEIT',
-	Klevin: 'KLEVIN',
+	Kelvin: 'KELVIN',
 } as const;
 
 /**
@@ -194,6 +194,7 @@ export const pressureEnum = {
 	Bars: 'BARS',
 	Millibars: 'MILLIBARS',
 	Pascals: 'PASCALS',
+	Hectopascals: 'hPa',
 	Kilopascals: 'KILOPASCALS',
 	Pounds_per_Square_Inch: 'POUNDS_PER_SQUARE_INCH',
 	Torr: 'TORR',
@@ -772,13 +773,13 @@ export class Conversions {
 	): number {
 		let kelvin: number;
 		switch (fromUnit) {
-			case 'CELCIUS':
+			case 'CELSIUS':
 				kelvin = value + 273.15;
 				break;
 			case 'FAHRENHEIT':
 				kelvin = ((value - 32) * 5) / 9 + 273.15;
 				break;
-			case 'KLEVIN':
+			case 'KELVIN':
 				kelvin = value * 1;
 				break;
 			default:
@@ -787,13 +788,13 @@ export class Conversions {
 
 		let output: number;
 		switch (toUnit) {
-			case 'CELCIUS':
+			case 'CELSIUS':
 				output = kelvin - 273.15;
 				break;
 			case 'FAHRENHEIT':
 				output = ((kelvin - 273.15) * 9) / 5 + 32;
 				break;
-			case 'KLEVIN':
+			case 'KELVIN':
 				output = kelvin / 1;
 				break;
 			default:
