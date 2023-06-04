@@ -194,7 +194,7 @@ export const pressureEnum = {
 	Bars: 'BARS',
 	Millibars: 'MILLIBARS',
 	Pascals: 'PASCALS',
-	Hectopascals: 'hPa',
+	Hectopascals: 'HECTOPASCALS',
 	Kilopascals: 'KILOPASCALS',
 	Pounds_per_Square_Inch: 'POUNDS_PER_SQUARE_INCH',
 	Torr: 'TORR',
