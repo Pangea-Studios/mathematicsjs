@@ -7,3 +7,4 @@ export * from './core/operations';
 export * from './formulae/physicsFormulae';
 export * from './units/Conversions';
 export * from './statistics/averages';
+export * from './complex/ComplexNumbers';
