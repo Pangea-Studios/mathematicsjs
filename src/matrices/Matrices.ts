@@ -1,3 +1,10 @@
+export interface MatrixConstructor {
+	rows: number;
+	columns: number;
+	values: number[][];
+	new (rows: number, columns: number, values: number[][]): Matrix;
+}
+
 /**
  * Class to create and manipulate Matrices
  */
@@ -11,19 +18,19 @@ export class Matrix {
 		this.columns = columns;
 		this.values = values;
 	}
+
 	/**
-	 * Multiplies two matrices of different sizes.
-	 *
-	 * @param {Array<Array<number>>} matrixA - The first matrix to multiply.
-	 * @param {Array<Array<number>>} matrixB - The second matrix to multiply.
-	 * @returns {Array<Array<number>>} The resulting matrix from the multiplication.
-	 * @throws {Error} If the matrices cannot be multiplied.
+	 * Calculates the product of two matrices.
+	 * @param {MatrixConstructor} other - The matrix to multiply with.
+	 * @return {Matrix} A new matrix that is the product of this matrix and other.
+	 * @throws {Error} If the number of columns of this matrix does not match
+	 *                  the number of rows of the other matrix.
 	 */
-	multiplyMatrices(matrixA: number[][], matrixB: number[][]): number[][] {
-		const numRowsA = matrixA.length;
-		const numColsA = matrixA[0].length;
-		const numRowsB = matrixB.length;
-		const numColsB = matrixB[0].length;
+	multiply(other: MatrixConstructor): Matrix {
+		const numRowsA = this.values.length;
+		const numColsA = this.values[0].length;
+		const numRowsB = other.values.length;
+		const numColsB = other.values[0].length;
 
 		if (numColsA !== numRowsB) {
 			throw new Error('Matrices cannot be multiplied');
@@ -36,28 +43,25 @@ export class Matrix {
 			for (let j = 0; j < numColsB; j++) {
 				let sum = 0;
 				for (let k = 0; k < numColsA; k++) {
-					sum += matrixA[i][k] * matrixB[k][j];
+					sum += this.values[i][k] * other.values[k][j];
 				}
 				result[i][j] = sum;
 			}
 		}
-
-		return result;
+		return new Matrix(result.length, result[0].length, result);
 	}
 
 	/**
-	 * Adds two matrices.
-	 *
-	 * @param {Array<Array<number>>} matrixA - The first matrix to add.
-	 * @param {Array<Array<number>>} matrixB - The second matrix to add.
-	 * @returns {Array<Array<number>>} The resulting matrix from the addition.
-	 * @throws {Error} If the matrices have different dimensions.
+	 * Adds the values of two matrices together.
+	 * @param {MatrixConstructor} other - The matrix to add to this one.
+	 * @return {Matrix} A new matrix with the added values.
+	 * @throws {Error} If matrices do not have the same number of rows and columns.
 	 */
-	addMatrices(matrixA: number[][], matrixB: number[][]): number[][] {
-		const numRowsA = matrixA.length;
-		const numColsA = matrixA[0].length;
-		const numRowsB = matrixB.length;
-		const numColsB = matrixB[0].length;
+	add(other: MatrixConstructor): Matrix {
+		const numRowsA = this.values.length;
+		const numColsA = this.values[0].length;
+		const numRowsB = other.values.length;
+		const numColsB = other.values[0].length;
 
 		if (numRowsA !== numRowsB || numColsA !== numColsB) {
 			throw new Error('Matrices must have same dimensions to be added');
@@ -68,25 +72,24 @@ export class Matrix {
 		for (let i = 0; i < numRowsA; i++) {
 			result[i] = [];
 			for (let j = 0; j < numColsA; j++) {
-				result[i][j] = matrixA[i][j] + matrixB[i][j];
+				result[i][j] = this.values[i][j] + other.values[i][j];
 			}
 		}
 
-		return result;
+		return new Matrix(result.length, result[0].length, result);
 	}
+
 	/**
-	 * Divides two matrices.
-	 *
-	 * @param {number[][]} matrixA - The first matrix to divide.
-	 * @param {number[][]} matrixB - The second matrix to divide.
-	 * @returns {number[][]} The resulting matrix from the division.
-	 * @throws {Error} If the matrices have different dimensions or if any element of matrixB is zero.
+	 * Divides this matrix by another one element-wise and returns the result as a new matrix.
+	 * @param {MatrixConstructor} other - the matrix to divide by
+	 * @throws {Error} When matrices do not have the same dimensions or when dividing by 0
+	 * @return {Matrix} A new matrix that is the result of the element-wise division
 	 */
-	divideMatrices(matrixA: number[][], matrixB: number[][]): number[][] {
-		const numRowsA = matrixA.length;
-		const numColsA = matrixA[0].length;
-		const numRowsB = matrixB.length;
-		const numColsB = matrixB[0].length;
+	divide(other: MatrixConstructor): Matrix {
+		const numRowsA = this.values.length;
+		const numColsA = this.values[0].length;
+		const numRowsB = other.values.length;
+		const numColsB = other.values[0].length;
 
 		if (numRowsA !== numRowsB || numColsA !== numColsB) {
 			throw new Error('Matrices must have same dimensions to be divided');
@@ -97,29 +100,27 @@ export class Matrix {
 		for (let i = 0; i < numRowsA; i++) {
 			result[i] = [];
 			for (let j = 0; j < numColsA; j++) {
-				if (matrixB[i][j] === 0) {
+				if (other[i][j] === 0) {
 					throw new Error('Cannot divide by zero');
 				}
-				result[i][j] = matrixA[i][j] / matrixB[i][j];
+				result[i][j] = this.values[i][j] / other.values[i][j];
 			}
 		}
 
-		return result;
+		return new Matrix(result.length, result[0].length, result);
 	}
 
 	/**
-	 * Subtracts two matrices.
-	 *
-	 * @param {Array<Array<number>>} matrixA - The first matrix to subtract.
-	 * @param {Array<Array<number>>} matrixB - The second matrix to subtract.
-	 * @returns {Array<Array<number>>} The resulting matrix from the subtraction.
-	 * @throws {Error} If the matrices have different dimensions.
+	 * Subtract two matrices of the same dimensions and return the result.
+	 * @param {MatrixConstructor} other - the matrix to subtract from this one
+	 * @return {Matrix} a new matrix that is the result of the subtraction
+	 * @throws {Error} if matrices do not have the same dimensions
 	 */
-	subtractMatrices(matrixA: number[][], matrixB: number[][]): number[][] {
-		const numRowsA = matrixA.length;
-		const numColsA = matrixA[0].length;
-		const numRowsB = matrixB.length;
-		const numColsB = matrixB[0].length;
+	subtract(other: MatrixConstructor): Matrix {
+		const numRowsA = this.values.length;
+		const numColsA = this.values[0].length;
+		const numRowsB = other.values.length;
+		const numColsB = other.values[0].length;
 
 		if (numRowsA !== numRowsB || numColsA !== numColsB) {
 			throw new Error(
@@ -132,60 +133,56 @@ export class Matrix {
 		for (let i = 0; i < numRowsA; i++) {
 			result[i] = [];
 			for (let j = 0; j < numColsA; j++) {
-				result[i][j] = matrixA[i][j] - matrixB[i][j];
+				result[i][j] = this.values[i][j] - other.values[i][j];
 			}
 		}
 
-		return result;
+		return new Matrix(result.length, result[0].length, result);
 	}
 
 	/**
-	 * Multiplies a matrix by a scalar.
-	 *
-	 * @param {Array<Array<number>>} matrix - The matrix to multiply.
-	 * @param {number} scalar - The scalar to multiply the matrix by.
-	 * @returns {Array<Array<number>>} The resulting matrix from the multiplication.
+	 * Multiplies the matrix by a scalar.
+	 * @param {number} scalar - the scalar to multiply with.
+	 * @return {Matrix} a new Matrix object that is the result of the scalar multiplication.
 	 */
-	multiplyMatrixByScalar(matrix: number[][], scalar: number): number[][] {
-		const numRows = matrix.length;
-		const numCols = matrix[0].length;
+	multiplyScalar(scalar: number): Matrix {
+		const numRows = this.values.length;
+		const numCols = this.values[0].length;
 
 		const result = [];
 
 		for (let i = 0; i < numRows; i++) {
 			result[i] = [];
 			for (let j = 0; j < numCols; j++) {
-				result[i][j] = matrix[i][j] * scalar;
+				result[i][j] = this.values[i][j] * scalar;
 			}
 		}
 
-		return result;
+		return new Matrix(result.length, result[0].length, result);
 	}
 	/**
-	 * Divides a matrix by a scalar.
-	 *
-	 * @param {Array<Array<number>>} matrix - The matrix to divide.
-	 * @param {number} scalar - The scalar to divide the matrix by.
-	 * @returns {Array<Array<number>>} The resulting matrix from the division.
-	 * @throws {Error} If the scalar is zero.
+	 * Divides every element in the matrix by a scalar.
+	 * @param {number} scalar - the scalar to divide by
+	 * @return {Matrix} a new matrix with the results of the division
+	 * @throws {Error} if scalar is zero
 	 */
-	divideMatrixByScalar(matrix: number[][], scalar: number): number[][] {
+	divideScalar(scalar: number): Matrix {
 		if (scalar === 0) {
 			throw new Error('Cannot divide by zero');
 		}
 
-		const numRows = matrix.length;
-		const numCols = matrix[0].length;
+		const numRows = this.values.length;
+		const numCols = this.values[0].length;
 
 		const result = [];
 
 		for (let i = 0; i < numRows; i++) {
 			result[i] = [];
 			for (let j = 0; j < numCols; j++) {
-				result[i][j] = matrix[i][j] / scalar;
+				result[i][j] = this.values[i][j] / scalar;
 			}
 		}
 
-		return result;
+		return new Matrix(result.length, result[0].length, result);
 	}
 }
