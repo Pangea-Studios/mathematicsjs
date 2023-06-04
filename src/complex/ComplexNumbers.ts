@@ -1,19 +1,13 @@
-export interface ComplexNumberConstructor {
-	real: number;
-	imaginary: number;
-	new (real: number, imaginary: number): ComplexNumber;
-}
-
 export class ComplexNumber {
-	private real: number;
-	private imaginary: number;
+	public real: number;
+	public imaginary: number;
 
 	constructor(real: number, imaginary: number) {
 		this.real = real;
 		this.imaginary = imaginary;
 	}
 
-	multiply(other: ComplexNumberConstructor): ComplexNumber {
+	multiply(other: ComplexNumber): ComplexNumber {
 		const real = this.real * other.real - this.imaginary * other.imaginary;
 		const imaginary =
 			this.real * other.imaginary + this.imaginary * other.real;
@@ -24,19 +18,19 @@ export class ComplexNumber {
 		return this.imaginary;
 	}
 
-	add(other: ComplexNumberConstructor): ComplexNumber {
+	add(other: ComplexNumber): ComplexNumber {
 		const real = this.real + other.real;
 		const imaginary = this.imaginary + other.imaginary;
 		return new ComplexNumber(real, imaginary);
 	}
 
-	subtract(other: ComplexNumberConstructor): ComplexNumber {
+	subtract(other: ComplexNumber): ComplexNumber {
 		const real = this.real - other.real;
 		const imaginary = this.imaginary - other.imaginary;
 		return new ComplexNumber(real, imaginary);
 	}
 
-	divide(other: ComplexNumberConstructor): ComplexNumber {
+	divide(other: ComplexNumber): ComplexNumber {
 		const denominator =
 			other.real * other.real + other.imaginary * other.imaginary;
 		const real =

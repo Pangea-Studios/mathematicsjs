@@ -111,3 +111,5 @@ export function divide(inputs: OperationsInput[]) {
 	}
 	return total;
 }
+
+export function summation()

@@ -1,4 +1,4 @@
-import { add } from '../core/operations';
+import { add } from '../core/Operations';
 
 /**
  * Class to find averages of an array of numbers

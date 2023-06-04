@@ -3,7 +3,7 @@ export * from './core/Fraction';
 export * from './util';
 export * from './2dshapes/circle';
 export * from './matrices/Matrices';
-export * from './core/operations';
+export * from './core/Operations';
 export * from './formulae/physicsFormulae';
 export * from './units/Conversions';
 export * from './statistics/averages';
