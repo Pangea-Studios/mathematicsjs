@@ -1,5 +1,3 @@
-
-
 export const lengthUnits = {
     Picometers: 'pm',
     Nanometers: 'nm',
@@ -128,13 +126,13 @@ export const massUnits = {
 	Solar_Masses: 'M☉',
 } as const;
 
-export const temperatureEnum = {
+export const temperatureUnits = {
 	Celsius: '°C',
 	Fahrenheit: '°F',
 	Kelvin: 'K',
 } as const;
 
-export const pressureEnum = {
+export const pressureUnits = {
 	Bars: 'bar',
 	Millibars: 'mbar',
 	Pascals: 'Pa',
