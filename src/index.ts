@@ -8,3 +8,5 @@ export * from './formulae/physicsFormulae';
 export * from './units/Conversions';
 export * from './statistics/averages';
 export * from './complex/ComplexNumbers';
+export * from './equations/Equation';
+export * from './equations/Summation';
