@@ -8,6 +8,7 @@ export class Equation {
 	 * @param {object} variables - an object containing variable names and their values
 	 * @return {number|string} - the result of the evaluation or 'Error'/'Error: Mismatched Brackets'
 	 */
+
 	static evaluate(equation: string, variables: object) {
 		if (equation === '' || !equation) {
 			return 'Error';
@@ -149,5 +150,17 @@ export class Equation {
 		}
 
 		return evaluateNoBrackets(EquationArray2);
+	}
+
+	static solve(equation: string, variable: string): number {
+		if (equation === '' || !equation) {
+			return 'Error';
+		}
+	}
+
+	static rearrange(equation: string, makeSubject: string): number {
+		if (equation === '' || !equation) {
+			return 'Error';
+		}
 	}
 }
