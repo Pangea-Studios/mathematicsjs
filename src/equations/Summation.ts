@@ -17,6 +17,15 @@ export class Summation {
 		return result;
 	}
 
+	/**
+	 * Calculates the multiplicative summation of the given equation for a given range.
+	 *
+	 * @param {string} equation - the equation to be evaluated
+	 * @param {number} start - the start value of the range
+	 * @param {number} end - the end value of the range
+	 * @param {number} interval - the interval between each value in the range
+	 * @return {number} the result of the multiplicative summation
+	 */
 	static MultiplicativeSummation(equation: string, start: number,end: number,interval: number,): number {
 		let result = 0;
 		for (let n = start; n <= end; n += interval) {

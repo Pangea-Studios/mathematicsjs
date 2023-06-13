@@ -1,10 +1,4 @@
 export class Equation {
-	readonly Equation: string;
-	readonly Variables: string[];
-	constructor(equation: string, variables: string[]) {
-		this.Equation = equation;
-		this.Variables = variables;
-	}
 	/**
 	 * Evaluates the given mathematical equation string, using the provided variables object,
 	 * and returns the result. If the equation is empty or null, returns 'Error'. If there are
