@@ -10,7 +10,7 @@ export class Fraction {
 	public simplifiedDenominator: number;
 
 	/**
-	 * Creates the fraction
+	 * Creates the fraction.
 	 * @param {number} numerator - The numerator(upper number) of the fraction
 	 * @param {number} denominator - The denominator(lower number) of the fraction
 	 * @example <caption>Example - Create Fraction</caption>
@@ -31,7 +31,7 @@ export class Fraction {
 	}
 
 	/**
-	 * Simplify the number
+	 * Simplify the number.
 	 * @example <caption>Example - Simplify Fraction</caption>
 	 * // Returns [1,2]
 	 * const myFraction = new Fraction(3,6)
@@ -46,7 +46,7 @@ export class Fraction {
 	}
 
 	/**
-	 * Converts the fraction to a decimal
+	 * Converts the fraction to a decimal.
 	 * @example <caption>Example - Convert Fraction to Decimal</caption>
 	 * // returns 0.5
 	 * const myFraction = new Fraction(3,6)
@@ -58,7 +58,7 @@ export class Fraction {
 	}
 
 	/**
-	 * Converts the fraction to a percentage
+	 * Converts the fraction to a percentage.
 	 * @example <caption>Example - Convert Fraction to Percentage</caption>
 	 * // returns 50
 	 * const myFraction = new Fraction(3,6)
@@ -70,7 +70,7 @@ export class Fraction {
 	}
 
 	/**
-	 * Converts the fraction to a string
+	 * Converts the fraction to a string.
 	 * @example <caption>Example - Convert Fraction to String</caption>
 	 * // returns "3/6"
 	 * const myFraction = new Fraction(3,6)
@@ -82,7 +82,7 @@ export class Fraction {
 	}
 
 	/**
-	 * Converts the fraction to a simplified string
+	 * Converts the fraction to a simplified string.
 	 * @example <caption>Example - Convert Fraction Simplified String</caption>
 	 * // returns "1/2"
 	 * const myFraction = new Fraction(3,6)

@@ -1,5 +1,4 @@
-import { Summation } from './Summation';
-import { Factorial } from '../core/Operations';
+import { Factorial } from '../core/operations';
 
 export class Equations {
 	/**
@@ -17,10 +16,11 @@ export class Equations {
 			return 'Error';
 		}
 
-		let EquationArray1 = equation.replace(/\s/g, '').split('');
-		let EquationArray2 = [];
+		const EquationArray1 = equation.replace(/\s/g, '').split('');
+		const EquationArray2 = [];
 		let current = '';
 
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const evaluateNoBrackets = (array: any[]) => {
 			while (array.length !== 1) {
 				for (let i = 0; i < array.length; i++) {
@@ -78,6 +78,7 @@ export class Equations {
 			return array[0];
 		};
 
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const find = (array: any[] | string, target: any) => {
 			let count = 0;
 			if (Array.isArray(array)) {

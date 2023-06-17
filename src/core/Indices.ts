@@ -3,7 +3,7 @@
  */
 export class Indices {
 	/**
-	 * Returns the inputted number multiplied by itself the specified amount of times
+	 * Returns the inputted number multiplied by itself the specified amount of times.
 	 * @param {number} number - The number to multiply by itself
 	 * @param {(number|object)} [power=2] - The amount of times to multiply number by itself
 	 * @example <caption>Example 1 - Without specifying a power</caption>
@@ -45,11 +45,11 @@ export class Indices {
 	/**
 	 * Calculates the nth root of a given number.
 	 *
-	 * @param {number} number - the number to calculate the nth root of.
+	 * @param {number} number - the number to calculate the nth root o
 	 * @param {number} root - the root to use for the calculation.
-	 * @return {number} the result of the nth root calculation.
+	 * @return {number} the result of the nth root calculation
 	 */
-	static root(number: number, root: number = 2): number {
+	static root(number: number, root = 2): number {
 		// TODO: object compatibility
 		return this.power(number, 1 / root);
 	}

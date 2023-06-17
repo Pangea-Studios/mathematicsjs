@@ -13,6 +13,13 @@ export class Matrix {
 	public rows: number;
 	public values: number[][];
 
+	/**
+	 * Creates a new matrix
+	 *
+	 * @param {number} rows - The number of rows
+	 * @param {number} columns - The number of columns
+	 * @param {Array.<Array.<number>>} values - The values of the matrix
+	 */
 	constructor(rows: number, columns: number, values: number[][]) {
 		this.rows = rows;
 		this.columns = columns;
@@ -23,8 +30,7 @@ export class Matrix {
 	 * Calculates the product of two matrices.
 	 * @param {MatrixConstructor} other - The matrix to multiply with.
 	 * @return {Matrix} A new matrix that is the product of this matrix and other.
-	 * @throws {Error} If the number of columns of this matrix does not match
-	 *                  the number of rows of the other matrix.
+	 * @throws {Error} If the number of columns of this matrix does not match the number of rows of the other matrix.
 	 */
 	multiply(other: MatrixConstructor): Matrix {
 		const numRowsA = this.values.length;

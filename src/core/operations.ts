@@ -3,8 +3,8 @@ type OperationsInput = number | { numerator: number; denominator: number };
 /**
  * Calculates the sum of all numbers and fraction inputs.
  *
- * @param {Array.<number | {numerator: number, denominator: number}>} inputs - An array of OperationsInput objects.
- * @return {number} The sum of all numbers and fractions.
+ * @param {Array.<number | {numerator: number, denominator: number}>} inputs - An array of OperationsInput objects
+ * @return {number} The sum of all numbers and fractions
  */
 export function add(inputs: OperationsInput[]) {
 	let total: number;
@@ -25,8 +25,8 @@ export function add(inputs: OperationsInput[]) {
 /**
  * Subtracts all the numbers and fractions in the given array of operations.
  *
- * @param {Array.<number | {numerator: number, denominator: number}>} inputs - An array of numbers and fractions to subtract.
- * @return {number} The result of subtracting all the inputs.
+ * @param {Array.<number | {numerator: number, denominator: number}>} inputs - An array of numbers and fractions to subtract
+ * @return {number} The result of subtracting all the inputs
  */
 export function subtract(inputs: OperationsInput[]) {
 	let total: number = null;
@@ -55,8 +55,8 @@ export function subtract(inputs: OperationsInput[]) {
 /**
  * Multiplies a list of numbers and/or fractions.
  *
- * @param {Array.<number | {numerator: number, denominator: number}>} inputs - An array of numbers and/or fractions to multiply.
- * @return {number} The result of multiplying all inputs together.
+ * @param {Array.<number | {numerator: number, denominator: number}>} inputs - An array of numbers and/or fractions to multiply
+ * @return {number} The result of multiplying all inputs together
  */
 export function multiply(inputs: OperationsInput[]) {
 	let total: number = null;
@@ -85,8 +85,8 @@ export function multiply(inputs: OperationsInput[]) {
 /**
  * Divides a list of numbers and/or fractions and returns the result.
  *
- * @param {Array.<number | {numerator: number, denominator: number}>} inputs - An array of numbers and/or objects with a numerator and denominator.
- * @return {number} - The result of dividing all the numbers/fractions in the input array.
+ * @param {Array.<number | {numerator: number, denominator: number}>} inputs - An array of numbers and/or objects with a numerator and denominator
+ * @return {number} - The result of dividing all the numbers/fractions in the input array
  */
 export function divide(inputs: OperationsInput[]) {
 	let total: number = null;
@@ -115,7 +115,7 @@ export function divide(inputs: OperationsInput[]) {
 /**
  * Returns the absolute value of a number.
  *
- * @param {number} x - The number to get the absolute value of.
+ * @param {number} x - The number to get the absolute value o
  * @return {number} The absolute value of the input number.
  */
 export function Absolute(x) {
@@ -128,8 +128,8 @@ export function Absolute(x) {
 /**
  * Calculates the factorial of a given number.
  *
- * @param {number} x - The number to calculate the factorial of.
- * @return {number} The factorial of the given number.
+ * @param {number} x - The number to calculate the factorial of
+ * @return {number} The factorial of the given number
  */
 export function Factorial(x) {
 	let result: number;

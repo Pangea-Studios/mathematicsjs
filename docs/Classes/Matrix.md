@@ -1,3 +1,4 @@
+
 :::caution
 
 This reference has been auto-generated and therefore is not guaranteed to be using the stable release.
@@ -7,114 +8,120 @@ This reference has been auto-generated and therefore is not guaranteed to be usi
 <a name="Matrix"></a>
 
 ## Matrix
-
 Class to create and manipulate Matrices
 
-**Kind**: global class
+**Kind**: global class  
 
--   [Matrix](#Matrix)
-    -   [.multiplyMatrices(matrixA, matrixB)](#Matrix+multiplyMatrices) ⇒ <code>Array.&lt;Array.&lt;number&gt;&gt;</code>
-    -   [.addMatrices(matrixA, matrixB)](#Matrix+addMatrices) ⇒ <code>Array.&lt;Array.&lt;number&gt;&gt;</code>
-    -   [.divideMatrices(matrixA, matrixB)](#Matrix+divideMatrices) ⇒ <code>Array.&lt;Array.&lt;number&gt;&gt;</code>
-    -   [.subtractMatrices(matrixA, matrixB)](#Matrix+subtractMatrices) ⇒ <code>Array.&lt;Array.&lt;number&gt;&gt;</code>
-    -   [.multiplyMatrixByScalar(matrix, scalar)](#Matrix+multiplyMatrixByScalar) ⇒ <code>Array.&lt;Array.&lt;number&gt;&gt;</code>
-    -   [.divideMatrixByScalar(matrix, scalar)](#Matrix+divideMatrixByScalar) ⇒ <code>Array.&lt;Array.&lt;number&gt;&gt;</code>
+* [Matrix](#Matrix)
+    * [new Matrix(rows, columns, values)](#new_Matrix_new)
+    * [.multiply(other)](#Matrix+multiply) ⇒ [<code>Matrix</code>](#Matrix)
+    * [.add(other)](#Matrix+add) ⇒ [<code>Matrix</code>](#Matrix)
+    * [.divide(other)](#Matrix+divide) ⇒ [<code>Matrix</code>](#Matrix)
+    * [.subtract(other)](#Matrix+subtract) ⇒ [<code>Matrix</code>](#Matrix)
+    * [.multiplyScalar(scalar)](#Matrix+multiplyScalar) ⇒ [<code>Matrix</code>](#Matrix)
+    * [.divideScalar(scalar)](#Matrix+divideScalar) ⇒ [<code>Matrix</code>](#Matrix)
 
-<a name="Matrix+multiplyMatrices"></a>
+<a name="new_Matrix_new"></a>
 
-### matrix.multiplyMatrices(matrixA, matrixB) ⇒ <code>Array.&lt;Array.&lt;number&gt;&gt;</code>
+### new Matrix(rows, columns, values)
+Creates a new matrix
 
-Multiplies two matrices of different sizes.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| rows | <code>number</code> | The number of rows |
+| columns | <code>number</code> | The number of columns |
+| values | <code>Array.&lt;Array.&lt;number&gt;&gt;</code> | The values of the matrix |
+
+<a name="Matrix+multiply"></a>
+
+### matrix.multiply(other) ⇒ [<code>Matrix</code>](#Matrix)
+Calculates the product of two matrices.
 
 **Kind**: instance method of [<code>Matrix</code>](#Matrix)  
-**Returns**: <code>Array.&lt;Array.&lt;number&gt;&gt;</code> - The resulting matrix from the multiplication.  
+**Returns**: [<code>Matrix</code>](#Matrix) - A new matrix that is the product of this matrix and other.  
 **Throws**:
 
--   <code>Error</code> If the matrices cannot be multiplied.
+- <code>Error</code> If the number of columns of this matrix does not match the number of rows of the other matrix.
 
-| Param   | Type                                            | Description                    |
-| ------- | ----------------------------------------------- | ------------------------------ |
-| matrixA | <code>Array.&lt;Array.&lt;number&gt;&gt;</code> | The first matrix to multiply.  |
-| matrixB | <code>Array.&lt;Array.&lt;number&gt;&gt;</code> | The second matrix to multiply. |
 
-<a name="Matrix+addMatrices"></a>
+| Param | Type | Description |
+| --- | --- | --- |
+| other | <code>MatrixConstructor</code> | The matrix to multiply with. |
 
-### matrix.addMatrices(matrixA, matrixB) ⇒ <code>Array.&lt;Array.&lt;number&gt;&gt;</code>
+<a name="Matrix+add"></a>
 
-Adds two matrices.
+### matrix.add(other) ⇒ [<code>Matrix</code>](#Matrix)
+Adds the values of two matrices together.
 
 **Kind**: instance method of [<code>Matrix</code>](#Matrix)  
-**Returns**: <code>Array.&lt;Array.&lt;number&gt;&gt;</code> - The resulting matrix from the addition.  
+**Returns**: [<code>Matrix</code>](#Matrix) - A new matrix with the added values.  
 **Throws**:
 
--   <code>Error</code> If the matrices have different dimensions.
+- <code>Error</code> If matrices do not have the same number of rows and columns.
 
-| Param   | Type                                            | Description               |
-| ------- | ----------------------------------------------- | ------------------------- |
-| matrixA | <code>Array.&lt;Array.&lt;number&gt;&gt;</code> | The first matrix to add.  |
-| matrixB | <code>Array.&lt;Array.&lt;number&gt;&gt;</code> | The second matrix to add. |
 
-<a name="Matrix+divideMatrices"></a>
+| Param | Type | Description |
+| --- | --- | --- |
+| other | <code>MatrixConstructor</code> | The matrix to add to this one. |
 
-### matrix.divideMatrices(matrixA, matrixB) ⇒ <code>Array.&lt;Array.&lt;number&gt;&gt;</code>
+<a name="Matrix+divide"></a>
 
-Divides two matrices.
+### matrix.divide(other) ⇒ [<code>Matrix</code>](#Matrix)
+Divides this matrix by another one element-wise and returns the result as a new matrix.
 
 **Kind**: instance method of [<code>Matrix</code>](#Matrix)  
-**Returns**: <code>Array.&lt;Array.&lt;number&gt;&gt;</code> - The resulting matrix from the division.  
+**Returns**: [<code>Matrix</code>](#Matrix) - A new matrix that is the result of the element-wise division  
 **Throws**:
 
--   <code>Error</code> If the matrices have different dimensions or if any element of matrixB is zero.
+- <code>Error</code> When matrices do not have the same dimensions or when dividing by 0
 
-| Param   | Type                                            | Description                  |
-| ------- | ----------------------------------------------- | ---------------------------- |
-| matrixA | <code>Array.&lt;Array.&lt;number&gt;&gt;</code> | The first matrix to divide.  |
-| matrixB | <code>Array.&lt;Array.&lt;number&gt;&gt;</code> | The second matrix to divide. |
 
-<a name="Matrix+subtractMatrices"></a>
+| Param | Type | Description |
+| --- | --- | --- |
+| other | <code>MatrixConstructor</code> | the matrix to divide by |
 
-### matrix.subtractMatrices(matrixA, matrixB) ⇒ <code>Array.&lt;Array.&lt;number&gt;&gt;</code>
+<a name="Matrix+subtract"></a>
 
-Subtracts two matrices.
+### matrix.subtract(other) ⇒ [<code>Matrix</code>](#Matrix)
+Subtract two matrices of the same dimensions and return the result.
 
 **Kind**: instance method of [<code>Matrix</code>](#Matrix)  
-**Returns**: <code>Array.&lt;Array.&lt;number&gt;&gt;</code> - The resulting matrix from the subtraction.  
+**Returns**: [<code>Matrix</code>](#Matrix) - a new matrix that is the result of the subtraction  
 **Throws**:
 
--   <code>Error</code> If the matrices have different dimensions.
+- <code>Error</code> if matrices do not have the same dimensions
 
-| Param   | Type                                            | Description                    |
-| ------- | ----------------------------------------------- | ------------------------------ |
-| matrixA | <code>Array.&lt;Array.&lt;number&gt;&gt;</code> | The first matrix to subtract.  |
-| matrixB | <code>Array.&lt;Array.&lt;number&gt;&gt;</code> | The second matrix to subtract. |
 
-<a name="Matrix+multiplyMatrixByScalar"></a>
+| Param | Type | Description |
+| --- | --- | --- |
+| other | <code>MatrixConstructor</code> | the matrix to subtract from this one |
 
-### matrix.multiplyMatrixByScalar(matrix, scalar) ⇒ <code>Array.&lt;Array.&lt;number&gt;&gt;</code>
+<a name="Matrix+multiplyScalar"></a>
 
-Multiplies a matrix by a scalar.
-
-**Kind**: instance method of [<code>Matrix</code>](#Matrix)  
-**Returns**: <code>Array.&lt;Array.&lt;number&gt;&gt;</code> - The resulting matrix from the multiplication.
-
-| Param  | Type                                            | Description                           |
-| ------ | ----------------------------------------------- | ------------------------------------- |
-| matrix | <code>Array.&lt;Array.&lt;number&gt;&gt;</code> | The matrix to multiply.               |
-| scalar | <code>number</code>                             | The scalar to multiply the matrix by. |
-
-<a name="Matrix+divideMatrixByScalar"></a>
-
-### matrix.divideMatrixByScalar(matrix, scalar) ⇒ <code>Array.&lt;Array.&lt;number&gt;&gt;</code>
-
-Divides a matrix by a scalar.
+### matrix.multiplyScalar(scalar) ⇒ [<code>Matrix</code>](#Matrix)
+Multiplies the matrix by a scalar.
 
 **Kind**: instance method of [<code>Matrix</code>](#Matrix)  
-**Returns**: <code>Array.&lt;Array.&lt;number&gt;&gt;</code> - The resulting matrix from the division.  
+**Returns**: [<code>Matrix</code>](#Matrix) - a new Matrix object that is the result of the scalar multiplication.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| scalar | <code>number</code> | the scalar to multiply with. |
+
+<a name="Matrix+divideScalar"></a>
+
+### matrix.divideScalar(scalar) ⇒ [<code>Matrix</code>](#Matrix)
+Divides every element in the matrix by a scalar.
+
+**Kind**: instance method of [<code>Matrix</code>](#Matrix)  
+**Returns**: [<code>Matrix</code>](#Matrix) - a new matrix with the results of the division  
 **Throws**:
 
--   <code>Error</code> If the scalar is zero.
+- <code>Error</code> if scalar is zero
 
-| Param  | Type                                            | Description                         |
-| ------ | ----------------------------------------------- | ----------------------------------- |
-| matrix | <code>Array.&lt;Array.&lt;number&gt;&gt;</code> | The matrix to divide.               |
-| scalar | <code>number</code>                             | The scalar to divide the matrix by. |
+
+| Param | Type | Description |
+| --- | --- | --- |
+| scalar | <code>number</code> | the scalar to divide by |
+

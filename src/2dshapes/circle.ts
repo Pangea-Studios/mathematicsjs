@@ -1,5 +1,7 @@
+import { Constants } from '../units/Constants';
+
 /**
- * Creates a circle
+ * Creates a circle.
  * @param {Object} options
  * @param {number} [options.radius] - The radius of the circle
  * @param {number} [options.diameter] - The diameter of the circle
@@ -32,7 +34,7 @@ export class Circle {
 	public radius: number;
 
 	/**
-	 * Gets the circumference
+	 * Gets the circumference.
 	 * @type {number}
 	 * @example <caption>Example - Get Circumference</caption>
 	 * // returns 3.14
@@ -43,7 +45,7 @@ export class Circle {
 	readonly circumference: number;
 
 	/**
-	 * Gets the diameter
+	 * Gets the diameter.
 	 * @type {number}
 	 * @example <caption>Example - Get Diameter</caption>
 	 * // returns 2
@@ -54,7 +56,7 @@ export class Circle {
 	readonly diameter: number;
 
 	/**
-	 * Gets the area
+	 * Gets the area.
 	 * @type {number}
 	 * @example <caption>Example - Get Area</caption>
 	 * // returns 3.14
@@ -65,18 +67,7 @@ export class Circle {
 	readonly area: number;
 
 	/**
-	 * Gets the value of pi
-	 * @type {number}
-	 * @example <caption>Example - Get Pi</caption>
-	 * // returns 3.14
-	 * Circle.pi
-	 * @returns {number}
-	 * @see https://en.wikipedia.org/wiki/Pi
-	 */
-	readonly pi: number = Math.PI;
-
-	/**
-	 * Creates a circle
+	 * Creates a circle.
 	 * @param {Object} options
 	 * @param {number} options.radius - The radius of the circle
 	 * @param {number} options.diameter - The diameter of the circle
@@ -124,22 +115,22 @@ export class Circle {
 		if (radius) {
 			this.radius = radius;
 			this.diameter = radius * 2;
-			this.circumference = 2 * Math.PI * this.radius;
-			this.area = Math.PI * this.radius * this.radius;
+			this.circumference = 2 * Constants.pi * this.radius;
+			this.area = Constants.pi * this.radius * this.radius;
 		} else if (diameter) {
 			this.radius = diameter / 2;
 			this.diameter = diameter;
-			this.circumference = 2 * Math.PI * this.radius;
-			this.area = Math.PI * this.radius * this.radius;
+			this.circumference = 2 * Constants.pi * this.radius;
+			this.area = Constants.pi * this.radius * this.radius;
 		} else if (circumference) {
-			this.radius = circumference / Math.PI / 2;
+			this.radius = circumference / Constants.pi / 2;
 			this.diameter = this.radius * 2;
 			this.circumference = circumference;
-			this.area = Math.PI * this.radius * this.radius;
+			this.area = Constants.pi * this.radius * this.radius;
 		} else if (area) {
-			this.radius = Math.sqrt(area / Math.PI);
+			this.radius = Math.sqrt(area / Constants.pi);
 			this.diameter = this.radius * 2;
-			this.circumference = 2 * Math.PI * this.radius;
+			this.circumference = 2 * Constants.pi * this.radius;
 			this.area = area;
 		} else {
 			throw new Error(

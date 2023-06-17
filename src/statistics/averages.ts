@@ -1,4 +1,4 @@
-import { add } from '../core/Operations';
+import { add } from '../core/operations';
 
 /**
  * Class to find averages of an array of numbers
@@ -6,7 +6,7 @@ import { add } from '../core/Operations';
 export class Averages {
 	/**
 	 * Finds the mean of an array of numbers
-	 * @param {Array<number>} - The array of numbers to find the mean of
+	 * @param {Array.<number>} - The array of numbers to find the mean of
 	 * @return {number} - The mean of the inputted numbers
 	 */
 	static mean(input: number[]) {
@@ -16,7 +16,7 @@ export class Averages {
 
 	/**
 	 * Finds the median of an array of numbers
-	 * @param {Array<number>} - The array of numbers to find the median of
+	 * @param {Array.<number>} - The array of numbers to find the median of
 	 * @return {number} - The median of the inputted numbers
 	 */
 	static median(input: number[]) {
@@ -28,7 +28,7 @@ export class Averages {
 
 	/**
 	 * Finds the mode of an array of numbers
-	 * @param {Array<number>} - The array of numbers to find the mode of
+	 * @param {Array.<number>} - The array of numbers to find the mode of
 	 * @return {number} - The mode of the inputted numbers
 	 */
 	static mode(input: number[]) {
@@ -62,7 +62,7 @@ export class Averages {
 
 	/**
 	 * Finds the range of an array of numbers
-	 * @param {Array<number>} - The array of numbers to find the range of
+	 * @param {Array.<number>} - The array of numbers to find the range of
 	 * @return {number} - The range of the inputted numbers
 	 */
 	static range(input: number[]) {
