@@ -12,3 +12,4 @@ export * from './equations/Equations';
 export * from './equations/Summation';
 export * from './units/Constants';
 export * from './equations/Logarithms';
+export * from './trigonometry/Functions';
