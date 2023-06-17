@@ -1,4 +1,4 @@
-import { Equation } from "./Equation";
+import { Equation } from './Equation';
 export class Summation {
 	/**
 	 * Calculates the additive summation of an equation for a given range and interval.
@@ -9,10 +9,15 @@ export class Summation {
 	 * @param {number} interval - The increment between each value of 'n'.
 	 * @return {number} The result of the additive summation of the equation for the given range and interval.
 	 */
-	static AdditiveSummation(equation: string, start: number,end: number,interval: number,): number {
+	static AdditiveSummation(
+		equation: string,
+		start: number,
+		end: number,
+		interval: number,
+	): number {
 		let result = 0;
 		for (let n = start; n <= end; n += interval) {
-			result += Equation.evaluate(equation, {n: n});
+			result += Equation.evaluate(equation, { n: n });
 		}
 		return result;
 	}
@@ -26,10 +31,15 @@ export class Summation {
 	 * @param {number} interval - the interval between each value in the range
 	 * @return {number} the result of the multiplicative summation
 	 */
-	static MultiplicativeSummation(equation: string, start: number,end: number,interval: number,): number {
+	static MultiplicativeSummation(
+		equation: string,
+		start: number,
+		end: number,
+		interval: number,
+	): number {
 		let result = 0;
 		for (let n = start; n <= end; n += interval) {
-			result *= Equation.evaluate(equation, {n: n});
+			result *= Equation.evaluate(equation, { n: n });
 		}
 		return result;
 	}

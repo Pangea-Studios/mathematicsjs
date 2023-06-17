@@ -1,3 +1,5 @@
+import { Summation } from './Summation';
+
 export class Equation {
 	/**
 	 * Evaluates the given mathematical equation string, using the provided variables object,
@@ -20,6 +22,20 @@ export class Equation {
 
 		const evaluateNoBrackets = (array: any[]) => {
 			while (array.length !== 1) {
+				for (let i = 0; i < array.length; i++) {
+					switch (array[i]) {
+						case '!':
+							array[i - 1] = Summation.MultiplicativeSummation(
+								'n',
+								1,
+								array[i - 1],
+								1,
+							);
+							array.splice(i, 1);
+							break;
+					}
+				}
+
 				for (let i = 0; i < array.length; i++) {
 					switch (array[i]) {
 						case '^':
@@ -152,13 +168,13 @@ export class Equation {
 		return evaluateNoBrackets(EquationArray2);
 	}
 
-	static solve(equation: string, variable: string): number {
+	static solve(equation: string, variable: string) {
 		if (equation === '' || !equation) {
 			return 'Error';
 		}
 	}
 
-	static rearrange(equation: string, makeSubject: string): number {
+	static rearrange(equation: string, makeSubject: string) {
 		if (equation === '' || !equation) {
 			return 'Error';
 		}

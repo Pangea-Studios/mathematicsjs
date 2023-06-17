@@ -5,7 +5,7 @@ export * from './2dshapes/circle';
 export * from './matrices/Matrices';
 export * from './core/Operations';
 export * from './formulae/physicsFormulae';
-export * from './units/Conversions';
+export * from './units/Units';
 export * from './statistics/averages';
 export * from './complex/ComplexNumbers';
 export * from './equations/Equation';
