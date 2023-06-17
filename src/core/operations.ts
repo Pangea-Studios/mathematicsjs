@@ -132,9 +132,9 @@ export function Absolute(x) {
  * @return {number} The factorial of the given number.
  */
 export function Factorial(x) {
-	let result:number
+	let result: number;
 	for (let i = 1; i <= x; i++) {
-		result *= i
+		result *= i;
 	}
-	return result
+	return result;
 }

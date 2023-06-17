@@ -1,7 +1,7 @@
 import { Summation } from './Summation';
 import { Factorial } from '../core/Operations';
 
-export class Equation {
+export class Equations {
 	/**
 	 * Evaluates the given mathematical equation string, using the provided variables object,
 	 * and returns the result. If the equation is empty or null, returns 'Error'. If there are
@@ -186,14 +186,14 @@ export class Equation {
 	static binomialCoefficient(n: number, k: number): number {
 		if (k < 0 || k > n) return 0;
 		if (k === 0 || k === n) return 1;
-	  
+
 		let coefficient = 1;
 		k = Math.min(k, n - k);
-	  
+
 		for (let i = 1; i <= k; i++) {
-		  coefficient *= (n - i + 1) / i;
+			coefficient *= (n - i + 1) / i;
 		}
-	  
+
 		return coefficient;
-	  }
+	}
 }

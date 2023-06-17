@@ -49,7 +49,7 @@ export class Indices {
 	 * @param {number} root - the root to use for the calculation.
 	 * @return {number} the result of the nth root calculation.
 	 */
-	static root(number: number, root: number): number {
+	static root(number: number, root: number = 2): number {
 		// TODO: object compatibility
 		return this.power(number, 1 / root);
 	}
