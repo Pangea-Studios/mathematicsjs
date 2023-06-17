@@ -1,4 +1,5 @@
 import { Summation } from './Summation';
+import { Factorial } from '../core/Operations';
 
 export class Equation {
 	/**
@@ -25,12 +26,7 @@ export class Equation {
 				for (let i = 0; i < array.length; i++) {
 					switch (array[i]) {
 						case '!':
-							array[i - 1] = Summation.MultiplicativeSummation(
-								'n',
-								1,
-								array[i - 1],
-								1,
-							);
+							array[i - 1] = Factorial(array[i - 1]);
 							array.splice(i, 1);
 							break;
 					}
@@ -179,4 +175,25 @@ export class Equation {
 			return 'Error';
 		}
 	}
+
+	/**
+	 * Calculates the binomial coefficient of two given numbers.
+	 *
+	 * @param {number} n - The total number of items.
+	 * @param {number} k - The number of items to choose.
+	 * @return {number} The calculated binomial coefficient.
+	 */
+	static binomialCoefficient(n: number, k: number): number {
+		if (k < 0 || k > n) return 0;
+		if (k === 0 || k === n) return 1;
+	  
+		let coefficient = 1;
+		k = Math.min(k, n - k);
+	  
+		for (let i = 1; i <= k; i++) {
+		  coefficient *= (n - i + 1) / i;
+		}
+	  
+		return coefficient;
+	  }
 }

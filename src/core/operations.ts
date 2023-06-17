@@ -112,9 +112,29 @@ export function divide(inputs: OperationsInput[]) {
 	return total;
 }
 
-export function absolute(x) {
+/**
+ * Returns the absolute value of a number.
+ *
+ * @param {number} x - The number to get the absolute value of.
+ * @return {number} The absolute value of the input number.
+ */
+export function Absolute(x) {
 	if (x < 0) {
 		return -x;
 	}
 	return x;
+}
+
+/**
+ * Calculates the factorial of a given number.
+ *
+ * @param {number} x - The number to calculate the factorial of.
+ * @return {number} The factorial of the given number.
+ */
+export function Factorial(x) {
+	let result:number
+	for (let i = 1; i <= x; i++) {
+		result *= i
+	}
+	return result
 }

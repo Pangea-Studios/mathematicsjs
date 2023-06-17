@@ -1,6 +1,7 @@
 import { Equation } from '../equations/Equation';
 import { Summation } from '../equations/Summation';
 import { Conversions } from '../units/Units';
+import { Constants } from '../units/Constants';
 
 export const sineList = [
 	0, 0.01745240643728351, 0.03489949670250097, 0.05233595624294383,
@@ -65,6 +66,13 @@ export const sineList = [
 ];
 
 export class TrigonometryFunctions {
+	/**
+	 * Calculates the sine of an angle in degrees.
+	 *
+	 * @param {number} x - the angle in degrees.
+	 * @param {number} [accuracy=10] - precision of the result.
+	 * @return {number} the sine of the angle.
+	 */
 	static sin(x: number, accuracy: number = 10): number {
 		let result = x % 360;
 		if (result <= 0) {
@@ -73,7 +81,11 @@ export class TrigonometryFunctions {
 					return -sineList[-result];
 				} else {
 					return Summation.AdditiveSummation(
-						`(((-1)^n)*(${Conversions.convertAngle(result, 'DEGREES', 'RADIANS')}^(2n+1)))/((2n+1)!)`,
+						`(((-1)^n)*(${Conversions.convertAngle(
+							result,
+							'DEGREES',
+							'RADIANS',
+						)}^(2n+1)))/((2n+1)!)`,
 						0,
 						accuracy,
 						1,
@@ -84,7 +96,11 @@ export class TrigonometryFunctions {
 					return sineList[-result % 180];
 				} else {
 					return Summation.AdditiveSummation(
-						`(((-1)^n)*(${Conversions.convertAngle(-result % 180, 'DEGREES', 'RADIANS')}^(2n+1)))/((2n+1)!)`,
+						`(((-1)^n)*(${Conversions.convertAngle(
+							-result % 180,
+							'DEGREES',
+							'RADIANS',
+						)}^(2n+1)))/((2n+1)!)`,
 						0,
 						accuracy,
 						1,
@@ -97,7 +113,11 @@ export class TrigonometryFunctions {
 					return sineList[result];
 				} else {
 					return Summation.AdditiveSummation(
-						`(((-1)^n)*(${Conversions.convertAngle(result, 'DEGREES', 'RADIANS')}^(2n+1)))/((2n+1)!)`,
+						`(((-1)^n)*(${Conversions.convertAngle(
+							result,
+							'DEGREES',
+							'RADIANS',
+						)}^(2n+1)))/((2n+1)!)`,
 						0,
 						accuracy,
 						1,
@@ -108,7 +128,11 @@ export class TrigonometryFunctions {
 					return -sineList[result % 180];
 				} else {
 					return -Summation.AdditiveSummation(
-						`(((-1)^n)*(${Conversions.convertAngle(result % 180, 'DEGREES', 'RADIANS')}^(2n+1)))/((2n+1)!)`,
+						`(((-1)^n)*(${Conversions.convertAngle(
+							result % 180,
+							'DEGREES',
+							'RADIANS',
+						)}^(2n+1)))/((2n+1)!)`,
 						0,
 						accuracy,
 						1,
@@ -117,23 +141,90 @@ export class TrigonometryFunctions {
 			}
 		}
 	}
+	/**
+	 * Calculates the cosine of a given angle in degrees.
+	 *
+	 * @param {number} x - the angle in degrees
+	 * @param {number} [accuracy=10] - the number of decimal places to calculate the result
+	 * @return {number} - the cosine of the angle
+	 */
 	static cos(x: number, accuracy: number = 10): number {
 		return this.sin(x - 90, accuracy);
 	}
 
+	/**
+	 * Calculates the tangent of a number using the sine and cosine functions.
+	 *
+	 * @param {number} x - The input number in radians.
+	 * @param {number} [accuracy=10] - The number of decimal places to calculate the result to.
+	 * @return {number} The tangent of the input number, rounded to the specified accuracy.
+	 */
 	static tan(x: number, accuracy: number = 10): number {
 		return this.sin(x, accuracy) / this.cos(x, accuracy);
 	}
 
+	/**
+	 * Calculates the cosecant of an angle in radians with a given accuracy.
+	 *
+	 * @param {number} x - the angle in radians
+	 * @param {number} [accuracy=10] - the number of decimal places to approximate the result to
+	 * @return {number} the cosecant of the angle with the given accuracy
+	 */
 	static csc(x: number, accuracy: number = 10): number {
 		return 1 / this.sin(x, accuracy);
 	}
 
+	/**
+	 * Calculates the secant of a given angle in radians.
+	 *
+	 * @param {number} x - The angle in radians.
+	 * @param {number} [accuracy=10] - The number of decimal places to round the result to. Defaults to 10.
+	 * @return {number} The secant of the given angle.
+	 */
 	static sec(x: number, accuracy: number = 10): number {
 		return 1 / this.cos(x, accuracy);
 	}
 
+	/**
+	 * Calculates the cotangent of a given angle in radians.
+	 *
+	 * @param {number} x - The angle in radians.
+	 * @param {number} [accuracy=10] - The accuracy of the result.
+	 * @return {number} The cotangent of the angle.
+	 */
 	static cot(x: number, accuracy: number = 10): number {
-		return 1/this.tan(x, accuracy);
+		return 1 / this.tan(x, accuracy);
+	}
+
+	/**
+	 * Calculates the hyperbolic sine of a number.
+	 *
+	 * @param {number} x - The number to apply the function to.
+	 * @return {number} The hyperbolic sine of the input number.
+	 */
+	static sinh(x: number): number {
+		const e = Constants.e;
+		return ((e**x) - (e**(-x)))/2
+	}
+
+	/**
+	 * Returns the hyperbolic cosine of a number.
+	 *
+	 * @param {number} x - The number for which to return the hyperbolic cosine.
+	 * @return {number} The hyperbolic cosine of the given number.
+	 */
+	static cosh(x: number): number {
+		const e = Constants.e;
+		return ((e**x) + (e**(-x)))/2
+	}
+
+	/**
+	 * Calculates the hyperbolic tangent of a given number.
+	 *
+	 * @param {number} x - The number to calculate the tangent of.
+	 * @return {number} The hyperbolic tangent of the given number.
+	 */
+	static tanh(x: number): number {
+		return this.sinh(x) / this.cosh(x);
 	}
 }

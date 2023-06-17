@@ -1,3 +1,5 @@
+import { Constants } from './Constants';
+
 export const lengthUnits = {
 	Picometers: 'pm',
 	Nanometers: 'nm',
@@ -352,13 +354,13 @@ export class Conversions {
 				degrees = value * 1;
 				break;
 			case 'RADIANS':
-				degrees = value * (180 / 3.14159265359);
+				degrees = value * (180 / Constants.pi);
 				break;
 			case 'GRADIANS':
 				degrees = value * 0.9;
 				break;
 			case 'MILLIRADIANS':
-				degrees = value * (180 / 3141.59265359);
+				degrees = value * (180 / (Constants.pi * 1000));
 				break;
 			case 'REVOLUTIONS':
 				degrees = value * 360;
@@ -391,13 +393,13 @@ export class Conversions {
 				output = degrees / 1;
 				break;
 			case 'RADIANS':
-				output = degrees / (180 / 3.14159265359);
+				output = degrees / (180 / Constants.pi);
 				break;
 			case 'GRADIANS':
 				output = degrees / 0.9;
 				break;
 			case 'MILLIRADIANS':
-				output = degrees / (180 / 3141.59265359);
+				output = degrees / (180 / (Constants.pi * 1000));
 				break;
 			case 'REVOLUTIONS':
 				output = degrees / 360;

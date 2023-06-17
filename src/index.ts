@@ -10,3 +10,4 @@ export * from './statistics/averages';
 export * from './complex/ComplexNumbers';
 export * from './equations/Equation';
 export * from './equations/Summation';
+export * from './units/Constants';
