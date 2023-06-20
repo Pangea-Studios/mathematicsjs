@@ -407,6 +407,14 @@ export class Equations {
 			while (array.length !== 1) {
 				for (let i = 0; i < array.length; i++) {
 					switch (array[i]) {
+						case '!':
+							array[i - 1] = Factorial(array[i - 1]);
+							array.splice(i, 1);
+							break;
+					}
+				}
+				for (let i = 0; i < array.length; i++) {
+					switch (array[i]) {
 						case '^':
 							array[i - 1] **= array[i + 1];
 							array.splice(i, 2);
