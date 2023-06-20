@@ -1,8 +1,6 @@
 import { Factorial } from '../core/operations';
 
 export class Equations {
-
-
 	/**
 	 * Parses a mathematical equation string with given variables.
 	 *
