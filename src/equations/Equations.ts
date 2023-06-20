@@ -1,37 +1,412 @@
 import { Factorial } from '../core/operations';
 
 export class Equations {
+
+
 	/**
-	 * Evaluates the given mathematical equation string, using the provided variables object,
-	 * and returns the result. If the equation is empty or null, returns 'Error'. If there are
-	 * mismatched brackets, returns 'Error: Mismatched Brackets'.
+	 * Parses a mathematical equation string with given variables.
 	 *
-	 * @param {string} equation - the mathematical equation to be evaluated, funcs(sin, cos, tan etc) coming soon
-	 * @param {object} variables - an object containing variable names and their values
-	 * @return {number|string} - the result of the evaluation or 'Error'/'Error: Mismatched Brackets'
+	 * @param {string} equation - the equation to be parsed
+	 * @param {{ [key: string]: number }} variables - an object with variable names and their values
+	 * @return {any[] | 'Error'} the result of the evaluation or 'Error' if the equation is invalid
 	 */
-
-	static evaluate(equation: string, variables: object) {
-		if (equation === '' || !equation) {
-			return 'Error';
-		}
-
-		const EquationArray1 = equation.replace(/\s/g, '').split('');
-		const EquationArray2 = [];
-		let current = '';
-
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		const evaluateNoBrackets = (array: any[]) => {
-			while (array.length !== 1) {
+	static parseEquation(
+		equation: string,
+		variables: { [key: string]: number },
+	): any[] | 'Error' {
+		let result: any;
+		result = equation.replace(/\s/g, '').split('');
+		const find = (array: any[] | string, target: any) => {
+			let count = 0;
+			if (Array.isArray(array)) {
 				for (let i = 0; i < array.length; i++) {
-					switch (array[i]) {
-						case '!':
-							array[i - 1] = Factorial(array[i - 1]);
-							array.splice(i, 1);
-							break;
+					if (array[i] === target) {
+						count++;
 					}
 				}
+			} else if (typeof array === 'string') {
+				array = array.split('');
+				for (let i = 0; i < array.length; i++) {
+					if (array[i] === target) {
+						count++;
+					}
+				}
+			}
+			return count;
+		};
 
+		if (
+			equation === '' ||
+			!equation ||
+			find(result, '(') !== find(result, ')')
+		) {
+			return 'Error';
+		}
+		for (let i = 0; i < result.length; i++) {
+			if (!isNaN(Number(result[i])) && !isNaN(Number(result[i + 1]))) {
+				result[i] = Number(result[i] + result[i + 1]);
+				result.splice(i + 1, 1);
+				i--;
+			} else if (
+				result[i] === '-' &&
+				!isNaN(Number(result[i + 1])) &&
+				isNaN(Number(result[i - 1]))
+			) {
+				result[i] = Number(result[i] + result[i + 1]);
+				result.splice(i + 1, 1);
+				i--;
+			} else if (result[i] === '.' && !isNaN(Number(result[i + 1]))) {
+				result[i] = Number(result[i] + result[i + 1]);
+				result.splice(i + 1, 1);
+				i--;
+			} else if (
+				!isNaN(Number(result[i])) &&
+				result[i + 1] === '.' &&
+				!isNaN(Number(result[i + 2]))
+			) {
+				result[i] = Number(result[i] + result[i + 1] + result[i + 2]);
+				result.splice(i + 1, 2);
+				i--;
+			} else if (result[i] === 'r' && result[i + 1] === 't') {
+				result[i] = result[i] + result[i + 1];
+				result.splice(i + 1, 1);
+				i--;
+			} else if (result[i] === 'l' && result[i + 1] === 'n') {
+				result[i] = result[i] + result[i + 1];
+				result.splice(i + 1, 1);
+				i--;
+			} else if (
+				result[i] === 'a' &&
+				result[i + 1] === 'b' &&
+				result[i + 2] === 's'
+			) {
+				result[i] = result[i] + result[i + 1] + result[i + 2];
+				result.splice(i + 1, 2);
+				i--;
+			} else if (
+				result[i] === 'l' &&
+				result[i + 1] === 'o' &&
+				result[i + 2] === 'g'
+			) {
+				result[i] = result[i] + result[i + 1] + result[i + 2];
+				result.splice(i + 1, 2);
+				i--;
+			} else if (
+				result[i] === 's' &&
+				result[i + 1] === 'i' &&
+				result[i + 2] === 'n'
+			) {
+				result[i] = result[i] + result[i + 1] + result[i + 2];
+				result.splice(i + 1, 2);
+				i--;
+			} else if (
+				result[i] === 'c' &&
+				result[i + 1] === 'o' &&
+				result[i + 2] === 's'
+			) {
+				result[i] = result[i] + result[i + 1] + result[i + 2];
+				result.splice(i + 1, 2);
+				i--;
+			} else if (
+				result[i] === 't' &&
+				result[i + 1] === 'a' &&
+				result[i + 2] === 'n'
+			) {
+				result[i] = result[i] + result[i + 1] + result[i + 2];
+				result.splice(i + 1, 2);
+				i--;
+			} else if (
+				result[i] === 's' &&
+				result[i + 1] === 'e' &&
+				result[i + 2] === 'c'
+			) {
+				result[i] = result[i] + result[i + 1] + result[i + 2];
+				result.splice(i + 1, 2);
+				i--;
+			} else if (
+				result[i] === 'c' &&
+				result[i + 1] === 's' &&
+				result[i + 2] === 'c'
+			) {
+				result[i] = result[i] + result[i + 1] + result[i + 2];
+				result.splice(i + 1, 2);
+				i--;
+			} else if (
+				result[i] === 'c' &&
+				result[i + 1] === 'o' &&
+				result[i + 2] === 't'
+			) {
+				result[i] = result[i] + result[i + 1] + result[i + 2];
+				result.splice(i + 1, 2);
+				i--;
+			} else if (
+				result[i] === 'a' &&
+				result[i + 1] === 's' &&
+				result[i + 2] === 'i' &&
+				result[i + 3] === 'n' &&
+				result[i + 4] === 'h'
+			) {
+				result[i] =
+					result[i] +
+					result[i + 1] +
+					result[i + 2] +
+					result[i + 3] +
+					result[i + 4];
+				result.splice(i + 1, 4);
+				i--;
+			} else if (
+				result[i] === 'a' &&
+				result[i + 1] === 'c' &&
+				result[i + 2] === 'o' &&
+				result[i + 3] === 's' &&
+				result[i + 4] === 'h'
+			) {
+				result[i] =
+					result[i] +
+					result[i + 1] +
+					result[i + 2] +
+					result[i + 3] +
+					result[i + 4];
+				result.splice(i + 1, 4);
+				i--;
+			} else if (
+				result[i] === 'a' &&
+				result[i + 1] === 't' &&
+				result[i + 2] === 'a' &&
+				result[i + 3] === 'n' &&
+				result[i + 4] === 'h'
+			) {
+				result[i] =
+					result[i] +
+					result[i + 1] +
+					result[i + 2] +
+					result[i + 3] +
+					result[i + 4];
+				result.splice(i + 1, 4);
+				i--;
+			} else if (
+				result[i] === 'a' &&
+				result[i + 1] === 's' &&
+				result[i + 2] === 'e' &&
+				result[i + 3] === 'c' &&
+				result[i + 4] === 'h'
+			) {
+				result[i] =
+					result[i] +
+					result[i + 1] +
+					result[i + 2] +
+					result[i + 3] +
+					result[i + 4];
+				result.splice(i + 1, 4);
+				i--;
+			} else if (
+				result[i] === 'a' &&
+				result[i + 1] === 'c' &&
+				result[i + 2] === 's' &&
+				result[i + 3] === 'c' &&
+				result[i + 4] === 'h'
+			) {
+				result[i] =
+					result[i] +
+					result[i + 1] +
+					result[i + 2] +
+					result[i + 3] +
+					result[i + 4];
+				result.splice(i + 1, 4);
+				i--;
+			} else if (
+				result[i] === 'a' &&
+				result[i + 1] === 'c' &&
+				result[i + 2] === 'o' &&
+				result[i + 3] === 't' &&
+				result[i + 4] === 'h'
+			) {
+				result[i] =
+					result[i] +
+					result[i + 1] +
+					result[i + 2] +
+					result[i + 3] +
+					result[i + 4];
+				result.splice(i + 1, 4);
+				i--;
+			} else if (
+				result[i] === 'a' &&
+				result[i + 1] === 's' &&
+				result[i + 2] === 'i' &&
+				result[i + 3] === 'n'
+			) {
+				result[i] =
+					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
+				result.splice(i + 1, 3);
+				i--;
+			} else if (
+				result[i] === 'a' &&
+				result[i + 1] === 'c' &&
+				result[i + 2] === 'o' &&
+				result[i + 3] === 's'
+			) {
+				result[i] =
+					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
+				result.splice(i + 1, 3);
+				i--;
+			} else if (
+				result[i] === 'a' &&
+				result[i + 1] === 't' &&
+				result[i + 2] === 'a' &&
+				result[i + 3] === 'n'
+			) {
+				result[i] =
+					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
+				result.splice(i + 1, 3);
+				i--;
+			} else if (
+				result[i] === 'a' &&
+				result[i + 1] === 's' &&
+				result[i + 2] === 'e' &&
+				result[i + 3] === 'c'
+			) {
+				result[i] =
+					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
+				result.splice(i + 1, 3);
+				i--;
+			} else if (
+				result[i] === 'a' &&
+				result[i + 1] === 'c' &&
+				result[i + 2] === 's' &&
+				result[i + 3] === 'c'
+			) {
+				result[i] =
+					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
+				result.splice(i + 1, 3);
+				i--;
+			} else if (
+				result[i] === 'a' &&
+				result[i + 1] === 'c' &&
+				result[i + 2] === 'o' &&
+				result[i + 3] === 't'
+			) {
+				result[i] =
+					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
+				result.splice(i + 1, 3);
+				i--;
+			} else if (
+				result[i] === 's' &&
+				result[i + 1] === 'i' &&
+				result[i + 2] === 'n' &&
+				result[i + 3] === 'h'
+			) {
+				result[i] =
+					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
+				result.splice(i + 1, 3);
+				i--;
+			} else if (
+				result[i] === 'c' &&
+				result[i + 1] === 'o' &&
+				result[i + 2] === 's' &&
+				result[i + 3] === 'h'
+			) {
+				result[i] =
+					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
+				result.splice(i + 1, 3);
+				i--;
+			} else if (
+				result[i] === 't' &&
+				result[i + 1] === 'a' &&
+				result[i + 2] === 'n' &&
+				result[i + 3] === 'h'
+			) {
+				result[i] =
+					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
+				result.splice(i + 1, 3);
+				i--;
+			} else if (
+				result[i] === 's' &&
+				result[i + 1] === 'e' &&
+				result[i + 2] === 'c' &&
+				result[i + 3] === 'h'
+			) {
+				result[i] =
+					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
+				result.splice(i + 1, 3);
+				i--;
+			} else if (
+				result[i] === 'c' &&
+				result[i + 1] === 's' &&
+				result[i + 2] === 'c' &&
+				result[i + 3] === 'h'
+			) {
+				result[i] =
+					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
+				result.splice(i + 1, 3);
+				i--;
+			} else if (
+				result[i] === 'c' &&
+				result[i + 1] === 'o' &&
+				result[i + 2] === 't' &&
+				result[i + 3] === 'h'
+			) {
+				result[i] =
+					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
+				result.splice(i + 1, 3);
+				i--;
+			} else if (!isNaN(Number(result[i]))) {
+				result[i] = Number(result[i]);
+			}
+		}
+
+		for (let i = 0; i < result.length; i++) {
+			if (typeof result[i] === 'string' && result[i] in variables) {
+				if (i > 0 && typeof result[i - 1] === 'number') {
+					result.splice(i, 0, '*');
+					i++;
+				}
+				if (
+					i < result.length - 1 &&
+					typeof result[i + 1] === 'number'
+				) {
+					result.splice(i + 1, 0, '*');
+				}
+				result[i] = variables[result[i]];
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * Evaluates a mathematical equation string with given variables.
+	 *
+	 * @param {string} equation - the equation to be evaluated
+	 * @param {{ [key: string]: number }} variables - an object with variable names and their values
+	 * @return {number | 'Error'} the result of the evaluation or 'Error' if the equation is invalid
+	 */
+	static evaluate(
+		equation: string,
+		variables: { [key: string]: number },
+	): number | 'Error' {
+		let result = this.parseEquation(equation, variables);
+		if (result === 'Error') {
+			return 'Error';
+		}
+		const find = (array: any[] | string, target: any) => {
+			let count = 0;
+			if (Array.isArray(array)) {
+				for (let i = 0; i < array.length; i++) {
+					if (array[i] === target) {
+						count++;
+					}
+				}
+			} else if (typeof array === 'string') {
+				array = array.split('');
+				for (let i = 0; i < array.length; i++) {
+					if (array[i] === target) {
+						count++;
+					}
+				}
+			}
+			return count;
+		};
+		const evaluateNoBrackets = (array: any[]) => {
+			while (array.length !== 1) {
 				for (let i = 0; i < array.length; i++) {
 					switch (array[i]) {
 						case '^':
@@ -78,103 +453,26 @@ export class Equations {
 			return array[0];
 		};
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		const find = (array: any[] | string, target: any) => {
-			let count = 0;
-			if (Array.isArray(array)) {
-				for (let i = 0; i < array.length; i++) {
-					if (array[i] === target) {
-						count++;
-					}
-				}
-			} else if (typeof array === 'string') {
-				array = array.split('');
-				for (let i = 0; i < array.length; i++) {
-					if (array[i] === target) {
-						count++;
-					}
+		while (find(result, '(') > 0) {
+			let startPos = -1;
+			let endPos = -1;
+
+			for (let i = 0; i < result.length; i++) {
+				if (result[i] === '(') {
+					startPos = i;
+				} else if (result[i] === ')' && startPos >= 0) {
+					endPos = i;
 				}
 			}
-			return count;
-		};
 
-		for (let i = 0; i < EquationArray1.length; i++) {
-			if (
-				Number.isInteger(Number(EquationArray1[i])) ||
-				EquationArray1[i] === '.'
-			) {
-				current = current.concat(EquationArray1[i]);
-			} else {
-				if (current !== '') {
-					EquationArray2.push(Number(current));
-					current = '';
-				}
-				EquationArray2.push(EquationArray1[i]);
+			if (startPos !== -1 && endPos !== -1) {
+				const subEquation = result.slice(startPos + 1, endPos);
+				result[startPos] = evaluateNoBrackets(subEquation);
+				result.splice(startPos + 1, endPos - startPos);
 			}
 		}
 
-		if (current !== '') {
-			EquationArray2.push(Number(current));
-		}
-
-		for (let i = 0; i < EquationArray2.length; i++) {
-			if (
-				typeof EquationArray2[i] === 'string' &&
-				EquationArray2[i] in variables
-			) {
-				if (i > 0 && typeof EquationArray2[i - 1] === 'number') {
-					EquationArray2.splice(i, 0, '*');
-					i++;
-				}
-				if (
-					i < EquationArray2.length - 1 &&
-					typeof EquationArray2[i + 1] === 'number'
-				) {
-					EquationArray2.splice(i + 1, 0, '*');
-				}
-				EquationArray2[i] = variables[EquationArray2[i]];
-			}
-		}
-
-		if (find(EquationArray2, '(') === find(EquationArray2, ')')) {
-			while (find(EquationArray2, '(') > 0) {
-				let startPos = -1;
-				let endPos = -1;
-
-				for (let i = 0; i < EquationArray2.length; i++) {
-					if (EquationArray2[i] === '(') {
-						startPos = i;
-					} else if (EquationArray2[i] === ')' && startPos >= 0) {
-						endPos = i;
-					}
-				}
-
-				if (startPos !== -1 && endPos !== -1) {
-					const subEquation = EquationArray2.slice(
-						startPos + 1,
-						endPos,
-					);
-					EquationArray2[startPos] = evaluateNoBrackets(subEquation);
-					EquationArray2.splice(startPos + 1, endPos - startPos);
-				}
-			}
-		} else {
-			return 'Error: Mismatched Brackets';
-		}
-
-		return evaluateNoBrackets(EquationArray2);
-	}
-
-	static solve(equation: string, variable: string) {
-		if (equation === '' || !equation) {
-			return 'Error';
-		}
-	}
-
-	static rearrange(equation: string, makeSubject: string) {
-		if (equation === '' || !equation) {
-			return 'Error';
-		}
+		return evaluateNoBrackets(result);
 	}
 
 	/**
