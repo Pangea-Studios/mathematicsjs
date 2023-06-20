@@ -13,6 +13,4 @@ export const Constants = {
     k: 1.380649e-23,
 	NA : 6.02214076e-23,
 	Kcd: 683,
-
-	ElectronMass: 
 } as const;
