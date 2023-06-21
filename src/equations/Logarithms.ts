@@ -1,3 +1,6 @@
+/**
+ * Class containing logarithm functions
+ */
 export class Logarithms {
 	/**
 	 * Calculates the natural logarithm of a given number using an iterative series approximation.

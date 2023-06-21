@@ -28,8 +28,8 @@
 		"test:ts": "cross-env NODE_ENV=test jest typescript",
 		"lint": "eslint src --config ./.eslintrc.json",
 		"lint:fix": "eslint src --config ./.eslintrc.json --fix",
-		"format": "prettier --check . --config ./prettier.config.json",
-		"format:fix": "prettier --write . --config ./prettier.config.json",
+		"format": "prettier --check src/ --config ./prettier.config.json",
+		"format:fix": "prettier --write src/ --config ./prettier.config.json",
 		"build": "rollup --config",
 		"build:doc": "rollup --config && node dist/document.cjs"
 	},

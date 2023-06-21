@@ -1,4 +1,8 @@
 import { Equations } from './Equations';
+
+/**
+ * Class containing summation functions
+ */
 export class Summation {
 	/**
 	 * Calculates the additive summation of an equation for a given range and interval.
@@ -17,7 +21,7 @@ export class Summation {
 	): number {
 		let result = 0;
 		for (let n = start; n <= end; n += interval) {
-			result += Equations.evaluate(equation, { n: n });
+			result += Number(Equations.evaluate(equation, { n: n }));
 		}
 		return result;
 	}
@@ -39,7 +43,7 @@ export class Summation {
 	): number {
 		let result = 0;
 		for (let n = start; n <= end; n += interval) {
-			result *= Equations.evaluate(equation, { n: n });
+			result *= Number(Equations.evaluate(equation, { n: n }));
 		}
 		return result;
 	}

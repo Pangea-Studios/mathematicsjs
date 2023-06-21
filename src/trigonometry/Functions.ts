@@ -4,6 +4,9 @@ import { Indices } from '../core/Indices';
 import { Factorial, Absolute } from '../core/operations';
 import { Logarithms } from '../equations/Logarithms';
 
+/**
+ * Class containing all trigometrical functions
+ */
 export class TrigonometryFunctions {
 	/**
 	 * Calculates the sine of an angle in degrees.

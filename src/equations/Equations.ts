@@ -1,19 +1,25 @@
 import { Factorial } from '../core/operations';
 import { Logarithms } from './Logarithms';
 import { TrigonometryFunctions as Trig } from '../trigonometry/Functions';
+
+/**
+ * Class containing equation utilities
+ */
 export class Equations {
 	/**
 	 * Parses a mathematical equation string with given variables.
 	 *
 	 * @param {string} equation - the equation to be parsed
-	 * @param {{ [key: string]: number }} variables - an object with variable names and their values
+	 * @param {{ Array.<string>: number }} variables - an object with variable names and their values
 	 * @return {Array<string|number> | 'Error'} the result of the evaluation or 'Error' if the equation is invalid
 	 */
 	static parseEquation(
 		equation: string,
 		variables: { [key: string]: number },
 	): Array<string | number> | 'Error' {
-		const result = equation.replace(/\s/g, '').split('');
+		const result: Array<string | number> = equation
+			.replace(/\s/g, '')
+			.split('');
 		const find = (
 			array: Array<string | number> | string,
 			target: string,
@@ -45,7 +51,7 @@ export class Equations {
 		}
 		for (let i = 0; i < result.length; i++) {
 			if (!isNaN(Number(result[i])) && !isNaN(Number(result[i + 1]))) {
-				result[i] = Number(result[i] + result[i + 1]);
+				result[i] = Number(result[i]) + Number(result[i + 1]);
 				result.splice(i + 1, 1);
 				i--;
 			} else if (
@@ -53,11 +59,11 @@ export class Equations {
 				!isNaN(Number(result[i + 1])) &&
 				isNaN(Number(result[i - 1]))
 			) {
-				result[i] = Number(result[i] + result[i + 1]);
+				result[i] = Number(result[i]) + Number(result[i + 1]);
 				result.splice(i + 1, 1);
 				i--;
 			} else if (result[i] === '.' && !isNaN(Number(result[i + 1]))) {
-				result[i] = Number(result[i] + result[i + 1]);
+				result[i] = Number(result[i]) + Number(result[i + 1]);
 				result.splice(i + 1, 1);
 				i--;
 			} else if (
@@ -65,15 +71,18 @@ export class Equations {
 				result[i + 1] === '.' &&
 				!isNaN(Number(result[i + 2]))
 			) {
-				result[i] = Number(result[i] + result[i + 1] + result[i + 2]);
+				result[i] =
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]);
 				result.splice(i + 1, 2);
 				i--;
 			} else if (result[i] === 'r' && result[i + 1] === 't') {
-				result[i] = result[i] + result[i + 1];
+				result[i] = Number(result[i]) + Number(result[i + 1]);
 				result.splice(i + 1, 1);
 				i--;
 			} else if (result[i] === 'l' && result[i + 1] === 'n') {
-				result[i] = result[i] + result[i + 1];
+				result[i] = Number(result[i]) + Number(result[i + 1]);
 				result.splice(i + 1, 1);
 				i--;
 			} else if (
@@ -81,7 +90,10 @@ export class Equations {
 				result[i + 1] === 'b' &&
 				result[i + 2] === 's'
 			) {
-				result[i] = result[i] + result[i + 1] + result[i + 2];
+				result[i] =
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]);
 				result.splice(i + 1, 2);
 				i--;
 			} else if (
@@ -89,7 +101,10 @@ export class Equations {
 				result[i + 1] === 'o' &&
 				result[i + 2] === 'g'
 			) {
-				result[i] = result[i] + result[i + 1] + result[i + 2];
+				result[i] =
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]);
 				result.splice(i + 1, 2);
 				i--;
 			} else if (
@@ -100,11 +115,11 @@ export class Equations {
 				result[i + 4] === 'h'
 			) {
 				result[i] =
-					result[i] +
-					result[i + 1] +
-					result[i + 2] +
-					result[i + 3] +
-					result[i + 4];
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]) +
+					Number(result[i + 3]) +
+					Number(result[i + 4]);
 				result.splice(i + 1, 4);
 				i--;
 			} else if (
@@ -115,11 +130,11 @@ export class Equations {
 				result[i + 4] === 'h'
 			) {
 				result[i] =
-					result[i] +
-					result[i + 1] +
-					result[i + 2] +
-					result[i + 3] +
-					result[i + 4];
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]) +
+					Number(result[i + 3]) +
+					Number(result[i + 4]);
 				result.splice(i + 1, 4);
 				i--;
 			} else if (
@@ -130,11 +145,11 @@ export class Equations {
 				result[i + 4] === 'h'
 			) {
 				result[i] =
-					result[i] +
-					result[i + 1] +
-					result[i + 2] +
-					result[i + 3] +
-					result[i + 4];
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]) +
+					Number(result[i + 3]) +
+					Number(result[i + 4]);
 				result.splice(i + 1, 4);
 				i--;
 			} else if (
@@ -145,11 +160,11 @@ export class Equations {
 				result[i + 4] === 'h'
 			) {
 				result[i] =
-					result[i] +
-					result[i + 1] +
-					result[i + 2] +
-					result[i + 3] +
-					result[i + 4];
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]) +
+					Number(result[i + 3]) +
+					Number(result[i + 4]);
 				result.splice(i + 1, 4);
 				i--;
 			} else if (
@@ -160,11 +175,11 @@ export class Equations {
 				result[i + 4] === 'h'
 			) {
 				result[i] =
-					result[i] +
-					result[i + 1] +
-					result[i + 2] +
-					result[i + 3] +
-					result[i + 4];
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]) +
+					Number(result[i + 3]) +
+					Number(result[i + 4]);
 				result.splice(i + 1, 4);
 				i--;
 			} else if (
@@ -175,11 +190,11 @@ export class Equations {
 				result[i + 4] === 'h'
 			) {
 				result[i] =
-					result[i] +
-					result[i + 1] +
-					result[i + 2] +
-					result[i + 3] +
-					result[i + 4];
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]) +
+					Number(result[i + 3]) +
+					Number(result[i + 4]);
 				result.splice(i + 1, 4);
 				i--;
 			} else if (
@@ -189,7 +204,10 @@ export class Equations {
 				result[i + 3] === 'n'
 			) {
 				result[i] =
-					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]) +
+					Number(result[i + 3]);
 				result.splice(i + 1, 3);
 				i--;
 			} else if (
@@ -199,7 +217,10 @@ export class Equations {
 				result[i + 3] === 's'
 			) {
 				result[i] =
-					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]) +
+					Number(result[i + 3]);
 				result.splice(i + 1, 3);
 				i--;
 			} else if (
@@ -209,7 +230,10 @@ export class Equations {
 				result[i + 3] === 'n'
 			) {
 				result[i] =
-					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]) +
+					Number(result[i + 3]);
 				result.splice(i + 1, 3);
 				i--;
 			} else if (
@@ -219,7 +243,10 @@ export class Equations {
 				result[i + 3] === 'c'
 			) {
 				result[i] =
-					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]) +
+					Number(result[i + 3]);
 				result.splice(i + 1, 3);
 				i--;
 			} else if (
@@ -229,7 +256,10 @@ export class Equations {
 				result[i + 3] === 'c'
 			) {
 				result[i] =
-					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]) +
+					Number(result[i + 3]);
 				result.splice(i + 1, 3);
 				i--;
 			} else if (
@@ -239,7 +269,10 @@ export class Equations {
 				result[i + 3] === 't'
 			) {
 				result[i] =
-					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]) +
+					Number(result[i + 3]);
 				result.splice(i + 1, 3);
 				i--;
 			} else if (
@@ -249,7 +282,10 @@ export class Equations {
 				result[i + 3] === 'h'
 			) {
 				result[i] =
-					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]) +
+					Number(result[i + 3]);
 				result.splice(i + 1, 3);
 				i--;
 			} else if (
@@ -259,7 +295,10 @@ export class Equations {
 				result[i + 3] === 'h'
 			) {
 				result[i] =
-					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]) +
+					Number(result[i + 3]);
 				result.splice(i + 1, 3);
 				i--;
 			} else if (
@@ -269,7 +308,10 @@ export class Equations {
 				result[i + 3] === 'h'
 			) {
 				result[i] =
-					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]) +
+					Number(result[i + 3]);
 				result.splice(i + 1, 3);
 				i--;
 			} else if (
@@ -279,7 +321,10 @@ export class Equations {
 				result[i + 3] === 'h'
 			) {
 				result[i] =
-					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]) +
+					Number(result[i + 3]);
 				result.splice(i + 1, 3);
 				i--;
 			} else if (
@@ -289,7 +334,10 @@ export class Equations {
 				result[i + 3] === 'h'
 			) {
 				result[i] =
-					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]) +
+					Number(result[i + 3]);
 				result.splice(i + 1, 3);
 				i--;
 			} else if (
@@ -299,7 +347,10 @@ export class Equations {
 				result[i + 3] === 'h'
 			) {
 				result[i] =
-					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]) +
+					Number(result[i + 3]);
 				result.splice(i + 1, 3);
 				i--;
 			} else if (
@@ -307,7 +358,10 @@ export class Equations {
 				result[i + 1] === 'i' &&
 				result[i + 2] === 'n'
 			) {
-				result[i] = result[i] + result[i + 1] + result[i + 2];
+				result[i] =
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]);
 				result.splice(i + 1, 2);
 				i--;
 			} else if (
@@ -315,7 +369,10 @@ export class Equations {
 				result[i + 1] === 'o' &&
 				result[i + 2] === 's'
 			) {
-				result[i] = result[i] + result[i + 1] + result[i + 2];
+				result[i] =
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]);
 				result.splice(i + 1, 2);
 				i--;
 			} else if (
@@ -323,7 +380,10 @@ export class Equations {
 				result[i + 1] === 'a' &&
 				result[i + 2] === 'n'
 			) {
-				result[i] = result[i] + result[i + 1] + result[i + 2];
+				result[i] =
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]);
 				result.splice(i + 1, 2);
 				i--;
 			} else if (
@@ -331,7 +391,10 @@ export class Equations {
 				result[i + 1] === 'e' &&
 				result[i + 2] === 'c'
 			) {
-				result[i] = result[i] + result[i + 1] + result[i + 2];
+				result[i] =
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]);
 				result.splice(i + 1, 2);
 				i--;
 			} else if (
@@ -339,7 +402,10 @@ export class Equations {
 				result[i + 1] === 's' &&
 				result[i + 2] === 'c'
 			) {
-				result[i] = result[i] + result[i + 1] + result[i + 2];
+				result[i] =
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]);
 				result.splice(i + 1, 2);
 				i--;
 			} else if (
@@ -347,7 +413,10 @@ export class Equations {
 				result[i + 1] === 'o' &&
 				result[i + 2] === 't'
 			) {
-				result[i] = result[i] + result[i + 1] + result[i + 2];
+				result[i] =
+					Number(result[i]) +
+					Number(result[i + 1]) +
+					Number(result[i + 2]);
 				result.splice(i + 1, 2);
 				i--;
 			} else if (!isNaN(Number(result[i]))) {
@@ -377,7 +446,7 @@ export class Equations {
 	 * Evaluates a mathematical equation string with given variables.
 	 *
 	 * @param {string} equation - the equation to be evaluated
-	 * @param {{ [key: string]: number }} variables - an object with variable names and their values
+	 * @param {{ Array.<string>: number }} variables - an object with variable names and their values
 	 * @return {number | 'Error'} the result of the evaluation or 'Error' if the equation is invalid
 	 */
 	static evaluate(
@@ -388,7 +457,10 @@ export class Equations {
 		if (result === 'Error') {
 			return 'Error';
 		}
-		const find = (array: Array<string|number> | string, target: string) => {
+		const find = (
+			array: Array<string | number> | string,
+			target: string,
+		) => {
 			let count = 0;
 			if (Array.isArray(array)) {
 				for (let i = 0; i < array.length; i++) {
@@ -411,37 +483,42 @@ export class Equations {
 				for (let i = 0; i < array.length; i++) {
 					switch (array[i]) {
 						case '!':
-							array[i - 1] = Factorial(array[i - 1]);
-							array.splice(i, 1);
+							array[i - 1] = Factorial(Number(array[i - 1]));
+							array.splice(i);
 							break;
 						case 'ln':
-							array[i] = Logarithms.ln(array[i + 1]);
-							array.splice(i + 1, 1);
+							array[i] = Logarithms.ln(Number(array[i + 1]));
+							array.splice(i + 1);
 							break;
 						case 'log':
 							array[i] = Logarithms.log(
-								array[i + 1],
-								array[i + 2],
+								Number(array[i + 1]),
+								Number(array[i + 2]),
 							);
-							array.splice(i + 1, 2);
+							array.splice(i + 1, i + 2);
 							break;
 						case 'sin':
-							array[i] = Trig.sin(array[i + 1]);
+							array[i] = Trig.sin(Number(array[i + 1]));
+							array.splice(i + 1);
+							break;
 					}
 				}
 				for (let i = 0; i < array.length; i++) {
 					switch (array[i]) {
 						case '^':
-							array[i - 1] **= array[i + 1];
-							array.splice(i, 2);
+							array[i - 1] ===
+								Number(array[i - 1]) ** Number(array[i + 1]);
+							array.splice(i, i + 1);
 							break;
 						case '√':
 							if (Number.isInteger(Number(array[i - 1]))) {
-								array[i + 1] **= 1 / array[i - 1];
-								array.splice(i, 2);
+								array[i - 1] ===
+									Number(array[i + 1]) ** 1 /
+										Number(array[i - 1]);
+								array.splice(i, i + 1);
 							} else {
-								array[i] = array[i + 1] ** 0.5;
-								array.splice(i + 1, 1);
+								array[i] = Number(array[i + 1]) ** 0.5;
+								array.splice(i + 1);
 							}
 							break;
 					}
@@ -449,12 +526,14 @@ export class Equations {
 				for (let i = 0; i < array.length; i++) {
 					switch (array[i]) {
 						case '*':
-							array[i - 1] *= array[i + 1];
-							array.splice(i, 2);
+							array[i - 1] =
+								Number(array[i - 1]) * Number(array[i + 1]);
+							array.splice(i, i + 1);
 							break;
 						case '/':
-							array[i - 1] /= array[i + 1];
-							array.splice(i, 2);
+							array[i - 1] =
+								Number(array[i - 1]) / Number(array[i + 1]);
+							array.splice(i, i + 1);
 							break;
 					}
 				}
@@ -462,11 +541,13 @@ export class Equations {
 				for (let i = 0; i < array.length; i++) {
 					switch (array[i]) {
 						case '+':
-							array[i - 1] += array[i + 1];
-							array.splice(i, 2);
+							array[i - 1] =
+								Number(array[i - 1]) + Number(array[i + 1]);
+							array.splice(i, i + 1);
 							break;
 						case '-':
-							array[i - 1] -= array[i + 1];
+							array[i - 1] =
+								Number(array[i - 1]) - Number(array[i + 1]);
 							array.splice(i, 2);
 							break;
 					}
@@ -494,7 +575,7 @@ export class Equations {
 			}
 		}
 
-		return evaluateNoBrackets(result);
+		return Number(evaluateNoBrackets(result));
 	}
 
 	/**

@@ -396,6 +396,9 @@ export const pressureEnum = {
 	Torr: 'TORR',
 } as const;
 
+/**
+ * Class to convert between different units of measure
+ */
 export class Conversions {
 	/**
 	 * Converts an angle value from one unit to another.
