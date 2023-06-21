@@ -1,6 +1,4 @@
 import { Equations } from '../equations/Equations';
-import { Summation } from '../equations/Summation';
-import { Conversions } from '../units/Units';
 import { Constants } from '../units/Constants';
 import { Indices } from '../core/Indices';
 import { Factorial, Absolute } from '../core/operations';

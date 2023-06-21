@@ -7,15 +7,17 @@ export class Equations {
 	 *
 	 * @param {string} equation - the equation to be parsed
 	 * @param {{ [key: string]: number }} variables - an object with variable names and their values
-	 * @return {any[] | 'Error'} the result of the evaluation or 'Error' if the equation is invalid
+	 * @return {Array<string|number> | 'Error'} the result of the evaluation or 'Error' if the equation is invalid
 	 */
 	static parseEquation(
 		equation: string,
 		variables: { [key: string]: number },
-	): any[] | 'Error' {
-		let result: any;
-		result = equation.replace(/\s/g, '').split('');
-		const find = (array: any[] | string, target: any) => {
+	): Array<string | number> | 'Error' {
+		const result = equation.replace(/\s/g, '').split('');
+		const find = (
+			array: Array<string | number> | string,
+			target: string,
+		) => {
 			let count = 0;
 			if (Array.isArray(array)) {
 				for (let i = 0; i < array.length; i++) {
@@ -86,54 +88,6 @@ export class Equations {
 				result[i] === 'l' &&
 				result[i + 1] === 'o' &&
 				result[i + 2] === 'g'
-			) {
-				result[i] = result[i] + result[i + 1] + result[i + 2];
-				result.splice(i + 1, 2);
-				i--;
-			} else if (
-				result[i] === 's' &&
-				result[i + 1] === 'i' &&
-				result[i + 2] === 'n'
-			) {
-				result[i] = result[i] + result[i + 1] + result[i + 2];
-				result.splice(i + 1, 2);
-				i--;
-			} else if (
-				result[i] === 'c' &&
-				result[i + 1] === 'o' &&
-				result[i + 2] === 's'
-			) {
-				result[i] = result[i] + result[i + 1] + result[i + 2];
-				result.splice(i + 1, 2);
-				i--;
-			} else if (
-				result[i] === 't' &&
-				result[i + 1] === 'a' &&
-				result[i + 2] === 'n'
-			) {
-				result[i] = result[i] + result[i + 1] + result[i + 2];
-				result.splice(i + 1, 2);
-				i--;
-			} else if (
-				result[i] === 's' &&
-				result[i + 1] === 'e' &&
-				result[i + 2] === 'c'
-			) {
-				result[i] = result[i] + result[i + 1] + result[i + 2];
-				result.splice(i + 1, 2);
-				i--;
-			} else if (
-				result[i] === 'c' &&
-				result[i + 1] === 's' &&
-				result[i + 2] === 'c'
-			) {
-				result[i] = result[i] + result[i + 1] + result[i + 2];
-				result.splice(i + 1, 2);
-				i--;
-			} else if (
-				result[i] === 'c' &&
-				result[i + 1] === 'o' &&
-				result[i + 2] === 't'
 			) {
 				result[i] = result[i] + result[i + 1] + result[i + 2];
 				result.splice(i + 1, 2);
@@ -348,6 +302,54 @@ export class Equations {
 					result[i] + result[i + 1] + result[i + 2] + result[i + 3];
 				result.splice(i + 1, 3);
 				i--;
+			} else if (
+				result[i] === 's' &&
+				result[i + 1] === 'i' &&
+				result[i + 2] === 'n'
+			) {
+				result[i] = result[i] + result[i + 1] + result[i + 2];
+				result.splice(i + 1, 2);
+				i--;
+			} else if (
+				result[i] === 'c' &&
+				result[i + 1] === 'o' &&
+				result[i + 2] === 's'
+			) {
+				result[i] = result[i] + result[i + 1] + result[i + 2];
+				result.splice(i + 1, 2);
+				i--;
+			} else if (
+				result[i] === 't' &&
+				result[i + 1] === 'a' &&
+				result[i + 2] === 'n'
+			) {
+				result[i] = result[i] + result[i + 1] + result[i + 2];
+				result.splice(i + 1, 2);
+				i--;
+			} else if (
+				result[i] === 's' &&
+				result[i + 1] === 'e' &&
+				result[i + 2] === 'c'
+			) {
+				result[i] = result[i] + result[i + 1] + result[i + 2];
+				result.splice(i + 1, 2);
+				i--;
+			} else if (
+				result[i] === 'c' &&
+				result[i + 1] === 's' &&
+				result[i + 2] === 'c'
+			) {
+				result[i] = result[i] + result[i + 1] + result[i + 2];
+				result.splice(i + 1, 2);
+				i--;
+			} else if (
+				result[i] === 'c' &&
+				result[i + 1] === 'o' &&
+				result[i + 2] === 't'
+			) {
+				result[i] = result[i] + result[i + 1] + result[i + 2];
+				result.splice(i + 1, 2);
+				i--;
 			} else if (!isNaN(Number(result[i]))) {
 				result[i] = Number(result[i]);
 			}
@@ -386,7 +388,7 @@ export class Equations {
 		if (result === 'Error') {
 			return 'Error';
 		}
-		const find = (array: any[] | string, target: any) => {
+		const find = (array: (string | number)[] | string, target: string) => {
 			let count = 0;
 			if (Array.isArray(array)) {
 				for (let i = 0; i < array.length; i++) {
@@ -404,7 +406,7 @@ export class Equations {
 			}
 			return count;
 		};
-		const evaluateNoBrackets = (array: any[]) => {
+		const evaluateNoBrackets = (array: Array<string | number>) => {
 			while (array.length !== 1) {
 				for (let i = 0; i < array.length; i++) {
 					switch (array[i]) {
