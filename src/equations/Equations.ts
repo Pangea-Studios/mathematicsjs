@@ -388,7 +388,7 @@ export class Equations {
 		if (result === 'Error') {
 			return 'Error';
 		}
-		const find = (array: (string | number)[] | string, target: string) => {
+		const find = (array: Array<string|number> | string, target: string) => {
 			let count = 0;
 			if (Array.isArray(array)) {
 				for (let i = 0; i < array.length; i++) {
