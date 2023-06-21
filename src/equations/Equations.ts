@@ -1,5 +1,6 @@
 import { Factorial } from '../core/operations';
-
+import { Logarithms } from './Logarithms';
+import { TrigonometryFunctions as Trig } from '../trigonometry/Functions';
 export class Equations {
 	/**
 	 * Parses a mathematical equation string with given variables.
@@ -381,7 +382,7 @@ export class Equations {
 		equation: string,
 		variables: { [key: string]: number },
 	): number | 'Error' {
-		let result = this.parseEquation(equation, variables);
+		const result = this.parseEquation(equation, variables);
 		if (result === 'Error') {
 			return 'Error';
 		}
@@ -410,6 +411,17 @@ export class Equations {
 						case '!':
 							array[i - 1] = Factorial(array[i - 1]);
 							array.splice(i, 1);
+							break;
+						case 'ln':
+							array[i] = Logarithms.ln(array[i + 1]);
+							array.splice(i + 1, 1);
+							break;
+						case 'log':
+							array[i] = Logarithms.log(
+								array[i + 1],
+								array[i + 2],
+							);
+							array.splice(i + 1, 1);
 							break;
 					}
 				}

@@ -14,20 +14,16 @@ export class TrigonometryFunctions {
 	 * @return {number} the sine of the angle
 	 */
 	static sin(x: number, accuracy = 10): number {
-		let result = (x % 360) * (Math.PI / 180);
-		let term = result;
-		let sign = 1;
-		let denominator = 1;
+		const a = (x % 360) * (Math.PI / 180);
+		let result = 0;
 
-		for (let i = 1; i <= accuracy; i++) {
-			result += sign * term;
-			sign *= -1;
-			term *= (result * result) / ((denominator + 1) * (denominator + 2));
-			denominator += 2;
+		for (let i = 0; i <= accuracy; i++) {
+			result += ((-1) ** i * a ** (2 * i + 1)) / Factorial(2 * i + 1);
 		}
 
 		return result;
 	}
+
 	/**
 	 * Calculates the cosine of a given angle in degrees.
 	 * @param {number} x - the angle in degrees
