@@ -421,8 +421,10 @@ export class Equations {
 								array[i + 1],
 								array[i + 2],
 							);
-							array.splice(i + 1, 1);
+							array.splice(i + 1, 2);
 							break;
+						case 'sin':
+							array[i] = Trig.sin(array[i + 1]);
 					}
 				}
 				for (let i = 0; i < array.length; i++) {
