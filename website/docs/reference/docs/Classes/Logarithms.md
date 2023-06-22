@@ -13,12 +13,12 @@ Class containing logarithm functions
 **Kind**: global class  
 
 * [Logarithms](#Logarithms)
-    * [.ln(x, [accuracy])](#Logarithms.ln) ⇒ <code>number</code>
-    * [.log(x, [base], [accuracy])](#Logarithms.log) ⇒ <code>number</code>
+    * [.ln(x, [options])](#Logarithms.ln) ⇒ <code>number</code>
+    * [.log(x, [options])](#Logarithms.log) ⇒ <code>number</code>
 
 <a name="Logarithms.ln"></a>
 
-### Logarithms.ln(x, [accuracy]) ⇒ <code>number</code>
+### Logarithms.ln(x, [options]) ⇒ <code>number</code>
 Calculates the natural logarithm of a given number using an iterative series approximation.
 
 **Kind**: static method of [<code>Logarithms</code>](#Logarithms)  
@@ -31,11 +31,14 @@ Calculates the natural logarithm of a given number using an iterative series app
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | x | <code>number</code> |  | the number to calculate the natural logarithm of |
-| [accuracy] | <code>number</code> | <code>10</code> | the number of terms to use in the series approximation (default of 10) |
+| [options] | <code>object</code> |  | options |
+| [options.accuracy] | <code>number</code> | <code>10</code> | precision of the result (default of 10) |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
+| [options.a] | <code>number</code> | <code>1</code> | the starting value |
 
 <a name="Logarithms.log"></a>
 
-### Logarithms.log(x, [base], [accuracy]) ⇒ <code>number</code>
+### Logarithms.log(x, [options]) ⇒ <code>number</code>
 Calculates the logarithm of a number with a specified base to a given accuracy.
 
 **Kind**: static method of [<code>Logarithms</code>](#Logarithms)  
@@ -43,7 +46,9 @@ Calculates the logarithm of a number with a specified base to a given accuracy.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| x | <code>number</code> |  | The number to calculate the logarithm of. |
-| [base] | <code>number</code> | <code>10</code> | The base of the logarithm (default of 10) |
-| [accuracy] | <code>number</code> | <code>10</code> | The number of decimal places to calculate to (default of 10) |
+| x | <code>number</code> |  | The number to calculate the logarithm of |
+| [options] | <code>object</code> |  | options |
+| [options.accuracy] | <code>number</code> | <code>10</code> | precision of the result (default of 10) |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
+| [options.a] | <code>number</code> | <code>1</code> | the starting value |
 
