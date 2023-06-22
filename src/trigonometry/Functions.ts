@@ -5,7 +5,7 @@ import { Factorial, Absolute } from '../core/operations';
 import { Logarithms } from '../equations/Logarithms';
 
 /**
- * Class containing all trigometrical functions
+ * Class containing all trigometric functions
  */
 export class TrigonometryFunctions {
 	/**
@@ -28,7 +28,7 @@ export class TrigonometryFunctions {
 	/**
 	 * Calculates the cosine of a given angle in degrees.
 	 * @param {number} x - the angle in degrees
-	 * @param {number} [accuracy=10] - the number of decimal places to calculate the result (default of 10)
+	 * @param {number} [accuracy=10] - precision of the result (default of 10)
 	 * @return {number} - the cosine of the angle
 	 */
 	static cos(x: number, accuracy = 10): number {
@@ -36,20 +36,20 @@ export class TrigonometryFunctions {
 	}
 
 	/**
-	 * Calculates the tangent of a number using the sine and cosine functions.
-	 * @param {number} x - The input number in degrees
-	 * @param {number} [accuracy=10] - The number of decimal places to calculate the result to (default of 10)
-	 * @return {number} The tangent of the input number, rounded to the specified accuracy
+	 * Calculates the tangent of an angle in degrees.
+	 * @param {number} x - the angle in degrees
+	 * @param {number} [accuracy=10] - precision of the result (default of 10)
+	 * @return {number} the tangent of the angle
 	 */
 	static tan(x: number, accuracy = 10): number {
 		return this.sin(x, accuracy) / this.cos(x, accuracy);
 	}
 
 	/**
-	 * Calculates the cosecant of an angle in degrees with a given accuracy.
+	 * Calculates the cosecant of an angle in degrees.
 	 * @param {number} x - the angle in degrees
-	 * @param {number} [accuracy=10] - the number of decimal places to approximate the result to (default of 10)
-	 * @return {number} the cosecant of the angle with the given accuracy
+	 * @param {number} [accuracy=10] - precision of the result (default of 10)
+	 * @return {number} the cosecant of the angle
 	 */
 	static csc(x: number, accuracy = 10): number {
 		return 1 / this.sin(x, accuracy);
@@ -57,9 +57,9 @@ export class TrigonometryFunctions {
 
 	/**
 	 * Calculates the secant of a given angle in degrees.
-	 * @param {number} x - The angle in degrees
-	 * @param {number} [accuracy=10] - The number of decimal places to round the result to (default of 10)
-	 * @return {number} The secant of the given angle
+	 * @param {number} x - the angle in degrees
+	 * @param {number} [accuracy=10] - precision of the result (default of 10)
+	 * @return {number} the secant of the given angle
 	 */
 	static sec(x: number, accuracy = 10): number {
 		return 1 / this.cos(x, accuracy);
@@ -67,9 +67,9 @@ export class TrigonometryFunctions {
 
 	/**
 	 * Calculates the cotangent of a given angle in degrees.
-	 * @param {number} x - The angle in degrees
-	 * @param {number} [accuracy=10] - The accuracy of the result (default of 10)
-	 * @return {number} The cotangent of the angle
+	 * @param {number} x -the angle in degrees
+	 * @param {number} [accuracy=10] - the accuracy of the result (default of 10)
+	 * @return {number} the cotangent of the angle
 	 */
 	static cot(x: number, accuracy = 10): number {
 		return 1 / this.tan(x, accuracy);
@@ -77,8 +77,8 @@ export class TrigonometryFunctions {
 
 	/**
 	 * Calculates the hyperbolic sine of a number.
-	 * @param {number} x - The number to apply the function to
-	 * @return {number} The hyperbolic sine of the input number
+	 * @param {number} x - the number to apply the function to
+	 * @return {number} the hyperbolic sine of the input number
 	 */
 	static sinh(x: number): number {
 		const e = Constants.e;
@@ -105,12 +105,42 @@ export class TrigonometryFunctions {
 	}
 
 	/**
+	 * Takes a number and returns the hyperbolic secant of that number.
+	 *
+	 * @param {number} x - the number whose hyperbolic secant is to be returned.
+	 * @return {number} the hyperbolic secant of the given number.
+	 */
+	static sech(x: number): number {
+		return 1 / this.cosh(x);
+	}
+
+	/**
+	 * Calculates the hyperbolic cosecant of a given number.
+	 *
+	 * @param {number} x - The number to calculate the hyperbolic cosecant of.
+	 * @return {number} The hyperbolic cosecant of the given number.
+	 */
+	static csch(x: number): number {
+		return 1 / this.sinh(x);
+	}
+
+	/**
+	 * Computes the hyperbolic cotangent of a number.
+	 *
+	 * @param {number} x - The number in radians for which to compute the hyperbolic cotangent.
+	 * @return {number} The hyperbolic cotangent of the given number.
+	 */
+	static coth(x: number): number {
+		return 1 / this.tanh(x);
+	}
+
+	/**
 	 * Computes the arcsine of x using the given accuracy.
 	 * @param {number} x - The value to compute the arcsine for
 	 * @param {number} [accuracy=10] - The accuracy to use in the computation (default of 10)
 	 * @return {number} The computed arcsine value
 	 */
-	static arcsin(x: number, accuracy = 10): number {
+	static asin(x: number, accuracy = 10): number {
 		let result = 0;
 
 		for (let n = 0; n <= accuracy; n++) {
@@ -130,7 +160,7 @@ export class TrigonometryFunctions {
 	 * @param {number} [accuracy=10] - The number of iterations to perform (default of 10)
 	 * @return {number} The arccosine of the given number
 	 */
-	static arccos(x: number, accuracy = 10): number {
+	static acos(x: number, accuracy = 10): number {
 		let result = Constants.pi / 2;
 
 		for (let n = 0; n <= accuracy; n++) {
@@ -150,7 +180,7 @@ export class TrigonometryFunctions {
 	 * @param {number} [accuracy=10] - The accuracy of the resulting calculation (default of 10)
 	 * @return {number} The calculated arctangent value
 	 */
-	static arctan(x: number, accuracy = 10): number {
+	static atan(x: number, accuracy = 10): number {
 		let result = 0;
 
 		for (let n = 0; n <= accuracy; n++) {
@@ -163,12 +193,12 @@ export class TrigonometryFunctions {
 	}
 
 	/**
-	 * Calculates the arccsc of a given number using the Maclaurin series expansion.
+	 * Calculates the arccosecant of a given number using the Maclaurin series expansion.
 	 * @param {number} x - The value to calculate the arccsc of
 	 * @param {number} [accuracy=10] - The number of terms to use in the Maclaurin series expansion (default of 10)
-	 * @returns {number} The arccsc of the given number
+	 * @returns {number} The arccosecant of the given number
 	 */
-	static arccsc(x: number, accuracy = 10): number {
+	static acsc(x: number, accuracy = 10): number {
 		let result = 0;
 
 		for (let n = 0; n <= accuracy; n++) {
@@ -193,12 +223,12 @@ export class TrigonometryFunctions {
 	 * @param {number} [accuracy=10] - the number of iterations to perform for accuracy (default of 10)
 	 * @return {number} the arcsecant of x with given accuracy
 	 */
-	static arcsec(x: number, accuracy = 10): number {
+	static asec(x: number, accuracy = 10): number {
 		if (Absolute(x) < 1) {
 			throw new Error('Input value must be greater than or equal to 1');
 		}
 
-		let result = this.arccos(1 / x);
+		let result = this.acos(1 / x);
 
 		for (let i = 0; i < accuracy; i++) {
 			result =
@@ -216,7 +246,7 @@ export class TrigonometryFunctions {
 	 * @param {number} [accuracy=10] - the number of iterations to perform in the approximation (default of 10)
 	 * @return {number} the arccotangent of x to the specified accuracy
 	 */
-	static arccot(x: number, accuracy = 10): number {
+	static acot(x: number, accuracy = 10): number {
 		let result = 0;
 
 		for (let n = 0; n <= accuracy; n++) {
@@ -235,7 +265,7 @@ export class TrigonometryFunctions {
 	 * @param {number} [accuracy=10] - The number of terms to use in the Maclaurin series expansion (default of 10)
 	 * @return {number} The inverse hyperbolic sine (arcsinh) of the given number
 	 */
-	static arcsinh(x: number, accuracy = 10): number {
+	static asinh(x: number, accuracy = 10): number {
 		let result = 0;
 
 		for (let n = 0; n <= accuracy; n++) {
@@ -254,7 +284,7 @@ export class TrigonometryFunctions {
 	 * @param {number} [accuracy=10] - The number of iterations to perform (default of 10)
 	 * @return {number} The inverse hyperbolic cosine of the given number
 	 */
-	static arccosh(x: number, accuracy = 10): number {
+	static acosh(x: number, accuracy = 10): number {
 		let result = 0;
 
 		for (let n = 0; n <= accuracy; n++) {
@@ -274,7 +304,7 @@ export class TrigonometryFunctions {
 	 * @param {number} [accuracy=10] - The number of iterations to perform to approximate the arctanh value (default of 10)
 	 * @return {number} The arctanh value of the input number
 	 */
-	static arctanh(x: number, accuracy = 10): number {
+	static atanh(x: number, accuracy = 10): number {
 		let result = 0;
 
 		for (let n = 0; n <= accuracy; n++) {
@@ -291,7 +321,7 @@ export class TrigonometryFunctions {
 	 * @param {number} [accuracy=10] - (optional) the number of iterations to use in the approximation (default of 10)
 	 * @return {number} the calculated inverse hyperbolic cosecant of the input number
 	 */
-	static arcscsh(x: number, accuracy = 10): number {
+	static acsch(x: number, accuracy = 10): number {
 		let result = 0;
 
 		for (let n = 0; n <= accuracy; n++) {
@@ -313,7 +343,7 @@ export class TrigonometryFunctions {
 	 * @param {number} [accuracy=10] - the number of decimal places to return in the result (default of 10)
 	 * @return {number} the inverse hyperbolic secant of x
 	 */
-	static arcsecsh(x: number, accuracy = 10): number {
+	static asech(x: number, accuracy = 10): number {
 		let result = Logarithms.log(
 			(1 + Indices.root(1 - x * x)) / x,
 			10,
@@ -335,7 +365,7 @@ export class TrigonometryFunctions {
 	 * @param {number} x - The number whose inverse hyperbolic cotangent is to be calculated
 	 * @return {number} The inverse hyperbolic cotangent of the given number
 	 */
-	static arccoth(x: number): number {
+	static acoth(x: number): number {
 		return 0.5 * Logarithms.log((x + 1) / (x - 1));
 	}
 }

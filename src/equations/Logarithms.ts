@@ -17,8 +17,8 @@ export class Logarithms {
 
 		let result = 0;
 
-		for (let n = 1; n <= accuracy*1000; n++) {
-			result+=(((-1)**(n+1))/n)*((x-a)**n)
+		for (let n = 1; n <= accuracy * 1000; n++) {
+			result += ((-1) ** (n + 1) / n) * (x - a) ** n;
 		}
 
 		return result;
