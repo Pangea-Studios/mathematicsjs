@@ -78,3 +78,15 @@ export function convertBase(
 		return base10.toString(toBase);
 	}
 }
+
+/**
+ * Concatenates two numbers in a given base.
+ *
+ * @param {number} a - The first number to concatenate.
+ * @param {number} b - The second number to concatenate.
+ * @param {number} [base=10] - The base to use for the concatenation.
+ * @return {number} The concatenated number in the given base.
+ */
+export function concatenate(a: number, b: number, base = 10) {
+	return a * Math.pow(base, Math.floor(Math.log(b) / Math.log(base)) + 1) + b;
+}
