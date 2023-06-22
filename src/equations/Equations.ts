@@ -488,10 +488,9 @@ export class Equations {
 							array.splice(i + 1);
 							break;
 						case 'log':
-							array[i] = Logarithms.log(
-								Number(array[i + 1]),
-								Number(array[i + 2]),
-							);
+							array[i] = Logarithms.log(Number(array[i + 1]), {
+								accuracy: Number(array[i + 2]),
+							});
 							array.splice(i + 1, i + 2);
 							break;
 						case 'sin':

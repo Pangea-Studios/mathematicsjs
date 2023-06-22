@@ -64,13 +64,11 @@ class Indices {
  * gcd([7,13,5])
  * @returns {number} The GCD of the inputted numbers
  */
-function gcd(arr, options) {
-    if (!options)
-        options = {};
+function gcd(arr) {
     const n = arr.length;
     let result = arr[0];
     for (let i = 1; i < n; i++) {
-        result = gcd2(arr[i], result, options);
+        result = gcd2(arr[i], result);
         if (result == 1) {
             return 1;
         }
@@ -85,20 +83,13 @@ function gcd(arr, options) {
  * @param {number} [options.base] The base of the numbers you inputted
  * @returns {number} The GCD of the two numbers
  */
-function gcd2(a, b, options) {
-    if (!options)
-        options = {};
-    const base = options['base'] || 10;
+function gcd2(a, b) {
     a = Math.abs(a);
     b = Math.abs(b);
     while (b !== 0) {
         const t = b;
         b = a % b;
         a = t;
-    }
-    // If the base is not 10, convert the GCD to the desired base
-    if (base !== 10) {
-        a = parseInt(a.toString(base), 10);
     }
     return a;
 }
@@ -123,6 +114,17 @@ function convertBase(number, fromBase, toBase) {
     else {
         return base10.toString(toBase);
     }
+}
+/**
+ * Concatenates two numbers in a given base.
+ *
+ * @param {number} a - The first number to concatenate.
+ * @param {number} b - The second number to concatenate.
+ * @param {number} [base=10] - The base to use for the concatenation.
+ * @return {number} The concatenated number in the given base.
+ */
+function concatenate(a, b) {
+    return a * Math.pow(10, Math.floor(Math.log(b) / Math.log(10)) + 1) + b;
 }
 
 /**
@@ -2000,180 +2002,404 @@ class Logarithms {
      * Calculates the natural logarithm of a given number using an iterative series approximation.
      *
      * @param {number} x - the number to calculate the natural logarithm of
-     * @param {number} [accuracy=10] - the number of terms to use in the series approximation (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
+     * @param {number} [options.a=1] - the starting value
      * @throws {Error} Invalid input. ln(x) is only defined for x > 0
      * @return {number} the natural logarithm of the given number
      */
-    static ln(x, accuracy = 10) {
+    static ln(x, options = { accuracy: 10, cache: true, a: 1 }) {
         if (x <= 0) {
             throw new Error('Invalid input. ln(x) is only defined for x > 0');
         }
+        if (this.lnCache.has(x)) {
+            return this.lnCache.get(x);
+        }
         let result = 0;
-        for (let n = 1; n <= accuracy; n++) {
-            const coefficient = (n % 2 === 0 ? -1 : 1) / n;
-            const term = coefficient * Math.pow((x - 1) / x, n);
-            result += term;
+        for (let n = 1; n <= options.accuracy * 1000; n++) {
+            result += (Math.pow((-1), (n + 1)) / n) * Math.pow((x - options.a), n);
+        }
+        if (options.cache === true) {
+            this.lnCache.set(x, result);
         }
         return result;
     }
     /**
      * Calculates the logarithm of a number with a specified base to a given accuracy.
      *
-     * @param {number} x - The number to calculate the logarithm of.
-     * @param {number} [base = 10] - The base of the logarithm (default of 10)
-     * @param {number} [accuracy = 10] - The number of decimal places to calculate to (default of 10)
+     * @param {number} x - The number to calculate the logarithm of
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
+     * @param {number} [options.a=1] - the starting value
      * @return {number} - The calculated logarithm of x with base base, with the specified accuracy.
      */
-    static log(x, base = 10, accuracy = 10) {
-        return this.ln(x, accuracy) / this.ln(base, accuracy);
+    static log(x, options = { accuracy: 10, cache: true, a: 1 }) {
+        if (this.logCache.has(x)) {
+            return this.logCache.get(x);
+        }
+        const result = this.ln(x, {
+            accuracy: options.accuracy,
+            cache: options.cache,
+            a: options.a,
+        }) /
+            this.ln(10, {
+                accuracy: options.accuracy,
+                cache: options.cache,
+                a: options.a,
+            });
+        if (options.cache === true) {
+            this.logCache.set(x, result);
+        }
+        return result;
     }
 }
+Logarithms.logCache = new Map();
+Logarithms.lnCache = new Map();
 
 /**
- * Class containing all trigometrical functions
+ * Class containing all trigometric functions
  */
 class TrigonometryFunctions {
     /**
      * Calculates the sine of an angle in degrees.
      * @param {number} x - the angle in degrees
-     * @param {number} [accuracy=10] - precision of the result (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} the sine of the angle
      */
-    static sin(x, accuracy = 10) {
+    static sin(x, options = { accuracy: 10, cache: true }) {
+        if (this.sinCache.has(x)) {
+            return this.sinCache.get(x);
+        }
         const a = (x % 360) * (Math.PI / 180);
         let result = 0;
-        for (let i = 0; i <= accuracy; i++) {
+        for (let i = 0; i <= options.accuracy; i++) {
             result += (Math.pow((-1), i) * Math.pow(a, (2 * i + 1))) / Factorial(2 * i + 1);
         }
+        this.sinCache.set(x, result);
         return result;
     }
     /**
      * Calculates the cosine of a given angle in degrees.
      * @param {number} x - the angle in degrees
-     * @param {number} [accuracy=10] - the number of decimal places to calculate the result (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} - the cosine of the angle
      */
-    static cos(x, accuracy = 10) {
-        return this.sin(x - 90, accuracy);
+    static cos(x, options = { accuracy: 10, cache: true }) {
+        if (this.cosCache.has(x)) {
+            return this.cosCache.get(x);
+        }
+        const result = this.sin(x - 90, {
+            accuracy: options.accuracy,
+            cache: options.cache,
+        });
+        if (options.cache === true) {
+            this.cosCache.set(x, result);
+        }
+        return result;
     }
     /**
-     * Calculates the tangent of a number using the sine and cosine functions.
-     * @param {number} x - The input number in degrees
-     * @param {number} [accuracy=10] - The number of decimal places to calculate the result to (default of 10)
-     * @return {number} The tangent of the input number, rounded to the specified accuracy
-     */
-    static tan(x, accuracy = 10) {
-        return this.sin(x, accuracy) / this.cos(x, accuracy);
-    }
-    /**
-     * Calculates the cosecant of an angle in degrees with a given accuracy.
+     * Calculates the tangent of an angle in degrees.
      * @param {number} x - the angle in degrees
-     * @param {number} [accuracy=10] - the number of decimal places to approximate the result to (default of 10)
-     * @return {number} the cosecant of the angle with the given accuracy
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
+     * @return {number} the tangent of the angle
      */
-    static csc(x, accuracy = 10) {
-        return 1 / this.sin(x, accuracy);
+    static tan(x, options = { accuracy: 10, cache: true }) {
+        if (this.tanCache.has(x)) {
+            return this.tanCache.get(x);
+        }
+        const result = this.sin(x, {
+            accuracy: options.accuracy,
+            cache: options.cache,
+        }) /
+            this.cos(x, {
+                accuracy: options.accuracy,
+                cache: options.cache,
+            });
+        if (options.cache === true) {
+            this.tanCache.set(x, result);
+        }
+        return result;
+    }
+    /**
+     * Calculates the cosecant of an angle in degrees.
+     * @param {number} x - the angle in degrees
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
+     * @return {number} the cosecant of the angle
+     */
+    static csc(x, options = { accuracy: 10, cache: true }) {
+        if (this.cscCache.has(x)) {
+            return this.cscCache.get(x);
+        }
+        const result = 1 /
+            this.sin(x, {
+                accuracy: options.accuracy,
+                cache: options.cache,
+            });
+        if (options.cache === true) {
+            this.cscCache.set(x, result);
+        }
+        return result;
     }
     /**
      * Calculates the secant of a given angle in degrees.
-     * @param {number} x - The angle in degrees
-     * @param {number} [accuracy=10] - The number of decimal places to round the result to (default of 10)
-     * @return {number} The secant of the given angle
+     * @param {number} x - the angle in degrees
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
+     * @return {number} the secant of the given angle
      */
-    static sec(x, accuracy = 10) {
-        return 1 / this.cos(x, accuracy);
+    static sec(x, options = { accuracy: 10, cache: true }) {
+        if (this.secCache.has(x)) {
+            return this.secCache.get(x);
+        }
+        const result = 1 /
+            this.cos(x, {
+                accuracy: options.accuracy,
+                cache: options.cache,
+            });
+        if (options.cache === true) {
+            this.secCache.set(x, result);
+        }
+        return result;
     }
     /**
      * Calculates the cotangent of a given angle in degrees.
-     * @param {number} x - The angle in degrees
-     * @param {number} [accuracy=10] - The accuracy of the result (default of 10)
-     * @return {number} The cotangent of the angle
+     * @param {number} x -the angle in degrees
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
+     * @return {number} the cotangent of the angle
      */
-    static cot(x, accuracy = 10) {
-        return 1 / this.tan(x, accuracy);
+    static cot(x, options = { accuracy: 10, cache: true }) {
+        if (this.cotCache.has(x)) {
+            return this.cotCache.get(x);
+        }
+        const result = 1 /
+            this.tan(x, {
+                accuracy: options.accuracy,
+                cache: options.cache,
+            });
+        if (options.cache === true) {
+            this.cotCache.set(x, result);
+        }
+        return result;
     }
     /**
      * Calculates the hyperbolic sine of a number.
-     * @param {number} x - The number to apply the function to
-     * @return {number} The hyperbolic sine of the input number
+     * @param {number} x - the number to apply the function to
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @return {number} the hyperbolic sine of the input number
      */
-    static sinh(x) {
+    static sinh(x, options = { cache: true }) {
+        if (this.sinhCache.has(x)) {
+            return this.sinhCache.get(x);
+        }
         const e = Constants.e;
-        return Math.pow(e, x) - Math.pow(e, -x) / 2;
+        const result = Math.pow(e, x) - Math.pow(e, -x) / 2;
+        if (options.cache === true) {
+            this.sinhCache.set(x, result);
+        }
+        return result;
     }
     /**
      * Returns the hyperbolic cosine of a number.
      * @param {number} x - The number for which to return the hyperbolic cosine
+     * @param {object} [options] - options
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} The hyperbolic cosine of the number
      */
-    static cosh(x) {
+    static cosh(x, options = { cache: true }) {
+        if (this.coshCache.has(x)) {
+            return this.coshCache.get(x);
+        }
         const e = Constants.e;
-        return (Math.pow(e, x) + Math.pow(e, -x)) / 2;
+        const result = (Math.pow(e, x) + Math.pow(e, -x)) / 2;
+        if (options.cache === true) {
+            this.coshCache.set(x, result);
+        }
+        return result;
     }
     /**
      * Calculates the hyperbolic tangent of a number.
      * @param {number} x - The number to calculate the tangent of
+     * @param {object} [options] - options
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} The hyperbolic tangent of the number
      */
-    static tanh(x) {
-        return this.sinh(x) / this.cosh(x);
+    static tanh(x, options = { cache: true }) {
+        if (this.tanhCache.has(x)) {
+            return this.tanhCache.get(x);
+        }
+        const result = this.sinh(x, {
+            cache: options.cache,
+        }) /
+            this.cosh(x, {
+                cache: options.cache,
+            });
+        if (options.cache === true) {
+            this.tanhCache.set(x, result);
+        }
+        return result;
+    }
+    /**
+     * Takes a number and returns the hyperbolic secant of that number.
+     *
+     * @param {number} x - the number whose hyperbolic secant is to be returned.
+     * @param {object} [options] - options
+     * @param {boolean} [options.cache=true] - cache the result
+     * @return {number} the hyperbolic secant of the given number.
+     */
+    static sech(x, options = { cache: true }) {
+        if (this.sechCache.has(x)) {
+            return this.sechCache.get(x);
+        }
+        const result = 1 /
+            this.cosh(x, {
+                cache: options.cache,
+            });
+        if (options.cache === true) {
+            this.sechCache.set(x, result);
+        }
+        return result;
+    }
+    /**
+     * Calculates the hyperbolic cosecant of a given number.
+     *
+     * @param {number} x - The number to calculate the hyperbolic cosecant of.
+     * @param {object} [options] - options
+     * @param {boolean} [options.cache=true] - cache the result
+     * @return {number} The hyperbolic cosecant of the given number.
+     */
+    static csch(x, options = { cache: true }) {
+        if (this.cschCache.has(x)) {
+            return this.cschCache.get(x);
+        }
+        const result = 1 /
+            this.sinh(x, {
+                cache: options.cache,
+            });
+        if (options.cache === true) {
+            this.cschCache.set(x, result);
+        }
+        return result;
+    }
+    /**
+     * Computes the hyperbolic cotangent of a number.
+     *
+     * @param {number} x - The number in radians for which to compute the hyperbolic cotangent.
+     * @param {object} [options] - options
+     * @param {boolean} [options.cache=true] - cache the result
+     * @return {number} The hyperbolic cotangent of the given number.
+     */
+    static coth(x, options = { cache: true }) {
+        if (this.cothCache.has(x)) {
+            return this.cothCache.get(x);
+        }
+        const result = 1 /
+            this.tanh(x, {
+                cache: options.cache,
+            });
+        if (options.cache === true) {
+            this.cothCache.set(x, result);
+        }
+        return result;
     }
     /**
      * Computes the arcsine of x using the given accuracy.
      * @param {number} x - The value to compute the arcsine for
-     * @param {number} [accuracy=10] - The accuracy to use in the computation (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} The computed arcsine value
      */
-    static arcsin(x, accuracy = 10) {
+    static asin(x, options = { accuracy: 10, cache: true }) {
+        if (this.asinCache.has(x)) {
+            return this.asinCache.get(x);
+        }
         let result = 0;
-        for (let n = 0; n <= accuracy; n++) {
+        for (let n = 0; n <= options.accuracy; n++) {
             const coefficient = (1 / Indices.power(2, n)) *
                 (Equations.binomialCoefficient(2 * n, n) / (2 * n + 1));
             const term = coefficient * Indices.power(x, 2 * n + 1);
             result += term;
+        }
+        if (options.cache === true) {
+            this.asinCache.set(x, result);
         }
         return result;
     }
     /**
      * Calculates the arccosine of a given number with a specified accuracy.
      * @param {number} x - The number to get the arccosine of
-     * @param {number} [accuracy=10] - The number of iterations to perform (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} The arccosine of the given number
      */
-    static arccos(x, accuracy = 10) {
+    static acos(x, options = { accuracy: 10, cache: true }) {
+        if (this.acosCache.has(x)) {
+            return this.acosCache.get(x);
+        }
         let result = Constants.pi / 2;
-        for (let n = 0; n <= accuracy; n++) {
+        for (let n = 0; n <= options.accuracy; n++) {
             const coefficient = (1 / Indices.power(2, n)) *
                 (Equations.binomialCoefficient(2 * n, n) / (2 * n + 1));
             const term = coefficient * Indices.power(x, 2 * n + 1);
             result += term;
+        }
+        if (options.cache === true) {
+            this.acosCache.set(x, result);
         }
         return result;
     }
     /**
      * Calculates the arctangent of a given number using the specified accuracy.
      * @param {number} x - The input number
-     * @param {number} [accuracy=10] - The accuracy of the resulting calculation (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} The calculated arctangent value
      */
-    static arctan(x, accuracy = 10) {
+    static atan(x, options = { accuracy: 10, cache: true }) {
+        if (this.atanCache.has(x)) {
+            return this.atanCache.get(x);
+        }
         let result = 0;
-        for (let n = 0; n <= accuracy; n++) {
+        for (let n = 0; n <= options.accuracy; n++) {
             const coefficient = (n % 2 === 0 ? 1 : -1) / (2 * n + 1);
             const term = coefficient * Indices.power(x, 2 * n + 1);
             result += term;
         }
+        if (options.cache === true) {
+            this.atanCache.set(x, result);
+        }
         return result;
     }
     /**
-     * Calculates the arccsc of a given number using the Maclaurin series expansion.
+     * Calculates the arccosecant of a given number using the Maclaurin series expansion.
      * @param {number} x - The value to calculate the arccsc of
-     * @param {number} [accuracy=10] - The number of terms to use in the Maclaurin series expansion (default of 10)
-     * @returns {number} The arccsc of the given number
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
+     * @returns {number} The arccosecant of the given number
      */
-    static arccsc(x, accuracy = 10) {
+    static acsc(x, options = { accuracy: 10, cache: true }) {
+        if (this.acscCache.has(x)) {
+            return this.acscCache.get(x);
+        }
         let result = 0;
-        for (let n = 0; n <= accuracy; n++) {
+        for (let n = 0; n <= options.accuracy; n++) {
             const coefficient = 1 /
                 (Factorial(n) *
                     Indices.power((1 / Indices.power(2, 2 * n + 1)) *
@@ -2181,101 +2407,163 @@ class TrigonometryFunctions {
             const term = coefficient * Indices.power(x, 2 * n + 1);
             result += term;
         }
+        if (options.cache === true) {
+            this.acscCache.set(x, result);
+        }
         return result;
     }
     /**
      * Calculates arcsecant of a number with given accuracy.
      * @param {number} x - the input value must be greater than or equal to 1
-     * @param {number} [accuracy=10] - the number of iterations to perform for accuracy (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} the arcsecant of x with given accuracy
      */
-    static arcsec(x, accuracy = 10) {
+    static asec(x, options = { accuracy: 10, cache: true }) {
         if (Absolute(x) < 1) {
             throw new Error('Input value must be greater than or equal to 1');
         }
-        let result = this.arccos(1 / x);
-        for (let i = 0; i < accuracy; i++) {
+        if (this.asecCache.has(x)) {
+            return this.asecCache.get(x);
+        }
+        let result = this.acos(1 / x);
+        for (let i = 0; i < options.accuracy; i++) {
             result =
                 result -
-                    (this.sec(result, accuracy) - x) /
-                        (this.sec(result, accuracy) * this.tan(result, accuracy));
+                    (this.sec(result, {
+                        accuracy: options.accuracy,
+                        cache: options.cache,
+                    }) -
+                        x) /
+                        (this.sec(result, {
+                            accuracy: options.accuracy,
+                            cache: options.cache,
+                        }) *
+                            this.tan(result, {
+                                accuracy: options.accuracy,
+                                cache: options.cache,
+                            }));
+        }
+        if (options.cache === true) {
+            this.asecCache.set(x, result);
         }
         return result;
     }
     /**
      * Calculates the arccotangent of a number to a certain accuracy.
      * @param {number} x - the number to calculate the arccotangent of
-     * @param {number} [accuracy=10] - the number of iterations to perform in the approximation (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} the arccotangent of x to the specified accuracy
      */
-    static arccot(x, accuracy = 10) {
+    static acot(x, options = { accuracy: 10, cache: true }) {
+        if (this.acotCache.has(x)) {
+            return this.acotCache.get(x);
+        }
         let result = 0;
-        for (let n = 0; n <= accuracy; n++) {
+        for (let n = 0; n <= options.accuracy; n++) {
             const term = (Indices.power(-1, n) / (2 * n + 1)) *
                 Indices.power(x, 2 * n + 1);
             result += term;
+        }
+        if (options.cache === true) {
+            this.acotCache.set(x, result);
         }
         return result;
     }
     /**
      * Computes the inverse hyperbolic sine (arcsinh) of a given number using the Maclaurin series expansion.
      * @param {number} x - The number to compute the inverse hyperbolic sine of
-     * @param {number} [accuracy=10] - The number of terms to use in the Maclaurin series expansion (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} The inverse hyperbolic sine (arcsinh) of the given number
      */
-    static arcsinh(x, accuracy = 10) {
+    static asinh(x, options = { accuracy: 10, cache: true }) {
+        if (this.asinhCache.has(x)) {
+            return this.asinhCache.get(x);
+        }
         let result = 0;
-        for (let n = 0; n <= accuracy; n++) {
+        for (let n = 0; n <= options.accuracy; n++) {
             const coefficient = (Indices.power(-1, n) / (2 * n + 1)) * Factorial(2 * n);
             const term = coefficient * Indices.power(x, 2 * n + 1);
             result += term;
+        }
+        if (options.cache === true) {
+            this.asinhCache.set(x, result);
         }
         return result;
     }
     /**
      * Computes the inverse hyperbolic cosine of a number.
      * @param {number} x - A number whose inverse hyperbolic cosine is to be found
-     * @param {number} [accuracy=10] - The number of iterations to perform (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} The inverse hyperbolic cosine of the given number
      */
-    static arccosh(x, accuracy = 10) {
+    static acosh(x, options = { accuracy: 10, cache: true }) {
+        if (this.acoshCache.has(x)) {
+            return this.acoshCache.get(x);
+        }
         let result = 0;
-        for (let n = 0; n <= accuracy; n++) {
+        for (let n = 0; n <= options.accuracy; n++) {
             const coefficient = (Indices.power(-1, n) * Factorial(2 * n)) /
                 (Indices.power(2, 2 * n) * Indices.power(Factorial(n), 2));
             const term = (coefficient * Indices.power(x, 2 * n)) / (2 * n - 1);
             result += term;
+        }
+        if (options.cache === true) {
+            this.acoshCache.set(x, result);
         }
         return result;
     }
     /**
      * Calculates the arctanh (inverse hyperbolic tangent) of a number up to a certain accuracy.
      * @param {number} x - The number to calculate the arctanh of
-     * @param {number} [accuracy=10] - The number of iterations to perform to approximate the arctanh value (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} The arctanh value of the input number
      */
-    static arctanh(x, accuracy = 10) {
+    static atanh(x, options = { accuracy: 10, cache: true }) {
+        if (this.atanhCache.has(x)) {
+            return this.atanhCache.get(x);
+        }
         let result = 0;
-        for (let n = 0; n <= accuracy; n++) {
+        for (let n = 0; n <= options.accuracy; n++) {
             const term = Indices.power(x, 2 * n + 1) / (2 * n + 1);
             result += term;
+        }
+        if (options.cache === true) {
+            this.atanhCache.set(x, result);
         }
         return result;
     }
     /**
      * Calculates the inverse hyperbolic cosecant (arcsinh) of a number up to a given accuracy.
      * @param {number} x - the number to calculate the inverse hyperbolic cosecant of
-     * @param {number} [accuracy=10] - (optional) the number of iterations to use in the approximation (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} the calculated inverse hyperbolic cosecant of the input number
      */
-    static arcscsh(x, accuracy = 10) {
+    static acsch(x, options = { accuracy: 10, cache: true }) {
+        if (this.acschCache.has(x)) {
+            return this.acschCache.get(x);
+        }
         let result = 0;
-        for (let n = 0; n <= accuracy; n++) {
+        for (let n = 0; n <= options.accuracy; n++) {
             const coefficient = (Indices.power(-1, n) *
                 Equations.binomialCoefficient(2 * n, n)) /
                 (Factorial(n) * (2 * n + 1));
             const term = coefficient * Indices.power(x, 2 * n + 1);
             result += term;
+        }
+        if (options.cache === true) {
+            this.acschCache.set(x, result);
         }
         return result;
     }
@@ -2283,28 +2571,77 @@ class TrigonometryFunctions {
      * Computes the inverse hyperbolic secant of a number with a given accuracy.
      * There is no specific method of finding the inverse hyperbolic secant so this uses the Newton-Raphson method to approximate arcsech(x)
      * @param {number} x - the number to compute the inverse hyperbolic secant of
-     * @param {number} [accuracy=10] - the number of decimal places to return in the result (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} the inverse hyperbolic secant of x
      */
-    static arcsecsh(x, accuracy = 10) {
-        let result = Logarithms.log((1 + Indices.root(1 - x * x)) / x, 10, accuracy);
-        for (let i = 0; i < accuracy; i++) {
+    static asech(x, options = { accuracy: 10, cache: true }) {
+        if (this.asechCache.has(x)) {
+            return this.asechCache.get(x);
+        }
+        let result = Logarithms.log((1 + Indices.root(1 - x * x)) / x, {
+            accuracy: options.accuracy,
+            cache: options.cache,
+        });
+        for (let i = 0; i < options.accuracy; i++) {
             const sech = 1 / this.cosh(result);
             const numerator = sech - x;
             const denominator = -sech * this.tanh(result);
             result -= numerator / denominator;
+        }
+        if (options.cache === true) {
+            this.asechCache.set(x, result);
         }
         return result;
     }
     /**
      * Calculates the inverse hyperbolic cotangent of the given number.
      * @param {number} x - The number whose inverse hyperbolic cotangent is to be calculated
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} The inverse hyperbolic cotangent of the given number
      */
-    static arccoth(x) {
-        return 0.5 * Logarithms.log((x + 1) / (x - 1));
+    static acoth(x, options = { accuracy: 10, cache: true }) {
+        if (this.acothCache.has(x)) {
+            return this.acothCache.get(x);
+        }
+        const result = 0.5 *
+            Logarithms.log((x + 1) / (x - 1), {
+                accuracy: options.accuracy,
+                cache: options.cache,
+            });
+        if (options.cache === true) {
+            this.acothCache.set(x, result);
+        }
+        return result;
     }
 }
+TrigonometryFunctions.sinCache = new Map();
+TrigonometryFunctions.cosCache = new Map();
+TrigonometryFunctions.tanCache = new Map();
+TrigonometryFunctions.asinCache = new Map();
+TrigonometryFunctions.acosCache = new Map();
+TrigonometryFunctions.atanCache = new Map();
+TrigonometryFunctions.cscCache = new Map();
+TrigonometryFunctions.secCache = new Map();
+TrigonometryFunctions.cotCache = new Map();
+TrigonometryFunctions.sinhCache = new Map();
+TrigonometryFunctions.coshCache = new Map();
+TrigonometryFunctions.tanhCache = new Map();
+TrigonometryFunctions.asinhCache = new Map();
+TrigonometryFunctions.acoshCache = new Map();
+TrigonometryFunctions.atanhCache = new Map();
+TrigonometryFunctions.cschCache = new Map();
+TrigonometryFunctions.sechCache = new Map();
+TrigonometryFunctions.cothCache = new Map();
+TrigonometryFunctions.acscCache = new Map();
+TrigonometryFunctions.asecCache = new Map();
+TrigonometryFunctions.acotCache = new Map();
+TrigonometryFunctions.acschCache = new Map();
+TrigonometryFunctions.asechCache = new Map();
+TrigonometryFunctions.acothCache = new Map();
 
 /**
  * Class containing equation utilities
@@ -2318,9 +2655,7 @@ class Equations {
      * @return {Array<string|number> | 'Error'} the result of the evaluation or 'Error' if the equation is invalid
      */
     static parseEquation(equation, variables) {
-        const result = equation
-            .replace(/\s/g, '')
-            .split('');
+        const result = equation.replace(/\s/g, '').split('');
         const find = (array, target) => {
             let count = 0;
             if (Array.isArray(array)) {
@@ -2347,59 +2682,50 @@ class Equations {
         }
         for (let i = 0; i < result.length; i++) {
             if (!isNaN(Number(result[i])) && !isNaN(Number(result[i + 1]))) {
-                result[i] = Number(result[i]) + Number(result[i + 1]);
+                result[i] = Number(result[i].concat(result[i + 1]));
                 result.splice(i + 1, 1);
                 i--;
             }
             else if (result[i] === '-' &&
                 !isNaN(Number(result[i + 1])) &&
                 isNaN(Number(result[i - 1]))) {
-                result[i] = Number(result[i]) + Number(result[i + 1]);
+                result[i] = Number(result[i].concat(result[i + 1]));
                 result.splice(i + 1, 1);
                 i--;
             }
             else if (result[i] === '.' && !isNaN(Number(result[i + 1]))) {
-                result[i] = Number(result[i]) + Number(result[i + 1]);
+                result[i] = Number(result[i].concat(result[i + 1]));
                 result.splice(i + 1, 1);
                 i--;
             }
             else if (!isNaN(Number(result[i])) &&
                 result[i + 1] === '.' &&
                 !isNaN(Number(result[i + 2]))) {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]);
+                result[i] = result[i] = Number(result[i].concat(result[i + 1], result[i + 2]));
                 result.splice(i + 1, 2);
                 i--;
             }
             else if (result[i] === 'r' && result[i + 1] === 't') {
-                result[i] = Number(result[i]) + Number(result[i + 1]);
+                result[i] = result[i].concat(result[i + 1]);
                 result.splice(i + 1, 1);
                 i--;
             }
             else if (result[i] === 'l' && result[i + 1] === 'n') {
-                result[i] = Number(result[i]) + Number(result[i + 1]);
+                result[i] = result[i].concat(result[i + 1]);
                 result.splice(i + 1, 1);
                 i--;
             }
             else if (result[i] === 'a' &&
                 result[i + 1] === 'b' &&
                 result[i + 2] === 's') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]);
+                result[i] = result[i] = result[i].concat(result[i + 1], result[i + 2]);
                 result.splice(i + 1, 2);
                 i--;
             }
             else if (result[i] === 'l' &&
                 result[i + 1] === 'o' &&
                 result[i + 2] === 'g') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]);
+                result[i] = result[i] = result[i].concat(result[i + 1], result[i + 2]);
                 result.splice(i + 1, 2);
                 i--;
             }
@@ -2408,12 +2734,7 @@ class Equations {
                 result[i + 2] === 'i' &&
                 result[i + 3] === 'n' &&
                 result[i + 4] === 'h') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]) +
-                        Number(result[i + 3]) +
-                        Number(result[i + 4]);
+                result[i] = result[i].concat(result[i + 1], result[i + 2], result[i + 3], result[i + 4]);
                 result.splice(i + 1, 4);
                 i--;
             }
@@ -2422,12 +2743,7 @@ class Equations {
                 result[i + 2] === 'o' &&
                 result[i + 3] === 's' &&
                 result[i + 4] === 'h') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]) +
-                        Number(result[i + 3]) +
-                        Number(result[i + 4]);
+                result[i] = result[i].concat(result[i + 1], result[i + 2], result[i + 3], result[i + 4]);
                 result.splice(i + 1, 4);
                 i--;
             }
@@ -2436,12 +2752,7 @@ class Equations {
                 result[i + 2] === 'a' &&
                 result[i + 3] === 'n' &&
                 result[i + 4] === 'h') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]) +
-                        Number(result[i + 3]) +
-                        Number(result[i + 4]);
+                result[i] = result[i].concat(result[i + 1], result[i + 2], result[i + 3], result[i + 4]);
                 result.splice(i + 1, 4);
                 i--;
             }
@@ -2450,12 +2761,7 @@ class Equations {
                 result[i + 2] === 'e' &&
                 result[i + 3] === 'c' &&
                 result[i + 4] === 'h') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]) +
-                        Number(result[i + 3]) +
-                        Number(result[i + 4]);
+                result[i] = result[i].concat(result[i + 1], result[i + 2], result[i + 3], result[i + 4]);
                 result.splice(i + 1, 4);
                 i--;
             }
@@ -2464,12 +2770,7 @@ class Equations {
                 result[i + 2] === 's' &&
                 result[i + 3] === 'c' &&
                 result[i + 4] === 'h') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]) +
-                        Number(result[i + 3]) +
-                        Number(result[i + 4]);
+                result[i] = result[i].concat(result[i + 1], result[i + 2], result[i + 3], result[i + 4]);
                 result.splice(i + 1, 4);
                 i--;
             }
@@ -2478,12 +2779,7 @@ class Equations {
                 result[i + 2] === 'o' &&
                 result[i + 3] === 't' &&
                 result[i + 4] === 'h') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]) +
-                        Number(result[i + 3]) +
-                        Number(result[i + 4]);
+                result[i] = result[i].concat(result[i + 1], result[i + 2], result[i + 3], result[i + 4]);
                 result.splice(i + 1, 4);
                 i--;
             }
@@ -2491,11 +2787,7 @@ class Equations {
                 result[i + 1] === 's' &&
                 result[i + 2] === 'i' &&
                 result[i + 3] === 'n') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]) +
-                        Number(result[i + 3]);
+                result[i] = result[i].concat(result[i + 1], result[i + 2], result[i + 3]);
                 result.splice(i + 1, 3);
                 i--;
             }
@@ -2503,11 +2795,7 @@ class Equations {
                 result[i + 1] === 'c' &&
                 result[i + 2] === 'o' &&
                 result[i + 3] === 's') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]) +
-                        Number(result[i + 3]);
+                result[i] = result[i].concat(result[i + 1], result[i + 2], result[i + 3]);
                 result.splice(i + 1, 3);
                 i--;
             }
@@ -2515,11 +2803,7 @@ class Equations {
                 result[i + 1] === 't' &&
                 result[i + 2] === 'a' &&
                 result[i + 3] === 'n') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]) +
-                        Number(result[i + 3]);
+                result[i] = result[i].concat(result[i + 1], result[i + 2], result[i + 3]);
                 result.splice(i + 1, 3);
                 i--;
             }
@@ -2527,11 +2811,7 @@ class Equations {
                 result[i + 1] === 's' &&
                 result[i + 2] === 'e' &&
                 result[i + 3] === 'c') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]) +
-                        Number(result[i + 3]);
+                result[i] = result[i].concat(result[i + 1], result[i + 2], result[i + 3]);
                 result.splice(i + 1, 3);
                 i--;
             }
@@ -2539,11 +2819,7 @@ class Equations {
                 result[i + 1] === 'c' &&
                 result[i + 2] === 's' &&
                 result[i + 3] === 'c') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]) +
-                        Number(result[i + 3]);
+                result[i] = result[i].concat(result[i + 1], result[i + 2], result[i + 3]);
                 result.splice(i + 1, 3);
                 i--;
             }
@@ -2551,11 +2827,7 @@ class Equations {
                 result[i + 1] === 'c' &&
                 result[i + 2] === 'o' &&
                 result[i + 3] === 't') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]) +
-                        Number(result[i + 3]);
+                result[i] = result[i].concat(result[i + 1], result[i + 2], result[i + 3]);
                 result.splice(i + 1, 3);
                 i--;
             }
@@ -2563,11 +2835,7 @@ class Equations {
                 result[i + 1] === 'i' &&
                 result[i + 2] === 'n' &&
                 result[i + 3] === 'h') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]) +
-                        Number(result[i + 3]);
+                result[i] = result[i].concat(result[i + 1], result[i + 2], result[i + 3]);
                 result.splice(i + 1, 3);
                 i--;
             }
@@ -2575,11 +2843,7 @@ class Equations {
                 result[i + 1] === 'o' &&
                 result[i + 2] === 's' &&
                 result[i + 3] === 'h') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]) +
-                        Number(result[i + 3]);
+                result[i] = result[i].concat(result[i + 1], result[i + 2], result[i + 3]);
                 result.splice(i + 1, 3);
                 i--;
             }
@@ -2587,11 +2851,7 @@ class Equations {
                 result[i + 1] === 'a' &&
                 result[i + 2] === 'n' &&
                 result[i + 3] === 'h') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]) +
-                        Number(result[i + 3]);
+                result[i] = result[i].concat(result[i + 1], result[i + 2], result[i + 3]);
                 result.splice(i + 1, 3);
                 i--;
             }
@@ -2599,11 +2859,7 @@ class Equations {
                 result[i + 1] === 'e' &&
                 result[i + 2] === 'c' &&
                 result[i + 3] === 'h') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]) +
-                        Number(result[i + 3]);
+                result[i] = result[i].concat(result[i + 1], result[i + 2], result[i + 3]);
                 result.splice(i + 1, 3);
                 i--;
             }
@@ -2611,11 +2867,7 @@ class Equations {
                 result[i + 1] === 's' &&
                 result[i + 2] === 'c' &&
                 result[i + 3] === 'h') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]) +
-                        Number(result[i + 3]);
+                result[i] = result[i].concat(result[i + 1], result[i + 2], result[i + 3]);
                 result.splice(i + 1, 3);
                 i--;
             }
@@ -2623,71 +2875,49 @@ class Equations {
                 result[i + 1] === 'o' &&
                 result[i + 2] === 't' &&
                 result[i + 3] === 'h') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]) +
-                        Number(result[i + 3]);
+                result[i] = result[i] = result[i].concat(result[i + 1], result[i + 2], result[i + 3]);
                 result.splice(i + 1, 3);
                 i--;
             }
             else if (result[i] === 's' &&
                 result[i + 1] === 'i' &&
                 result[i + 2] === 'n') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]);
+                result[i] = result[i] = result[i].concat(result[i + 1], result[i + 2]);
                 result.splice(i + 1, 2);
                 i--;
             }
             else if (result[i] === 'c' &&
                 result[i + 1] === 'o' &&
                 result[i + 2] === 's') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]);
+                result[i] = result[i] = result[i].concat(result[i + 1], result[i + 2]);
                 result.splice(i + 1, 2);
                 i--;
             }
             else if (result[i] === 't' &&
                 result[i + 1] === 'a' &&
                 result[i + 2] === 'n') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]);
+                result[i] = result[i] = result[i].concat(result[i + 1], result[i + 2]);
                 result.splice(i + 1, 2);
                 i--;
             }
             else if (result[i] === 's' &&
                 result[i + 1] === 'e' &&
                 result[i + 2] === 'c') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]);
+                result[i] = result[i] = result[i].concat(result[i + 1], result[i + 2]);
                 result.splice(i + 1, 2);
                 i--;
             }
             else if (result[i] === 'c' &&
                 result[i + 1] === 's' &&
                 result[i + 2] === 'c') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]);
+                result[i] = result[i] = result[i].concat(result[i + 1], result[i + 2]);
                 result.splice(i + 1, 2);
                 i--;
             }
             else if (result[i] === 'c' &&
                 result[i + 1] === 'o' &&
                 result[i + 2] === 't') {
-                result[i] =
-                    Number(result[i]) +
-                        Number(result[i + 1]) +
-                        Number(result[i + 2]);
+                result[i] = result[i] = result[i].concat(result[i + 1], result[i + 2]);
                 result.splice(i + 1, 2);
                 i--;
             }
@@ -2715,7 +2945,7 @@ class Equations {
      *
      * @param {string} equation - the equation to be evaluated
      * @param {{ Array.<string>: number }} variables - an object with variable names and their values
-     * @return {number | 'Error'} the result of the evaluation or 'Error' if the equation is invalid
+     * @return { number | 'Error'} the result of the evaluation or 'Error' if the equation is invalid
      */
     static evaluate(equation, variables) {
         const result = this.parseEquation(equation, variables);
@@ -2754,12 +2984,106 @@ class Equations {
                             array.splice(i + 1);
                             break;
                         case 'log':
-                            array[i] = Logarithms.log(Number(array[i + 1]), Number(array[i + 2]));
+                            array[i] = Logarithms.log(Number(array[i + 1]), {
+                                accuracy: Number(array[i + 2]),
+                            });
                             array.splice(i + 1, i + 2);
                             break;
                         case 'sin':
                             array[i] = TrigonometryFunctions.sin(Number(array[i + 1]));
-                            array.splice(i + 1);
+                            array.splice(i + 1, 1);
+                            break;
+                        case 'cos':
+                            array[i] = TrigonometryFunctions.cos(Number(array[i + 1]));
+                            array.splice(i + 1, 1);
+                            break;
+                        case 'tan':
+                            array[i] = TrigonometryFunctions.tan(Number(array[i + 1]));
+                            array.splice(i + 1, 1);
+                            break;
+                        case 'sec':
+                            array[i] = TrigonometryFunctions.sec(Number(array[i + 1]));
+                            array.splice(i + 1, 1);
+                            break;
+                        case 'csc':
+                            array[i] = TrigonometryFunctions.csc(Number(array[i + 1]));
+                            array.splice(i + 1, 1);
+                            break;
+                        case 'cot':
+                            array[i] = TrigonometryFunctions.tan(Number(array[i + 1]));
+                            array.splice(i + 1, 1);
+                            break;
+                        case 'sinh':
+                            array[i] = TrigonometryFunctions.sinh(Number(array[i + 1]));
+                            array.splice(i + 1, 1);
+                            break;
+                        case 'cosh':
+                            array[i] = TrigonometryFunctions.cosh(Number(array[i + 1]));
+                            array.splice(i + 1, 1);
+                            break;
+                        case 'tanh':
+                            array[i] = TrigonometryFunctions.tanh(Number(array[i + 1]));
+                            array.splice(i + 1, 1);
+                            break;
+                        case 'sech':
+                            array[i] = TrigonometryFunctions.sech(Number(array[i + 1]));
+                            array.splice(i + 1, 1);
+                            break;
+                        case 'csch':
+                            array[i] = TrigonometryFunctions.csch(Number(array[i + 1]));
+                            array.splice(i + 1, 1);
+                            break;
+                        case 'coth':
+                            array[i] = TrigonometryFunctions.coth(Number(array[i + 1]));
+                            array.splice(i + 1, 1);
+                            break;
+                        case 'asin':
+                            array[i] = TrigonometryFunctions.asin(Number(array[i + 1]));
+                            array.splice(i + 1, 1);
+                            break;
+                        case 'acot':
+                            array[i] = TrigonometryFunctions.acot(Number(array[i + 1]));
+                            array.splice(i + 1, 1);
+                            break;
+                        case 'acos':
+                            array[i] = TrigonometryFunctions.acos(Number(array[i + 1]));
+                            array.splice(i + 1, 1);
+                            break;
+                        case 'atan':
+                            array[i] = TrigonometryFunctions.atan(Number(array[i + 1]));
+                            array.splice(i + 1, 1);
+                            break;
+                        case 'asec':
+                            array[i] = TrigonometryFunctions.asec(Number(array[i + 1]));
+                            array.splice(i + 1, 1);
+                            break;
+                        case 'acsc':
+                            array[i] = TrigonometryFunctions.acsc(Number(array[i + 1]));
+                            array.splice(i + 1, 1);
+                            break;
+                        case 'asinh':
+                            array[i] = TrigonometryFunctions.asinh(Number(array[i + 1]));
+                            array.splice(i + 1, 1);
+                            break;
+                        case 'acoth':
+                            array[i] = TrigonometryFunctions.acoth(Number(array[i + 1]));
+                            array.splice(i + 1, 1);
+                            break;
+                        case 'acosh':
+                            array[i] = TrigonometryFunctions.acosh(Number(array[i + 1]));
+                            array.splice(i + 1, 1);
+                            break;
+                        case 'atanh':
+                            array[i] = TrigonometryFunctions.atanh(Number(array[i + 1]));
+                            array.splice(i + 1, 1);
+                            break;
+                        case 'asech':
+                            array[i] = TrigonometryFunctions.asech(Number(array[i + 1]));
+                            array.splice(i + 1, 1);
+                            break;
+                        case 'acsch':
+                            array[i] = TrigonometryFunctions.acsch(Number(array[i + 1]));
+                            array.splice(i + 1, 1);
                             break;
                     }
                 }
@@ -2893,4 +3217,4 @@ class Summation {
     }
 }
 
-export { Absolute, Averages, Circle, ComplexNumber, Constants, Conversions, Equations, Factorial, Fraction, Indices, Logarithms, Matrix, Summation, TrigonometryFunctions, add, angleEnum, angleUnits, areaEnum, areaUnits, convertBase, divide, energyEnum, energyUnits, gcd, gcd2, lengthEnum, lengthUnits, massEnum, massUnits, multiply, physicsFormulae, pressureEnum, pressureUnits, speedEnum, speedUnits, subtract, temperatureEnum, temperatureUnits, timeEnum, timeUnits, volumeEnum, volumeUnits };
+export { Absolute, Averages, Circle, ComplexNumber, Constants, Conversions, Equations, Factorial, Fraction, Indices, Logarithms, Matrix, Summation, TrigonometryFunctions, add, angleEnum, angleUnits, areaEnum, areaUnits, concatenate, convertBase, divide, energyEnum, energyUnits, gcd, gcd2, lengthEnum, lengthUnits, massEnum, massUnits, multiply, physicsFormulae, pressureEnum, pressureUnits, speedEnum, speedUnits, subtract, temperatureEnum, temperatureUnits, timeEnum, timeUnits, volumeEnum, volumeUnits };

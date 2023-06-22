@@ -103,7 +103,7 @@ declare class Fraction {
  * gcd([7,13,5])
  * @returns {number} The GCD of the inputted numbers
  */
-declare function gcd(arr: number[], options?: object): number;
+declare function gcd(arr: number[]): number;
 /**
  * Find the GCD of two numbers
  * @param {number} a - The first number
@@ -112,7 +112,7 @@ declare function gcd(arr: number[], options?: object): number;
  * @param {number} [options.base] The base of the numbers you inputted
  * @returns {number} The GCD of the two numbers
  */
-declare function gcd2(a: number, b: number, options?: object): number;
+declare function gcd2(a: number, b: number): number;
 /**
  * Converts a number from one base to another.
  * @param {number|string} number - The inputted number to be converted.
@@ -124,6 +124,15 @@ declare function gcd2(a: number, b: number, options?: object): number;
  * @returns {number|string} - The inputted number in the specified base.
  */
 declare function convertBase(number: number | string, fromBase: number, toBase: number): string | number;
+/**
+ * Concatenates two numbers in a given base.
+ *
+ * @param {number} a - The first number to concatenate.
+ * @param {number} b - The second number to concatenate.
+ * @param {number} [base=10] - The base to use for the concatenation.
+ * @return {number} The concatenated number in the given base.
+ */
+declare function concatenate(a: number, b: number): number;
 
 /**
  * Creates a circle.
@@ -869,7 +878,7 @@ declare class Equations {
      *
      * @param {string} equation - the equation to be evaluated
      * @param {{ Array.<string>: number }} variables - an object with variable names and their values
-     * @return {number | 'Error'} the result of the evaluation or 'Error' if the equation is invalid
+     * @return { number | 'Error'} the result of the evaluation or 'Error' if the equation is invalid
      */
     static evaluate(equation: string, variables: {
         [key: string]: number;
@@ -930,178 +939,291 @@ declare const Constants: {
     readonly Kcd: 683;
 };
 
+interface options$1 {
+    accuracy?: number;
+    cache?: boolean;
+    a?: number;
+}
 /**
  * Class containing logarithm functions
  */
 declare class Logarithms {
+    static readonly logCache: Map<number, number>;
+    static readonly lnCache: Map<number, number>;
     /**
      * Calculates the natural logarithm of a given number using an iterative series approximation.
      *
      * @param {number} x - the number to calculate the natural logarithm of
-     * @param {number} [accuracy=10] - the number of terms to use in the series approximation (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
+     * @param {number} [options.a=1] - the starting value
      * @throws {Error} Invalid input. ln(x) is only defined for x > 0
      * @return {number} the natural logarithm of the given number
      */
-    static ln(x: number, accuracy?: number): number;
+    static ln(x: number, options?: options$1): number;
     /**
      * Calculates the logarithm of a number with a specified base to a given accuracy.
      *
-     * @param {number} x - The number to calculate the logarithm of.
-     * @param {number} [base = 10] - The base of the logarithm (default of 10)
-     * @param {number} [accuracy = 10] - The number of decimal places to calculate to (default of 10)
+     * @param {number} x - The number to calculate the logarithm of
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
+     * @param {number} [options.a=1] - the starting value
      * @return {number} - The calculated logarithm of x with base base, with the specified accuracy.
      */
-    static log(x: number, base?: number, accuracy?: number): number;
+    static log(x: number, options?: options$1): number;
 }
 
+interface options {
+    accuracy?: number;
+    cache?: boolean;
+}
+interface singleOptions {
+    cache?: boolean;
+}
 /**
- * Class containing all trigometrical functions
+ * Class containing all trigometric functions
  */
 declare class TrigonometryFunctions {
+    static readonly sinCache: Map<number, number>;
+    static readonly cosCache: Map<number, number>;
+    static readonly tanCache: Map<number, number>;
+    static readonly asinCache: Map<number, number>;
+    static readonly acosCache: Map<number, number>;
+    static readonly atanCache: Map<number, number>;
+    static readonly cscCache: Map<number, number>;
+    static readonly secCache: Map<number, number>;
+    static readonly cotCache: Map<number, number>;
+    static readonly sinhCache: Map<number, number>;
+    static readonly coshCache: Map<number, number>;
+    static readonly tanhCache: Map<number, number>;
+    static readonly asinhCache: Map<number, number>;
+    static readonly acoshCache: Map<number, number>;
+    static readonly atanhCache: Map<number, number>;
+    static readonly cschCache: Map<number, number>;
+    static readonly sechCache: Map<number, number>;
+    static readonly cothCache: Map<number, number>;
+    static readonly acscCache: Map<number, number>;
+    static readonly asecCache: Map<number, number>;
+    static readonly acotCache: Map<number, number>;
+    static readonly acschCache: Map<number, number>;
+    static readonly asechCache: Map<number, number>;
+    static readonly acothCache: Map<number, number>;
     /**
      * Calculates the sine of an angle in degrees.
      * @param {number} x - the angle in degrees
-     * @param {number} [accuracy=10] - precision of the result (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} the sine of the angle
      */
-    static sin(x: number, accuracy?: number): number;
+    static sin(x: number, options?: options): number;
     /**
      * Calculates the cosine of a given angle in degrees.
      * @param {number} x - the angle in degrees
-     * @param {number} [accuracy=10] - the number of decimal places to calculate the result (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} - the cosine of the angle
      */
-    static cos(x: number, accuracy?: number): number;
+    static cos(x: number, options?: options): number;
     /**
-     * Calculates the tangent of a number using the sine and cosine functions.
-     * @param {number} x - The input number in degrees
-     * @param {number} [accuracy=10] - The number of decimal places to calculate the result to (default of 10)
-     * @return {number} The tangent of the input number, rounded to the specified accuracy
-     */
-    static tan(x: number, accuracy?: number): number;
-    /**
-     * Calculates the cosecant of an angle in degrees with a given accuracy.
+     * Calculates the tangent of an angle in degrees.
      * @param {number} x - the angle in degrees
-     * @param {number} [accuracy=10] - the number of decimal places to approximate the result to (default of 10)
-     * @return {number} the cosecant of the angle with the given accuracy
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
+     * @return {number} the tangent of the angle
      */
-    static csc(x: number, accuracy?: number): number;
+    static tan(x: number, options?: options): number;
+    /**
+     * Calculates the cosecant of an angle in degrees.
+     * @param {number} x - the angle in degrees
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
+     * @return {number} the cosecant of the angle
+     */
+    static csc(x: number, options?: options): number;
     /**
      * Calculates the secant of a given angle in degrees.
-     * @param {number} x - The angle in degrees
-     * @param {number} [accuracy=10] - The number of decimal places to round the result to (default of 10)
-     * @return {number} The secant of the given angle
+     * @param {number} x - the angle in degrees
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
+     * @return {number} the secant of the given angle
      */
-    static sec(x: number, accuracy?: number): number;
+    static sec(x: number, options?: options): number;
     /**
      * Calculates the cotangent of a given angle in degrees.
-     * @param {number} x - The angle in degrees
-     * @param {number} [accuracy=10] - The accuracy of the result (default of 10)
-     * @return {number} The cotangent of the angle
+     * @param {number} x -the angle in degrees
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
+     * @return {number} the cotangent of the angle
      */
-    static cot(x: number, accuracy?: number): number;
+    static cot(x: number, options?: options): number;
     /**
      * Calculates the hyperbolic sine of a number.
-     * @param {number} x - The number to apply the function to
-     * @return {number} The hyperbolic sine of the input number
+     * @param {number} x - the number to apply the function to
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @return {number} the hyperbolic sine of the input number
      */
-    static sinh(x: number): number;
+    static sinh(x: number, options?: singleOptions): number;
     /**
      * Returns the hyperbolic cosine of a number.
      * @param {number} x - The number for which to return the hyperbolic cosine
+     * @param {object} [options] - options
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} The hyperbolic cosine of the number
      */
-    static cosh(x: number): number;
+    static cosh(x: number, options?: singleOptions): number;
     /**
      * Calculates the hyperbolic tangent of a number.
      * @param {number} x - The number to calculate the tangent of
+     * @param {object} [options] - options
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} The hyperbolic tangent of the number
      */
-    static tanh(x: number): number;
+    static tanh(x: number, options?: singleOptions): number;
+    /**
+     * Takes a number and returns the hyperbolic secant of that number.
+     *
+     * @param {number} x - the number whose hyperbolic secant is to be returned.
+     * @param {object} [options] - options
+     * @param {boolean} [options.cache=true] - cache the result
+     * @return {number} the hyperbolic secant of the given number.
+     */
+    static sech(x: number, options?: singleOptions): number;
+    /**
+     * Calculates the hyperbolic cosecant of a given number.
+     *
+     * @param {number} x - The number to calculate the hyperbolic cosecant of.
+     * @param {object} [options] - options
+     * @param {boolean} [options.cache=true] - cache the result
+     * @return {number} The hyperbolic cosecant of the given number.
+     */
+    static csch(x: number, options?: singleOptions): number;
+    /**
+     * Computes the hyperbolic cotangent of a number.
+     *
+     * @param {number} x - The number in radians for which to compute the hyperbolic cotangent.
+     * @param {object} [options] - options
+     * @param {boolean} [options.cache=true] - cache the result
+     * @return {number} The hyperbolic cotangent of the given number.
+     */
+    static coth(x: number, options?: singleOptions): number;
     /**
      * Computes the arcsine of x using the given accuracy.
      * @param {number} x - The value to compute the arcsine for
-     * @param {number} [accuracy=10] - The accuracy to use in the computation (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} The computed arcsine value
      */
-    static arcsin(x: number, accuracy?: number): number;
+    static asin(x: number, options?: options): number;
     /**
      * Calculates the arccosine of a given number with a specified accuracy.
      * @param {number} x - The number to get the arccosine of
-     * @param {number} [accuracy=10] - The number of iterations to perform (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} The arccosine of the given number
      */
-    static arccos(x: number, accuracy?: number): number;
+    static acos(x: number, options?: options): number;
     /**
      * Calculates the arctangent of a given number using the specified accuracy.
      * @param {number} x - The input number
-     * @param {number} [accuracy=10] - The accuracy of the resulting calculation (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} The calculated arctangent value
      */
-    static arctan(x: number, accuracy?: number): number;
+    static atan(x: number, options?: options): number;
     /**
-     * Calculates the arccsc of a given number using the Maclaurin series expansion.
+     * Calculates the arccosecant of a given number using the Maclaurin series expansion.
      * @param {number} x - The value to calculate the arccsc of
-     * @param {number} [accuracy=10] - The number of terms to use in the Maclaurin series expansion (default of 10)
-     * @returns {number} The arccsc of the given number
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
+     * @returns {number} The arccosecant of the given number
      */
-    static arccsc(x: number, accuracy?: number): number;
+    static acsc(x: number, options?: options): number;
     /**
      * Calculates arcsecant of a number with given accuracy.
      * @param {number} x - the input value must be greater than or equal to 1
-     * @param {number} [accuracy=10] - the number of iterations to perform for accuracy (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} the arcsecant of x with given accuracy
      */
-    static arcsec(x: number, accuracy?: number): number;
+    static asec(x: number, options?: options): number;
     /**
      * Calculates the arccotangent of a number to a certain accuracy.
      * @param {number} x - the number to calculate the arccotangent of
-     * @param {number} [accuracy=10] - the number of iterations to perform in the approximation (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} the arccotangent of x to the specified accuracy
      */
-    static arccot(x: number, accuracy?: number): number;
+    static acot(x: number, options?: options): number;
     /**
      * Computes the inverse hyperbolic sine (arcsinh) of a given number using the Maclaurin series expansion.
      * @param {number} x - The number to compute the inverse hyperbolic sine of
-     * @param {number} [accuracy=10] - The number of terms to use in the Maclaurin series expansion (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} The inverse hyperbolic sine (arcsinh) of the given number
      */
-    static arcsinh(x: number, accuracy?: number): number;
+    static asinh(x: number, options?: options): number;
     /**
      * Computes the inverse hyperbolic cosine of a number.
      * @param {number} x - A number whose inverse hyperbolic cosine is to be found
-     * @param {number} [accuracy=10] - The number of iterations to perform (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} The inverse hyperbolic cosine of the given number
      */
-    static arccosh(x: number, accuracy?: number): number;
+    static acosh(x: number, options?: options): number;
     /**
      * Calculates the arctanh (inverse hyperbolic tangent) of a number up to a certain accuracy.
      * @param {number} x - The number to calculate the arctanh of
-     * @param {number} [accuracy=10] - The number of iterations to perform to approximate the arctanh value (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} The arctanh value of the input number
      */
-    static arctanh(x: number, accuracy?: number): number;
+    static atanh(x: number, options?: options): number;
     /**
      * Calculates the inverse hyperbolic cosecant (arcsinh) of a number up to a given accuracy.
      * @param {number} x - the number to calculate the inverse hyperbolic cosecant of
-     * @param {number} [accuracy=10] - (optional) the number of iterations to use in the approximation (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} the calculated inverse hyperbolic cosecant of the input number
      */
-    static arcscsh(x: number, accuracy?: number): number;
+    static acsch(x: number, options?: options): number;
     /**
      * Computes the inverse hyperbolic secant of a number with a given accuracy.
      * There is no specific method of finding the inverse hyperbolic secant so this uses the Newton-Raphson method to approximate arcsech(x)
      * @param {number} x - the number to compute the inverse hyperbolic secant of
-     * @param {number} [accuracy=10] - the number of decimal places to return in the result (default of 10)
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} the inverse hyperbolic secant of x
      */
-    static arcsecsh(x: number, accuracy?: number): number;
+    static asech(x: number, options?: options): number;
     /**
      * Calculates the inverse hyperbolic cotangent of the given number.
      * @param {number} x - The number whose inverse hyperbolic cotangent is to be calculated
+     * @param {object} [options] - options
+     * @param {number} [options.accuracy=10] - precision of the result (default of 10)
+     * @param {boolean} [options.cache=true] - cache the result
      * @return {number} The inverse hyperbolic cotangent of the given number
      */
-    static arccoth(x: number): number;
+    static acoth(x: number, options?: options): number;
 }
 
-export { Absolute, Averages, Circle, ComplexNumber, Constants, Conversions, Equations, Factorial, Fraction, Indices, Logarithms, Matrix, MatrixConstructor, Summation, TrigonometryFunctions, add, angleEnum, angleUnits, areaEnum, areaUnits, convertBase, divide, energyEnum, energyUnits, gcd, gcd2, lengthEnum, lengthUnits, massEnum, massUnits, multiply, physicsFormulae, pressureEnum, pressureUnits, speedEnum, speedUnits, subtract, temperatureEnum, temperatureUnits, timeEnum, timeUnits, volumeEnum, volumeUnits };
+export { Absolute, Averages, Circle, ComplexNumber, Constants, Conversions, Equations, Factorial, Fraction, Indices, Logarithms, Matrix, MatrixConstructor, Summation, TrigonometryFunctions, add, angleEnum, angleUnits, areaEnum, areaUnits, concatenate, convertBase, divide, energyEnum, energyUnits, gcd, gcd2, lengthEnum, lengthUnits, massEnum, massUnits, multiply, physicsFormulae, pressureEnum, pressureUnits, speedEnum, speedUnits, subtract, temperatureEnum, temperatureUnits, timeEnum, timeUnits, volumeEnum, volumeUnits };

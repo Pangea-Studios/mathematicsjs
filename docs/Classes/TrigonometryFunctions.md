@@ -8,36 +8,39 @@ This reference has been auto-generated and therefore is not guaranteed to be usi
 <a name="TrigonometryFunctions"></a>
 
 ## TrigonometryFunctions
-Class containing all trigometrical functions
+Class containing all trigometric functions
 
 **Kind**: global class  
 
 * [TrigonometryFunctions](#TrigonometryFunctions)
-    * [.sin(x, [accuracy])](#TrigonometryFunctions.sin) ⇒ <code>number</code>
-    * [.cos(x, [accuracy])](#TrigonometryFunctions.cos) ⇒ <code>number</code>
-    * [.tan(x, [accuracy])](#TrigonometryFunctions.tan) ⇒ <code>number</code>
-    * [.csc(x, [accuracy])](#TrigonometryFunctions.csc) ⇒ <code>number</code>
-    * [.sec(x, [accuracy])](#TrigonometryFunctions.sec) ⇒ <code>number</code>
-    * [.cot(x, [accuracy])](#TrigonometryFunctions.cot) ⇒ <code>number</code>
-    * [.sinh(x)](#TrigonometryFunctions.sinh) ⇒ <code>number</code>
-    * [.cosh(x)](#TrigonometryFunctions.cosh) ⇒ <code>number</code>
-    * [.tanh(x)](#TrigonometryFunctions.tanh) ⇒ <code>number</code>
-    * [.arcsin(x, [accuracy])](#TrigonometryFunctions.arcsin) ⇒ <code>number</code>
-    * [.arccos(x, [accuracy])](#TrigonometryFunctions.arccos) ⇒ <code>number</code>
-    * [.arctan(x, [accuracy])](#TrigonometryFunctions.arctan) ⇒ <code>number</code>
-    * [.arccsc(x, [accuracy])](#TrigonometryFunctions.arccsc) ⇒ <code>number</code>
-    * [.arcsec(x, [accuracy])](#TrigonometryFunctions.arcsec) ⇒ <code>number</code>
-    * [.arccot(x, [accuracy])](#TrigonometryFunctions.arccot) ⇒ <code>number</code>
-    * [.arcsinh(x, [accuracy])](#TrigonometryFunctions.arcsinh) ⇒ <code>number</code>
-    * [.arccosh(x, [accuracy])](#TrigonometryFunctions.arccosh) ⇒ <code>number</code>
-    * [.arctanh(x, [accuracy])](#TrigonometryFunctions.arctanh) ⇒ <code>number</code>
-    * [.arcscsh(x, [accuracy])](#TrigonometryFunctions.arcscsh) ⇒ <code>number</code>
-    * [.arcsecsh(x, [accuracy])](#TrigonometryFunctions.arcsecsh) ⇒ <code>number</code>
-    * [.arccoth(x)](#TrigonometryFunctions.arccoth) ⇒ <code>number</code>
+    * [.sin(x, [options])](#TrigonometryFunctions.sin) ⇒ <code>number</code>
+    * [.cos(x, [options])](#TrigonometryFunctions.cos) ⇒ <code>number</code>
+    * [.tan(x, [options])](#TrigonometryFunctions.tan) ⇒ <code>number</code>
+    * [.csc(x, [options])](#TrigonometryFunctions.csc) ⇒ <code>number</code>
+    * [.sec(x, [options])](#TrigonometryFunctions.sec) ⇒ <code>number</code>
+    * [.cot(x, [options])](#TrigonometryFunctions.cot) ⇒ <code>number</code>
+    * [.sinh(x, [options])](#TrigonometryFunctions.sinh) ⇒ <code>number</code>
+    * [.cosh(x, [options])](#TrigonometryFunctions.cosh) ⇒ <code>number</code>
+    * [.tanh(x, [options])](#TrigonometryFunctions.tanh) ⇒ <code>number</code>
+    * [.sech(x, [options])](#TrigonometryFunctions.sech) ⇒ <code>number</code>
+    * [.csch(x, [options])](#TrigonometryFunctions.csch) ⇒ <code>number</code>
+    * [.coth(x, [options])](#TrigonometryFunctions.coth) ⇒ <code>number</code>
+    * [.asin(x, [options])](#TrigonometryFunctions.asin) ⇒ <code>number</code>
+    * [.acos(x, [options])](#TrigonometryFunctions.acos) ⇒ <code>number</code>
+    * [.atan(x, [options])](#TrigonometryFunctions.atan) ⇒ <code>number</code>
+    * [.acsc(x, [options])](#TrigonometryFunctions.acsc) ⇒ <code>number</code>
+    * [.asec(x, [options])](#TrigonometryFunctions.asec) ⇒ <code>number</code>
+    * [.acot(x, [options])](#TrigonometryFunctions.acot) ⇒ <code>number</code>
+    * [.asinh(x, [options])](#TrigonometryFunctions.asinh) ⇒ <code>number</code>
+    * [.acosh(x, [options])](#TrigonometryFunctions.acosh) ⇒ <code>number</code>
+    * [.atanh(x, [options])](#TrigonometryFunctions.atanh) ⇒ <code>number</code>
+    * [.acsch(x, [options])](#TrigonometryFunctions.acsch) ⇒ <code>number</code>
+    * [.asech(x, [options])](#TrigonometryFunctions.asech) ⇒ <code>number</code>
+    * [.acoth(x, [options])](#TrigonometryFunctions.acoth) ⇒ <code>number</code>
 
 <a name="TrigonometryFunctions.sin"></a>
 
-### TrigonometryFunctions.sin(x, [accuracy]) ⇒ <code>number</code>
+### TrigonometryFunctions.sin(x, [options]) ⇒ <code>number</code>
 Calculates the sine of an angle in degrees.
 
 **Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
@@ -46,11 +49,13 @@ Calculates the sine of an angle in degrees.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | x | <code>number</code> |  | the angle in degrees |
-| [accuracy] | <code>number</code> | <code>10</code> | precision of the result (default of 10) |
+| [options] | <code>object</code> |  | options |
+| [options.accuracy] | <code>number</code> | <code>10</code> | precision of the result (default of 10) |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
 
 <a name="TrigonometryFunctions.cos"></a>
 
-### TrigonometryFunctions.cos(x, [accuracy]) ⇒ <code>number</code>
+### TrigonometryFunctions.cos(x, [options]) ⇒ <code>number</code>
 Calculates the cosine of a given angle in degrees.
 
 **Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
@@ -59,99 +64,157 @@ Calculates the cosine of a given angle in degrees.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | x | <code>number</code> |  | the angle in degrees |
-| [accuracy] | <code>number</code> | <code>10</code> | the number of decimal places to calculate the result (default of 10) |
+| [options] | <code>object</code> |  | options |
+| [options.accuracy] | <code>number</code> | <code>10</code> | precision of the result (default of 10) |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
 
 <a name="TrigonometryFunctions.tan"></a>
 
-### TrigonometryFunctions.tan(x, [accuracy]) ⇒ <code>number</code>
-Calculates the tangent of a number using the sine and cosine functions.
+### TrigonometryFunctions.tan(x, [options]) ⇒ <code>number</code>
+Calculates the tangent of an angle in degrees.
 
 **Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
-**Returns**: <code>number</code> - The tangent of the input number, rounded to the specified accuracy  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| x | <code>number</code> |  | The input number in degrees |
-| [accuracy] | <code>number</code> | <code>10</code> | The number of decimal places to calculate the result to (default of 10) |
-
-<a name="TrigonometryFunctions.csc"></a>
-
-### TrigonometryFunctions.csc(x, [accuracy]) ⇒ <code>number</code>
-Calculates the cosecant of an angle in degrees with a given accuracy.
-
-**Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
-**Returns**: <code>number</code> - the cosecant of the angle with the given accuracy  
+**Returns**: <code>number</code> - the tangent of the angle  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | x | <code>number</code> |  | the angle in degrees |
-| [accuracy] | <code>number</code> | <code>10</code> | the number of decimal places to approximate the result to (default of 10) |
+| [options] | <code>object</code> |  | options |
+| [options.accuracy] | <code>number</code> | <code>10</code> | precision of the result (default of 10) |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
+
+<a name="TrigonometryFunctions.csc"></a>
+
+### TrigonometryFunctions.csc(x, [options]) ⇒ <code>number</code>
+Calculates the cosecant of an angle in degrees.
+
+**Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
+**Returns**: <code>number</code> - the cosecant of the angle  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| x | <code>number</code> |  | the angle in degrees |
+| [options] | <code>object</code> |  | options |
+| [options.accuracy] | <code>number</code> | <code>10</code> | precision of the result (default of 10) |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
 
 <a name="TrigonometryFunctions.sec"></a>
 
-### TrigonometryFunctions.sec(x, [accuracy]) ⇒ <code>number</code>
+### TrigonometryFunctions.sec(x, [options]) ⇒ <code>number</code>
 Calculates the secant of a given angle in degrees.
 
 **Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
-**Returns**: <code>number</code> - The secant of the given angle  
+**Returns**: <code>number</code> - the secant of the given angle  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| x | <code>number</code> |  | The angle in degrees |
-| [accuracy] | <code>number</code> | <code>10</code> | The number of decimal places to round the result to (default of 10) |
+| x | <code>number</code> |  | the angle in degrees |
+| [options] | <code>object</code> |  | options |
+| [options.accuracy] | <code>number</code> | <code>10</code> | precision of the result (default of 10) |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
 
 <a name="TrigonometryFunctions.cot"></a>
 
-### TrigonometryFunctions.cot(x, [accuracy]) ⇒ <code>number</code>
+### TrigonometryFunctions.cot(x, [options]) ⇒ <code>number</code>
 Calculates the cotangent of a given angle in degrees.
 
 **Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
-**Returns**: <code>number</code> - The cotangent of the angle  
+**Returns**: <code>number</code> - the cotangent of the angle  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| x | <code>number</code> |  | The angle in degrees |
-| [accuracy] | <code>number</code> | <code>10</code> | The accuracy of the result (default of 10) |
+| x | <code>number</code> |  | the angle in degrees |
+| [options] | <code>object</code> |  | options |
+| [options.accuracy] | <code>number</code> | <code>10</code> | precision of the result (default of 10) |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
 
 <a name="TrigonometryFunctions.sinh"></a>
 
-### TrigonometryFunctions.sinh(x) ⇒ <code>number</code>
+### TrigonometryFunctions.sinh(x, [options]) ⇒ <code>number</code>
 Calculates the hyperbolic sine of a number.
 
 **Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
-**Returns**: <code>number</code> - The hyperbolic sine of the input number  
+**Returns**: <code>number</code> - the hyperbolic sine of the input number  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| x | <code>number</code> | The number to apply the function to |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| x | <code>number</code> |  | the number to apply the function to |
+| [options] | <code>object</code> |  | options |
+| [options.accuracy] | <code>number</code> | <code>10</code> | precision of the result (default of 10) |
 
 <a name="TrigonometryFunctions.cosh"></a>
 
-### TrigonometryFunctions.cosh(x) ⇒ <code>number</code>
+### TrigonometryFunctions.cosh(x, [options]) ⇒ <code>number</code>
 Returns the hyperbolic cosine of a number.
 
 **Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
 **Returns**: <code>number</code> - The hyperbolic cosine of the number  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| x | <code>number</code> | The number for which to return the hyperbolic cosine |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| x | <code>number</code> |  | The number for which to return the hyperbolic cosine |
+| [options] | <code>object</code> |  | options |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
 
 <a name="TrigonometryFunctions.tanh"></a>
 
-### TrigonometryFunctions.tanh(x) ⇒ <code>number</code>
+### TrigonometryFunctions.tanh(x, [options]) ⇒ <code>number</code>
 Calculates the hyperbolic tangent of a number.
 
 **Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
 **Returns**: <code>number</code> - The hyperbolic tangent of the number  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| x | <code>number</code> | The number to calculate the tangent of |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| x | <code>number</code> |  | The number to calculate the tangent of |
+| [options] | <code>object</code> |  | options |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
 
-<a name="TrigonometryFunctions.arcsin"></a>
+<a name="TrigonometryFunctions.sech"></a>
 
-### TrigonometryFunctions.arcsin(x, [accuracy]) ⇒ <code>number</code>
+### TrigonometryFunctions.sech(x, [options]) ⇒ <code>number</code>
+Takes a number and returns the hyperbolic secant of that number.
+
+**Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
+**Returns**: <code>number</code> - the hyperbolic secant of the given number.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| x | <code>number</code> |  | the number whose hyperbolic secant is to be returned. |
+| [options] | <code>object</code> |  | options |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
+
+<a name="TrigonometryFunctions.csch"></a>
+
+### TrigonometryFunctions.csch(x, [options]) ⇒ <code>number</code>
+Calculates the hyperbolic cosecant of a given number.
+
+**Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
+**Returns**: <code>number</code> - The hyperbolic cosecant of the given number.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| x | <code>number</code> |  | The number to calculate the hyperbolic cosecant of. |
+| [options] | <code>object</code> |  | options |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
+
+<a name="TrigonometryFunctions.coth"></a>
+
+### TrigonometryFunctions.coth(x, [options]) ⇒ <code>number</code>
+Computes the hyperbolic cotangent of a number.
+
+**Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
+**Returns**: <code>number</code> - The hyperbolic cotangent of the given number.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| x | <code>number</code> |  | The number in radians for which to compute the hyperbolic cotangent. |
+| [options] | <code>object</code> |  | options |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
+
+<a name="TrigonometryFunctions.asin"></a>
+
+### TrigonometryFunctions.asin(x, [options]) ⇒ <code>number</code>
 Computes the arcsine of x using the given accuracy.
 
 **Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
@@ -160,11 +223,13 @@ Computes the arcsine of x using the given accuracy.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | x | <code>number</code> |  | The value to compute the arcsine for |
-| [accuracy] | <code>number</code> | <code>10</code> | The accuracy to use in the computation (default of 10) |
+| [options] | <code>object</code> |  | options |
+| [options.accuracy] | <code>number</code> | <code>10</code> | precision of the result (default of 10) |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
 
-<a name="TrigonometryFunctions.arccos"></a>
+<a name="TrigonometryFunctions.acos"></a>
 
-### TrigonometryFunctions.arccos(x, [accuracy]) ⇒ <code>number</code>
+### TrigonometryFunctions.acos(x, [options]) ⇒ <code>number</code>
 Calculates the arccosine of a given number with a specified accuracy.
 
 **Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
@@ -173,11 +238,13 @@ Calculates the arccosine of a given number with a specified accuracy.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | x | <code>number</code> |  | The number to get the arccosine of |
-| [accuracy] | <code>number</code> | <code>10</code> | The number of iterations to perform (default of 10) |
+| [options] | <code>object</code> |  | options |
+| [options.accuracy] | <code>number</code> | <code>10</code> | precision of the result (default of 10) |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
 
-<a name="TrigonometryFunctions.arctan"></a>
+<a name="TrigonometryFunctions.atan"></a>
 
-### TrigonometryFunctions.arctan(x, [accuracy]) ⇒ <code>number</code>
+### TrigonometryFunctions.atan(x, [options]) ⇒ <code>number</code>
 Calculates the arctangent of a given number using the specified accuracy.
 
 **Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
@@ -186,24 +253,28 @@ Calculates the arctangent of a given number using the specified accuracy.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | x | <code>number</code> |  | The input number |
-| [accuracy] | <code>number</code> | <code>10</code> | The accuracy of the resulting calculation (default of 10) |
+| [options] | <code>object</code> |  | options |
+| [options.accuracy] | <code>number</code> | <code>10</code> | precision of the result (default of 10) |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
 
-<a name="TrigonometryFunctions.arccsc"></a>
+<a name="TrigonometryFunctions.acsc"></a>
 
-### TrigonometryFunctions.arccsc(x, [accuracy]) ⇒ <code>number</code>
-Calculates the arccsc of a given number using the Maclaurin series expansion.
+### TrigonometryFunctions.acsc(x, [options]) ⇒ <code>number</code>
+Calculates the arccosecant of a given number using the Maclaurin series expansion.
 
 **Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
-**Returns**: <code>number</code> - The arccsc of the given number  
+**Returns**: <code>number</code> - The arccosecant of the given number  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | x | <code>number</code> |  | The value to calculate the arccsc of |
-| [accuracy] | <code>number</code> | <code>10</code> | The number of terms to use in the Maclaurin series expansion (default of 10) |
+| [options] | <code>object</code> |  | options |
+| [options.accuracy] | <code>number</code> | <code>10</code> | precision of the result (default of 10) |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
 
-<a name="TrigonometryFunctions.arcsec"></a>
+<a name="TrigonometryFunctions.asec"></a>
 
-### TrigonometryFunctions.arcsec(x, [accuracy]) ⇒ <code>number</code>
+### TrigonometryFunctions.asec(x, [options]) ⇒ <code>number</code>
 Calculates arcsecant of a number with given accuracy.
 
 **Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
@@ -212,11 +283,13 @@ Calculates arcsecant of a number with given accuracy.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | x | <code>number</code> |  | the input value must be greater than or equal to 1 |
-| [accuracy] | <code>number</code> | <code>10</code> | the number of iterations to perform for accuracy (default of 10) |
+| [options] | <code>object</code> |  | options |
+| [options.accuracy] | <code>number</code> | <code>10</code> | precision of the result (default of 10) |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
 
-<a name="TrigonometryFunctions.arccot"></a>
+<a name="TrigonometryFunctions.acot"></a>
 
-### TrigonometryFunctions.arccot(x, [accuracy]) ⇒ <code>number</code>
+### TrigonometryFunctions.acot(x, [options]) ⇒ <code>number</code>
 Calculates the arccotangent of a number to a certain accuracy.
 
 **Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
@@ -225,11 +298,13 @@ Calculates the arccotangent of a number to a certain accuracy.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | x | <code>number</code> |  | the number to calculate the arccotangent of |
-| [accuracy] | <code>number</code> | <code>10</code> | the number of iterations to perform in the approximation (default of 10) |
+| [options] | <code>object</code> |  | options |
+| [options.accuracy] | <code>number</code> | <code>10</code> | precision of the result (default of 10) |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
 
-<a name="TrigonometryFunctions.arcsinh"></a>
+<a name="TrigonometryFunctions.asinh"></a>
 
-### TrigonometryFunctions.arcsinh(x, [accuracy]) ⇒ <code>number</code>
+### TrigonometryFunctions.asinh(x, [options]) ⇒ <code>number</code>
 Computes the inverse hyperbolic sine (arcsinh) of a given number using the Maclaurin series expansion.
 
 **Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
@@ -238,11 +313,13 @@ Computes the inverse hyperbolic sine (arcsinh) of a given number using the Macla
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | x | <code>number</code> |  | The number to compute the inverse hyperbolic sine of |
-| [accuracy] | <code>number</code> | <code>10</code> | The number of terms to use in the Maclaurin series expansion (default of 10) |
+| [options] | <code>object</code> |  | options |
+| [options.accuracy] | <code>number</code> | <code>10</code> | precision of the result (default of 10) |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
 
-<a name="TrigonometryFunctions.arccosh"></a>
+<a name="TrigonometryFunctions.acosh"></a>
 
-### TrigonometryFunctions.arccosh(x, [accuracy]) ⇒ <code>number</code>
+### TrigonometryFunctions.acosh(x, [options]) ⇒ <code>number</code>
 Computes the inverse hyperbolic cosine of a number.
 
 **Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
@@ -251,11 +328,13 @@ Computes the inverse hyperbolic cosine of a number.
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | x | <code>number</code> |  | A number whose inverse hyperbolic cosine is to be found |
-| [accuracy] | <code>number</code> | <code>10</code> | The number of iterations to perform (default of 10) |
+| [options] | <code>object</code> |  | options |
+| [options.accuracy] | <code>number</code> | <code>10</code> | precision of the result (default of 10) |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
 
-<a name="TrigonometryFunctions.arctanh"></a>
+<a name="TrigonometryFunctions.atanh"></a>
 
-### TrigonometryFunctions.arctanh(x, [accuracy]) ⇒ <code>number</code>
+### TrigonometryFunctions.atanh(x, [options]) ⇒ <code>number</code>
 Calculates the arctanh (inverse hyperbolic tangent) of a number up to a certain accuracy.
 
 **Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
@@ -264,11 +343,13 @@ Calculates the arctanh (inverse hyperbolic tangent) of a number up to a certain 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | x | <code>number</code> |  | The number to calculate the arctanh of |
-| [accuracy] | <code>number</code> | <code>10</code> | The number of iterations to perform to approximate the arctanh value (default of 10) |
+| [options] | <code>object</code> |  | options |
+| [options.accuracy] | <code>number</code> | <code>10</code> | precision of the result (default of 10) |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
 
-<a name="TrigonometryFunctions.arcscsh"></a>
+<a name="TrigonometryFunctions.acsch"></a>
 
-### TrigonometryFunctions.arcscsh(x, [accuracy]) ⇒ <code>number</code>
+### TrigonometryFunctions.acsch(x, [options]) ⇒ <code>number</code>
 Calculates the inverse hyperbolic cosecant (arcsinh) of a number up to a given accuracy.
 
 **Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
@@ -277,11 +358,13 @@ Calculates the inverse hyperbolic cosecant (arcsinh) of a number up to a given a
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | x | <code>number</code> |  | the number to calculate the inverse hyperbolic cosecant of |
-| [accuracy] | <code>number</code> | <code>10</code> | (optional) the number of iterations to use in the approximation (default of 10) |
+| [options] | <code>object</code> |  | options |
+| [options.accuracy] | <code>number</code> | <code>10</code> | precision of the result (default of 10) |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
 
-<a name="TrigonometryFunctions.arcsecsh"></a>
+<a name="TrigonometryFunctions.asech"></a>
 
-### TrigonometryFunctions.arcsecsh(x, [accuracy]) ⇒ <code>number</code>
+### TrigonometryFunctions.asech(x, [options]) ⇒ <code>number</code>
 Computes the inverse hyperbolic secant of a number with a given accuracy.There is no specific method of finding the inverse hyperbolic secant so this uses the Newton-Raphson method to approximate arcsech(x)
 
 **Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
@@ -290,17 +373,22 @@ Computes the inverse hyperbolic secant of a number with a given accuracy.There 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | x | <code>number</code> |  | the number to compute the inverse hyperbolic secant of |
-| [accuracy] | <code>number</code> | <code>10</code> | the number of decimal places to return in the result (default of 10) |
+| [options] | <code>object</code> |  | options |
+| [options.accuracy] | <code>number</code> | <code>10</code> | precision of the result (default of 10) |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
 
-<a name="TrigonometryFunctions.arccoth"></a>
+<a name="TrigonometryFunctions.acoth"></a>
 
-### TrigonometryFunctions.arccoth(x) ⇒ <code>number</code>
+### TrigonometryFunctions.acoth(x, [options]) ⇒ <code>number</code>
 Calculates the inverse hyperbolic cotangent of the given number.
 
 **Kind**: static method of [<code>TrigonometryFunctions</code>](#TrigonometryFunctions)  
 **Returns**: <code>number</code> - The inverse hyperbolic cotangent of the given number  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| x | <code>number</code> | The number whose inverse hyperbolic cotangent is to be calculated |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| x | <code>number</code> |  | The number whose inverse hyperbolic cotangent is to be calculated |
+| [options] | <code>object</code> |  | options |
+| [options.accuracy] | <code>number</code> | <code>10</code> | precision of the result (default of 10) |
+| [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
 

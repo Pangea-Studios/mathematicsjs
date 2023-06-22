@@ -11,12 +11,11 @@
  * gcd([7,13,5])
  * @returns {number} The GCD of the inputted numbers
  */
-export function gcd(arr: number[], options?: object): number {
-	if (!options) options = {};
+export function gcd(arr: number[]): number {
 	const n = arr.length;
 	let result = arr[0];
 	for (let i = 1; i < n; i++) {
-		result = gcd2(arr[i], result, options);
+		result = gcd2(arr[i], result);
 
 		if (result == 1) {
 			return 1;
@@ -33,9 +32,7 @@ export function gcd(arr: number[], options?: object): number {
  * @param {number} [options.base] The base of the numbers you inputted
  * @returns {number} The GCD of the two numbers
  */
-export function gcd2(a: number, b: number, options?: object): number {
-	if (!options) options = {};
-	const base = options['base'] || 10;
+export function gcd2(a: number, b: number): number {
 	a = Math.abs(a);
 	b = Math.abs(b);
 	while (b !== 0) {
@@ -44,10 +41,6 @@ export function gcd2(a: number, b: number, options?: object): number {
 		a = t;
 	}
 
-	// If the base is not 10, convert the GCD to the desired base
-	if (base !== 10) {
-		a = parseInt(a.toString(base), 10);
-	}
 	return a;
 }
 
@@ -87,6 +80,6 @@ export function convertBase(
  * @param {number} [base=10] - The base to use for the concatenation.
  * @return {number} The concatenated number in the given base.
  */
-export function concatenate(a: number, b: number, base = 10) {
-	return a * Math.pow(base, Math.floor(Math.log(b) / Math.log(base)) + 1) + b;
+export function concatenate(a: number, b: number) {
+	return a * Math.pow(10, Math.floor(Math.log(b) / Math.log(10)) + 1) + b;
 }
