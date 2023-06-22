@@ -10,17 +10,15 @@ export class Logarithms {
 	 * @throws {Error} Invalid input. ln(x) is only defined for x > 0
 	 * @return {number} the natural logarithm of the given number
 	 */
-	static ln(x: number, accuracy = 10) {
+	static ln(x: number, accuracy = 10, a = 1) {
 		if (x <= 0) {
 			throw new Error('Invalid input. ln(x) is only defined for x > 0');
 		}
 
 		let result = 0;
 
-		for (let n = 1; n <= accuracy; n++) {
-			const coefficient = (n % 2 === 0 ? -1 : 1) / n;
-			const term = coefficient * Math.pow((x - 1) / x, n);
-			result += term;
+		for (let n = 1; n <= accuracy*1000; n++) {
+			result+=(((-1)**(n+1))/n)*((x-a)**n)
 		}
 
 		return result;
