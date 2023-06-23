@@ -2009,11 +2009,11 @@ class Logarithms {
      * @param {object} [options] - options
      * @param {number} [options.accuracy=10] - precision of the result (default of 10)
      * @param {boolean} [options.cache=true] - cache the result
-     * @param {number} [options.a=1] - the starting value
+     * @param {number} [options.centre=1] - the centre value
      * @throws {Error} Invalid input. ln(x) is only defined for x > 0
      * @return {number} the natural logarithm of the given number
      */
-    static ln(x, options = { accuracy: 10, cache: true, a: 1 }) {
+    static ln(x, options = { accuracy: 10, cache: true, centre: 1 }) {
         if (x <= 0) {
             throw new Error('Invalid input. ln(x) is only defined for x > 0');
         }
@@ -2022,7 +2022,7 @@ class Logarithms {
         }
         let result = 0;
         for (let n = 1; n <= options.accuracy * 1000; n++) {
-            result += (Math.pow((-1), (n + 1)) / n) * Math.pow((x - options.a), n);
+            result += (Math.pow((-1), (n + 1)) / n) * Math.pow((x - options.centre), n);
         }
         if (options.cache === true) {
             this.lnCache.set(x, result);
@@ -2036,22 +2036,22 @@ class Logarithms {
      * @param {object} [options] - options
      * @param {number} [options.accuracy=10] - precision of the result (default of 10)
      * @param {boolean} [options.cache=true] - cache the result
-     * @param {number} [options.a=1] - the starting value
+     * @param {number} [options.centre=1] - the centre value
      * @return {number} - The calculated logarithm of x with base base, with the specified accuracy.
      */
-    static log(x, options = { accuracy: 10, cache: true, a: 1 }) {
+    static log(x, options = { accuracy: 10, cache: true, centre: 1 }) {
         if (this.logCache.has(x)) {
             return this.logCache.get(x);
         }
         const result = this.ln(x, {
             accuracy: options.accuracy,
             cache: options.cache,
-            a: options.a,
+            centre: options.centre,
         }) /
             this.ln(10, {
                 accuracy: options.accuracy,
                 cache: options.cache,
-                a: options.a,
+                centre: options.centre,
             });
         if (options.cache === true) {
             this.logCache.set(x, result);

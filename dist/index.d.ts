@@ -942,7 +942,7 @@ declare const Constants: {
 interface options$1 {
     accuracy?: number;
     cache?: boolean;
-    a?: number;
+    centre?: number;
 }
 /**
  * Class containing logarithm functions
@@ -957,7 +957,7 @@ declare class Logarithms {
      * @param {object} [options] - options
      * @param {number} [options.accuracy=10] - precision of the result (default of 10)
      * @param {boolean} [options.cache=true] - cache the result
-     * @param {number} [options.a=1] - the starting value
+     * @param {number} [options.centre=1] - the centre value
      * @throws {Error} Invalid input. ln(x) is only defined for x > 0
      * @return {number} the natural logarithm of the given number
      */
@@ -969,7 +969,7 @@ declare class Logarithms {
      * @param {object} [options] - options
      * @param {number} [options.accuracy=10] - precision of the result (default of 10)
      * @param {boolean} [options.cache=true] - cache the result
-     * @param {number} [options.a=1] - the starting value
+     * @param {number} [options.centre=1] - the centre value
      * @return {number} - The calculated logarithm of x with base base, with the specified accuracy.
      */
     static log(x: number, options?: options$1): number;
