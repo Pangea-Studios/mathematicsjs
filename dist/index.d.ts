@@ -948,8 +948,8 @@ interface options$1 {
  * Class containing logarithm functions
  */
 declare class Logarithms {
-    static readonly logCache: Map<number, number>;
-    static readonly lnCache: Map<number, number>;
+    static logCache: Map<number, number>;
+    static lnCache: Map<number, number>;
     /**
      * Calculates the natural logarithm of a given number using an iterative series approximation.
      *
@@ -986,30 +986,30 @@ interface singleOptions {
  * Class containing all trigometric functions
  */
 declare class TrigonometryFunctions {
-    static readonly sinCache: Map<number, number>;
-    static readonly cosCache: Map<number, number>;
-    static readonly tanCache: Map<number, number>;
-    static readonly asinCache: Map<number, number>;
-    static readonly acosCache: Map<number, number>;
-    static readonly atanCache: Map<number, number>;
-    static readonly cscCache: Map<number, number>;
-    static readonly secCache: Map<number, number>;
-    static readonly cotCache: Map<number, number>;
-    static readonly sinhCache: Map<number, number>;
-    static readonly coshCache: Map<number, number>;
-    static readonly tanhCache: Map<number, number>;
-    static readonly asinhCache: Map<number, number>;
-    static readonly acoshCache: Map<number, number>;
-    static readonly atanhCache: Map<number, number>;
-    static readonly cschCache: Map<number, number>;
-    static readonly sechCache: Map<number, number>;
-    static readonly cothCache: Map<number, number>;
-    static readonly acscCache: Map<number, number>;
-    static readonly asecCache: Map<number, number>;
-    static readonly acotCache: Map<number, number>;
-    static readonly acschCache: Map<number, number>;
-    static readonly asechCache: Map<number, number>;
-    static readonly acothCache: Map<number, number>;
+    static sinCache: Map<number, number>;
+    static cosCache: Map<number, number>;
+    static tanCache: Map<number, number>;
+    static asinCache: Map<number, number>;
+    static acosCache: Map<number, number>;
+    static atanCache: Map<number, number>;
+    static cscCache: Map<number, number>;
+    static secCache: Map<number, number>;
+    static cotCache: Map<number, number>;
+    static sinhCache: Map<number, number>;
+    static coshCache: Map<number, number>;
+    static tanhCache: Map<number, number>;
+    static asinhCache: Map<number, number>;
+    static acoshCache: Map<number, number>;
+    static atanhCache: Map<number, number>;
+    static cschCache: Map<number, number>;
+    static sechCache: Map<number, number>;
+    static cothCache: Map<number, number>;
+    static acscCache: Map<number, number>;
+    static asecCache: Map<number, number>;
+    static acotCache: Map<number, number>;
+    static acschCache: Map<number, number>;
+    static asechCache: Map<number, number>;
+    static acothCache: Map<number, number>;
     /**
      * Calculates the sine of an angle in degrees.
      * @param {number} x - the angle in degrees
@@ -1226,4 +1226,63 @@ declare class TrigonometryFunctions {
     static acoth(x: number, options?: options): number;
 }
 
-export { Absolute, Averages, Circle, ComplexNumber, Constants, Conversions, Equations, Factorial, Fraction, Indices, Logarithms, Matrix, MatrixConstructor, Summation, TrigonometryFunctions, add, angleEnum, angleUnits, areaEnum, areaUnits, concatenate, convertBase, divide, energyEnum, energyUnits, gcd, gcd2, lengthEnum, lengthUnits, massEnum, massUnits, multiply, physicsFormulae, pressureEnum, pressureUnits, speedEnum, speedUnits, subtract, temperatureEnum, temperatureUnits, timeEnum, timeUnits, volumeEnum, volumeUnits };
+/**
+ * @typedef {string} CacheType
+ */
+/**
+ * Enum for cache types
+ * @readonly
+ * @enum {CacheType}
+ */
+declare const CacheEnum: {
+    readonly Sin: "sin";
+    readonly Cos: "cos";
+    readonly Tan: "tan";
+    readonly Asin: "asin";
+    readonly Acos: "acos";
+    readonly Atan: "atan";
+    readonly Csc: "csc";
+    readonly Sec: "sec";
+    readonly Cot: "cot";
+    readonly Sinh: "sinh";
+    readonly Cosh: "cosh";
+    readonly Tanh: "tanh";
+    readonly Asinh: "asinh";
+    readonly Acosh: "acosh";
+    readonly Atanh: "atanh";
+    readonly Csch: "csch";
+    readonly Sech: "sech";
+    readonly Coth: "coth";
+    readonly Acsc: "acsc";
+    readonly Asech: "asech";
+    readonly Acoth: "acoth";
+    readonly Asec: "asec";
+    readonly Acot: "acot";
+    readonly Acsch: "acsch";
+    readonly Log: "log";
+    readonly Ln: "ln";
+};
+/**
+ * Class to add and read current cache
+ */
+declare class CacheManager {
+    /**
+     * Adds the input/output pair to the appropriate cache based on the given type.
+     *
+     * @param {CacheType | string} type - The type of cache to add the pair to.
+     * @param {number} input - The input value of the pair
+     * @param {number} output - The output value of the pair
+     * @return {any} - The cache object that the pair was added to
+     */
+    static add(type: typeof CacheEnum | string, input: number, output: number): Map<number, number>;
+    /**
+     * Returns a cached value based on the input and the type of cache.
+     *
+     * @param {CacheType | string} type - The type of cache to retrieve the value from.
+     * @param {number} input - The input value used to retrieve the cached value
+     * @return {any} The cached value retrieved from the specified cache
+     */
+    static get(type: typeof CacheEnum | string, input: number): number;
+}
+
+export { Absolute, Averages, CacheEnum, CacheManager, Circle, ComplexNumber, Constants, Conversions, Equations, Factorial, Fraction, Indices, Logarithms, Matrix, MatrixConstructor, Summation, TrigonometryFunctions, add, angleEnum, angleUnits, areaEnum, areaUnits, concatenate, convertBase, divide, energyEnum, energyUnits, gcd, gcd2, lengthEnum, lengthUnits, massEnum, massUnits, multiply, physicsFormulae, pressureEnum, pressureUnits, speedEnum, speedUnits, subtract, temperatureEnum, temperatureUnits, timeEnum, timeUnits, volumeEnum, volumeUnits };

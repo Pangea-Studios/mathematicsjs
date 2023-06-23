@@ -1,151 +1,173 @@
-import { TrigonometryFunctions } from "./trigonometry/Functions";
-import { Logarithms } from "./equations/Logarithms";
+/**
+ * @typedef {string} CacheType
+ */
+
+import { TrigonometryFunctions } from './trigonometry/Functions';
+import { Logarithms } from './equations/Logarithms';
 
 /**
  * Enum for cache types
  * @readonly
- * @enum
+ * @enum {CacheType}
  */
 export const CacheEnum = {
-	Sin: "sin",
-	Cos: "cos",
-	Tan: "tan",
-	Asin: "asin",
-	Acos: "acos",
-	Atan: "atan",
-	Csc: "csc",
-	Sec: "sec",
-	Cot: "cot",
-	Sinh: "sinh",
-	Cosh: "cosh",
-	Tanh: "tanh",
-	Asinh: "asinh",
-	Acosh: "acosh",
-	Atanh: "atanh",
-	Csch: "csch",
-	Sech: "sech",
-	Coth: "coth",
-	Acsc: "acsc",
-	Asech: "asech",
-	Acoth: "acoth",
-	Asec: "asec",
-	Acot: "acot",
-	Acsch: "acsch",
-	Log: "log",
-	Ln: "ln",
-} as const ;
+	Sin: 'sin',
+	Cos: 'cos',
+	Tan: 'tan',
+	Asin: 'asin',
+	Acos: 'acos',
+	Atan: 'atan',
+	Csc: 'csc',
+	Sec: 'sec',
+	Cot: 'cot',
+	Sinh: 'sinh',
+	Cosh: 'cosh',
+	Tanh: 'tanh',
+	Asinh: 'asinh',
+	Acosh: 'acosh',
+	Atanh: 'atanh',
+	Csch: 'csch',
+	Sech: 'sech',
+	Coth: 'coth',
+	Acsc: 'acsc',
+	Asech: 'asech',
+	Acoth: 'acoth',
+	Asec: 'asec',
+	Acot: 'acot',
+	Acsch: 'acsch',
+	Log: 'log',
+	Ln: 'ln',
+} as const;
 
+/**
+ * Class to add and read current cache
+ */
 export class CacheManager {
+	/**
+	 * Adds the input/output pair to the appropriate cache based on the given type.
+	 *
+	 * @param {CacheType | string} type - The type of cache to add the pair to.
+	 * @param {number} input - The input value of the pair
+	 * @param {number} output - The output value of the pair
+	 * @return {any} - The cache object that the pair was added to
+	 */
 	static add(type: typeof CacheEnum | string, input: number, output: number) {
 		switch (type) {
-			case "sin":
+			case 'sin':
 				return TrigonometryFunctions.sinCache.set(input, output);
-			case "cos":
+			case 'cos':
 				return TrigonometryFunctions.cosCache.set(input, output);
-			case "tan":
+			case 'tan':
 				return TrigonometryFunctions.tanCache.set(input, output);
-			case "asin":
+			case 'asin':
 				return TrigonometryFunctions.asinCache.set(input, output);
-			case "acos":
+			case 'acos':
 				return TrigonometryFunctions.acosCache.set(input, output);
-			case "atan":
+			case 'atan':
 				return TrigonometryFunctions.atanCache.set(input, output);
-			case "csc":
+			case 'csc':
 				return TrigonometryFunctions.cscCache.set(input, output);
-			case "sec":
+			case 'sec':
 				return TrigonometryFunctions.secCache.set(input, output);
-			case "cot":
+			case 'cot':
 				return TrigonometryFunctions.cotCache.set(input, output);
-			case "sinh":
+			case 'sinh':
 				return TrigonometryFunctions.sinhCache.set(input, output);
-			case "cosh":
+			case 'cosh':
 				return TrigonometryFunctions.coshCache.set(input, output);
-			case "tanh":
+			case 'tanh':
 				return TrigonometryFunctions.tanhCache.set(input, output);
-			case "asinh":
+			case 'asinh':
 				return TrigonometryFunctions.asinhCache.set(input, output);
-			case "acosh":
+			case 'acosh':
 				return TrigonometryFunctions.acoshCache.set(input, output);
-			case "atanh":
+			case 'atanh':
 				return TrigonometryFunctions.atanhCache.set(input, output);
-			case "csch":
+			case 'csch':
 				return TrigonometryFunctions.cschCache.set(input, output);
-			case "sech":
+			case 'sech':
 				return TrigonometryFunctions.sechCache.set(input, output);
-			case "coth":
+			case 'coth':
 				return TrigonometryFunctions.cothCache.set(input, output);
-			case "acsc":
+			case 'acsc':
 				return TrigonometryFunctions.acscCache.set(input, output);
-			case "asech":
+			case 'asech':
 				return TrigonometryFunctions.asechCache.set(input, output);
-			case "acoth":
+			case 'acoth':
 				return TrigonometryFunctions.acothCache.set(input, output);
-			case "asec":
+			case 'asec':
 				return TrigonometryFunctions.asecCache.set(input, output);
-			case "acot":
+			case 'acot':
 				return TrigonometryFunctions.acotCache.set(input, output);
-			case "acsch":
+			case 'acsch':
 				return TrigonometryFunctions.acschCache.set(input, output);
-			case "log":
+			case 'log':
 				return Logarithms.logCache.set(input, output);
-			case "ln":
+			case 'ln':
 				return Logarithms.lnCache.set(input, output);
 		}
 	}
 
+	/**
+	 * Returns a cached value based on the input and the type of cache.
+	 *
+	 * @param {CacheType | string} type - The type of cache to retrieve the value from.
+	 * @param {number} input - The input value used to retrieve the cached value
+	 * @return {any} The cached value retrieved from the specified cache
+	 */
 	static get(type: typeof CacheEnum | string, input: number) {
 		switch (type) {
-			case "sin":
+			case 'sin':
 				return TrigonometryFunctions.sinCache.get(input);
-			case "cos":
+			case 'cos':
 				return TrigonometryFunctions.cosCache.get(input);
-			case "tan":
+			case 'tan':
 				return TrigonometryFunctions.tanCache.get(input);
-			case "asin":
+			case 'asin':
 				return TrigonometryFunctions.asinCache.get(input);
-			case "acos":
+			case 'acos':
 				return TrigonometryFunctions.acosCache.get(input);
-			case "atan":
+			case 'atan':
 				return TrigonometryFunctions.atanCache.get(input);
-			case "csc":
+			case 'csc':
 				return TrigonometryFunctions.cscCache.get(input);
-			case "sec":
+			case 'sec':
 				return TrigonometryFunctions.secCache.get(input);
-			case "cot":
+			case 'cot':
 				return TrigonometryFunctions.cotCache.get(input);
-			case "sinh":
+			case 'sinh':
 				return TrigonometryFunctions.sinhCache.get(input);
-			case "cosh":
+			case 'cosh':
 				return TrigonometryFunctions.coshCache.get(input);
-			case "tanh":
+			case 'tanh':
 				return TrigonometryFunctions.tanhCache.get(input);
-			case "asinh":
+			case 'asinh':
 				return TrigonometryFunctions.asinhCache.get(input);
-			case "acosh":
+			case 'acosh':
 				return TrigonometryFunctions.acoshCache.get(input);
-			case "atanh":
+			case 'atanh':
 				return TrigonometryFunctions.atanhCache.get(input);
-			case "csch":
+			case 'csch':
 				return TrigonometryFunctions.cschCache.get(input);
-			case "sech":
+			case 'sech':
 				return TrigonometryFunctions.sechCache.get(input);
-			case "coth":
+			case 'coth':
 				return TrigonometryFunctions.cothCache.get(input);
-			case "acsc":
+			case 'acsc':
 				return TrigonometryFunctions.acscCache.get(input);
-			case "asech":
+			case 'asech':
 				return TrigonometryFunctions.asechCache.get(input);
-			case "acoth":
+			case 'acoth':
 				return TrigonometryFunctions.acothCache.get(input);
-			case "asec":
+			case 'asec':
 				return TrigonometryFunctions.asecCache.get(input);
-			case "acot":
+			case 'acot':
 				return TrigonometryFunctions.acotCache.get(input);
-			case "acsch":
+			case 'acsch':
 				return TrigonometryFunctions.acschCache.get(input);
-			case "log":
+			case 'log':
 				return Logarithms.logCache.get(input);
-			case "ln":
+			case 'ln':
 				return Logarithms.lnCache.get(input);
 		}
 	}
