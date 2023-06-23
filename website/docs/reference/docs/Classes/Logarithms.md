@@ -34,7 +34,7 @@ Calculates the natural logarithm of a given number using an iterative series app
 | [options] | <code>object</code> |  | options |
 | [options.accuracy] | <code>number</code> | <code>10</code> | precision of the result (default of 10) |
 | [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
-| [options.a] | <code>number</code> | <code>1</code> | the starting value |
+| [options.centre] | <code>number</code> | <code>1</code> | the centre value |
 
 <a name="Logarithms.log"></a>
 
@@ -50,5 +50,5 @@ Calculates the logarithm of a number with a specified base to a given accuracy.
 | [options] | <code>object</code> |  | options |
 | [options.accuracy] | <code>number</code> | <code>10</code> | precision of the result (default of 10) |
 | [options.cache] | <code>boolean</code> | <code>true</code> | cache the result |
-| [options.a] | <code>number</code> | <code>1</code> | the starting value |
+| [options.centre] | <code>number</code> | <code>1</code> | the centre value |
 
