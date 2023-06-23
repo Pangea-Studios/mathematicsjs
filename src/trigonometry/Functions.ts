@@ -17,30 +17,30 @@ interface singleOptions {
  * Class containing all trigometric functions
  */
 export class TrigonometryFunctions {
-	static readonly sinCache = new Map<number, number>();
-	static readonly cosCache = new Map<number, number>();
-	static readonly tanCache = new Map<number, number>();
-	static readonly asinCache = new Map<number, number>();
-	static readonly acosCache = new Map<number, number>();
-	static readonly atanCache = new Map<number, number>();
-	static readonly cscCache = new Map<number, number>();
-	static readonly secCache = new Map<number, number>();
-	static readonly cotCache = new Map<number, number>();
-	static readonly sinhCache = new Map<number, number>();
-	static readonly coshCache = new Map<number, number>();
-	static readonly tanhCache = new Map<number, number>();
-	static readonly asinhCache = new Map<number, number>();
-	static readonly acoshCache = new Map<number, number>();
-	static readonly atanhCache = new Map<number, number>();
-	static readonly cschCache = new Map<number, number>();
-	static readonly sechCache = new Map<number, number>();
-	static readonly cothCache = new Map<number, number>();
-	static readonly acscCache = new Map<number, number>();
-	static readonly asecCache = new Map<number, number>();
-	static readonly acotCache = new Map<number, number>();
-	static readonly acschCache = new Map<number, number>();
-	static readonly asechCache = new Map<number, number>();
-	static readonly acothCache = new Map<number, number>();
+	public static sinCache = new Map<number, number>();
+	public static cosCache = new Map<number, number>();
+	public static tanCache = new Map<number, number>();
+	public static asinCache = new Map<number, number>();
+	public static acosCache = new Map<number, number>();
+	public static atanCache = new Map<number, number>();
+	public static cscCache = new Map<number, number>();
+	public static secCache = new Map<number, number>();
+	public static cotCache = new Map<number, number>();
+	public static sinhCache = new Map<number, number>();
+	public static coshCache = new Map<number, number>();
+	public static tanhCache = new Map<number, number>();
+	public static asinhCache = new Map<number, number>();
+	public static acoshCache = new Map<number, number>();
+	public static atanhCache = new Map<number, number>();
+	public static cschCache = new Map<number, number>();
+	public static sechCache = new Map<number, number>();
+	public static cothCache = new Map<number, number>();
+	public static acscCache = new Map<number, number>();
+	public static asecCache = new Map<number, number>();
+	public static acotCache = new Map<number, number>();
+	public static acschCache = new Map<number, number>();
+	public static asechCache = new Map<number, number>();
+	public static acothCache = new Map<number, number>();
 
 	/**
 	 * Calculates the sine of an angle in degrees.

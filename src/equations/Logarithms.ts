@@ -8,8 +8,8 @@ interface options {
  * Class containing logarithm functions
  */
 export class Logarithms {
-	static readonly logCache = new Map<number, number>();
-	static readonly lnCache = new Map<number, number>();
+	public static logCache = new Map<number, number>();
+	public static lnCache = new Map<number, number>();
 
 	/**
 	 * Calculates the natural logarithm of a given number using an iterative series approximation.

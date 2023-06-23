@@ -1233,7 +1233,7 @@ export class Conversions {
 			case 'US_LIQUID_GALLONS':
 				liters = value * 3.78541;
 				break;
-			case 'US_LIQID_QUARTS':
+			case 'US_LIQUID_QUARTS':
 				liters = value * 0.946353;
 				break;
 			case 'US_LIQUID_PINTS':
