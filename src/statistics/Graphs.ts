@@ -1,13 +1,13 @@
 import { Color } from '../util';
 
 export class Range {
-    readonly min: number;
-    readonly max: number;
-    constructor(min: number, max: number) {
-        // min <= x < max
-        this.min = min;
-        this.max = max;
-    }
+	readonly min: number;
+	readonly max: number;
+	constructor(min: number, max: number) {
+		// min <= x < max
+		this.min = min;
+		this.max = max;
+	}
 }
 export class PieChart {
 	readonly Sections: { [key: string]: { percent: number; color: Color } };
@@ -63,8 +63,8 @@ export class LineGraph {
 }
 
 export class FrequencyGraph {
-    readonly Values: { value: number; frequency: number; class: Range }[];
-    constructor(values: { value: number; frequency: number; class: Range }[]) {
-        this.Values = values;
-    }
+	readonly Values: { value: number; frequency: number; class: Range }[];
+	constructor(values: { value: number; frequency: number; class: Range }[]) {
+		this.Values = values;
+	}
 }

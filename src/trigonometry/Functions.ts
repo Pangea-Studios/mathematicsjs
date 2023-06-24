@@ -1,5 +1,5 @@
 import { Equations } from '../equations/Equations';
-import { Constants } from '../units/Constants';
+import { MathsConstants as Constants } from '../units/Constants';
 import { Indices } from '../core/Indices';
 import { Factorial, Absolute } from '../core/operations';
 import { Logarithms } from '../equations/Logarithms';
