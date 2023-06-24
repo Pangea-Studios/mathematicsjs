@@ -12,4 +12,4 @@ Vulnerabilities should be reported to one of the maintainers of the package, the
 
 ## Maintainers
 
-(Noinkin)[github.com/Noinkin] <noinkin@gmail.com>
+(Noinkin)[hgttps://github.com/Noinkin] <noinkin@gmail.com>
