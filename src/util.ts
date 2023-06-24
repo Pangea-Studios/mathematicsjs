@@ -83,3 +83,17 @@ export function convertBase(
 export function concatenate(a: number, b: number) {
 	return a * Math.pow(10, Math.floor(Math.log(b) / Math.log(10)) + 1) + b;
 }
+
+export class Color {
+	readonly red: number;
+	readonly green: number;
+	readonly blue: number;
+	readonly alpha: number;
+
+	constructor(red: number, green: number, blue: number, alpha: number) {
+		this.red = red;
+		this.green = green;
+		this.blue = blue;
+		this.alpha = alpha;
+	}
+}
