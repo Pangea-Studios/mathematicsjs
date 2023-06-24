@@ -1274,7 +1274,7 @@ declare class CacheManager {
      * @param {number} output - The output value of the pair
      * @return {any} - The cache object that the pair was added to
      */
-    static add(type: typeof CacheEnum | string, input: number, output: number): Map<number, number>;
+    static add(type: typeof CacheEnum | string, input: number, output: number): any;
     /**
      * Returns a cached value based on the input and the type of cache.
      *
@@ -1282,7 +1282,28 @@ declare class CacheManager {
      * @param {number} input - The input value used to retrieve the cached value
      * @return {any} The cached value retrieved from the specified cache
      */
-    static get(type: typeof CacheEnum | string, input: number): number;
+    static get(type: typeof CacheEnum | string, input: number): any;
+    /**
+     * Deletes the input/output pair from the appropriate cache based on the given type.
+     *
+     * @param {CacheType | string} type - The type of cache to delete the pair from
+     * @param {number} input - The input value of the pair
+     * @return {any} - The cache object that the pair was deleted from
+     */
+    static delete(type: typeof CacheEnum | string, input: number): any;
+    /**
+     * Clears the cache for a given trigonometric or logarithmic function.
+     *
+     * @param {CacheType | string} type - A string or CacheEnum representing the function to clear cache for
+     * @return {void} undefined
+     */
+    static clear(type: typeof CacheEnum | string): any;
+    /**
+     * Clears all cached values
+     *
+     * @return {void} undefined
+     */
+    static clearAll(): void;
 }
 
 export { Absolute, Averages, CacheEnum, CacheManager, Circle, ComplexNumber, Constants, Conversions, Equations, Factorial, Fraction, Indices, Logarithms, Matrix, MatrixConstructor, Summation, TrigonometryFunctions, add, angleEnum, angleUnits, areaEnum, areaUnits, concatenate, convertBase, divide, energyEnum, energyUnits, gcd, gcd2, lengthEnum, lengthUnits, massEnum, massUnits, multiply, physicsFormulae, pressureEnum, pressureUnits, speedEnum, speedUnits, subtract, temperatureEnum, temperatureUnits, timeEnum, timeUnits, volumeEnum, volumeUnits };
