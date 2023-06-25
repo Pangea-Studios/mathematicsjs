@@ -11,7 +11,7 @@
  * @typedef {string} PressureType
  */
 
-import { Constants } from './Constants';
+import { MathsConstants as Constants } from './Constants';
 
 /**
  * Enum for length units

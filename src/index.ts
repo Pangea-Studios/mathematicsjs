@@ -14,3 +14,4 @@ export * from './units/Constants';
 export * from './equations/Logarithms';
 export * from './trigonometry/Functions';
 export * from './cache';
+export * from './statistics/Graphs';

@@ -214,7 +214,7 @@ export class TrigonometryFunctions {
 		if (this.sinhCache.has(x)) {
 			return this.sinhCache.get(x);
 		}
-		const e = Constants.e;
+		const e = Constants.e.value;
 		const result = e ** x - e ** -x / 2;
 		if (options.cache === true) {
 			this.sinhCache.set(x, result);
@@ -233,7 +233,7 @@ export class TrigonometryFunctions {
 		if (this.coshCache.has(x)) {
 			return this.coshCache.get(x);
 		}
-		const e = Constants.e;
+		const e = Constants.e.value;
 		const result = (e ** x + e ** -x) / 2;
 		if (options.cache === true) {
 			this.coshCache.set(x, result);
@@ -379,7 +379,7 @@ export class TrigonometryFunctions {
 		if (this.acosCache.has(x)) {
 			return this.acosCache.get(x);
 		}
-		let result = Constants.pi / 2;
+		let result = Constants.pi.value / 2;
 
 		for (let n = 0; n <= options.accuracy; n++) {
 			const coefficient =
