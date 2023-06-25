@@ -179,7 +179,7 @@ export const MathsConstants = {
 		value: 1.45136_92348_83381_05028,
 		type: NumberTypes.Transcendental,
 	},
-	G: { value: 1.45136_92348_83381_05028, type: NumberTypes.Transcendental },
+	G0: { value: 1.45136_92348_83381_05028, type: NumberTypes.Transcendental },
 
 	secondHermiteConstant: {
 		value: 1.15470_05383_79251_52901,
@@ -206,4 +206,14 @@ export const MathsConstants = {
 		value: 262_53741_26407_68743.99999_99999_99250_073,
 		type: NumberTypes.Transcendental,
 	},
+
+	glaisherKinkelinConstant: { value: 1.28242_71291_00622_63687, type: NumberTypes.Real },
+	A: { value: 1.28242_71291_00622_63687, type: NumberTypes.Real },
+
+	catalansConstant: { value: 0.91596_55941_77219_01505, type: NumberTypes.Real },
+	G1: { value: 0.91596_55941_77219_01505, type: NumberTypes.Real },
+
+	dottieNumber: {value: 0.73908_51332_15160_64165, type: NumberTypes.Transcendental},
+
+	
 } as const;
