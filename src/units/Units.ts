@@ -425,13 +425,13 @@ export class Conversions {
 				degrees = value * 1;
 				break;
 			case 'RADIANS':
-				degrees = value * (180 / Constants.pi);
+				degrees = value * (180 / Constants.pi.value);
 				break;
 			case 'GRADIANS':
 				degrees = value * 0.9;
 				break;
 			case 'MILLIRADIANS':
-				degrees = value * (180 / (Constants.pi * 1000));
+				degrees = value * (180 / (Constants.pi.value * 1000));
 				break;
 			case 'REVOLUTIONS':
 				degrees = value * 360;
@@ -464,13 +464,13 @@ export class Conversions {
 				output = degrees / 1;
 				break;
 			case 'RADIANS':
-				output = degrees / (180 / Constants.pi);
+				output = degrees / (180 / Constants.pi.value);
 				break;
 			case 'GRADIANS':
 				output = degrees / 0.9;
 				break;
 			case 'MILLIRADIANS':
-				output = degrees / (180 / (Constants.pi * 1000));
+				output = degrees / (180 / (Constants.pi.value * 1000));
 				break;
 			case 'REVOLUTIONS':
 				output = degrees / 360;
