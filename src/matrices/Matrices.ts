@@ -1,9 +1,5 @@
-export interface MatrixConstructor {
-	rows: number;
-	columns: number;
-	values: number[][];
-	new (rows: number, columns: number, values: number[][]): Matrix;
-}
+import { Absolute } from '../core/operations';
+import { Indices } from '../core/Indices';
 
 /**
  * Class to create and manipulate Matrices
@@ -28,11 +24,11 @@ export class Matrix {
 
 	/**
 	 * Calculates the product of two matrices.
-	 * @param {MatrixConstructor} other - The matrix to multiply with.
+	 * @param {Matrix} other - The matrix to multiply with.
 	 * @return {Matrix} A new matrix that is the product of this matrix and other.
 	 * @throws {Error} If the number of columns of this matrix does not match the number of rows of the other matrix.
 	 */
-	multiply(other: MatrixConstructor): Matrix {
+	multiply(other: Matrix): Matrix {
 		const numRowsA = this.values.length;
 		const numColsA = this.values[0].length;
 		const numRowsB = other.values.length;
@@ -59,11 +55,11 @@ export class Matrix {
 
 	/**
 	 * Adds the values of two matrices together.
-	 * @param {MatrixConstructor} other - The matrix to add to this one.
+	 * @param {Matrix} other - The matrix to add to this one.
 	 * @return {Matrix} A new matrix with the added values.
 	 * @throws {Error} If matrices do not have the same number of rows and columns.
 	 */
-	add(other: MatrixConstructor): Matrix {
+	add(other: Matrix): Matrix {
 		const numRowsA = this.values.length;
 		const numColsA = this.values[0].length;
 		const numRowsB = other.values.length;
@@ -87,11 +83,11 @@ export class Matrix {
 
 	/**
 	 * Divides this matrix by another one element-wise and returns the result as a new matrix.
-	 * @param {MatrixConstructor} other - the matrix to divide by
+	 * @param {Matrix} other - the matrix to divide by
 	 * @throws {Error} When matrices do not have the same dimensions or when dividing by 0
 	 * @return {Matrix} A new matrix that is the result of the element-wise division
 	 */
-	divide(other: MatrixConstructor): Matrix {
+	divide(other: Matrix): Matrix {
 		const numRowsA = this.values.length;
 		const numColsA = this.values[0].length;
 		const numRowsB = other.values.length;
@@ -118,11 +114,11 @@ export class Matrix {
 
 	/**
 	 * Subtract two matrices of the same dimensions and return the result.
-	 * @param {MatrixConstructor} other - the matrix to subtract from this one
+	 * @param {Matrix} other - the matrix to subtract from this one
 	 * @return {Matrix} a new matrix that is the result of the subtraction
 	 * @throws {Error} if matrices do not have the same dimensions
 	 */
-	subtract(other: MatrixConstructor): Matrix {
+	subtract(other: Matrix): Matrix {
 		const numRowsA = this.values.length;
 		const numColsA = this.values[0].length;
 		const numRowsB = other.values.length;
@@ -190,5 +186,135 @@ export class Matrix {
 		}
 
 		return new Matrix(result.length, result[0].length, result);
+	}
+
+	eigenvalueDecomposition() {
+		// Check if the matrix is square
+		if (this.rows !== this.columns) {
+			throw new Error(
+				'Eigenvalue decomposition can only be performed on square matrices.',
+			);
+		}
+
+		// Create an initial identity matrix for eigenvectors
+		let eigenvectors = Matrix.eye(this.rows);
+
+		// Create a copy of the matrix for calculations
+		let A = new Matrix(this.rows, this.columns, this.values);
+
+		// Set the maximum number of iterations
+		const maxIterations = 100;
+
+		// Perform the QR algorithm
+		for (let i = 0; i < maxIterations; i++) {
+			// Compute the QR decomposition of the matrix
+			const { Q, R } = A.qrDecomposition();
+
+			// Update the matrix A with the new value of RQ
+			A = R.multiply(Q);
+
+			// Update the eigenvectors by multiplying with Q
+			eigenvectors = eigenvectors.multiply(Q);
+
+			// Check if the matrix A is almost diagonal
+			if (A.isDiagonal()) {
+				break;
+			}
+		}
+
+		// Extract the diagonal elements as eigenvalues
+		const eigenvalues = A.getDiagonal();
+
+		// Normalize the eigenvectors
+		eigenvectors = eigenvectors.normalizeColumns();
+
+		// Return the eigenvalues and eigenvectors
+		return {
+			eigenvalues: eigenvalues,
+			eigenvectors: eigenvectors,
+		};
+	}
+
+	/**
+	 * Create an identity matrix of the specified size
+	 *
+	 * @param {number} size - The size of the identity matrix
+	 * @returns {Matrix} - The identity matrix
+	 */
+	static eye(size) {
+		const values = [];
+
+		for (let i = 0; i < size; i++) {
+			const row = new Array(size).fill(0);
+			row[i] = 1;
+			values.push(row);
+		}
+
+		return new Matrix(size, size, values);
+	}
+	/**
+	 * Check if the matrix is diagonal (all off-diagonal elements are close to zero)
+	 *
+	 * @returns {boolean} - True if the matrix is diagonal, false otherwise
+	 */
+	isDiagonal() {
+		for (let i = 0; i < this.rows; i++) {
+			for (let j = 0; j < this.columns; j++) {
+				if (i !== j && Absolute(this.values[i][j]) > 1e-10) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	/**
+	 * Get the diagonal elements of the matrix
+	 *
+	 * @returns {number[]} - Array of diagonal elements
+	 */
+	getDiagonal() {
+		if (this.rows !== this.columns) {
+			throw new Error(
+				'Diagonal elements can only be obtained from a square matrix.',
+			);
+		}
+
+		const diagonal = [];
+
+		for (let i = 0; i < this.rows; i++) {
+			diagonal.push(this.values[i][i]);
+		}
+
+		return diagonal;
+	}
+	/**
+	 * Normalize the columns of the matrix
+	 *
+	 * @returns {Matrix} - The normalized matrix
+	 */
+	normalizeColumns() {
+		// Create a copy of the matrix
+		const normalizedMatrix = new Matrix(
+			this.rows,
+			this.columns,
+			this.values,
+		);
+
+		// Iterate over each column
+		for (let col = 0; col < this.columns; col++) {
+			// Compute the column norm
+			let norm = 0;
+			for (let row = 0; row < this.rows; row++) {
+				norm += Indices.power(this.values[row][col], 2);
+			}
+			norm = Indices.root(norm, 2);
+
+			// Normalize the column elements
+			for (let row = 0; row < this.rows; row++) {
+				normalizedMatrix.values[row][col] /= norm;
+			}
+		}
+
+		return normalizedMatrix;
 	}
 }

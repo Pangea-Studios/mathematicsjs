@@ -111,6 +111,11 @@ export const MathsConstants = {
 		type: NumberTypes.Algebraic,
 	},
 
+	liouvillesConstant: {
+		value: 0.110001,
+		type: NumberTypes.Transcendental,
+	},
+	L0: { value: 0.110001, type: NumberTypes.Transcendental },
 	supergoldenRatio: {
 		value: 1.46557_12318_76768,
 		type: NumberTypes.Algebraic,
@@ -196,7 +201,7 @@ export const MathsConstants = {
 	C_1: { value: 0.69777_46579_64007, type: NumberTypes.Irrational },
 
 	RamanujansConstant: {
-		value: 26253_74126_40768_74.39999_99999_99925e+1,
+		value: 2.62537412640768e16,
 		type: NumberTypes.Transcendental,
 	},
 
