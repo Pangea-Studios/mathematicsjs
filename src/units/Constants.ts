@@ -56,6 +56,8 @@ export const NumberTypes = {
 	},
 } as const;
 
+import { Range } from '../util';
+
 /**
  * Enum for constants
  * @readonly
@@ -125,7 +127,7 @@ export const MathsConstants = {
 		value: 0.11494_20448_53296,
 		type: NumberTypes.Real,
 	},
-	K: { value: 0.11494_20448_53296, type: NumberTypes.Real },
+	K0: { value: 0.11494_20448_53296, type: NumberTypes.Real },
 
 	WallisConstant: {
 		value: 0.11494_20448_53296,
@@ -144,7 +146,7 @@ export const MathsConstants = {
 		value: 0.57721_56649_01532,
 		type: NumberTypes.Real,
 	},
-	γ: { value: 0.57721_56649_01532, type: NumberTypes.Real },
+	γ0: { value: 0.57721_56649_01532, type: NumberTypes.Real },
 
 	erdősBorweinConstant: {
 		value: 1.60669_51524_15291,
@@ -185,7 +187,7 @@ export const MathsConstants = {
 		value: 1.15470_05383_79251,
 		type: NumberTypes.Algebraic,
 	},
-	γ2: { value: 1.15470_05383_79251, type: NumberTypes.Algebraic },
+	γ1: { value: 1.15470_05383_79251, type: NumberTypes.Algebraic },
 
 	liouvillesConstant: {
 		value: 0.11000_10000_00000_00000_0001,
@@ -200,7 +202,7 @@ export const MathsConstants = {
 		value: 0.69777_46579_64007,
 		type: NumberTypes.Irrational,
 	},
-	C1: { value: 0.69777_46579_64007, type: NumberTypes.Irrational },
+	C0: { value: 0.69777_46579_64007, type: NumberTypes.Irrational },
 
 	RamanujansConstant: {
 		value: 262_53741_26407_68743.99999_99999_99250,
@@ -237,7 +239,7 @@ export const MathsConstants = {
 		value: 0.64341_05462_88338,
 		type: NumberTypes.Transcendental,
 	},
-	C: { value: 0.64341_05462_88338, type: NumberTypes.Transcendental },
+	C1: { value: 0.64341_05462_88338, type: NumberTypes.Transcendental },
 
 	gelfondsConstant: {
 		value: 23.14069_26327_792,
@@ -256,11 +258,52 @@ export const MathsConstants = {
 		value: 1.23370_05501_36169,
 		type: NumberTypes.Transcendental,
 	},
-	K2: { value: 1.23370_05501_36169, type: NumberTypes.Transcendental },
+	K1: { value: 1.23370_05501_36169, type: NumberTypes.Transcendental },
 
 	goldenAngle: {
 		value: 2.39996_32297_28653,
 		type: NumberTypes.Transcendental,
 	},
 	g: { value: 2.39996_32297_28653, type: NumberTypes.Transcendental },
+
+	sierpińskisConstant: { value: 2.58498_17595_79253, type: NumberTypes.Real },
+	K2: { value: 2.58498_17595_79253, type: NumberTypes.Real },
+
+	landauRamanujanConstant: {
+		value: 0.76422_36535_89220,
+		type: NumberTypes.Real,
+	},
+	K3: { value: 0.76422_36535_89220, type: NumberTypes.Real },
+
+	firstNielesRamanujanConstant: {
+		value: 0.82246_70334_24113,
+		type: NumberTypes.Transcendental,
+	},
+	a1: { value: 0.82246_70334_24113, type: NumberTypes.Transcendental },
+
+	giesekingConstant: { value: 1.01494_16064_09653, type: NumberTypes.Real },
+	G2: { value: 1.01494_16064_09653, type: NumberTypes.Real },
+
+	bernsteinsConstant: { value: 0.28016_94990_23869, type: NumberTypes.Real },
+	β: { value: 0.28016_94990_23869, type: NumberTypes.Real },
+
+	brunsConstant: { value: 1.90216_05831_04, type: NumberTypes.Real },
+	B2: { value: 1.90216_05831_04, type: NumberTypes.Real },
+
+	tribonacciConstant: {
+		value: 1.83928_67552_14161,
+		type: NumberTypes.Algebraic,
+	},
+
+	twinPrimesConstant: { value: 0.66016_18158_46869, type: NumberTypes.Real },
+	C2: { value: 0.66016_18158_46869, type: NumberTypes.Real },
+
+	plasticNumber: { value: 1.32471_79572_44746, type: NumberTypes.Algebraic },
+	ρ: { value: 1.32471_79572_44746, type: NumberTypes.Algebraic },
+
+	blochsConstant: {
+		value: new Range(0.4332, '≤', 0.4719, '≤'),
+		type: NumberTypes.Real,
+	},
+	B: { value: new Range(0.4332, '≤', 0.4719, '≤'), type: NumberTypes.Real },
 } as const;

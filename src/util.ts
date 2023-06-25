@@ -97,3 +97,34 @@ export class Color {
 		this.alpha = alpha;
 	}
 }
+
+export class Range {
+	readonly min: number;
+	readonly max: number;
+	readonly operand1: '≤' | '<';
+	readonly operand2: '≤' | '<';
+	constructor(
+		min: number,
+		operand1: '≤' | '<',
+		max: number,
+		operand2: '≤' | '<',
+	) {
+		// min <= x < max
+		this.operand1 = operand1;
+		this.operand2 = operand2;
+		this.min = min;
+		this.max = max;
+	}
+
+	returnString() {
+		return (
+			String(this.min) +
+			' ' +
+			this.operand1 +
+			' x ' +
+			String(this.max) +
+			' ' +
+			this.operand2
+		);
+	}
+}
