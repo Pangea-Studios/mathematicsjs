@@ -189,15 +189,6 @@ export const MathsConstants = {
 	},
 	γ1: { value: 1.15470_05383_79251, type: NumberTypes.Algebraic },
 
-	liouvillesConstant: {
-		value: 0.11000_10000_00000_00000_0001,
-		type: NumberTypes.Transcendental,
-	},
-	L0: {
-		value: 0.11000_10000_00000_00000_0001,
-		type: NumberTypes.Transcendental,
-	},
-
 	firstContinuedFractionConstant: {
 		value: 0.69777_46579_64007,
 		type: NumberTypes.Irrational,
@@ -205,7 +196,7 @@ export const MathsConstants = {
 	C_1: { value: 0.69777_46579_64007, type: NumberTypes.Irrational },
 
 	RamanujansConstant: {
-		value: 262_53741_26407_68743.99999_99999_99250,
+		value: 262_53741_26407_687439.9999_99999_9925e-1,
 		type: NumberTypes.Transcendental,
 	},
 
