@@ -196,7 +196,7 @@ export const MathsConstants = {
 	C_1: { value: 0.69777_46579_64007, type: NumberTypes.Irrational },
 
 	RamanujansConstant: {
-		value: 26253_74126_40768_74.39999_99999_99925e+1,
+		value: 26253_74126_40768.75399_99999_99999_25e+3,
 		type: NumberTypes.Transcendental,
 	},
 
