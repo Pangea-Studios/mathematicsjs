@@ -317,4 +317,85 @@ export class Matrix {
 
 		return normalizedMatrix;
 	}
+
+	/**
+	 * Perform QR decomposition of the matrix
+	 *
+	 * @returns {Object} - Object containing orthogonal matrix Q and upper triangular matrix R
+	 */
+	qrDecomposition() {
+		if (this.rows < this.columns) {
+		  throw new Error('QR decomposition requires a matrix with more rows than columns.');
+		}
+	  
+		const A = new Matrix(this.rows, this.columns, this.values);
+		let Q = Matrix.zeros(this.rows, this.columns);
+		let R = Matrix.zeros(this.columns, this.columns);
+	  
+		for (let j = 0; j < this.columns; j++) {
+		  let v = A.getColumn(j);
+	  
+		  for (let i = 0; i < j; i++) {
+			let q = Q.getColumn(i);
+			let r = q.transpose().multiply(v);
+			R.set(i, j, r.values[0][0]);
+	  
+			v = v.subtract(q.multiply(r));
+		  }
+	  
+		  let norm = v.norm();
+		  R.set(j, j, norm);
+		  Q.setColumn(j, v.divideScalar(norm));
+		}
+	  
+		return { Q, R };
+	  }
+	  
+	norm(): number {
+		let sum = 0;
+		for (let i = 0; i < this.rows; i++) {
+			for (let j = 0; j < this.columns; j++) {
+				sum += this.values[i][j] * this.values[i][j];
+			}
+		}
+		return Math.sqrt(sum);
+	}
+
+	static zeros(rows: number, columns: number): Matrix {
+		const values = new Array(rows)
+			.fill(0)
+			.map(() => new Array(columns).fill(0));
+		return new Matrix(rows, columns, values);
+	}
+
+	getColumn(columnIndex: number): Matrix {
+		const columnValues = this.values.map((row) => [row[columnIndex]]);
+		return new Matrix(this.rows, 1, columnValues);
+	}
+	  
+
+	setColumn(columnIndex: number, column: Matrix): void {
+		if (column.rows !== this.rows || column.columns !== 1) {
+			throw new Error('Invalid column dimensions.');
+		}
+		for (let i = 0; i < this.rows; i++) {
+			this.values[i][columnIndex] = column.values[i][0];
+		}
+	}
+	set(row: number, column: number, value: number): void {
+		this.values[row][column] = value;
+	}
+	transpose(): Matrix {
+		const resultValues = new Array(this.columns)
+			.fill(0)
+			.map(() => new Array(this.rows).fill(0));
+
+		for (let i = 0; i < this.rows; i++) {
+			for (let j = 0; j < this.columns; j++) {
+				resultValues[j][i] = this.values[i][j];
+			}
+		}
+
+		return new Matrix(this.columns, this.rows, resultValues);
+	}
 }
