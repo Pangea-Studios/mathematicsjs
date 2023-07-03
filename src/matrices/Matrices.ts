@@ -176,7 +176,7 @@ export class Matrix {
 		const numRows = this.values.length;
 		const numCols = this.values[0].length;
 
-		const result = [];
+		let result = [];
 
 		for (let i = 0; i < numRows; i++) {
 			result[i] = [];
@@ -188,6 +188,11 @@ export class Matrix {
 		return new Matrix(result.length, result[0].length, result);
 	}
 
+	/**
+	 * Performs eigenvalue decomposition on a square matrix.
+	 *
+	 * @return {object} An object containing the eigenvalues and eigenvectors.
+	 */
 	eigenvalueDecomposition() {
 		// Check if the matrix is square
 		if (this.rows !== this.columns) {
@@ -241,7 +246,7 @@ export class Matrix {
 	 * @param {number} size - The size of the identity matrix
 	 * @returns {Matrix} - The identity matrix
 	 */
-	static eye(size) {
+	static eye(size: number) {
 		const values = [];
 
 		for (let i = 0; i < size; i++) {
@@ -260,7 +265,7 @@ export class Matrix {
 	isDiagonal() {
 		for (let i = 0; i < this.rows; i++) {
 			for (let j = 0; j < this.columns; j++) {
-				if (i !== j && Absolute(this.values[i][j]) > 1e-10) {
+				if (i !== j && Math.abs(this.values[i][j]) > 1e-10) {
 					return false;
 				}
 			}
@@ -305,9 +310,9 @@ export class Matrix {
 			// Compute the column norm
 			let norm = 0;
 			for (let row = 0; row < this.rows; row++) {
-				norm += Indices.power(this.values[row][col], 2);
+				norm += Math.pow(this.values[row][col], 2);
 			}
-			norm = Indices.root(norm, 2);
+			norm = Math.sqrt(norm);
 
 			// Normalize the column elements
 			for (let row = 0; row < this.rows; row++) {
@@ -325,32 +330,39 @@ export class Matrix {
 	 */
 	qrDecomposition() {
 		if (this.rows < this.columns) {
-		  throw new Error('QR decomposition requires a matrix with more rows than columns.');
+			throw new Error(
+				'QR decomposition requires a matrix with more rows than columns.',
+			);
 		}
-	  
+
 		const A = new Matrix(this.rows, this.columns, this.values);
 		let Q = Matrix.zeros(this.rows, this.columns);
 		let R = Matrix.zeros(this.columns, this.columns);
-	  
+
 		for (let j = 0; j < this.columns; j++) {
-		  let v = A.getColumn(j);
-	  
-		  for (let i = 0; i < j; i++) {
-			let q = Q.getColumn(i);
-			let r = q.transpose().multiply(v);
-			R.set(i, j, r.values[0][0]);
-	  
-			v = v.subtract(q.multiply(r));
-		  }
-	  
-		  let norm = v.norm();
-		  R.set(j, j, norm);
-		  Q.setColumn(j, v.divideScalar(norm));
+			let v = A.getColumn(j);
+
+			for (let i = 0; i < j; i++) {
+				let q = Q.getColumn(i);
+				let r = q.transpose().multiply(v);
+				R.set(i, j, r.values[0][0]);
+
+				v = v.subtract(q.multiply(r));
+			}
+			let norm = v.norm();
+			R.set(j, j, norm);
+
+			Q.setColumn(j, v.divideScalar(norm));
 		}
-	  
+
 		return { Q, R };
-	  }
-	  
+	}
+
+	/**
+	 * Calculates the norm of the matrix.
+	 *
+	 * @return {number} The norm of the matrix.
+	 */
 	norm(): number {
 		let sum = 0;
 		for (let i = 0; i < this.rows; i++) {
@@ -361,6 +373,13 @@ export class Matrix {
 		return Math.sqrt(sum);
 	}
 
+	/**
+	 * Creates a matrix filled with zeros.
+	 *
+	 * @param {number} rows - The number of rows in the matrix.
+	 * @param {number} columns - The number of columns in the matrix.
+	 * @return {Matrix} The matrix filled with zeros.
+	 */
 	static zeros(rows: number, columns: number): Matrix {
 		const values = new Array(rows)
 			.fill(0)
@@ -368,12 +387,24 @@ export class Matrix {
 		return new Matrix(rows, columns, values);
 	}
 
+	/**
+	 * Gets a column from the matrix.
+	 *
+	 * @param {number} columnIndex - The index of the column to retrieve.
+	 * @return {Matrix} A new Matrix containing the column values.
+	 */
 	getColumn(columnIndex: number): Matrix {
 		const columnValues = this.values.map((row) => [row[columnIndex]]);
 		return new Matrix(this.rows, 1, columnValues);
 	}
-	  
 
+	/**
+	 * Set the values of a specific column in the matrix.
+	 *
+	 * @param {number} columnIndex - The index of the column to set.
+	 * @param {Matrix} column - The column values to set.
+	 * @return {void} This function does not return a value.
+	 */
 	setColumn(columnIndex: number, column: Matrix): void {
 		if (column.rows !== this.rows || column.columns !== 1) {
 			throw new Error('Invalid column dimensions.');
@@ -382,9 +413,22 @@ export class Matrix {
 			this.values[i][columnIndex] = column.values[i][0];
 		}
 	}
+	/**
+	 * Set the value of a specific cell in the matrix.
+	 *
+	 * @param {number} row - The row index of the cell.
+	 * @param {number} column - The column index of the cell.
+	 * @param {number} value - The value to set in the cell.
+	 * @return {void} This function does not return a value.
+	 */
 	set(row: number, column: number, value: number): void {
 		this.values[row][column] = value;
 	}
+	/**
+	 * Transposes the matrix.
+	 *
+	 * @return {Matrix} The transposed matrix.
+	 */
 	transpose(): Matrix {
 		const resultValues = new Array(this.columns)
 			.fill(0)
