@@ -9,7 +9,7 @@ export * from './units/Units';
 export * from './statistics/averages';
 export * from './complex/ComplexNumbers';
 export * from './equations/Equations';
-export * from './equations/Summation';
+export * from './equations/LargeOperators';
 export * from './units/Constants';
 export * from './equations/Logarithms';
 export * from './trigonometry/Functions';

@@ -3,7 +3,7 @@ import { Equations } from './Equations';
 /**
  * Class containing summation functions
  */
-export class Summation {
+export class LargeOperators {
 	/**
 	 * Calculates the additive summation of an equation for a given range and interval.
 	 *

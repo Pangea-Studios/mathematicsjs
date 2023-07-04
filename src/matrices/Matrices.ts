@@ -12,14 +12,145 @@ export class Matrix {
 	/**
 	 * Creates a new matrix
 	 *
-	 * @param {number} rows - The number of rows
-	 * @param {number} columns - The number of columns
 	 * @param {Array.<Array.<number>>} values - The values of the matrix
 	 */
-	constructor(rows: number, columns: number, values: number[][]) {
-		this.rows = rows;
-		this.columns = columns;
+	constructor(values: number[][]) {
+		this.rows = values.length;
+		this.columns = values[0].length;
 		this.values = values;
+	}
+
+	/**
+	 * Calculate and return the determinant of the matrix.
+	 *
+	 * @return {number} The determinant of the matrix.
+	 */
+	calculateDeterminant(): number {
+		// Calculate and return the determinant of the matrix
+		if (this.rows === 2 && this.columns === 2) {
+			const [[a, b], [c, d]] = this.values;
+			return a * d - b * c;
+		} else {
+			console.log(
+				'Determinant calculation not implemented for matrices larger than 2x2.',
+			);
+			return 0;
+		}
+	}
+
+	/**
+	 * Concatenate two matrices horizontally.
+	 *
+	 * @param {Matrix} matrix2 - The matrix to be concatenated.
+	 * @return {Matrix} A new matrix that is the concatenation of this matrix and matrix2.
+	 */
+	concatMatrix(matrix2: Matrix): Matrix {
+		// Concatenate two matrices horizontally
+		const result: number[][] = [];
+		for (let i = 0; i < this.values.length; i++) {
+			result.push(this.values[i].concat(matrix2[i]));
+		}
+		return new Matrix(result);
+	}
+
+	/**
+	 * Returns the inverse values of the matrix.
+	 *
+	 * @return {Matrix} The matrix with the inverse values.
+	 */
+	getInverseValues(): Matrix {
+		const numRows = this.rows;
+		const numCols = this.columns;
+		const result: number[][] = [];
+		for (let i = 0; i < numRows; i++) {
+			const row: number[] = [];
+			for (let j = numCols / 2; j < numCols; j++) {
+				row.push(this.values[i][j]);
+			}
+			result.push(row);
+		}
+		return new Matrix(result);
+	}
+
+	/**
+	 * Apply Gaussian elimination to the matrix and return the reduced row echelon form.
+	 *
+	 * @return {Matrix} The matrix in reduced row echelon form.
+	 */
+	applyGaussianElimination(): Matrix {
+		// Apply Gaussian elimination to the matrix and return the reduced row echelon form
+		const numRows = this.rows;
+		const numCols = this.columns;
+		const result = this.values.map((row) => [...row]); // Create a copy of the matrix
+
+		let lead = 0;
+		for (let r = 0; r < numRows; r++) {
+			if (numCols <= lead) {
+				break;
+			}
+			let i = r;
+			while (result[i][lead] === 0) {
+				i++;
+				if (numRows === i) {
+					i = r;
+					lead++;
+					if (numCols === lead) {
+						break;
+					}
+				}
+			}
+			if (numCols === lead) {
+				break;
+			}
+			[result[i], result[r]] = [result[r], result[i]];
+			const lv = result[r][lead];
+			for (let j = 0; j < numCols; j++) {
+				result[r][j] /= lv;
+			}
+			for (let i = 0; i < numRows; i++) {
+				if (i !== r) {
+					const lv2 = result[i][lead];
+					for (let j = 0; j < numCols; j++) {
+						result[i][j] -= lv2 * result[r][j];
+					}
+				}
+			}
+			lead++;
+		}
+
+		return new Matrix(result);
+	}
+
+	/**
+	 * Inverts the matrix.
+	 *
+	 * @return {Matrix | null} The inverted matrix, or null if it is not possible to invert.
+	 */
+	invert(): Matrix | null {
+		// Check if the matrix is square (has equal rows and columns)
+		if (this.rows !== this.columns) {
+			console.log('Cannot invert a non-square matrix.');
+			return null;
+		}
+
+		// Calculate the determinant of the matrix
+		const determinant = this.calculateDeterminant();
+		if (determinant === 0) {
+			console.log('Matrix is not invertible (determinant is zero).');
+			return null;
+		}
+
+		// Create an identity matrix of the same size
+		const identityMatrix = Matrix.eye(this.columns);
+
+		// Apply Gaussian elimination to find the inverse
+		const augmentedMatrix = this.concatMatrix(identityMatrix);
+		const reducedRowEchelonForm =
+			augmentedMatrix.applyGaussianElimination();
+		const inverseValues = reducedRowEchelonForm.getInverseValues();
+
+		// Create and return the inverted matrix
+		return inverseValues;
 	}
 
 	/**
@@ -50,7 +181,7 @@ export class Matrix {
 				result[i][j] = sum;
 			}
 		}
-		return new Matrix(result.length, result[0].length, result);
+		return new Matrix(result);
 	}
 
 	/**
@@ -78,7 +209,7 @@ export class Matrix {
 			}
 		}
 
-		return new Matrix(result.length, result[0].length, result);
+		return new Matrix(result);
 	}
 
 	/**
@@ -109,7 +240,7 @@ export class Matrix {
 			}
 		}
 
-		return new Matrix(result.length, result[0].length, result);
+		return new Matrix(result);
 	}
 
 	/**
@@ -139,7 +270,7 @@ export class Matrix {
 			}
 		}
 
-		return new Matrix(result.length, result[0].length, result);
+		return new Matrix(result);
 	}
 
 	/**
@@ -160,7 +291,7 @@ export class Matrix {
 			}
 		}
 
-		return new Matrix(result.length, result[0].length, result);
+		return new Matrix(result);
 	}
 	/**
 	 * Divides every element in the matrix by a scalar.
@@ -176,7 +307,7 @@ export class Matrix {
 		const numRows = this.values.length;
 		const numCols = this.values[0].length;
 
-		let result = [];
+		const result = [];
 
 		for (let i = 0; i < numRows; i++) {
 			result[i] = [];
@@ -185,7 +316,7 @@ export class Matrix {
 			}
 		}
 
-		return new Matrix(result.length, result[0].length, result);
+		return new Matrix(result);
 	}
 
 	/**
@@ -205,7 +336,7 @@ export class Matrix {
 		let eigenvectors = Matrix.eye(this.rows);
 
 		// Create a copy of the matrix for calculations
-		let A = new Matrix(this.rows, this.columns, this.values);
+		let A = new Matrix(this.values);
 
 		// Set the maximum number of iterations
 		const maxIterations = 100;
@@ -255,7 +386,7 @@ export class Matrix {
 			values.push(row);
 		}
 
-		return new Matrix(size, size, values);
+		return new Matrix(values);
 	}
 	/**
 	 * Check if the matrix is diagonal (all off-diagonal elements are close to zero)
@@ -299,11 +430,7 @@ export class Matrix {
 	 */
 	normalizeColumns() {
 		// Create a copy of the matrix
-		const normalizedMatrix = new Matrix(
-			this.rows,
-			this.columns,
-			this.values,
-		);
+		const normalizedMatrix = new Matrix(this.values);
 
 		// Iterate over each column
 		for (let col = 0; col < this.columns; col++) {
@@ -335,21 +462,21 @@ export class Matrix {
 			);
 		}
 
-		const A = new Matrix(this.rows, this.columns, this.values);
-		let Q = Matrix.zeros(this.rows, this.columns);
-		let R = Matrix.zeros(this.columns, this.columns);
+		const A = new Matrix(this.values);
+		const Q = Matrix.zeros(this.rows, this.columns);
+		const R = Matrix.zeros(this.columns, this.columns);
 
 		for (let j = 0; j < this.columns; j++) {
 			let v = A.getColumn(j);
 
 			for (let i = 0; i < j; i++) {
-				let q = Q.getColumn(i);
-				let r = q.transpose().multiply(v);
+				const q = Q.getColumn(i);
+				const r = q.transpose().multiply(v);
 				R.set(i, j, r.values[0][0]);
 
 				v = v.subtract(q.multiply(r));
 			}
-			let norm = v.norm();
+			const norm = v.norm();
 			R.set(j, j, norm);
 
 			Q.setColumn(j, v.divideScalar(norm));
@@ -384,7 +511,7 @@ export class Matrix {
 		const values = new Array(rows)
 			.fill(0)
 			.map(() => new Array(columns).fill(0));
-		return new Matrix(rows, columns, values);
+		return new Matrix(values);
 	}
 
 	/**
@@ -395,7 +522,7 @@ export class Matrix {
 	 */
 	getColumn(columnIndex: number): Matrix {
 		const columnValues = this.values.map((row) => [row[columnIndex]]);
-		return new Matrix(this.rows, 1, columnValues);
+		return new Matrix(columnValues);
 	}
 
 	/**
@@ -440,6 +567,6 @@ export class Matrix {
 			}
 		}
 
-		return new Matrix(this.columns, this.rows, resultValues);
+		return new Matrix(resultValues);
 	}
 }
