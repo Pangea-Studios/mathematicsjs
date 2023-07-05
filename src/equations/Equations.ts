@@ -686,4 +686,8 @@ export class Equations {
 
 		return coefficient;
 	}
+
+	static simplify(equation: string): string {
+		return '';
+	}
 }

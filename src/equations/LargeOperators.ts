@@ -1,17 +1,18 @@
 import { Equations } from './Equations';
-
+import { find } from '../util';
+import { isInAllArrays } from '../util';
 /**
  * Class containing summation functions
  */
 export class LargeOperators {
 	/**
-	 * Calculates the additive summation of an equation for a given range and interval.
+	 * Calculates the additive summation of a given equation within a specified range.
 	 *
-	 * @param {string} equation - The equation to be evaluated, can use variable 'n'.
-	 * @param {number} start - The starting value for variable 'n'.
-	 * @param {number} end - The ending value for variable 'n'.
-	 * @param {number} interval - The increment between each value of 'n'.
-	 * @return {number} The result of the additive summation of the equation for the given range and interval.
+	 * @param {string} equation - The equation to be evaluated.
+	 * @param {number} start - The starting value of the range.
+	 * @param {number} end - The ending value of the range.
+	 * @param {number} interval - The interval between each value in the range.
+	 * @return {number} The sum of the evaluated equation for each value in the range.
 	 */
 	static AdditiveSummation(
 		equation: string,
@@ -27,13 +28,13 @@ export class LargeOperators {
 	}
 
 	/**
-	 * Calculates the multiplicative summation of the given equation for a given range.
+	 * Calculates the multiplicative summation of a given equation.
 	 *
-	 * @param {string} equation - the equation to be evaluated
-	 * @param {number} start - the start value of the range
-	 * @param {number} end - the end value of the range
-	 * @param {number} interval - the interval between each value in the range
-	 * @return {number} the result of the multiplicative summation
+	 * @param {string} equation - The equation to evaluate.
+	 * @param {number} start - The starting value for the summation.
+	 * @param {number} end - The ending value for the summation.
+	 * @param {number} interval - The interval between each value in the summation.
+	 * @return {number} - The result of the multiplicative summation.
 	 */
 	static MultiplicativeSummation(
 		equation: string,
@@ -44,6 +45,45 @@ export class LargeOperators {
 		let result = 0;
 		for (let n = start; n <= end; n += interval) {
 			result *= Number(Equations.evaluate(equation, { n: n }));
+		}
+		return result;
+	}
+
+	/**
+	 * Union of arrays.
+	 *
+	 * @param {number[][]} arrays - The arrays to be unioned.
+	 * @return {number[]} The union of the arrays.
+	 */
+	static union(arrays: number[][]): number[] {
+		let result: number[];
+		for (let i = 0; i < arrays.length; i++) {
+			for (let j = 0; j < arrays[i].length; j++) {
+				if (find(result, arrays[i][j]) === 0) {
+					result.push(arrays[i][j]);
+				}
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * Finds the intersection of multiple arrays.
+	 *
+	 * @param {number[][]} arrays - The arrays to find the intersection of.
+	 * @return {number[]} - The resulting array with common elements.
+	 */
+	static intersection(arrays: number[][]): number[] {
+		let result: number[];
+		for (let i = 0; i < arrays.length; i++) {
+			for (let j = 0; j < arrays[i].length; j++) {
+				if (
+					find(result, arrays[i][j]) === 0 &&
+					isInAllArrays(arrays[i][j], arrays)
+				) {
+					result.push(arrays[i][j]);
+				}
+			}
 		}
 		return result;
 	}

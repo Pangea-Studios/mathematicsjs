@@ -128,3 +128,45 @@ export class Range {
 		);
 	}
 }
+
+/**
+ * Counts the number of occurrences of a target value in an array or string.
+ *
+ * @param {Array<any> | string} array - The array or string to search in.
+ * @param {any} target - The target value to count occurrences of.
+ * @return {number} The number of occurrences of the target value.
+ */
+export function find(array: Array<any> | string, target: any) {
+	let count = 0;
+	if (Array.isArray(array)) {
+		for (let i = 0; i < array.length; i++) {
+			if (array[i] === target) {
+				count++;
+			}
+		}
+	} else if (typeof array === 'string') {
+		array = array.split('');
+		for (let i = 0; i < array.length; i++) {
+			if (array[i] === target) {
+				count++;
+			}
+		}
+	}
+	return count;
+}
+
+/**
+ * Checks if the given object exists in all of the arrays.
+ *
+ * @param {any} object - The object to check.
+ * @param {any[][]} arrays - The arrays to search.
+ * @return {boolean} Returns true if the object exists in all arrays, false otherwise.
+ */
+export function isInAllArrays(object: any, arrays: any[][]): boolean {
+	for (const array of arrays) {
+		if (find(array, object) === 0) {
+			return false;
+		}
+	}
+	return true;
+}
