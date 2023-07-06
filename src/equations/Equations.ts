@@ -6,46 +6,39 @@ import { TrigonometryFunctions as Trig } from '../trigonometry/Functions';
  * Class containing equation utilities
  */
 export class Equations {
+	private static find(array: any[] | string, target: string): number {
+		let count = 0;
+		if (Array.isArray(array)) {
+			for (let i = 0; i < array.length; i++) {
+				if (array[i] === target) {
+					count++;
+				}
+			}
+		} else if (typeof array === 'string') {
+			array = array.split('');
+			for (let i = 0; i < array.length; i++) {
+				if (array[i] === target) {
+					count++;
+				}
+			}
+		}
+		return count;
+	}
 	/**
 	 * Parses a mathematical equation string with given variables.
 	 *
 	 * @param {string} equation - the equation to be parsed
-	 * @param {{ Array.<string>: number }} variables - an object with variable names and their values
 	 * @return {Array<string|number> | 'Error'} the result of the evaluation or 'Error' if the equation is invalid
 	 */
-	static parseEquation(
-		equation: string,
-		variables: { [key: string]: number },
-	): Array<string | number> | 'Error' {
+	static parseEquation(equation: string): any[] {
 		const result: any[] = equation.replace(/\s/g, '').split('');
-		const find = (
-			array: Array<string | number> | string,
-			target: string,
-		) => {
-			let count = 0;
-			if (Array.isArray(array)) {
-				for (let i = 0; i < array.length; i++) {
-					if (array[i] === target) {
-						count++;
-					}
-				}
-			} else if (typeof array === 'string') {
-				array = array.split('');
-				for (let i = 0; i < array.length; i++) {
-					if (array[i] === target) {
-						count++;
-					}
-				}
-			}
-			return count;
-		};
 
 		if (
 			equation === '' ||
 			!equation ||
-			find(result, '(') !== find(result, ')')
+			Equations.find(result, '(') !== Equations.find(result, ')')
 		) {
-			return 'Error';
+			throw new Error('Invalid equation');
 		}
 		for (let i = 0; i < result.length; i++) {
 			if (!isNaN(Number(result[i])) && !isNaN(Number(result[i + 1]))) {
@@ -421,21 +414,6 @@ export class Equations {
 			}
 		}
 
-		for (let i = 0; i < result.length; i++) {
-			if (typeof result[i] === 'string' && result[i] in variables) {
-				if (i > 0 && typeof result[i - 1] === 'number') {
-					result.splice(i, 0, '*');
-					i++;
-				}
-				if (
-					i < result.length - 1 &&
-					typeof result[i + 1] === 'number'
-				) {
-					result.splice(i + 1, 0, '*');
-				}
-				result[i] = variables[result[i]];
-			}
-		}
 		return result;
 	}
 
@@ -449,32 +427,19 @@ export class Equations {
 	static evaluate(
 		equation: string,
 		variables: { [key: string]: number },
-	): number | 'Error' {
-		const result = this.parseEquation(equation, variables);
-		if (result === 'Error') {
-			return 'Error';
-		}
-		const find = (
-			array: Array<string | number> | string,
-			target: string,
-		) => {
-			let count = 0;
-			if (Array.isArray(array)) {
-				for (let i = 0; i < array.length; i++) {
-					if (array[i] === target) {
-						count++;
-					}
-				}
-			} else if (typeof array === 'string') {
-				array = array.split('');
-				for (let i = 0; i < array.length; i++) {
-					if (array[i] === target) {
-						count++;
-					}
-				}
+	): number {
+		const result = this.parseEquation(equation);
+		for (let i = 0; i < result.length; i++) {
+			if (i > 0 && typeof result[i - 1] === 'number') {
+				result.splice(i, 0, '*');
+				i++;
 			}
-			return count;
-		};
+			if (i < result.length - 1 && typeof result[i + 1] === 'number') {
+				result.splice(i + 1, 0, '*');
+			}
+			result[i] = variables[result[i]];
+		}
+
 		const evaluateNoBrackets = (array: Array<string | number>) => {
 			while (array.length !== 1) {
 				for (let i = 0; i < array.length; i++) {
@@ -644,7 +609,7 @@ export class Equations {
 			return array[0];
 		};
 
-		while (find(result, '(') > 0) {
+		while (Equations.find(result, '(') > 0) {
 			let startPos = -1;
 			let endPos = -1;
 
@@ -685,9 +650,5 @@ export class Equations {
 		}
 
 		return coefficient;
-	}
-
-	static simplify(equation: string): string {
-		return '';
 	}
 }
