@@ -2729,7 +2729,7 @@ class Conversions {
 /**
  * Class to find averages of an array of numbers
  */
-class Averages {
+class StatisticalOperations {
     /**
      * Finds the mean of an array of numbers
      * @param {Array.<number>} - The array of numbers to find the mean of
@@ -2792,6 +2792,41 @@ class Averages {
         const max = input.reduce((a, b) => Math.max(a, b), -Infinity);
         const min = input.reduce((a, b) => Math.min(a, b), -Infinity);
         return max - min;
+    }
+    /**
+     * Union of arrays.
+     *
+     * @param {number[][]} arrays - The arrays to be unioned.
+     * @return {number[]} The union of the arrays.
+     */
+    static union(arrays) {
+        let result;
+        for (let i = 0; i < arrays.length; i++) {
+            for (let j = 0; j < arrays[i].length; j++) {
+                if (find(result, arrays[i][j]) === 0) {
+                    result.push(arrays[i][j]);
+                }
+            }
+        }
+        return result;
+    }
+    /**
+     * Finds the intersection of multiple arrays.
+     *
+     * @param {number[][]} arrays - The arrays to find the intersection of.
+     * @return {number[]} - The resulting array with common elements.
+     */
+    static intersection(arrays) {
+        let result;
+        for (let i = 0; i < arrays.length; i++) {
+            for (let j = 0; j < arrays[i].length; j++) {
+                if (find(result, arrays[i][j]) === 0 &&
+                    isInAllArrays(arrays[i][j], arrays)) {
+                    result.push(arrays[i][j]);
+                }
+            }
+        }
+        return result;
     }
 }
 
@@ -2878,7 +2913,7 @@ class Logarithms {
      * @param {number} [options.centre=1] - the centre value
      * @return {number} - The calculated logarithm of x with base base, with the specified accuracy.
      */
-    static log(x, options = { accuracy: 10, cache: true, centre: 1 }) {
+    static log(x, base = 10, options = { accuracy: 10, cache: true, centre: 1 }) {
         if (this.logCache.has(x)) {
             return this.logCache.get(x);
         }
@@ -2887,7 +2922,7 @@ class Logarithms {
             cache: options.cache,
             centre: options.centre,
         }) /
-            this.ln(10, {
+            this.ln(base, {
                 accuracy: options.accuracy,
                 cache: options.cache,
                 centre: options.centre,
@@ -3769,6 +3804,7 @@ class Equations {
      */
     static evaluate(equation, variables) {
         const result = this.parseEquation(equation);
+        console.log(result);
         for (let i = 0; i < result.length; i++) {
             if (i > 0 && typeof result[i - 1] === 'number') {
                 result.splice(i, 0, '*');
@@ -3789,13 +3825,11 @@ class Equations {
                             break;
                         case 'ln':
                             array[i] = Logarithms.ln(Number(array[i + 1]));
-                            array.splice(i + 1);
+                            array.splice(i);
                             break;
                         case 'log':
-                            array[i] = Logarithms.log(Number(array[i + 1]), {
-                                accuracy: Number(array[i + 2]),
-                            });
-                            array.splice(i + 1, i + 2);
+                            array[i] = Logarithms.log(Number(array[i + 1]), Number(array[i + 2]));
+                            array.splice(i + 1, 2);
                             break;
                         case 'sin':
                             array[i] = TrigonometryFunctions.sin(Number(array[i + 1]));
@@ -3900,14 +3934,14 @@ class Equations {
                         case '^':
                             array[i - 1] ===
                                 Math.pow(Number(array[i - 1]), Number(array[i + 1]));
-                            array.splice(i, i + 1);
+                            array.splice(i, 2);
                             break;
                         case '√':
                             if (Number.isInteger(Number(array[i - 1]))) {
                                 array[i - 1] ===
                                     Math.pow(Number(array[i + 1]), 1) /
                                         Number(array[i - 1]);
-                                array.splice(i, i + 1);
+                                array.splice(i, 2);
                             }
                             else {
                                 array[i] = Math.pow(Number(array[i + 1]), 0.5);
@@ -3921,12 +3955,12 @@ class Equations {
                         case '*':
                             array[i - 1] =
                                 Number(array[i - 1]) * Number(array[i + 1]);
-                            array.splice(i, i + 1);
+                            array.splice(i, 2);
                             break;
                         case '/':
                             array[i - 1] =
                                 Number(array[i - 1]) / Number(array[i + 1]);
-                            array.splice(i, i + 1);
+                            array.splice(i, 2);
                             break;
                     }
                 }
@@ -3935,7 +3969,7 @@ class Equations {
                         case '+':
                             array[i - 1] =
                                 Number(array[i - 1]) + Number(array[i + 1]);
-                            array.splice(i, i + 1);
+                            array.splice(i, 2);
                             break;
                         case '-':
                             array[i - 1] =
@@ -3992,7 +4026,7 @@ class Equations {
             const endPos = result.indexOf(')', startPos);
             if (startPos !== -1 && endPos !== -1) {
                 const subEquation = result.slice(startPos + 1, endPos);
-                result[startPos] = subEquation;
+                result[startPos] = this.simplifyArray(subEquation);
                 result.splice(startPos + 1, endPos - startPos);
             }
         }
@@ -4002,17 +4036,240 @@ class Equations {
         // 1 + 4 + 4x
         // 5 + 4x
     }
-    static simplifyArray(expression) {
-        expression.forEach((value, i) => {
-            if (Array.isArray(value)) {
-                const nextArray = this.simplifyArray(value);
-                expression.splice(i, 1);
-                nextArray.forEach((item, a) => {
-                    expression.splice(i - 1 + a, 0, item);
-                });
+    static parseEquation2(array) {
+        for (let i = 0; i < array.length; i++) {
+            if (typeof array[i] === 'string' && array[i].length === 1) ;
+        }
+    }
+    static simplifyArray(array) {
+        for (let i = 0; i < array.length; i++) {
+            switch (array[i]) {
+                case '!':
+                    if (!isNaN(array[i - 1])) {
+                        array[i - 1] = Factorial(Number(array[i - 1]));
+                        array.splice(i);
+                        break;
+                    }
+                case 'ln':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = Logarithms.ln(Number(array[i + 1]));
+                        array.splice(i + 1);
+                        break;
+                    }
+                case 'log':
+                    if (!isNaN(array[i + 1]) && !isNaN(array[i + 2])) {
+                        array[i] = Logarithms.log(Number(array[i + 1]), Number(array[i + 2]));
+                        array.splice(i + 1, 2);
+                        break;
+                    }
+                case 'sin':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = TrigonometryFunctions.sin(Number(array[i + 1]));
+                        array.splice(i + 1, 1);
+                        break;
+                    }
+                case 'cos':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = TrigonometryFunctions.cos(Number(array[i + 1]));
+                        array.splice(i + 1, 1);
+                        break;
+                    }
+                case 'tan':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = TrigonometryFunctions.tan(Number(array[i + 1]));
+                        array.splice(i + 1, 1);
+                        break;
+                    }
+                case 'sec':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = TrigonometryFunctions.sec(Number(array[i + 1]));
+                        array.splice(i + 1, 1);
+                        break;
+                    }
+                case 'csc':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = TrigonometryFunctions.csc(Number(array[i + 1]));
+                        array.splice(i + 1, 1);
+                        break;
+                    }
+                case 'cot':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = TrigonometryFunctions.tan(Number(array[i + 1]));
+                        array.splice(i + 1, 1);
+                        break;
+                    }
+                case 'sinh':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = TrigonometryFunctions.sinh(Number(array[i + 1]));
+                        array.splice(i + 1, 1);
+                        break;
+                    }
+                case 'cosh':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = TrigonometryFunctions.cosh(Number(array[i + 1]));
+                        array.splice(i + 1, 1);
+                        break;
+                    }
+                case 'tanh':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = TrigonometryFunctions.tanh(Number(array[i + 1]));
+                        array.splice(i + 1, 1);
+                        break;
+                    }
+                case 'sech':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = TrigonometryFunctions.sech(Number(array[i + 1]));
+                        array.splice(i + 1, 1);
+                        break;
+                    }
+                case 'csch':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = TrigonometryFunctions.csch(Number(array[i + 1]));
+                        array.splice(i + 1, 1);
+                        break;
+                    }
+                case 'coth':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = TrigonometryFunctions.coth(Number(array[i + 1]));
+                        array.splice(i + 1, 1);
+                        break;
+                    }
+                case 'asin':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = TrigonometryFunctions.asin(Number(array[i + 1]));
+                        array.splice(i + 1, 1);
+                        break;
+                    }
+                case 'acot':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = TrigonometryFunctions.acot(Number(array[i + 1]));
+                        array.splice(i + 1, 1);
+                        break;
+                    }
+                case 'acos':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = TrigonometryFunctions.acos(Number(array[i + 1]));
+                        array.splice(i + 1, 1);
+                        break;
+                    }
+                case 'atan':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = TrigonometryFunctions.atan(Number(array[i + 1]));
+                        array.splice(i + 1, 1);
+                        break;
+                    }
+                case 'asec':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = TrigonometryFunctions.asec(Number(array[i + 1]));
+                        array.splice(i + 1, 1);
+                        break;
+                    }
+                case 'acsc':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = TrigonometryFunctions.acsc(Number(array[i + 1]));
+                        array.splice(i + 1, 1);
+                        break;
+                    }
+                case 'asinh':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = TrigonometryFunctions.asinh(Number(array[i + 1]));
+                        array.splice(i + 1, 1);
+                        break;
+                    }
+                case 'acoth':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = TrigonometryFunctions.acoth(Number(array[i + 1]));
+                        array.splice(i + 1, 1);
+                        break;
+                    }
+                case 'acosh':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = TrigonometryFunctions.acosh(Number(array[i + 1]));
+                        array.splice(i + 1, 1);
+                        break;
+                    }
+                case 'atanh':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = TrigonometryFunctions.atanh(Number(array[i + 1]));
+                        array.splice(i + 1, 1);
+                        break;
+                    }
+                case 'asech':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = TrigonometryFunctions.asech(Number(array[i + 1]));
+                        array.splice(i + 1, 1);
+                        break;
+                    }
+                case 'acsch':
+                    if (!isNaN(array[i + 1])) {
+                        array[i] = TrigonometryFunctions.acsch(Number(array[i + 1]));
+                        array.splice(i + 1, 1);
+                        break;
+                    }
             }
-        });
-        return expression;
+        }
+        for (let i = 0; i < array.length; i++) {
+            switch (array[i]) {
+                case '^':
+                    if (!isNaN(array[i - 1]) && !isNaN(array[i + 1])) {
+                        array[i - 1] ===
+                            Math.pow(Number(array[i - 1]), Number(array[i + 1]));
+                        array.splice(i, 2);
+                        break;
+                    }
+                case '√':
+                    if (!isNaN(Number(array[i + 1]))) {
+                        if (!isNaN(Number(array[i - 1]))) {
+                            array[i - 1] ===
+                                Math.pow(Number(array[i + 1]), 1) /
+                                    Number(array[i - 1]);
+                            array.splice(i, 2);
+                        }
+                        else {
+                            array[i] = Math.pow(Number(array[i + 1]), 0.5);
+                            array.splice(i + 1);
+                        }
+                        break;
+                    }
+            }
+        }
+        for (let i = 0; i < array.length; i++) {
+            switch (array[i]) {
+                case '*':
+                    if (!isNaN(array[i - 1]) && !isNaN(array[i + 1])) {
+                        array[i - 1] =
+                            Number(array[i - 1]) * Number(array[i + 1]);
+                        array.splice(i, 2);
+                        break;
+                    }
+                case '/':
+                    if (!isNaN(array[i - 1]) && !isNaN(array[i + 1])) {
+                        array[i - 1] =
+                            Number(array[i - 1]) / Number(array[i + 1]);
+                        array.splice(i, 2);
+                        break;
+                    }
+            }
+        }
+        for (let i = 0; i < array.length; i++) {
+            switch (array[i]) {
+                case '+':
+                    if (!isNaN(array[i - 1]) && !isNaN(array[i + 1])) {
+                        array[i - 1] =
+                            Number(array[i - 1]) + Number(array[i + 1]);
+                        array.splice(i, 2);
+                        break;
+                    }
+                case '-':
+                    if (!isNaN(array[i - 1]) && !isNaN(array[i + 1])) {
+                        array[i - 1] =
+                            Number(array[i - 1]) - Number(array[i + 1]);
+                        array.splice(i, 2);
+                        break;
+                    }
+            }
+        }
+        return array[0];
     }
 }
 
@@ -4049,41 +4306,6 @@ class LargeOperators {
         let result = 0;
         for (let n = start; n <= end; n += interval) {
             result *= Number(Equations.evaluate(equation, { n: n }));
-        }
-        return result;
-    }
-    /**
-     * Union of arrays.
-     *
-     * @param {number[][]} arrays - The arrays to be unioned.
-     * @return {number[]} The union of the arrays.
-     */
-    static union(arrays) {
-        let result;
-        for (let i = 0; i < arrays.length; i++) {
-            for (let j = 0; j < arrays[i].length; j++) {
-                if (find(result, arrays[i][j]) === 0) {
-                    result.push(arrays[i][j]);
-                }
-            }
-        }
-        return result;
-    }
-    /**
-     * Finds the intersection of multiple arrays.
-     *
-     * @param {number[][]} arrays - The arrays to find the intersection of.
-     * @return {number[]} - The resulting array with common elements.
-     */
-    static intersection(arrays) {
-        let result;
-        for (let i = 0; i < arrays.length; i++) {
-            for (let j = 0; j < arrays[i].length; j++) {
-                if (find(result, arrays[i][j]) === 0 &&
-                    isInAllArrays(arrays[i][j], arrays)) {
-                    result.push(arrays[i][j]);
-                }
-            }
         }
         return result;
     }
@@ -4288,7 +4510,6 @@ class FrequencyGraph {
 }
 
 exports.Absolute = Absolute;
-exports.Averages = Averages;
 exports.BarChart = BarChart;
 exports.CacheEnum = CacheEnum;
 exports.CacheManager = CacheManager;
@@ -4310,6 +4531,7 @@ exports.NumberTypes = NumberTypes;
 exports.PieChart = PieChart;
 exports.Range = Range;
 exports.ScatterGraph = ScatterGraph;
+exports.StatisticalOperations = StatisticalOperations;
 exports.TrigonometryFunctions = TrigonometryFunctions;
 exports.add = add;
 exports.angleEnum = angleEnum;

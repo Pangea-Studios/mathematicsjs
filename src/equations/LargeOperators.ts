@@ -48,43 +48,4 @@ export class LargeOperators {
 		}
 		return result;
 	}
-
-	/**
-	 * Union of arrays.
-	 *
-	 * @param {number[][]} arrays - The arrays to be unioned.
-	 * @return {number[]} The union of the arrays.
-	 */
-	static union(arrays: number[][]): number[] {
-		let result: number[];
-		for (let i = 0; i < arrays.length; i++) {
-			for (let j = 0; j < arrays[i].length; j++) {
-				if (find(result, arrays[i][j]) === 0) {
-					result.push(arrays[i][j]);
-				}
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * Finds the intersection of multiple arrays.
-	 *
-	 * @param {number[][]} arrays - The arrays to find the intersection of.
-	 * @return {number[]} - The resulting array with common elements.
-	 */
-	static intersection(arrays: number[][]): number[] {
-		let result: number[];
-		for (let i = 0; i < arrays.length; i++) {
-			for (let j = 0; j < arrays[i].length; j++) {
-				if (
-					find(result, arrays[i][j]) === 0 &&
-					isInAllArrays(arrays[i][j], arrays)
-				) {
-					result.push(arrays[i][j]);
-				}
-			}
-		}
-		return result;
-	}
 }

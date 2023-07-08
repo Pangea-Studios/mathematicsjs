@@ -969,7 +969,7 @@ declare class Conversions {
 /**
  * Class to find averages of an array of numbers
  */
-declare class Averages {
+declare class StatisticalOperations {
     /**
      * Finds the mean of an array of numbers
      * @param {Array.<number>} - The array of numbers to find the mean of
@@ -994,6 +994,20 @@ declare class Averages {
      * @return {number} - The range of the inputted numbers
      */
     static range(input: number[]): number;
+    /**
+     * Union of arrays.
+     *
+     * @param {number[][]} arrays - The arrays to be unioned.
+     * @return {number[]} The union of the arrays.
+     */
+    static union(arrays: number[][]): number[];
+    /**
+     * Finds the intersection of multiple arrays.
+     *
+     * @param {number[][]} arrays - The arrays to find the intersection of.
+     * @return {number[]} - The resulting array with common elements.
+     */
+    static intersection(arrays: number[][]): number[];
 }
 
 declare class ComplexNumber {
@@ -1041,6 +1055,7 @@ declare class Equations {
      */
     static binomialCoefficient(n: number, k: number): number;
     static simplify(expression: string): string;
+    private static parseEquation2;
     private static simplifyArray;
 }
 
@@ -1068,20 +1083,6 @@ declare class LargeOperators {
      * @return {number} - The result of the multiplicative summation.
      */
     static MultiplicativeSummation(equation: string, start: number, end: number, interval: number): number;
-    /**
-     * Union of arrays.
-     *
-     * @param {number[][]} arrays - The arrays to be unioned.
-     * @return {number[]} The union of the arrays.
-     */
-    static union(arrays: number[][]): number[];
-    /**
-     * Finds the intersection of multiple arrays.
-     *
-     * @param {number[][]} arrays - The arrays to find the intersection of.
-     * @return {number[]} - The resulting array with common elements.
-     */
-    static intersection(arrays: number[][]): number[];
 }
 
 declare const NumberTypes: {
@@ -2399,7 +2400,7 @@ declare class Logarithms {
      * @param {number} [options.centre=1] - the centre value
      * @return {number} - The calculated logarithm of x with base base, with the specified accuracy.
      */
-    static log(x: number, options?: options$1): number;
+    static log(x: number, base?: number, options?: options$1): number;
 }
 
 interface options {
@@ -2811,4 +2812,4 @@ declare class FrequencyGraph {
     }[]);
 }
 
-export { Absolute, Averages, BarChart, CacheEnum, CacheManager, Circle, Color, ComplexNumber, Conversions, Equations, Factorial, Fraction, FrequencyGraph, Indices, LargeOperators, LineGraph, Logarithms, MathsConstants, Matrix, NumberTypes, PieChart, Range, ScatterGraph, TrigonometryFunctions, add, angleEnum, angleUnits, areaEnum, areaUnits, arrayReplace, concatenate, convertBase, divide, energyEnum, energyUnits, find, gcd, gcd2, isInAllArrays, lengthEnum, lengthUnits, massEnum, massUnits, multiply, physicsFormulae, pressureEnum, pressureUnits, speedEnum, speedUnits, subtract, temperatureEnum, temperatureUnits, timeEnum, timeUnits, volumeEnum, volumeUnits };
+export { Absolute, BarChart, CacheEnum, CacheManager, Circle, Color, ComplexNumber, Conversions, Equations, Factorial, Fraction, FrequencyGraph, Indices, LargeOperators, LineGraph, Logarithms, MathsConstants, Matrix, NumberTypes, PieChart, Range, ScatterGraph, StatisticalOperations, TrigonometryFunctions, add, angleEnum, angleUnits, areaEnum, areaUnits, arrayReplace, concatenate, convertBase, divide, energyEnum, energyUnits, find, gcd, gcd2, isInAllArrays, lengthEnum, lengthUnits, massEnum, massUnits, multiply, physicsFormulae, pressureEnum, pressureUnits, speedEnum, speedUnits, subtract, temperatureEnum, temperatureUnits, timeEnum, timeUnits, volumeEnum, volumeUnits };

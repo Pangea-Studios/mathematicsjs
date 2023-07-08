@@ -56,6 +56,7 @@ export class Logarithms {
 	 */
 	static log(
 		x: number,
+		base = 10,
 		options: options = { accuracy: 10, cache: true, centre: 1 },
 	) {
 		if (this.logCache.has(x)) {
@@ -67,7 +68,7 @@ export class Logarithms {
 				cache: options.cache,
 				centre: options.centre,
 			}) /
-			this.ln(10, {
+			this.ln(base, {
 				accuracy: options.accuracy,
 				cache: options.cache,
 				centre: options.centre,

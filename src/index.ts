@@ -6,7 +6,7 @@ export * from './matrices/Matrices';
 export * from './core/operations';
 export * from './formulae/physicsFormulae';
 export * from './units/Units';
-export * from './statistics/averages';
+export * from './statistics/StatisticalOperations';
 export * from './complex/ComplexNumbers';
 export * from './equations/Equations';
 export * from './equations/LargeOperators';
