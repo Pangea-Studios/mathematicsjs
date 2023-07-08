@@ -6,15 +6,15 @@ import { TrigonometryFunctions as Trig } from '../trigonometry/Functions';
  * Class containing equation utilities
  */
 export class Equations {
-private static find(array: any[] | string, target: string): number {
-  let count = 0;
-  if (Array.isArray(array)) {
-    count = array.filter((item) => item === target).length;
-  } else if (typeof array === 'string') {
-    count = array.split('').filter((char) => char === target).length;
-  }
-  return count;
-}
+	private static find(array: any[] | string, target: string): number {
+		let count = 0;
+		if (Array.isArray(array)) {
+			count = array.filter((item) => item === target).length;
+		} else if (typeof array === 'string') {
+			count = array.split('').filter((char) => char === target).length;
+		}
+		return count;
+	}
 	/**
 	 * Parses a mathematical equation string with given variables.
 	 *
@@ -23,7 +23,6 @@ private static find(array: any[] | string, target: string): number {
 	 */
 	static parseEquation(equation: string): any[] {
 		const result: any[] = equation.replace(/\s/g, '').split('');
-
 		if (
 			equation === '' ||
 			!equation ||
@@ -408,6 +407,14 @@ private static find(array: any[] | string, target: string): number {
 		return result;
 	}
 
+	private static isSingleLetter(value: any): boolean {
+		if (typeof value === 'string' && value.length === 1) {
+			const code = value.charCodeAt(0);
+			return (code >= 65 && code <= 90) || (code >= 97 && code <= 122);
+		}
+		return false;
+	}
+
 	/**
 	 * Evaluates a mathematical equation string with given variables.
 	 *
@@ -421,16 +428,20 @@ private static find(array: any[] | string, target: string): number {
 	): number {
 		const result = this.parseEquation(equation);
 		for (let i = 0; i < result.length; i++) {
-			if (i > 0 && typeof result[i - 1] === 'number') {
-				result.splice(i, 0, '*');
-				i++;
+			if (this.isSingleLetter(result[i])) {
+				if (i > 0 && typeof result[i - 1] === 'number') {
+					result.splice(i, 0, '*');
+					i++;
+				}
+				if (
+					i < result.length - 1 &&
+					typeof result[i + 1] === 'number'
+				) {
+					result.splice(i + 1, 0, '*');
+				}
+				result[i] = variables[result[i]];
 			}
-			if (i < result.length - 1 && typeof result[i + 1] === 'number') {
-				result.splice(i + 1, 0, '*');
-			}
-			result[i] = variables[result[i]];
 		}
-
 		const evaluateNoBrackets = (array: Array<string | number>) => {
 			while (array.length !== 1) {
 				for (let i = 0; i < array.length; i++) {
@@ -444,9 +455,10 @@ private static find(array: any[] | string, target: string): number {
 							array.splice(i + 1);
 							break;
 						case 'log':
-							array[i] = Logarithms.log(Number(array[i + 1]), {
-								accuracy: Number(array[i + 2]),
-							});
+							array[i] = Logarithms.log(
+								Number(array[i + 1]),
+								Number(array[i + 2]),
+							);
 							array.splice(i + 1, i + 2);
 							break;
 						case 'sin':
@@ -558,7 +570,7 @@ private static find(array: any[] | string, target: string): number {
 							if (Number.isInteger(Number(array[i - 1]))) {
 								array[i - 1] ===
 									Number(array[i + 1]) ** 1 /
-									Number(array[i - 1]);
+										Number(array[i - 1]);
 								array.splice(i, i + 1);
 							} else {
 								array[i] = Number(array[i + 1]) ** 0.5;
@@ -643,39 +655,191 @@ private static find(array: any[] | string, target: string): number {
 		return coefficient;
 	}
 
-static simplify(expression: string): string {
-	let result = this.parseEquation(expression);
-	while (Equations.find(result, '(') > 0) {
-		const startPos = result.lastIndexOf('(');
-		const endPos = result.indexOf(')', startPos);
+	static simplify(expression: string): string {
+		let result = this.parseEquation(expression);
+		while (Equations.find(result, '(') > 0) {
+			const startPos = result.lastIndexOf('(');
+			const endPos = result.indexOf(')', startPos);
 
-		if (startPos !== -1 && endPos !== -1) {
-			const subEquation = result.slice(startPos + 1, endPos);
-			result[startPos] = subEquation;
-			result.splice(startPos + 1, endPos - startPos);
-		}
-	}
-	return this.simplifyArray(result).join('');
-
-	// 1 + [1 + 2 + [4x+1]]
-	// 1 + [1 + 2 + 4x + 1]
-	// 1 + 4 + 4x
-	// 5 + 4x
-}
-
-	private static simplifyArray(expression: any[]): Array<string | number> {
-		expression.forEach((value, i) => {
-			if (Array.isArray(value)) {
-				const nextArray = this.simplifyArray(value);
-				expression.splice(i, 1);
-				nextArray.forEach((item, a) => {
-					expression.splice(i-1+a, 0, item);
-				})
+			if (startPos !== -1 && endPos !== -1) {
+				const subEquation = result.slice(startPos + 1, endPos);
+				result[startPos] = this.simplifyArray(subEquation);
+				result.splice(startPos + 1, endPos - startPos);
 			}
-		});
-		
-		
-		
+		}
+		return this.simplifyArray(result).join('');
+	}
+
+	private static simplifyArray(array: any): any {
+		while (array.length !== 1) {
+			for (let i = 0; i < array.length; i++) {
+				switch (array[i]) {
+					case '!':
+						if (!isNaN(array[i-1])) {
+							array[i - 1] = Factorial(Number(array[i - 1]));
+							array.splice(i);
+							break;
+						}
+					case 'ln':
+						if (!isNaN(array[i+1])) {
+							array[i] = Logarithms.ln(Number(array[i + 1]));
+							array.splice(i + 1);
+							break;
+						}
+					case 'log':
+						array[i] = Logarithms.log(
+							Number(array[i + 1]),
+							Number(array[i + 2]),
+						);
+						array.splice(i + 1, i + 2);
+						break;
+					case 'sin':
+						array[i] = Trig.sin(Number(array[i + 1]));
+						array.splice(i + 1, 1);
+						break;
+					case 'cos':
+						array[i] = Trig.cos(Number(array[i + 1]));
+						array.splice(i + 1, 1);
+						break;
+					case 'tan':
+						array[i] = Trig.tan(Number(array[i + 1]));
+						array.splice(i + 1, 1);
+						break;
+					case 'sec':
+						array[i] = Trig.sec(Number(array[i + 1]));
+						array.splice(i + 1, 1);
+						break;
+					case 'csc':
+						array[i] = Trig.csc(Number(array[i + 1]));
+						array.splice(i + 1, 1);
+						break;
+					case 'cot':
+						array[i] = Trig.tan(Number(array[i + 1]));
+						array.splice(i + 1, 1);
+						break;
+					case 'sinh':
+						array[i] = Trig.sinh(Number(array[i + 1]));
+						array.splice(i + 1, 1);
+						break;
+					case 'cosh':
+						array[i] = Trig.cosh(Number(array[i + 1]));
+						array.splice(i + 1, 1);
+						break;
+					case 'tanh':
+						array[i] = Trig.tanh(Number(array[i + 1]));
+						array.splice(i + 1, 1);
+						break;
+					case 'sech':
+						array[i] = Trig.sech(Number(array[i + 1]));
+						array.splice(i + 1, 1);
+						break;
+					case 'csch':
+						array[i] = Trig.csch(Number(array[i + 1]));
+						array.splice(i + 1, 1);
+						break;
+					case 'coth':
+						array[i] = Trig.coth(Number(array[i + 1]));
+						array.splice(i + 1, 1);
+						break;
+					case 'asin':
+						array[i] = Trig.asin(Number(array[i + 1]));
+						array.splice(i + 1, 1);
+						break;
+					case 'acot':
+						array[i] = Trig.acot(Number(array[i + 1]));
+						array.splice(i + 1, 1);
+						break;
+					case 'acos':
+						array[i] = Trig.acos(Number(array[i + 1]));
+						array.splice(i + 1, 1);
+						break;
+					case 'atan':
+						array[i] = Trig.atan(Number(array[i + 1]));
+						array.splice(i + 1, 1);
+						break;
+					case 'asec':
+						array[i] = Trig.asec(Number(array[i + 1]));
+						array.splice(i + 1, 1);
+						break;
+					case 'acsc':
+						array[i] = Trig.acsc(Number(array[i + 1]));
+						array.splice(i + 1, 1);
+						break;
+					case 'asinh':
+						array[i] = Trig.asinh(Number(array[i + 1]));
+						array.splice(i + 1, 1);
+						break;
+					case 'acoth':
+						array[i] = Trig.acoth(Number(array[i + 1]));
+						array.splice(i + 1, 1);
+						break;
+					case 'acosh':
+						array[i] = Trig.acosh(Number(array[i + 1]));
+						array.splice(i + 1, 1);
+						break;
+					case 'atanh':
+						array[i] = Trig.atanh(Number(array[i + 1]));
+						array.splice(i + 1, 1);
+						break;
+					case 'asech':
+						array[i] = Trig.asech(Number(array[i + 1]));
+						array.splice(i + 1, 1);
+						break;
+					case 'acsch':
+						array[i] = Trig.acsch(Number(array[i + 1]));
+						array.splice(i + 1, 1);
+						break;
+				}
+			}
+			for (let i = 0; i < array.length; i++) {
+				switch (array[i]) {
+					case '^':
+						array[i - 1] ===
+							Number(array[i - 1]) ** Number(array[i + 1]);
+						array.splice(i, i + 1);
+						break;
+					case '√':
+						if (Number.isInteger(Number(array[i - 1]))) {
+							array[i - 1] ===
+								Number(array[i + 1]) ** 1 /
+									Number(array[i - 1]);
+							array.splice(i, i + 1);
+						} else {
+							array[i] = Number(array[i + 1]) ** 0.5;
+							array.splice(i + 1);
+						}
+						break;
+				}
+			}
+			for (let i = 0; i < array.length; i++) {
+				switch (array[i]) {
+					case '*':
+						array[i - 1] =
+							Number(array[i - 1]) * Number(array[i + 1]);
+						array.splice(i, i + 1);
+						break;
+					case '/':
+						array[i - 1] =
+							Number(array[i - 1]) / Number(array[i + 1]);
+						array.splice(i, i + 1);
+						break;
+				}
+			}
+
+			for (let i = 0; i < array.length; i++) {
+				switch (array[i]) {
+					case '+':
+						array[i - 1] =
+							Number(array[i - 1]) + Number(array[i + 1]);
+						array.splice(i, i + 1);
+						break;
+					case '-':
+						array[i - 1] =
+							Number(array[i - 1]) - Number(array[i + 1]);
+						array.splice(i, 2);
+						break;
+				}
+
 		return expression;
 	}
 }

@@ -1036,6 +1036,7 @@ declare class Equations {
      * @return {Array<string|number> | 'Error'} the result of the evaluation or 'Error' if the equation is invalid
      */
     static parseEquation(equation: string): any[];
+    private static isSingleLetter;
     /**
      * Evaluates a mathematical equation string with given variables.
      *
@@ -1055,7 +1056,6 @@ declare class Equations {
      */
     static binomialCoefficient(n: number, k: number): number;
     static simplify(expression: string): string;
-    private static parseEquation2;
     private static simplifyArray;
 }
 

@@ -662,7 +662,7 @@ export class TrigonometryFunctions {
 		if (this.asechCache.has(x)) {
 			return this.asechCache.get(x);
 		}
-		let result = Logarithms.log((1 + Indices.root(1 - x * x)) / x, {
+		let result = Logarithms.log((1 + Indices.root(1 - x * x)) / x, 10, {
 			accuracy: options.accuracy,
 			cache: options.cache,
 		});
@@ -696,7 +696,7 @@ export class TrigonometryFunctions {
 		}
 		const result =
 			0.5 *
-			Logarithms.log((x + 1) / (x - 1), {
+			Logarithms.log((x + 1) / (x - 1), 10, {
 				accuracy: options.accuracy,
 				cache: options.cache,
 			});
