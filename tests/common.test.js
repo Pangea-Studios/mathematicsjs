@@ -1,5 +1,5 @@
-const { Averages } = require('../dist/index.cjs');
+const { arrayReplace } = require('../dist/index.cjs');
 
-test('Mode', () => {
-	expect(Averages.mode([1, 2, 1, 2, 1])).toBe(1);
+test('Array Replace', () => {
+	expect(arrayReplace([1, 2, 3], [1] , 0, 1)).toStrictEqual([1, 3]);
 });

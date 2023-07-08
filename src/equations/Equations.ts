@@ -6,24 +6,15 @@ import { TrigonometryFunctions as Trig } from '../trigonometry/Functions';
  * Class containing equation utilities
  */
 export class Equations {
-	private static find(array: any[] | string, target: string): number {
-		let count = 0;
-		if (Array.isArray(array)) {
-			for (let i = 0; i < array.length; i++) {
-				if (array[i] === target) {
-					count++;
-				}
-			}
-		} else if (typeof array === 'string') {
-			array = array.split('');
-			for (let i = 0; i < array.length; i++) {
-				if (array[i] === target) {
-					count++;
-				}
-			}
-		}
-		return count;
-	}
+private static find(array: any[] | string, target: string): number {
+  let count = 0;
+  if (Array.isArray(array)) {
+    count = array.filter((item) => item === target).length;
+  } else if (typeof array === 'string') {
+    count = array.split('').filter((char) => char === target).length;
+  }
+  return count;
+}
 	/**
 	 * Parses a mathematical equation string with given variables.
 	 *
@@ -567,7 +558,7 @@ export class Equations {
 							if (Number.isInteger(Number(array[i - 1]))) {
 								array[i - 1] ===
 									Number(array[i + 1]) ** 1 /
-										Number(array[i - 1]);
+									Number(array[i - 1]);
 								array.splice(i, i + 1);
 							} else {
 								array[i] = Number(array[i + 1]) ** 0.5;
@@ -651,4 +642,42 @@ export class Equations {
 
 		return coefficient;
 	}
+
+static simplify(expression: string): string {
+	let result = this.parseEquation(expression);
+	while (Equations.find(result, '(') > 0) {
+		const startPos = result.lastIndexOf('(');
+		const endPos = result.indexOf(')', startPos);
+
+		if (startPos !== -1 && endPos !== -1) {
+			const subEquation = result.slice(startPos + 1, endPos);
+			result[startPos] = subEquation;
+			result.splice(startPos + 1, endPos - startPos);
+		}
+	}
+	return this.simplifyArray(result).join('');
+
+	// 1 + [1 + 2 + [4x+1]]
+	// 1 + [1 + 2 + 4x + 1]
+	// 1 + 4 + 4x
+	// 5 + 4x
 }
+
+	private static simplifyArray(expression: any[]): Array<string | number> {
+		expression.forEach((value, i) => {
+			if (Array.isArray(value)) {
+				const nextArray = this.simplifyArray(value);
+				expression.splice(i, 1);
+				nextArray.forEach((item, a) => {
+					expression.splice(i-1+a, 0, item);
+				})
+			}
+		});
+		
+		
+		
+		return expression;
+	}
+}
+
+//ur way is most probs better, i have no clue what to do

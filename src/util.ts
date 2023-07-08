@@ -170,3 +170,21 @@ export function isInAllArrays(object: any, arrays: any[][]): boolean {
 	}
 	return true;
 }
+
+/**
+ * Replaces a portion of an array with a new set of values.
+ *
+ * @param {any[]} array - The original array.
+ * @param {any[]} values - The values to insert into the array.
+ * @param {number} startPos - The starting position of the replacement.
+ * @param {number} endPos - The ending position of the replacement.
+ * @return {any[]} - The modified array.
+ */
+export function arrayReplace(
+	array: any[],
+	values: any[],
+	startPos: number,
+	endPos: number,
+): any[] {
+	return [...array.slice(0, startPos), ...values, ...array.slice(endPos + 1)];
+}

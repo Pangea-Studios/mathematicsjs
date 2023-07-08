@@ -1,5 +1,5 @@
-import { Averages } from '../dist/index.js';
+import { arrayReplace } from '../dist/index.js';
 
-test('Mode', () => {
-	expect(Averages.mode([1, 2, 1, 2, 1])).toBe(1);
+test('Array Replace', () => {
+	expect(arrayReplace([1, 2, 3], [1] , 0, 1)).toStrictEqual([1, 3]);
 });

@@ -1,4 +1,4 @@
-import { Constants } from '../units/Constants';
+import { MathsConstants } from '../units/Constants';
 
 /**
  * Creates a circle.
@@ -115,22 +115,22 @@ export class Circle {
 		if (radius) {
 			this.radius = radius;
 			this.diameter = radius * 2;
-			this.circumference = 2 * Constants.pi * this.radius;
-			this.area = Constants.pi * this.radius * this.radius;
+			this.circumference = 2 * MathsConstants.pi * this.radius;
+			this.area = MathsConstants.pi * this.radius * this.radius;
 		} else if (diameter) {
 			this.radius = diameter / 2;
 			this.diameter = diameter;
-			this.circumference = 2 * Constants.pi * this.radius;
-			this.area = Constants.pi * this.radius * this.radius;
+			this.circumference = 2 * MathsConstants.pi * this.radius;
+			this.area = MathsConstants.pi * this.radius * this.radius;
 		} else if (circumference) {
-			this.radius = circumference / Constants.pi / 2;
+			this.radius = circumference / MathsConstants.pi / 2;
 			this.diameter = this.radius * 2;
 			this.circumference = circumference;
-			this.area = Constants.pi * this.radius * this.radius;
+			this.area = MathsConstants.pi * this.radius * this.radius;
 		} else if (area) {
-			this.radius = Math.sqrt(area / Constants.pi);
+			this.radius = Math.sqrt(area / MathsConstants.pi);
 			this.diameter = this.radius * 2;
-			this.circumference = 2 * Constants.pi * this.radius;
+			this.circumference = 2 * MathsConstants.pi * this.radius;
 			this.area = area;
 		} else {
 			throw new Error(

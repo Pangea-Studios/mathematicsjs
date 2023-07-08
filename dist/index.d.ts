@@ -133,6 +133,47 @@ declare function convertBase(number: number | string, fromBase: number, toBase: 
  * @return {number} The concatenated number in the given base.
  */
 declare function concatenate(a: number, b: number): number;
+declare class Color {
+    readonly red: number;
+    readonly green: number;
+    readonly blue: number;
+    readonly alpha: number;
+    constructor(red: number, green: number, blue: number, alpha: number);
+}
+declare class Range {
+    readonly min: number;
+    readonly max: number;
+    readonly operand1: '≤' | '<';
+    readonly operand2: '≤' | '<';
+    constructor(min: number, operand1: '≤' | '<', max: number, operand2: '≤' | '<');
+    returnString(): string;
+}
+/**
+ * Counts the number of occurrences of a target value in an array or string.
+ *
+ * @param {Array<any> | string} array - The array or string to search in.
+ * @param {any} target - The target value to count occurrences of.
+ * @return {number} The number of occurrences of the target value.
+ */
+declare function find(array: Array<any> | string, target: any): number;
+/**
+ * Checks if the given object exists in all of the arrays.
+ *
+ * @param {any} object - The object to check.
+ * @param {any[][]} arrays - The arrays to search.
+ * @return {boolean} Returns true if the object exists in all arrays, false otherwise.
+ */
+declare function isInAllArrays(object: any, arrays: any[][]): boolean;
+/**
+ * Replaces a portion of an array with a new set of values.
+ *
+ * @param {any[]} array - The original array.
+ * @param {any[]} values - The values to insert into the array.
+ * @param {number} startPos - The starting position of the replacement.
+ * @param {number} endPos - The ending position of the replacement.
+ * @return {any[]} - The modified array.
+ */
+declare function arrayReplace(array: any[], values: any[], startPos: number, endPos: number): any[];
 
 /**
  * Creates a circle.
@@ -230,12 +271,6 @@ declare class Circle {
     });
 }
 
-interface MatrixConstructor {
-    rows: number;
-    columns: number;
-    values: number[][];
-    new (rows: number, columns: number, values: number[][]): Matrix;
-}
 /**
  * Class to create and manipulate Matrices
  */
@@ -246,39 +281,68 @@ declare class Matrix {
     /**
      * Creates a new matrix
      *
-     * @param {number} rows - The number of rows
-     * @param {number} columns - The number of columns
      * @param {Array.<Array.<number>>} values - The values of the matrix
      */
-    constructor(rows: number, columns: number, values: number[][]);
+    constructor(values: number[][]);
+    /**
+     * Calculate and return the determinant of the matrix.
+     *
+     * @return {number} The determinant of the matrix.
+     */
+    calculateDeterminant(): number;
+    /**
+     * Concatenate two matrices horizontally.
+     *
+     * @param {Matrix} matrix2 - The matrix to be concatenated.
+     * @return {Matrix} A new matrix that is the concatenation of this matrix and matrix2.
+     */
+    concatMatrix(matrix2: Matrix): Matrix;
+    /**
+     * Returns the inverse values of the matrix.
+     *
+     * @return {Matrix} The matrix with the inverse values.
+     */
+    getInverseValues(): Matrix;
+    /**
+     * Apply Gaussian elimination to the matrix and return the reduced row echelon form.
+     *
+     * @return {Matrix} The matrix in reduced row echelon form.
+     */
+    applyGaussianElimination(): Matrix;
+    /**
+     * Inverts the matrix.
+     *
+     * @return {Matrix | null} The inverted matrix, or null if it is not possible to invert.
+     */
+    invert(): Matrix | null;
     /**
      * Calculates the product of two matrices.
-     * @param {MatrixConstructor} other - The matrix to multiply with.
+     * @param {Matrix} other - The matrix to multiply with.
      * @return {Matrix} A new matrix that is the product of this matrix and other.
      * @throws {Error} If the number of columns of this matrix does not match the number of rows of the other matrix.
      */
-    multiply(other: MatrixConstructor): Matrix;
+    multiply(other: Matrix): Matrix;
     /**
      * Adds the values of two matrices together.
-     * @param {MatrixConstructor} other - The matrix to add to this one.
+     * @param {Matrix} other - The matrix to add to this one.
      * @return {Matrix} A new matrix with the added values.
      * @throws {Error} If matrices do not have the same number of rows and columns.
      */
-    add(other: MatrixConstructor): Matrix;
+    add(other: Matrix): Matrix;
     /**
      * Divides this matrix by another one element-wise and returns the result as a new matrix.
-     * @param {MatrixConstructor} other - the matrix to divide by
+     * @param {Matrix} other - the matrix to divide by
      * @throws {Error} When matrices do not have the same dimensions or when dividing by 0
      * @return {Matrix} A new matrix that is the result of the element-wise division
      */
-    divide(other: MatrixConstructor): Matrix;
+    divide(other: Matrix): Matrix;
     /**
      * Subtract two matrices of the same dimensions and return the result.
-     * @param {MatrixConstructor} other - the matrix to subtract from this one
+     * @param {Matrix} other - the matrix to subtract from this one
      * @return {Matrix} a new matrix that is the result of the subtraction
      * @throws {Error} if matrices do not have the same dimensions
      */
-    subtract(other: MatrixConstructor): Matrix;
+    subtract(other: Matrix): Matrix;
     /**
      * Multiplies the matrix by a scalar.
      * @param {number} scalar - the scalar to multiply with.
@@ -292,6 +356,93 @@ declare class Matrix {
      * @throws {Error} if scalar is zero
      */
     divideScalar(scalar: number): Matrix;
+    /**
+     * Performs eigenvalue decomposition on a square matrix.
+     *
+     * @return {object} An object containing the eigenvalues and eigenvectors.
+     */
+    eigenvalueDecomposition(): {
+        eigenvalues: any[];
+        eigenvectors: Matrix;
+    };
+    /**
+     * Create an identity matrix of the specified size
+     *
+     * @param {number} size - The size of the identity matrix
+     * @returns {Matrix} - The identity matrix
+     */
+    static eye(size: number): Matrix;
+    /**
+     * Check if the matrix is diagonal (all off-diagonal elements are close to zero)
+     *
+     * @returns {boolean} - True if the matrix is diagonal, false otherwise
+     */
+    isDiagonal(): boolean;
+    /**
+     * Get the diagonal elements of the matrix
+     *
+     * @returns {number[]} - Array of diagonal elements
+     */
+    getDiagonal(): any[];
+    /**
+     * Normalize the columns of the matrix
+     *
+     * @returns {Matrix} - The normalized matrix
+     */
+    normalizeColumns(): Matrix;
+    /**
+     * Perform QR decomposition of the matrix
+     *
+     * @returns {Object} - Object containing orthogonal matrix Q and upper triangular matrix R
+     */
+    qrDecomposition(): {
+        Q: Matrix;
+        R: Matrix;
+    };
+    /**
+     * Calculates the norm of the matrix.
+     *
+     * @return {number} The norm of the matrix.
+     */
+    norm(): number;
+    /**
+     * Creates a matrix filled with zeros.
+     *
+     * @param {number} rows - The number of rows in the matrix.
+     * @param {number} columns - The number of columns in the matrix.
+     * @return {Matrix} The matrix filled with zeros.
+     */
+    static zeros(rows: number, columns: number): Matrix;
+    /**
+     * Gets a column from the matrix.
+     *
+     * @param {number} columnIndex - The index of the column to retrieve.
+     * @return {Matrix} A new Matrix containing the column values.
+     */
+    getColumn(columnIndex: number): Matrix;
+    /**
+     * Set the values of a specific column in the matrix.
+     *
+     * @param {number} columnIndex - The index of the column to set.
+     * @param {Matrix} column - The column values to set.
+     * @return {void} This function does not return a value.
+     */
+    setColumn(columnIndex: number, column: Matrix): void;
+    /**
+     * Set the value of a specific cell in the matrix.
+     *
+     * @param {number} row - The row index of the cell.
+     * @param {number} column - The column index of the cell.
+     * @param {number} value - The value to set in the cell.
+     * @return {void} This function does not return a value.
+     */
+    set(row: number, column: number, value: number): void;
+    /**
+     * Transposes the matrix.
+     *
+     * @return {Matrix} The transposed matrix.
+     */
+    transpose(): Matrix;
 }
 
 declare type OperationsInput = number | {
@@ -863,16 +1014,14 @@ declare class ComplexNumber {
  * Class containing equation utilities
  */
 declare class Equations {
+    private static find;
     /**
      * Parses a mathematical equation string with given variables.
      *
      * @param {string} equation - the equation to be parsed
-     * @param {{ Array.<string>: number }} variables - an object with variable names and their values
      * @return {Array<string|number> | 'Error'} the result of the evaluation or 'Error' if the equation is invalid
      */
-    static parseEquation(equation: string, variables: {
-        [key: string]: number;
-    }): Array<string | number> | 'Error';
+    static parseEquation(equation: string): any[];
     /**
      * Evaluates a mathematical equation string with given variables.
      *
@@ -882,7 +1031,7 @@ declare class Equations {
      */
     static evaluate(equation: string, variables: {
         [key: string]: number;
-    }): number | 'Error';
+    }): number;
     /**
      * Calculates the binomial coefficient of two given numbers.
      *
@@ -891,52 +1040,1330 @@ declare class Equations {
      * @return {number} The calculated binomial coefficient.
      */
     static binomialCoefficient(n: number, k: number): number;
+    static simplify(expression: string): string;
+    private static simplifyArray;
 }
 
 /**
  * Class containing summation functions
  */
-declare class Summation {
+declare class LargeOperators {
     /**
-     * Calculates the additive summation of an equation for a given range and interval.
+     * Calculates the additive summation of a given equation within a specified range.
      *
-     * @param {string} equation - The equation to be evaluated, can use variable 'n'.
-     * @param {number} start - The starting value for variable 'n'.
-     * @param {number} end - The ending value for variable 'n'.
-     * @param {number} interval - The increment between each value of 'n'.
-     * @return {number} The result of the additive summation of the equation for the given range and interval.
+     * @param {string} equation - The equation to be evaluated.
+     * @param {number} start - The starting value of the range.
+     * @param {number} end - The ending value of the range.
+     * @param {number} interval - The interval between each value in the range.
+     * @return {number} The sum of the evaluated equation for each value in the range.
      */
     static AdditiveSummation(equation: string, start: number, end: number, interval: number): number;
     /**
-     * Calculates the multiplicative summation of the given equation for a given range.
+     * Calculates the multiplicative summation of a given equation.
      *
-     * @param {string} equation - the equation to be evaluated
-     * @param {number} start - the start value of the range
-     * @param {number} end - the end value of the range
-     * @param {number} interval - the interval between each value in the range
-     * @return {number} the result of the multiplicative summation
+     * @param {string} equation - The equation to evaluate.
+     * @param {number} start - The starting value for the summation.
+     * @param {number} end - The ending value for the summation.
+     * @param {number} interval - The interval between each value in the summation.
+     * @return {number} - The result of the multiplicative summation.
      */
     static MultiplicativeSummation(equation: string, start: number, end: number, interval: number): number;
+    /**
+     * Union of arrays.
+     *
+     * @param {number[][]} arrays - The arrays to be unioned.
+     * @return {number[]} The union of the arrays.
+     */
+    static union(arrays: number[][]): number[];
+    /**
+     * Finds the intersection of multiple arrays.
+     *
+     * @param {number[][]} arrays - The arrays to find the intersection of.
+     * @return {number[]} - The resulting array with common elements.
+     */
+    static intersection(arrays: number[][]): number[];
 }
+
+declare const NumberTypes: {
+    readonly Natural: {
+        readonly symbol: "ℕ";
+        readonly description: "Natural Numbers also known as counting numbers, natural numbers are the positive integers starting from 1 and extending indefinitely (1, 2, 3, 4, 5, ...).";
+    };
+    readonly Whole: {
+        readonly symbol: "ℤ";
+        readonly description: "Whole numbers include zero along with the natural numbers (0, 1, 2, 3, 4, ...).";
+    };
+    readonly Integer: {
+        readonly symbol: "𝕀";
+        readonly description: "Integers encompass all positive and negative whole numbers, including zero (-∞, ..., -3, -2, -1, 0, 1, 2, 3, ..., +∞).";
+    };
+    readonly Rational: {
+        readonly symbol: "ℚ";
+        readonly description: "Rational Numbers: Rational numbers are numbers that can be expressed as a fraction of two integers, where the denominator is not zero. They can be terminating (e.g., 1/2 = 0.5) or repeating decimals (e.g., 1/3 = 0.333...). Rational numbers include integers and fractions.";
+    };
+    readonly Real: {
+        readonly symbol: "ℝ";
+        readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+    };
+    readonly Prime: {
+        readonly symbol: "ℙ";
+        readonly description: "Prime numbers are natural numbers greater than 1 that have no divisors other than 1 and themselves. Examples include 2, 3, 5, 7, 11, and so on.";
+    };
+    readonly Transcendental: {
+        readonly symbol: "𝕋";
+        readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+    };
+    readonly Algebraic: {
+        readonly symbol: "𝔸";
+        readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+    };
+    readonly Complex: {
+        readonly symbol: "ℝ";
+        readonly description: "Complex numbers are numbers of the form a + bi, where a and b are real numbers and i is the imaginary unit. They include both real and imaginary numbers.";
+    };
+    readonly Irrational: {
+        readonly symbol: "𝕀";
+        readonly description: "Irrational numbers cannot be expressed as fractions or ratios of integers. They are non-repeating and non-terminating decimals. Famous examples include π (pi) and √2 (square root of 2).";
+    };
+    readonly Imaginary: {
+        readonly symbol: "𝕚";
+        readonly description: "Imaginary numbers are numbers that involve the imaginary unit, denoted by \"i,\" which is defined as the square root of -1. Numbers of the form a + bi, where a and b are real numbers, are called complex numbers.";
+    };
+};
 
 /**
  * Enum for constants
  * @readonly
  * @enum
  */
-declare const Constants: {
-    readonly e: 2.718281828459045;
-    readonly pi: 3.141592653589793;
-    readonly π: 3.141592653589793;
-    readonly ΔvCs: {
-        readonly value: 9192631770;
-        readonly unit: "Hz";
+declare const MathsConstants: {
+    readonly e: {
+        readonly value: 2.718281828459045;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
     };
-    readonly c: 299792458;
-    readonly h: 6.62607015e-34;
-    readonly k: 1.380649e-23;
-    readonly NA: 6.02214076e-23;
-    readonly Kcd: 683;
+    readonly eulersNumber: {
+        readonly value: 2.718281828459045;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly pi: {
+        readonly value: 3.141592653589793;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly π: {
+        readonly value: 3.141592653589793;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly ε: 0.0001;
+    readonly epsilon: 0.0001;
+    readonly τ0: {
+        readonly value: 6.283185307179586;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly tau: {
+        readonly value: 6.283185307179586;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly ϕ: {
+        readonly value: 1.618033988749894;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly phi: {
+        readonly value: 1.618033988749894;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly goldenRatio: {
+        readonly value: 1.618033988749894;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly φ: {
+        readonly value: 1.618033988749894;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly sqrt2: {
+        readonly value: 1.414213562373095;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly sqrt3: {
+        readonly value: 1.732050807568877;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly sqrt5: {
+        readonly value: 2.236067977499789;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly silverRatio: {
+        readonly value: 2.414213562373095;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly δ_S: {
+        readonly value: 2.414213562373095;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly cubeRoot2: {
+        readonly value: 1.259921049894873;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly cubeRoot3: {
+        readonly value: 1.442249570307408;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly twelthRoot2: {
+        readonly value: 1.059463094359295;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly liouvillesConstant: {
+        readonly value: 0.110001;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly L0: {
+        readonly value: 0.110001;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly supergoldenRatio: {
+        readonly value: 1.465571231876768;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly ψ0: {
+        readonly value: 1.465571231876768;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly µ0: {
+        readonly value: 1.847759065022573;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly hexagonalLatticeConnectiveConstant: {
+        readonly value: 1.847759065022573;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly keplerBouwkampConstant: {
+        readonly value: 0.114942044853296;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly K0: {
+        readonly value: 0.114942044853296;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly WallisConstant: {
+        readonly value: 0.114942044853296;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly ln2: {
+        readonly value: 0.693147180559945;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly lemniscateConstant: {
+        readonly value: 2.622057554292119;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly ϖ: {
+        readonly value: 2.622057554292119;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly eulersConstant: {
+        readonly value: 0.577215664901532;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly γ0: {
+        readonly value: 0.577215664901532;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly erdősBorweinConstant: {
+        readonly value: 1.606695152415291;
+        readonly type: {
+            readonly symbol: "𝕀";
+            readonly description: "Irrational numbers cannot be expressed as fractions or ratios of integers. They are non-repeating and non-terminating decimals. Famous examples include π (pi) and √2 (square root of 2).";
+        };
+    };
+    readonly E: {
+        readonly value: 1.606695152415291;
+        readonly type: {
+            readonly symbol: "𝕀";
+            readonly description: "Irrational numbers cannot be expressed as fractions or ratios of integers. They are non-repeating and non-terminating decimals. Famous examples include π (pi) and √2 (square root of 2).";
+        };
+    };
+    readonly omegaConstant: {
+        readonly value: 0.567143290409783;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly Ω0: {
+        readonly value: 0.567143290409783;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly apérysConstant: {
+        readonly value: 1.202056903159594;
+        readonly type: {
+            readonly symbol: "𝕀";
+            readonly description: "Irrational numbers cannot be expressed as fractions or ratios of integers. They are non-repeating and non-terminating decimals. Famous examples include π (pi) and √2 (square root of 2).";
+        };
+    };
+    readonly ζ3: {
+        readonly value: 1.202056903159594;
+        readonly type: {
+            readonly symbol: "𝕀";
+            readonly description: "Irrational numbers cannot be expressed as fractions or ratios of integers. They are non-repeating and non-terminating decimals. Famous examples include π (pi) and √2 (square root of 2).";
+        };
+    };
+    readonly laplaceLimit: {
+        readonly value: 1.202056903159594;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly RamanujanSoldnerConstant: {
+        readonly value: 1.451369234883381;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly μ1: {
+        readonly value: 1.451369234883381;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly GausssConstant: {
+        readonly value: 1.451369234883381;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly G0: {
+        readonly value: 1.451369234883381;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly secondHermiteConstant: {
+        readonly value: 1.154700538379251;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly γ1: {
+        readonly value: 1.154700538379251;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly firstContinuedFractionConstant: {
+        readonly value: 0.697774657964007;
+        readonly type: {
+            readonly symbol: "𝕀";
+            readonly description: "Irrational numbers cannot be expressed as fractions or ratios of integers. They are non-repeating and non-terminating decimals. Famous examples include π (pi) and √2 (square root of 2).";
+        };
+    };
+    readonly C_1: {
+        readonly value: 0.697774657964007;
+        readonly type: {
+            readonly symbol: "𝕀";
+            readonly description: "Irrational numbers cannot be expressed as fractions or ratios of integers. They are non-repeating and non-terminating decimals. Famous examples include π (pi) and √2 (square root of 2).";
+        };
+    };
+    readonly RamanujansConstant: {
+        readonly value: 26253741264076800;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly glaisherKinkelinConstant: {
+        readonly value: 1.282427129100622;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly A0: {
+        readonly value: 1.282427129100622;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly catalansConstant: {
+        readonly value: 0.915965594177219;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly G1: {
+        readonly value: 0.915965594177219;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly dottieNumber: {
+        readonly value: 0.73908513321516;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly meisselMertensConstant: {
+        readonly value: 0.261497212847642;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly M: {
+        readonly value: 0.261497212847642;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly univeralParabolicConstant: {
+        readonly value: 2.295587149392638;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly P0: {
+        readonly value: 2.295587149392638;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly cahensConstant: {
+        readonly value: 0.643410546288338;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly C1: {
+        readonly value: 0.643410546288338;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly gelfondsConstant: {
+        readonly value: 23.1406926327792;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly α0: {
+        readonly value: 23.1406926327792;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly e_π: {
+        readonly value: 23.1406926327792;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly gelfondSchneiderConstant: {
+        readonly value: 2.665144142690225;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly two_sqrt2: {
+        readonly value: 2.665144142690225;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly secondFavardConstant: {
+        readonly value: 1.233700550136169;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly K_2: {
+        readonly value: 1.233700550136169;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly goldenAngle: {
+        readonly value: 2.399963229728653;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly g: {
+        readonly value: 2.399963229728653;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly sierpińskisConstant: {
+        readonly value: 2.584981759579253;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly K2: {
+        readonly value: 2.584981759579253;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly landauRamanujanConstant: {
+        readonly value: 0.76422365358922;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly K3: {
+        readonly value: 0.76422365358922;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly firstNielesRamanujanConstant: {
+        readonly value: 0.822467033424113;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly a_1: {
+        readonly value: 0.822467033424113;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly giesekingConstant: {
+        readonly value: 1.014941606409653;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly G2: {
+        readonly value: 1.014941606409653;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly bernsteinsConstant: {
+        readonly value: 0.280169499023869;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly β0: {
+        readonly value: 0.280169499023869;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly brunsConstant: {
+        readonly value: 1.902160583104;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly B_2: {
+        readonly value: 1.902160583104;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly tribonacciConstant: {
+        readonly value: 1.839286755214161;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly twinPrimesConstant: {
+        readonly value: 0.660161815846869;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly C0_2: {
+        readonly value: 0.660161815846869;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly plasticNumber: {
+        readonly value: 1.324717957244746;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly ρ0: {
+        readonly value: 1.324717957244746;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly blochsConstant: {
+        readonly value: Range;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly B0: {
+        readonly value: Range;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly Z_975: {
+        readonly value: 1.959963984540054;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly landausConstant: {
+        readonly value: Range;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly L1: {
+        readonly value: Range;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly landausThirdConstant: {
+        readonly value: Range;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly A1: {
+        readonly value: Range;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly prouhetThueMorseConstant: {
+        readonly value: 0.412454033640107;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly τ1: {
+        readonly value: 0.412454033640107;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly golombDickmanConstant: {
+        readonly value: 0.62432998854355;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly λ0: {
+        readonly value: 0.62432998854355;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly lebesgueConstant: {
+        readonly value: 0.989431273831146;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly c: {
+        readonly value: 0.989431273831146;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly fellerTornierConstant: {
+        readonly value: 0.661317049469622;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly C_FT: {
+        readonly value: 0.661317049469622;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly champernowne10Constant: {
+        readonly value: 0.123456789101112;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly C_10: {
+        readonly value: 0.123456789101112;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly salemConstant: {
+        readonly value: 1.176280818259917;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly σ_10: {
+        readonly value: 1.176280818259917;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly khinchinsConstant: {
+        readonly value: 2.685452001065306;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly K_0: {
+        readonly value: 2.685452001065306;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly lévysConstant1: {
+        readonly value: 1.186569110415625;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly β1: {
+        readonly value: 1.186569110415625;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly lévysConstant2: {
+        readonly value: 3.275822918721811;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly e_β: {
+        readonly value: 3.275822918721811;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly copelandErdősConstant: {
+        readonly value: 0.235711131719232;
+        readonly type: {
+            readonly symbol: "𝕀";
+            readonly description: "Irrational numbers cannot be expressed as fractions or ratios of integers. They are non-repeating and non-terminating decimals. Famous examples include π (pi) and √2 (square root of 2).";
+        };
+    };
+    readonly C_CE: {
+        readonly value: 0.235711131719232;
+        readonly type: {
+            readonly symbol: "𝕀";
+            readonly description: "Irrational numbers cannot be expressed as fractions or ratios of integers. They are non-repeating and non-terminating decimals. Famous examples include π (pi) and √2 (square root of 2).";
+        };
+    };
+    readonly millsConstant: {
+        readonly value: 1.30637788386308;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly A2: {
+        readonly value: 1.30637788386308;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly gompertzConstant: {
+        readonly value: 0.596347362323194;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly δ0: {
+        readonly value: 0.596347362323194;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly deBrujinNewmanConstant: {
+        readonly value: Range;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly Λ: {
+        readonly value: Range;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly vanDerPauwConstant: {
+        readonly value: 4.532360141827193;
+        readonly type: {
+            readonly symbol: "𝕀";
+            readonly description: "Irrational numbers cannot be expressed as fractions or ratios of integers. They are non-repeating and non-terminating decimals. Famous examples include π (pi) and √2 (square root of 2).";
+        };
+    };
+    readonly πln2: {
+        readonly value: 4.532360141827193;
+        readonly type: {
+            readonly symbol: "𝕀";
+            readonly description: "Irrational numbers cannot be expressed as fractions or ratios of integers. They are non-repeating and non-terminating decimals. Famous examples include π (pi) and √2 (square root of 2).";
+        };
+    };
+    readonly magicAngle: {
+        readonly value: 0.9553166181245092;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly Θ_m: {
+        readonly value: 0.9553166181245092;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly artinsConstant: {
+        readonly value: 0.373955813619202;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly C_Artin: {
+        readonly value: 0.373955813619202;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly portersConstant: {
+        readonly value: 1.467078079433975;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly C0: {
+        readonly value: 1.467078079433975;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly stephensConstant: {
+        readonly value: 0.575959968892945;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly lochsConstant: {
+        readonly value: 0.970270114392033;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly L2: {
+        readonly value: 0.970270114392033;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly deViccisTesseractConstant: {
+        readonly value: 1.007434756884279;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly liebsSquareIceConstant: {
+        readonly value: 1.539600717839002;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly nivensConstant: {
+        readonly value: 1.705211140105367;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly C2: {
+        readonly value: 1.705211140105367;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly regularPaperFoldingSequence: {
+        readonly value: 0.850736188201867;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly P1: {
+        readonly value: 0.850736188201867;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly reciprocalFibonacciConstant: {
+        readonly value: 3.359885666243177;
+        readonly type: {
+            readonly symbol: "𝕀";
+            readonly description: "Irrational numbers cannot be expressed as fractions or ratios of integers. They are non-repeating and non-terminating decimals. Famous examples include π (pi) and √2 (square root of 2).";
+        };
+    };
+    readonly ψ1: {
+        readonly value: 3.359885666243177;
+        readonly type: {
+            readonly symbol: "𝕀";
+            readonly description: "Irrational numbers cannot be expressed as fractions or ratios of integers. They are non-repeating and non-terminating decimals. Famous examples include π (pi) and √2 (square root of 2).";
+        };
+    };
+    readonly chvátalSankoffConstant: {
+        readonly value: Range;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly γ_2: {
+        readonly value: Range;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly feigenbaumConstant: {
+        readonly value: 4.66920160910299;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly δ1: {
+        readonly value: 4.66920160910299;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly chaitinConstant: {
+        readonly value: 0.007874996997812;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly Ω1: {
+        readonly value: 0.007874996997812;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly robbinsConstant: {
+        readonly value: 0.661707182267176;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly Δ3: {
+        readonly value: 0.661707182267176;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly weirerstrassConstant: {
+        readonly value: 0.47494937998792;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly fransénRobinsonConstant: {
+        readonly value: 2.807770242028519;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly F: {
+        readonly value: 2.807770242028519;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly feingenbaumConstant: {
+        readonly value: 2.502907875095892;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly α1: {
+        readonly value: 2.502907875095892;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly secondDuBoisReymondConstant: {
+        readonly value: 0.194528049465325;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly C1_2: {
+        readonly value: 0.194528049465325;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly erdősTenenbaumFordconstant: {
+        readonly value: 0.860713320559342;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly δ2: {
+        readonly value: 0.860713320559342;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly conwaysConstant: {
+        readonly value: 1.303577269034296;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly λ1: {
+        readonly value: 1.303577269034296;
+        readonly type: {
+            readonly symbol: "𝔸";
+            readonly description: "Algebraic numbers are a subset of the complex numbers that are solutions to polynomial equations with integer coefficients. In other words, an algebraic number is a root of a non-zero polynomial equation with integer coefficients.";
+        };
+    };
+    readonly hafnerSarnakMcCurleyConstant: {
+        readonly value: 0.353236371854995;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly σ0: {
+        readonly value: 0.353236371854995;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly backHousesConstant: {
+        readonly value: 1.456074948582689;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly B1: {
+        readonly value: 1.456074948582689;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly visanathConstant: {
+        readonly value: 1.1319882487943;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly komornikLoretiConstant: {
+        readonly value: 1.787231650182965;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly q: {
+        readonly value: 1.787231650182965;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly embreeTrefethenConstant: {
+        readonly value: 0.70258;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly β_asterix: {
+        readonly value: 0.70258;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly heathBrownMorozConstant: {
+        readonly value: 0.001317641154853;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly C3: {
+        readonly value: 0.001317641154853;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly MRBConstant: {
+        readonly value: 0.187859642462067;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly S: {
+        readonly value: 0.187859642462067;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly primeConstant: {
+        readonly value: 0.414682509851111;
+        readonly type: {
+            readonly symbol: "𝕀";
+            readonly description: "Irrational numbers cannot be expressed as fractions or ratios of integers. They are non-repeating and non-terminating decimals. Famous examples include π (pi) and √2 (square root of 2).";
+        };
+    };
+    readonly ρ1: {
+        readonly value: 0.414682509851111;
+        readonly type: {
+            readonly symbol: "𝕀";
+            readonly description: "Irrational numbers cannot be expressed as fractions or ratios of integers. They are non-repeating and non-terminating decimals. Famous examples include π (pi) and √2 (square root of 2).";
+        };
+    };
+    readonly somosQuadraticSequenceConstant: {
+        readonly value: 1.661687949633594;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly σ1: {
+        readonly value: 1.661687949633594;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
+    readonly logmarithmicCapacityOfTheUnitDisk: {
+        readonly value: 0.590170299508048;
+        readonly type: {
+            readonly symbol: "𝕋";
+            readonly description: "Transcendental numbers are real or complex numbers that are not algebraic, meaning they are not solutions to any non-zero polynomial equation with integer coefficients. π and e (Euler's number) are examples of transcendental numbers.";
+        };
+    };
+    readonly taniguchiConstant: {
+        readonly value: 0.678234491917391;
+        readonly type: {
+            readonly symbol: "ℝ";
+            readonly description: "Real numbers encompass both rational and irrational numbers. They include all possible numbers on the number line and can be represented as decimal expansions.";
+        };
+    };
 };
 
 interface options$1 {
@@ -1270,16 +2697,16 @@ declare class CacheManager {
      * Adds the input/output pair to the appropriate cache based on the given type.
      *
      * @param {CacheType | string} type - The type of cache to add the pair to.
-     * @param {number} input - The input value of the pair
-     * @param {number} output - The output value of the pair
+     * @param {any} input - The input value of the pair
+     * @param {any} output - The output value of the pair
      * @return {any} - The cache object that the pair was added to
      */
-    static add(type: typeof CacheEnum | string, input: number, output: number): any;
+    static add(type: typeof CacheEnum | string, input: any, output: any): any;
     /**
      * Returns a cached value based on the input and the type of cache.
      *
      * @param {CacheType | string} type - The type of cache to retrieve the value from.
-     * @param {number} input - The input value used to retrieve the cached value
+     * @param {any} input - The input value used to retrieve the cached value
      * @return {any} The cached value retrieved from the specified cache
      */
     static get(type: typeof CacheEnum | string, input: number): any;
@@ -1287,17 +2714,17 @@ declare class CacheManager {
      * Deletes the input/output pair from the appropriate cache based on the given type.
      *
      * @param {CacheType | string} type - The type of cache to delete the pair from
-     * @param {number} input - The input value of the pair
+     * @param {any} input - The input value of the pair
      * @return {any} - The cache object that the pair was deleted from
      */
-    static delete(type: typeof CacheEnum | string, input: number): any;
+    static delete(type: typeof CacheEnum | string, input: any): any;
     /**
      * Clears the cache for a given trigonometric or logarithmic function.
      *
      * @param {CacheType | string} type - A string or CacheEnum representing the function to clear cache for
      * @return {void} undefined
      */
-    static clear(type: typeof CacheEnum | string): any;
+    static clear(type: typeof CacheEnum | string): void;
     /**
      * Clears all cached values
      *
@@ -1306,4 +2733,82 @@ declare class CacheManager {
     static clearAll(): void;
 }
 
-export { Absolute, Averages, CacheEnum, CacheManager, Circle, ComplexNumber, Constants, Conversions, Equations, Factorial, Fraction, Indices, Logarithms, Matrix, MatrixConstructor, Summation, TrigonometryFunctions, add, angleEnum, angleUnits, areaEnum, areaUnits, concatenate, convertBase, divide, energyEnum, energyUnits, gcd, gcd2, lengthEnum, lengthUnits, massEnum, massUnits, multiply, physicsFormulae, pressureEnum, pressureUnits, speedEnum, speedUnits, subtract, temperatureEnum, temperatureUnits, timeEnum, timeUnits, volumeEnum, volumeUnits };
+declare class PieChart {
+    readonly Sections: {
+        [key: string]: {
+            percent: number;
+            color: Color;
+        };
+    };
+    constructor(Sections: {
+        [key: string]: {
+            percent: number;
+            color: Color;
+        };
+    });
+}
+declare class BarChart {
+    readonly Sections: {
+        [key: string]: {
+            percent: number;
+            color: Color;
+        };
+    };
+    readonly Orientation: 'horizontal' | 'vertical';
+    constructor(sections: {
+        [key: string]: {
+            percent: number;
+            color: Color;
+        };
+    }, orientation: 'horizontal' | 'vertical');
+}
+declare class ScatterGraph {
+    readonly xName: string;
+    readonly yName: string;
+    readonly Values: {
+        [x: number]: {
+            [y: number]: {
+                color: Color;
+                name: string;
+            };
+        };
+    };
+    constructor(values: {
+        [x: number]: {
+            [y: number]: {
+                color: Color;
+                name: string;
+            };
+        };
+    });
+}
+declare class LineGraph {
+    readonly xName: string;
+    readonly yName: string;
+    readonly Values: {
+        [lineName: string]: {
+            color: Color;
+            values: number[];
+        };
+    };
+    constructor(values: {
+        [lineName: string]: {
+            color: Color;
+            values: number[];
+        };
+    }, xName: string, yName: string);
+}
+declare class FrequencyGraph {
+    readonly Values: {
+        value: number;
+        frequency: number;
+        class: Range;
+    }[];
+    constructor(values: {
+        value: number;
+        frequency: number;
+        class: Range;
+    }[]);
+}
+
+export { Absolute, Averages, BarChart, CacheEnum, CacheManager, Circle, Color, ComplexNumber, Conversions, Equations, Factorial, Fraction, FrequencyGraph, Indices, LargeOperators, LineGraph, Logarithms, MathsConstants, Matrix, NumberTypes, PieChart, Range, ScatterGraph, TrigonometryFunctions, add, angleEnum, angleUnits, areaEnum, areaUnits, arrayReplace, concatenate, convertBase, divide, energyEnum, energyUnits, find, gcd, gcd2, isInAllArrays, lengthEnum, lengthUnits, massEnum, massUnits, multiply, physicsFormulae, pressureEnum, pressureUnits, speedEnum, speedUnits, subtract, temperatureEnum, temperatureUnits, timeEnum, timeUnits, volumeEnum, volumeUnits };
