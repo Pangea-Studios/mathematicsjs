@@ -107,6 +107,9 @@ export class TrigonometryFunctions {
 		if (this.tanCache.has(x)) {
 			return this.tanCache.get(x);
 		}
+		if (x === 90) {
+			return Infinity;
+		}
 		const result =
 			this.sin(x, {
 				accuracy: options.accuracy,
@@ -351,6 +354,10 @@ export class TrigonometryFunctions {
 		}
 		let result = 0;
 
+		if (x > 1) {
+			throw new Error('x must be less than or equal to 1');
+		}
+
 		for (let n = 0; n <= options.accuracy; n++) {
 			const coefficient =
 				(1 / Indices.power(2, n)) *
@@ -380,6 +387,10 @@ export class TrigonometryFunctions {
 			return this.acosCache.get(x);
 		}
 		let result = Constants.pi.value / 2;
+
+		if (x > 1) {
+			throw new Error('x must be less than or equal to 1');
+		}
 
 		for (let n = 0; n <= options.accuracy; n++) {
 			const coefficient =

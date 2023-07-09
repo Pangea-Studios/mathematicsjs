@@ -1,6 +1,3 @@
-import { Absolute } from '../core/operations';
-import { Indices } from '../core/Indices';
-
 /**
  * Class to create and manipulate Matrices
  */

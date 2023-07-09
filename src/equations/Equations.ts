@@ -656,7 +656,7 @@ export class Equations {
 	}
 
 	static simplify(expression: string): string {
-		let result = this.parseEquation(expression);
+		const result = this.parseEquation(expression);
 		while (Equations.find(result, '(') > 0) {
 			const startPos = result.lastIndexOf('(');
 			const endPos = result.indexOf(')', startPos);
@@ -678,14 +678,14 @@ export class Equations {
 						if (!isNaN(array[i - 1])) {
 							array[i - 1] = Factorial(Number(array[i - 1]));
 							array.splice(i);
-							break;
 						}
+						break;
 					case 'ln':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Logarithms.ln(Number(array[i + 1]));
 							array.splice(i + 1);
-							break;
 						}
+						break;
 					case 'log':
 						if (!isNaN(array[i + 1]) && !isNaN(array[i + 2])) {
 							array[i] = Logarithms.log(
@@ -693,171 +693,174 @@ export class Equations {
 								Number(array[i + 2]),
 							);
 							array.splice(i + 1, i + 2);
-							break;
 						}
-
+						break;
 					case 'sin':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Trig.sin(Number(array[i + 1]));
 							array.splice(i + 1, 1);
-							break;
 						}
+						break;
 					case 'cos':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Trig.cos(Number(array[i + 1]));
 							array.splice(i + 1, 1);
-							break;
 						}
+						break;
 					case 'tan':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Trig.tan(Number(array[i + 1]));
 							array.splice(i + 1, 1);
-							break;
 						}
+						break;
 					case 'sec':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Trig.sec(Number(array[i + 1]));
 							array.splice(i + 1, 1);
-							break;
 						}
+						break;
 					case 'csc':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Trig.csc(Number(array[i + 1]));
 							array.splice(i + 1, 1);
-							break;
 						}
+						break;
 					case 'cot':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Trig.tan(Number(array[i + 1]));
 							array.splice(i + 1, 1);
-							break;
 						}
+						break;
 					case 'sinh':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Trig.sinh(Number(array[i + 1]));
 							array.splice(i + 1, 1);
-							break;
 						}
+						break;
 					case 'cosh':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Trig.cosh(Number(array[i + 1]));
 							array.splice(i + 1, 1);
-							break;
 						}
+						break;
 					case 'tanh':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Trig.tanh(Number(array[i + 1]));
 							array.splice(i + 1, 1);
-							break;
 						}
+						break;
 					case 'sech':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Trig.sech(Number(array[i + 1]));
 							array.splice(i + 1, 1);
-							break;
 						}
+						break;
 					case 'csch':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Trig.csch(Number(array[i + 1]));
 							array.splice(i + 1, 1);
-							break;
 						}
+						break;
 					case 'coth':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Trig.coth(Number(array[i + 1]));
 							array.splice(i + 1, 1);
-							break;
 						}
+						break;
 					case 'asin':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Trig.asin(Number(array[i + 1]));
 							array.splice(i + 1, 1);
-							break;
 						}
+						break;
 					case 'acot':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Trig.acot(Number(array[i + 1]));
 							array.splice(i + 1, 1);
-							break;
 						}
+						break;
 					case 'acos':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Trig.acos(Number(array[i + 1]));
 							array.splice(i + 1, 1);
-							break;
 						}
+						break;
 					case 'atan':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Trig.atan(Number(array[i + 1]));
 							array.splice(i + 1, 1);
-							break;
 						}
+						break;
 					case 'asec':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Trig.asec(Number(array[i + 1]));
 							array.splice(i + 1, 1);
-							break;
 						}
+						break;
 					case 'acsc':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Trig.acsc(Number(array[i + 1]));
 							array.splice(i + 1, 1);
-							break;
 						}
+						break;
 					case 'asinh':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Trig.asinh(Number(array[i + 1]));
 							array.splice(i + 1, 1);
-							break;
 						}
+						break;
 					case 'acoth':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Trig.acoth(Number(array[i + 1]));
 							array.splice(i + 1, 1);
-							break;
 						}
+						break;
 					case 'acosh':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Trig.acosh(Number(array[i + 1]));
 							array.splice(i + 1, 1);
-							break;
 						}
+						break;
 					case 'atanh':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Trig.atanh(Number(array[i + 1]));
 							array.splice(i + 1, 1);
-							break;
 						}
+						break;
 					case 'asech':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Trig.asech(Number(array[i + 1]));
 							array.splice(i + 1, 1);
-							break;
 						}
+						break;
 					case 'acsch':
 						if (!isNaN(array[i + 1])) {
 							array[i] = Trig.acsch(Number(array[i + 1]));
 							array.splice(i + 1, 1);
-							break;
 						}
+						break;
 				}
 			}
 			for (let i = 0; i < array.length; i++) {
 				switch (array[i]) {
 					case '^':
-						array[i - 1] ===
-							Number(array[i - 1]) ** Number(array[i + 1]);
-						array.splice(i, i + 1);
+						if (!isNaN(array[i + 1]) && !isNaN(array[i - 1])) {
+							array[i - 1] ===
+								Number(array[i - 1]) ** Number(array[i + 1]);
+							array.splice(i, i + 1);
+						}
 						break;
 					case '√':
-						if (Number.isInteger(Number(array[i - 1]))) {
-							array[i - 1] ===
-								Number(array[i + 1]) ** 1 /
-									Number(array[i - 1]);
-							array.splice(i, i + 1);
-						} else {
-							array[i] = Number(array[i + 1]) ** 0.5;
-							array.splice(i + 1);
+						if (!isNaN(array[i + 1])) {
+							if (Number.isInteger(Number(array[i - 1]))) {
+								array[i - 1] ===
+									Number(array[i + 1]) ** 1 /
+										Number(array[i - 1]);
+								array.splice(i, i + 1);
+							} else {
+								array[i] = Number(array[i + 1]) ** 0.5;
+								array.splice(i + 1);
+							}
 						}
 						break;
 				}
@@ -865,14 +868,18 @@ export class Equations {
 			for (let i = 0; i < array.length; i++) {
 				switch (array[i]) {
 					case '*':
-						array[i - 1] =
-							Number(array[i - 1]) * Number(array[i + 1]);
-						array.splice(i, i + 1);
+						if (!isNaN(array[i + 1]) && !isNaN(array[i - 1])) {
+							array[i - 1] =
+								Number(array[i - 1]) * Number(array[i + 1]);
+							array.splice(i, i + 1);
+						}
 						break;
 					case '/':
-						array[i - 1] =
-							Number(array[i - 1]) / Number(array[i + 1]);
-						array.splice(i, i + 1);
+						if (!isNaN(array[i + 1]) && !isNaN(array[i - 1])) {
+							array[i - 1] =
+								Number(array[i - 1]) / Number(array[i + 1]);
+							array.splice(i, i + 1);
+						}
 						break;
 				}
 			}
@@ -880,14 +887,18 @@ export class Equations {
 			for (let i = 0; i < array.length; i++) {
 				switch (array[i]) {
 					case '+':
-						array[i - 1] =
-							Number(array[i - 1]) + Number(array[i + 1]);
-						array.splice(i, i + 1);
+						if (!isNaN(array[i + 1]) && !isNaN(array[i - 1])) {
+							array[i - 1] =
+								Number(array[i - 1]) + Number(array[i + 1]);
+							array.splice(i, i + 1);
+						}
 						break;
 					case '-':
-						array[i - 1] =
-							Number(array[i - 1]) - Number(array[i + 1]);
-						array.splice(i, 2);
+						if (!isNaN(array[i + 1]) && !isNaN(array[i - 1])) {
+							array[i - 1] =
+								Number(array[i - 1]) - Number(array[i + 1]);
+							array.splice(i, 2);
+						}
 						break;
 				}
 			}
