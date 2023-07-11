@@ -670,6 +670,30 @@ export class Equations {
 		return this.simplifyArray(result).join('');
 	}
 
+	private static parseArrayExpression(array: []) {
+		for (let i = 0; i < array.length; i++) {
+			let result = [];
+			if (this.isSingleLetter(array[i])) {
+				let a: { count: number; variable: string; exponent: number };
+				a = { count: 1, variable: array[i], exponent: 1 };
+				if (!isNaN(array[i - 1])) {
+					a.count = array[i - 1];
+				}
+				if (!isNaN(array[i + 2]) && array[i + 1] === '^') {
+					a.exponent = array[i + 2];
+					if (array[i + 2] === 0) {
+						result.push(0);
+					}
+				}
+				result.push(a);
+			} else if (
+				!isNaN(array[i]) &&
+				(!this.isSingleLetter(result[i + 1]) || !result[i + 1])
+			) {
+			}
+		}
+	}
+
 	private static simplifyArray(array: any): any {
 		while (array.length !== 1) {
 			for (let i = 0; i < array.length; i++) {
@@ -907,4 +931,3 @@ export class Equations {
 		}
 	}
 }
-//ur way is most probs better, i have no clue what to do
