@@ -674,8 +674,7 @@ export class Equations {
 		for (let i = 0; i < array.length; i++) {
 			const result = [];
 			if (this.isSingleLetter(array[i])) {
-				let a: { count: number; variable: string; exponent: number };
-				a = { count: 1, variable: array[i], exponent: 1 };
+				const a = { count: 1, variable: array[i], exponent: 1 };
 				if (!isNaN(array[i - 1])) {
 					a.count = array[i - 1];
 				}
@@ -686,10 +685,8 @@ export class Equations {
 					}
 				}
 				result.push(a);
-			} else if (
-				!isNaN(array[i]) &&
-				(!this.isSingleLetter(result[i + 1]) || !result[i + 1])
-			) {
+			} else if (!isNaN(array[i])) {
+				result.push(array[i]);
 			}
 		}
 	}
