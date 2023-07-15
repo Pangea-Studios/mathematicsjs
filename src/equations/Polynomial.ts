@@ -197,16 +197,17 @@ export class polynomial {
 		const polynomialDifferences: number[][] = [];
 
 		polynomialDifferences.push(sequence);
-
-		while (true) {
-			const differences = calculateDifferences(
+		let differences = calculateDifferences(
+			polynomialDifferences[polynomialDifferences.length - 1],
+		);
+		while (differences.length !== 0) {
+			differences = calculateDifferences(
 				polynomialDifferences[polynomialDifferences.length - 1],
 			);
 
 			if (differences.length === 0) {
 				break;
 			}
-
 			polynomialDifferences.push(differences);
 		}
 

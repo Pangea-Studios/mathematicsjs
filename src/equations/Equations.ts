@@ -672,7 +672,7 @@ export class Equations {
 
 	private static parseArrayExpression(array: []) {
 		for (let i = 0; i < array.length; i++) {
-			let result = [];
+			const result = [];
 			if (this.isSingleLetter(array[i])) {
 				let a: { count: number; variable: string; exponent: number };
 				a = { count: 1, variable: array[i], exponent: 1 };

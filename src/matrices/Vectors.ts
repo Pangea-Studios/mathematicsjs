@@ -4,11 +4,18 @@
 export class Vector {
 	public dimensions: number;
 	public values: number[];
-	public magnitude: number;
 
 	constructor(values: number[]) {
 		this.dimensions = values.length;
 		this.values = values;
+	}
+
+	static zeros(dimersions: number): Vector {
+		const result = [];
+		for (let i = 0; i < dimersions; i++) {
+			result.push(0);
+		}
+		return new Vector(result);
 	}
 
 	/**

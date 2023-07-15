@@ -98,7 +98,7 @@ export class Color {
 	}
 }
 
-export class Range {
+export class NumberRange {
 	readonly min: number;
 	readonly max: number;
 	readonly operand1: '≤' | '<';
@@ -126,6 +126,24 @@ export class Range {
 			' ' +
 			this.operand2
 		);
+	}
+
+	isInRange(number: number) {
+		let condition1 = false;
+		let condition2 = false;
+		if (this.operand1 === '<') {
+			condition1 = number > this.min;
+		} else {
+			condition1 = number >= this.min;
+		}
+
+		if (this.operand2 === '<') {
+			condition2 = number < this.max;
+		} else {
+			condition2 = number <= this.max;
+		}
+
+		return condition1 && condition2;
 	}
 }
 
