@@ -1,6 +1,6 @@
 import { Vector } from '../matrices/Vectors';
 
-export class QuadraticBézier {
+export class QuadraticBezier {
 	public startPoint: Vector;
 	public endPoint: Vector;
 	public controlPoint: Vector;
@@ -57,7 +57,7 @@ export class QuadraticBézier {
 	}
 }
 
-export class CubicBézier {
+export class CubicBezier {
 	public startPoint: Vector;
 	public endPoint: Vector;
 	public controlPoint1: Vector;
