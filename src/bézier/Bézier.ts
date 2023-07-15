@@ -21,6 +21,12 @@ export class QuadraticBézier {
 		this.endPoint = endPoint;
 	}
 
+	/**
+	 * Calculates a point on a quadratic Bezier curve given a parameter t.
+	 *
+	 * @param {number} t - The parameter value between 0 and 1 exclusive.
+	 * @return {Vector} The calculated point on the curve.
+	 */
 	getPoint(t: number): Vector {
 		const result = Vector.zeros(this.dimensions);
 		if (t <= 0 || t >= 1) {
@@ -32,6 +38,20 @@ export class QuadraticBézier {
 				(1 - t) ** 2 * this.startPoint.values[i] +
 				2 * (1 - t) * t * this.controlPoint.values[i] +
 				t ** 2 * this.endPoint.values[i];
+		}
+		return result;
+	}
+
+	/**
+	 * Generates an array of points based on the given interval.
+	 *
+	 * @param {number} interval - The number of intervals to divide the range into.
+	 * @return {Vector[]} An array of vector points.
+	 */
+	getPoints(interval: number): Vector[] {
+		const result: Vector[] = [];
+		for (let i = 0; i < interval; i++) {
+			result.push(this.getPoint(i / interval));
 		}
 		return result;
 	}
@@ -65,6 +85,12 @@ export class CubicBézier {
 		this.endPoint = endPoint;
 	}
 
+	/**
+	 * Calculates a point on the curve at a given parameter value.
+	 *
+	 * @param {number} t - The parameter value between 0 and 1 exclusive.
+	 * @return {Vector} The calculated point on the curve.
+	 */
 	getPoint(t: number): Vector {
 		const result = Vector.zeros(this.dimensions);
 		if (t <= 0 || t >= 1) {
@@ -77,6 +103,20 @@ export class CubicBézier {
 				3 * (1 - t) ** 2 * t * this.controlPoint1.values[i] +
 				3 * (1 - t) * t ** 2 * this.controlPoint2.values[i] +
 				t ** 3 * this.endPoint.values[i];
+		}
+		return result;
+	}
+
+	/**
+	 * Retrieves an array of Vector points based on the given interval.
+	 *
+	 * @param {number} interval - The number of intervals for generating points.
+	 * @return {Vector[]} An array of Vector points.
+	 */
+	getPoints(interval: number): Vector[] {
+		const result: Vector[] = [];
+		for (let i = 0; i < interval; i++) {
+			result.push(this.getPoint(i / interval));
 		}
 		return result;
 	}
