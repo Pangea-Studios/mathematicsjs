@@ -57,7 +57,7 @@ export class TrigonometryFunctions {
 		if (this.sinCache.has(x)) {
 			return this.sinCache.get(x);
 		}
-		const a = (x % 360) * (Math.PI / 180);
+		const a = (x % 360) * (Constants.pi.value / 180);
 		let result = 0;
 
 		for (let i = 0; i <= options.accuracy; i++) {

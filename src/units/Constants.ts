@@ -56,7 +56,7 @@ export const NumberTypes = {
 	},
 } as const;
 
-import { Range } from '../util';
+import { NumberRange as Range } from '../util';
 
 /**
  * Enum for constants

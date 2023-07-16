@@ -48,6 +48,7 @@ export class Logarithms {
 	 * Calculates the logarithm of a number with a specified base to a given accuracy.
 	 *
 	 * @param {number} x - The number to calculate the logarithm of
+	 * * @param {number} x - The number to base the logarithm of
 	 * @param {object} [options] - options
 	 * @param {number} [options.accuracy=10] - precision of the result (default of 10)
 	 * @param {boolean} [options.cache=true] - cache the result

@@ -1,5 +1,4 @@
 import { Color } from '../util';
-import { Range } from '../util';
 export class PieChart {
 	readonly Sections: { [key: string]: { percent: number; color: Color } };
 	constructor(Sections: {

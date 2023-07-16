@@ -115,22 +115,22 @@ export class Circle {
 		if (radius) {
 			this.radius = radius;
 			this.diameter = radius * 2;
-			this.circumference = 2 * MathsConstants.pi * this.radius;
-			this.area = MathsConstants.pi * this.radius * this.radius;
+			this.circumference = 2 * MathsConstants.pi.value * this.radius;
+			this.area = MathsConstants.pi.value * this.radius * this.radius;
 		} else if (diameter) {
 			this.radius = diameter / 2;
 			this.diameter = diameter;
-			this.circumference = 2 * MathsConstants.pi * this.radius;
-			this.area = MathsConstants.pi * this.radius * this.radius;
+			this.circumference = 2 * MathsConstants.pi.value * this.radius;
+			this.area = MathsConstants.pi.value * this.radius * this.radius;
 		} else if (circumference) {
-			this.radius = circumference / MathsConstants.pi / 2;
+			this.radius = circumference / MathsConstants.pi.value / 2;
 			this.diameter = this.radius * 2;
 			this.circumference = circumference;
-			this.area = MathsConstants.pi * this.radius * this.radius;
+			this.area = MathsConstants.pi.value * this.radius * this.radius;
 		} else if (area) {
-			this.radius = Math.sqrt(area / MathsConstants.pi);
+			this.radius = (area / MathsConstants.pi.value) ** 0.5;
 			this.diameter = this.radius * 2;
-			this.circumference = 2 * MathsConstants.pi * this.radius;
+			this.circumference = 2 * MathsConstants.pi.value * this.radius;
 			this.area = area;
 		} else {
 			throw new Error(

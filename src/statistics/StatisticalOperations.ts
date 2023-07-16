@@ -67,8 +67,14 @@ export class StatisticalOperations {
 	 * @return {number} - The range of the inputted numbers
 	 */
 	static range(input: number[]) {
-		const max = input.reduce((a, b) => Math.max(a, b), -Infinity);
-		const min = input.reduce((a, b) => Math.min(a, b), -Infinity);
+		const max = input.reduce(
+			(a, b) => StatisticalOperations.max([a, b]),
+			-Infinity,
+		);
+		const min = input.reduce(
+			(a, b) => StatisticalOperations.min([a, b]),
+			-Infinity,
+		);
 
 		return max - min;
 	}
@@ -107,6 +113,38 @@ export class StatisticalOperations {
 				) {
 					result.push(arrays[i][j]);
 				}
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * Finds the maximum value in an array of numbers.
+	 *
+	 * @param {number[]} input - The array of numbers.
+	 * @return {number} The maximum value in the array.
+	 */
+	static max(input: number[]) {
+		let result = 0;
+		for (let i = 0; i < input.length; i++) {
+			if (input[i] > result) {
+				result = input[i];
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * Finds the minimum value in an array of numbers.
+	 *
+	 * @param {number[]} input - The array of numbers to search through.
+	 * @return {number} The minimum value in the input array.
+	 */
+	static min(input: number[]) {
+		let result = 0;
+		for (let i = 0; i < input.length; i++) {
+			if (input[i] < result) {
+				result = input[i];
 			}
 		}
 		return result;

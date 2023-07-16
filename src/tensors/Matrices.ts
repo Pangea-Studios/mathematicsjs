@@ -1,3 +1,5 @@
+import { Absolute as abs } from '../core/operations';
+
 /**
  * Class to create and manipulate Matrices
  */
@@ -393,7 +395,7 @@ export class Matrix {
 	isDiagonal() {
 		for (let i = 0; i < this.rows; i++) {
 			for (let j = 0; j < this.columns; j++) {
-				if (i !== j && Math.abs(this.values[i][j]) > 1e-10) {
+				if (i !== j && abs(this.values[i][j]) > 1e-10) {
 					return false;
 				}
 			}
@@ -434,9 +436,9 @@ export class Matrix {
 			// Compute the column norm
 			let norm = 0;
 			for (let row = 0; row < this.rows; row++) {
-				norm += Math.pow(this.values[row][col], 2);
+				norm += this.values[row][col] ** 2;
 			}
-			norm = Math.sqrt(norm);
+			norm = norm ** 0.5;
 
 			// Normalize the column elements
 			for (let row = 0; row < this.rows; row++) {
@@ -494,7 +496,7 @@ export class Matrix {
 				sum += this.values[i][j] * this.values[i][j];
 			}
 		}
-		return Math.sqrt(sum);
+		return sum ** 0.5;
 	}
 
 	/**

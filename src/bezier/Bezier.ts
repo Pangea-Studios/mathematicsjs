@@ -1,4 +1,4 @@
-import { Vector } from '../matrices/Vectors';
+import { Vector } from '../tensors/Vectors';
 
 export class QuadraticBezier {
 	public startPoint: Vector;

@@ -1,6 +1,7 @@
 import { Factorial } from '../core/operations';
 import { Logarithms } from './Logarithms';
 import { TrigonometryFunctions as Trig } from '../trigonometry/Functions';
+import { StatisticalOperations as SO } from '../statistics/StatisticalOperations';
 
 /**
  * Class containing equation utilities
@@ -646,7 +647,7 @@ export class Equations {
 		if (k === 0 || k === n) return 1;
 
 		let coefficient = 1;
-		k = Math.min(k, n - k);
+		k = SO.min([k, n - k]);
 
 		for (let i = 1; i <= k; i++) {
 			coefficient *= (n - i + 1) / i;

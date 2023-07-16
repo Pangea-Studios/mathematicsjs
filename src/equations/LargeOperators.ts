@@ -1,6 +1,4 @@
 import { Equations } from './Equations';
-import { find } from '../util';
-import { isInAllArrays } from '../util';
 /**
  * Class containing summation functions
  */

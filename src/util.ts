@@ -1,3 +1,6 @@
+import { Absolute } from './core/operations';
+import { Logarithms } from './equations/Logarithms';
+
 /**
  * Find the GCD of the inputted numbers
  * @param {number[]} arr - The numbers to find the GCD of
@@ -33,8 +36,8 @@ export function gcd(arr: number[]): number {
  * @returns {number} The GCD of the two numbers
  */
 export function gcd2(a: number, b: number): number {
-	a = Math.abs(a);
-	b = Math.abs(b);
+	a = Absolute(a);
+	b = Absolute(b);
 	while (b !== 0) {
 		const t = b;
 		b = a % b;
@@ -81,7 +84,7 @@ export function convertBase(
  * @return {number} The concatenated number in the given base.
  */
 export function concatenate(a: number, b: number) {
-	return a * Math.pow(10, Math.floor(Math.log(b) / Math.log(10)) + 1) + b;
+	return a * 10 ** Math.floor(Logarithms.log(b) / Math.log(10) + 1) + b;
 }
 
 export class Color {
@@ -206,3 +209,37 @@ export function arrayReplace(
 ): any[] {
 	return [...array.slice(0, startPos), ...values, ...array.slice(endPos + 1)];
 }
+
+/**
+ * Rounds a number down to the specified number of decimal places.
+ *
+ * @param {number} number - The number to round down.
+ * @param {number} decimalPlaces - The number of decimal places to round down to. Default is 0.
+ * @return {number} The rounded number.
+ */
+export function floorDP(number: number, decimalPlaces = 0) {
+	return Number(
+		String(number).split('.')[0] +
+			'.' +
+			String(number).split('.')[1].slice(0, decimalPlaces),
+	);
+}
+
+/**
+ * Rounds a number down to a specified number of significant figures.
+ *
+ * @param {number} number - The number to be rounded.
+ * @param {number} significantFigures - The number of significant figures to round to. Defaults to 3.
+ * @return {number} - The rounded number.
+ */
+export function floorSF(number: number, significantFigures = 3) {
+	return Number(String(number).slice(0, significantFigures));
+}
+
+export function cielDP(number: number, decimalPlaces = 0) {}
+
+export function cielSF(number: number, significantFigures = 3) {}
+
+export function roundDP(number: number, decimalPlaces = 0) {}
+
+export function roundSF(number: number, significantFigures = 3) {}

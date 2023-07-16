@@ -1,5 +1,6 @@
-import { Matrix } from '../matrices/Matrices';
-
+import { Matrix } from '../tensors/Matrices';
+import { StatisticalOperations as SO } from '../statistics/StatisticalOperations';
+import { Absolute as abs } from '../core/operations';
 /**
  *
  * Class to create and manipulate Polynomials up to 4th degree
@@ -57,10 +58,10 @@ export class polynomial {
 	 * @return {polynomial} The resulting polynomial after addition.
 	 */
 	addPolynomial(addend: polynomial): polynomial {
-		const maxLength = Math.max(
+		const maxLength = SO.max([
 			this.coefficients.length,
 			addend.coefficients.length,
-		);
+		]);
 		const resultCoefficients = new Array(maxLength).fill(0);
 		for (let i = 0; i < maxLength; i++) {
 			const thisCoefficient = this.coefficients[i] || 0;
@@ -77,10 +78,10 @@ export class polynomial {
 	 * @return {polynomial} The resulting polynomial after subtraction.
 	 */
 	subtractPolynomial(subtrahend: polynomial): polynomial {
-		const maxLength = Math.max(
+		const maxLength = SO.max([
 			this.coefficients.length,
 			subtrahend.coefficients.length,
-		);
+		]);
 		const resultCoefficients = new Array(maxLength).fill(0);
 		for (let i = 0; i < maxLength; i++) {
 			const thisCoefficient = this.coefficients[i] || 0;
@@ -255,7 +256,7 @@ export class polynomial {
 		for (let i = this.degree; i >= 0; i--) {
 			const coefficient = this.coefficients[i];
 			if (coefficient !== 0) {
-				const term = `${Math.abs(coefficient)}x^${i}`;
+				const term = `${abs(coefficient)}x^${i}`;
 				factors.push(term);
 				polynomialString +=
 					coefficient < 0 ? ` - ${term}` : ` + ${term}`;
@@ -329,12 +330,12 @@ export class polynomial {
 			const discriminant = b ** 2 - 4 * a * c;
 
 			if (discriminant >= 0) {
-				const root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
-				const root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+				const root1 = (-b + discriminant ** 0.5) / (2 * a);
+				const root2 = (-b - discriminant ** 0.5) / (2 * a);
 				roots.push(root1, root2);
 			} else {
 				const realPart = -b / (2 * a);
-				const imaginaryPart = Math.sqrt(-discriminant) / (2 * a);
+				const imaginaryPart = (-discriminant) ** 0.5 / (2 * a);
 				roots.push(
 					`${realPart}+${imaginaryPart}i`,
 					`${realPart}-${imaginaryPart}i`,
@@ -354,7 +355,7 @@ export class polynomial {
 
 				const nextX = x - f / fDash;
 
-				if (Math.abs(nextX - x) < epsilon) {
+				if (abs(nextX - x) < epsilon) {
 					roots.push(nextX);
 					break;
 				}
@@ -466,7 +467,7 @@ export class polynomial {
 				let sum = 0;
 
 				for (let k = 0; k < xValues.length; k++) {
-					sum += Math.pow(xValues[k], i + j);
+					sum += xValues[k] ** (i + j);
 				}
 
 				row.push(sum);
@@ -479,7 +480,7 @@ export class polynomial {
 			let sum = 0;
 
 			for (let j = 0; j < xValues.length; j++) {
-				sum += Math.pow(xValues[j], i) * yValues[j];
+				sum += xValues[j] ** i * yValues[j];
 			}
 
 			coefficients.push(sum);
