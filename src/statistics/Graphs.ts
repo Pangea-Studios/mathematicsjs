@@ -1,4 +1,5 @@
 import { Color } from '../util';
+import { NumberRange } from '../util';
 export class PieChart {
 	public Sections: { [key: string]: { percent: number; color: Color } };
 	constructor(Sections: {
@@ -98,8 +99,93 @@ export class LineGraph {
 }
 
 export class FrequencyGraph {
-	public Values: { value: number; frequency: number; class: Range }[];
-	constructor(values: { value: number; frequency: number; class: Range }[]) {
+	public Values: { value: number; frequency: number; class: NumberRange }[];
+
+	constructor(
+		values: { value: number; frequency: number; class: NumberRange }[],
+	) {
 		this.Values = values;
+	}
+
+	/**
+	 * Calculates the total frequency by summing up the frequency of each data in the Values array.
+	 *
+	 * @return {number} The total frequency.
+	 */
+	getTotalFrequency(): number {
+		let total = 0;
+		for (const data of this.Values) {
+			total += data.frequency;
+		}
+		return total;
+	}
+
+	/**
+	 * Calculates the mean value of the data stored in the Values array.
+	 *
+	 * @return {number} The mean value.
+	 */
+	getMean(): number {
+		let sum = 0;
+		let totalFrequency = 0;
+
+		for (const data of this.Values) {
+			sum += data.value * data.frequency;
+			totalFrequency += data.frequency;
+		}
+
+		return sum / totalFrequency;
+	}
+
+	/**
+	 * Returns the mode of the values in the array.
+	 *
+	 * @return {number | null} The mode of the values. If there is no mode, null is returned.
+	 */
+	getMode(): number | null {
+		let maxFrequency = 0;
+		let mode: number | null = null;
+
+		for (const data of this.Values) {
+			if (data.frequency > maxFrequency) {
+				maxFrequency = data.frequency;
+				mode = data.value;
+			}
+		}
+
+		return mode;
+	}
+
+	/**
+	 * Returns the median value from the array of values.
+	 *
+	 * @return {number} The median value.
+	 */
+	getMedian(): number {
+		const sortedValues = this.Values.slice().sort(
+			(a, b) => a.value - b.value,
+		);
+		const totalFrequency = this.getTotalFrequency();
+		let count = 0;
+
+		for (const data of sortedValues) {
+			count += data.frequency;
+			if (count > totalFrequency / 2) {
+				return data.value;
+			}
+		}
+
+		// If the total frequency is even and exactly in the middle, return the average of the two middle values
+		if (totalFrequency % 2 === 0) {
+			const firstMiddleIndex =
+				count - sortedValues[sortedValues.length - 1].frequency;
+			const secondMiddleIndex = count;
+			const firstMiddleValue = sortedValues[firstMiddleIndex];
+			const secondMiddleValue = sortedValues[secondMiddleIndex];
+			return (firstMiddleValue.value + secondMiddleValue.value) / 2;
+		}
+
+		// If the total frequency is odd and exactly in the middle, return the middle value
+		return sortedValues[count - 1].value;
 	}
 }

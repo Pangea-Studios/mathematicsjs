@@ -672,26 +672,34 @@ export class Equations {
 	}
 
 	private static parseArrayExpression(array: []) {
-		for (let i = 0; i < array.length; i++) {
-			const result = [];
-			if (this.isSingleLetter(array[i])) {
-				const a = { count: 1, variable: array[i], exponent: 1 };
-				if (!isNaN(array[i - 1])) {
-					a.count = array[i - 1];
+		const result = [];
+		array.forEach((item, index) => {
+			if (this.isSingleLetter(item)) {
+				const a = { count: 1, variable: item, exponent: 1 };
+				if (!isNaN(array[index - 1])) {
+					a.count = array[index - 1];
 				}
-				if (!isNaN(array[i + 2]) && array[i + 1] === '^') {
-					a.exponent = array[i + 2];
-					if (array[i + 2] === 0) {
+				if (!isNaN(array[index + 2]) && array[index + 1] === '^') {
+					a.exponent = array[index + 2];
+					if (array[index + 2] === 0) {
 						result.push(0);
 					}
 				}
 				result.push(a);
-			} else if (!isNaN(array[i])) {
-				result.push(array[i]);
+			} else if (!isNaN(item)) {
+				if (
+					array[index - 1] === '^' &&
+					this.isSingleLetter(array[index - 2])
+				) {
+					index++;
+				} else if (this.isSingleLetter(array[index + 1])) {
+					index++;
+				} else {
+					result.push(item);
+				}
 			}
-		}
+		});
 	}
-
 	private static simplifyArray(array: any): any {
 		while (array.length !== 1) {
 			for (let i = 0; i < array.length; i++) {
