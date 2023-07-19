@@ -697,10 +697,17 @@ export class Equations {
 				} else {
 					result.push(item);
 				}
+			} else if (
+				isNaN(item) &&
+				!this.isSingleLetter(item) &&
+				typeof item === 'string'
+			) {
+				result.push(item);
 			}
 		});
 	}
 	private static simplifyArray(array: any): any {
+		array = this.parseArrayExpression(array);
 		while (array.length !== 1) {
 			for (let i = 0; i < array.length; i++) {
 				switch (array[i]) {
