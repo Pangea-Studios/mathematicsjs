@@ -408,6 +408,12 @@ export class Equations {
 		return result;
 	}
 
+	/**
+	 * Checks if the given value is a single letter.
+	 *
+	 * @param {any} value - The value to check.
+	 * @return {boolean} Returns true if the value is a single letter, otherwise false.
+	 */
 	private static isSingleLetter(value: any): boolean {
 		if (typeof value === 'string' && value.length === 1) {
 			const code = value.charCodeAt(0);
@@ -673,18 +679,25 @@ export class Equations {
 
 	private static parseArrayExpression(array: []) {
 		const result = [];
-		array.forEach((item, index) => {
+		let index = 0;
+
+		while (index < array.length) {
+			const item = array[index];
+
 			if (this.isSingleLetter(item)) {
 				const a = { count: 1, variable: item, exponent: 1 };
+
 				if (!isNaN(array[index - 1])) {
 					a.count = array[index - 1];
 				}
+
 				if (!isNaN(array[index + 2]) && array[index + 1] === '^') {
 					a.exponent = array[index + 2];
 					if (array[index + 2] === 0) {
 						result.push(0);
 					}
 				}
+
 				result.push(a);
 			} else if (!isNaN(item)) {
 				if (
@@ -704,7 +717,9 @@ export class Equations {
 			) {
 				result.push(item);
 			}
-		});
+
+			index++;
+		}
 	}
 	private static simplifyArray(array: any): any {
 		array = this.parseArrayExpression(array);
@@ -885,6 +900,11 @@ export class Equations {
 							array[i - 1] ===
 								Number(array[i - 1]) ** Number(array[i + 1]);
 							array.splice(i, i + 1);
+						} else if (
+							!isNaN(array[i + 1]) &&
+							typeof array[i - 1] === 'object'
+						) {
+							array[i - 1].exponent *= Number(array[i + 1]);
 						}
 						break;
 					case '√':
@@ -898,6 +918,12 @@ export class Equations {
 								array[i] = Number(array[i + 1]) ** 0.5;
 								array.splice(i + 1);
 							}
+						} else if (
+							// eslint-disable-next-line no-dupe-else-if
+							!isNaN(array[i + 1]) &&
+							typeof array[i - 1] === 'object'
+						) {
+							array[i - 1].exponent /= Number(array[i + 1]);
 						}
 						break;
 				}
@@ -909,6 +935,26 @@ export class Equations {
 							array[i - 1] =
 								Number(array[i - 1]) * Number(array[i + 1]);
 							array.splice(i, i + 1);
+						} else if (
+							// eslint-disable-next-line no-dupe-else-if
+							!isNaN(array[i + 1]) &&
+							typeof array[i - 1] === 'object'
+						) {
+							array[i - 1].count *= Number(array[i + 1]);
+						} else if (
+							// eslint-disable-next-line no-dupe-else-if
+							!isNaN(array[i - 1]) &&
+							typeof array[i + 1] === 'object'
+						) {
+							array[i-1] = array[i + 1].count * Number(array[i - 1]);
+						} else if (
+							// eslint-disable-next-line no-dupe-else-if
+							typeof array[i + 1] === 'object' &&
+							typeof array[i - 1] === 'object' &&
+							array[i - 1].variable === array[i + 1].variable
+						) {
+							array[i + 1].count *= array[i - 1].count;
+							array[i + 1].exponent += array[i - 1].exponent;
 						}
 						break;
 					case '/':
@@ -916,6 +962,8 @@ export class Equations {
 							array[i - 1] =
 								Number(array[i - 1]) / Number(array[i + 1]);
 							array.splice(i, i + 1);
+						} else if (!isNaN(array[i+1]) && array[i-1]) {
+							array[i-1]
 						}
 						break;
 				}
