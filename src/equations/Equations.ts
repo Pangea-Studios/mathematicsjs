@@ -946,7 +946,8 @@ export class Equations {
 							!isNaN(array[i - 1]) &&
 							typeof array[i + 1] === 'object'
 						) {
-							array[i-1] = array[i + 1].count * Number(array[i - 1]);
+							array[i - 1] =
+								array[i + 1].count * Number(array[i - 1]);
 						} else if (
 							// eslint-disable-next-line no-dupe-else-if
 							typeof array[i + 1] === 'object' &&
@@ -962,8 +963,8 @@ export class Equations {
 							array[i - 1] =
 								Number(array[i - 1]) / Number(array[i + 1]);
 							array.splice(i, i + 1);
-						} else if (!isNaN(array[i+1]) && array[i-1]) {
-							array[i-1]
+						} else if (!isNaN(array[i + 1]) && array[i - 1]) {
+							array[i - 1];
 						}
 						break;
 				}
