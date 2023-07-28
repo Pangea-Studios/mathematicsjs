@@ -905,6 +905,7 @@ export class Equations {
 							typeof array[i - 1] === 'object'
 						) {
 							array[i - 1].exponent *= Number(array[i + 1]);
+							array.splice(i, 2)
 						}
 						break;
 					case '√':
@@ -924,6 +925,7 @@ export class Equations {
 							typeof array[i - 1] === 'object'
 						) {
 							array[i - 1].exponent /= Number(array[i + 1]);
+							//TODO - add splice
 						}
 						break;
 				}
