@@ -971,6 +971,7 @@ export class Equations {
 						typeof array[i - 1] === 'object'
 					) {
 						array[i - 1].count *= Number(array[i + 1]);
+						array.splice(i, 2);
 					} else if (
 						// eslint-disable-next-line no-dupe-else-if
 						!isNaN(array[i - 1]) &&
