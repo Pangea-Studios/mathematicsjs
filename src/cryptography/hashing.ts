@@ -1,72 +1,69 @@
+class Long {
+	readonly hi: number;
+	readonly lo: number;
+
+	constructor(hi: number, lo: number) {
+		this.hi = hi >>> 0;
+		this.lo = lo >>> 0;
+	}
+
+	static fromString(string: string) {
+		const hi = parseInt(string.slice(0, -8), 16);
+		const lo = parseInt(string.slice(-8), 16);
+
+		return new Long(hi, lo);
+	}
+
+	toString() {
+		const hi = ('00000000' + this.hi.toString(16)).slice(-8);
+		const lo = ('00000000' + this.lo.toString(16)).slice(-8);
+
+		return hi + lo;
+	}
+
+	add(that: Long) {
+		const lo = this.lo + that.lo;
+		const hi = this.hi + that.hi + (lo > 0x100000000 ? 1 : 0);
+
+		return new Long(hi >>> 0, lo >>> 0);
+	}
+
+	and(that: Long) {
+		return new Long(this.hi & that.hi, this.lo & that.lo);
+	}
+
+	xor(that: Long) {
+		return new Long(this.hi ^ that.hi, this.lo ^ that.lo);
+	}
+
+	not() {
+		return new Long(~this.hi, ~this.lo);
+	}
+
+	shr(n: number) {
+		if (n == 0) return this;
+		if (n == 32) return new Long(0, this.hi);
+		if (n > 32) return new Long(0, this.hi >>> (n - 32));
+		return new Long(this.hi >>> n, (this.lo >>> n) | (this.hi << (32 - n)));
+	}
+}
+
 export class Hashing {
-	private static Long = class {
-		readonly hi: number;
-		readonly lo: number;
-
-		constructor(hi: number, lo: number) {
-			this.hi = hi >>> 0;
-			this.lo = lo >>> 0;
-		}
-
-		static fromString(string: string) {
-			const hi = parseInt(string.slice(0, -8), 16);
-			const lo = parseInt(string.slice(-8), 16);
-
-			return new Hashing.Long(hi, lo);
-		}
-
-		toString() {
-			const hi = ('00000000' + this.hi.toString(16)).slice(-8);
-			const lo = ('00000000' + this.lo.toString(16)).slice(-8);
-
-			return hi + lo;
-		}
-
-		add(that) {
-			const lo = this.lo + that.lo;
-			const hi = this.hi + that.hi + (lo > 0x100000000 ? 1 : 0);
-
-			return new Hashing.Long(hi >>> 0, lo >>> 0);
-		}
-
-		and(that) {
-			return new Hashing.Long(this.hi & that.hi, this.lo & that.lo);
-		}
-
-		xor(that) {
-			return new Hashing.Long(this.hi ^ that.hi, this.lo ^ that.lo);
-		}
-
-		not() {
-			return new Hashing.Long(~this.hi, ~this.lo);
-		}
-
-		shr(n) {
-			if (n == 0) return this;
-			if (n == 32) return new Hashing.Long(0, this.hi);
-			if (n > 32) return new Hashing.Long(0, this.hi >>> (n - 32));
-			return new Hashing.Long(
-				this.hi >>> n,
-				(this.lo >>> n) | (this.hi << (32 - n)),
-			);
-		}
-	};
-
 	/**
 	 * Calculates the SHA256 hash of the input.
 	 *
 	 * @param {string | number[]} input - The input to be hashed.
 	 * @param {object} options - The options for the hashing algorithm.
 	 * @param {string} options.inputFormat - The format of the input ('string' or 'hex-bytes').
-	 * @param {string} options.outFormat - The format of the output ('hex' or 'hex-w').
+	 * @param {string} options.outputFormat - The format of the output ('hex' or 'hex-w').
 	 * @return {string} The SHA256 hash of the input.
 	 */
 	static SHA256(
-		input,
-		options = {
-			inputFormat: 'string' || 'hex-bytes',
-			outFormat: 'hex' || 'hex-w',
-		},
+		input: string,
+		options: {
+			inputFormat: 'string' | 'hex-bytes';
+			outputFormat: 'hex' | 'hex-w';
+		} = { inputFormat: 'string', outputFormat: 'hex' },
 	) {
 		switch (options.inputFormat) {
 			default:
@@ -167,15 +164,16 @@ export class Hashing {
 		}
 
 		for (let h = 0; h < H.length; h++)
-			H[h] = Number(('00000000' + H[h].toString(16)).slice(-8));
+			// @ts-ignore
+			H[h] = ('00000000' + H[h].toString(16)).slice(-8);
 
-		const separator = options.outFormat == 'hex-w' ? ' ' : '';
+		const separator = options.outputFormat == 'hex-w' ? ' ' : '';
 
 		return H.join(separator);
 
 		/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 
-		function utf8Encode(str) {
+		function utf8Encode(str: string) {
 			try {
 				return new TextEncoder()
 					.encode(str)
@@ -206,15 +204,15 @@ export class Hashing {
 	 * @param {any} input - The input to be hashed.
 	 * @param {Object} options - Optional configuration options.
 	 * @param {string} options.inputFormat - The format of the input. Valid values are 'string' or 'hex-bytes'.
-	 * @param {string} options.outFormat - The format of the output hash. Valid values are 'hex' or 'hex-w'.
+	 * @param {string} options.outputFormat - The format of the output hash. Valid values are 'hex' or 'hex-w'.
 	 * @return {string} The SHA1 hash of the input.
 	 */
 	static SHA1(
-		input,
-		options = {
-			inputFormat: 'string' || 'hex-bytes',
-			outFormat: 'hex' || 'hex-w',
-		},
+		input: string,
+		options: {
+			inputFormat: 'string' | 'hex-bytes';
+			outputFormat: 'hex' | 'hex-w';
+		} = { inputFormat: 'string', outputFormat: 'hex' },
 	) {
 		switch (options.inputFormat) {
 			default:
@@ -290,13 +288,14 @@ export class Hashing {
 			H[4] = (H[4] + e) >>> 0;
 		}
 		for (let h = 0; h < H.length; h++)
-			H[h] = Number(('00000000' + H[h].toString(16)).slice(-8));
+			// @ts-ignore
+			H[h] = ('00000000' + H[h].toString(16)).slice(-8);
 
-		const separator = options.outFormat == 'hex-w' ? ' ' : '';
+		const separator = options.outputFormat == 'hex-w' ? ' ' : '';
 
 		return H.join(separator);
 
-		function utf8Encode(str) {
+		function utf8Encode(str: string) {
 			try {
 				return new TextEncoder()
 					.encode(str)
@@ -321,11 +320,11 @@ export class Hashing {
 	}
 
 	static SHA512(
-		input,
-		options = {
-			inputFormat: 'string' || 'hex-bytes',
-			outFormat: 'hex' || 'hex-w',
-		},
+		input: string,
+		options: {
+			inputFormat: 'string' | 'hex-bytes';
+			outputFormat: 'hex' | 'hex-w';
+		} = { inputFormat: 'string', outputFormat: 'hex' },
 	) {
 		switch (options.inputFormat) {
 			default:
@@ -419,7 +418,7 @@ export class Hashing {
 			'597f299cfc657e2a',
 			'5fcb6fab3ad6faec',
 			'6c44198c4a475817',
-		].map((k) => Hashing.Long.fromString(k));
+		].map((k) => Long.fromString(k));
 
 		const H = [
 			'6a09e667f3bcc908',
@@ -430,7 +429,7 @@ export class Hashing {
 			'9b05688c2b3e6c1f',
 			'1f83d9abfb41bd6b',
 			'5be0cd19137e2179',
-		].map((h) => Hashing.Long.fromString(h));
+		].map((h) => Long.fromString(h));
 
 		input += String.fromCharCode(0x80);
 
@@ -451,15 +450,15 @@ export class Hashing {
 					(input.charCodeAt(i * 128 + j * 8 + 5) << 16) |
 					(input.charCodeAt(i * 128 + j * 8 + 6) << 8) |
 					(input.charCodeAt(i * 128 + j * 8 + 7) << 0);
-				M[i][j] = new Hashing.Long(lo, hi);
+				M[i][j] = new Long(lo, hi);
 			}
 		}
 
-		M[N - 1][14] = new Hashing.Long(0, 0);
+		M[N - 1][14] = new Long(0, 0);
 
 		const lenHi = ((input.length - 1) * 8) / Math.pow(2, 32);
 		const lenLo = ((input.length - 1) * 8) >>> 0;
-		M[N - 1][15] = new Hashing.Long(Math.floor(lenHi), lenLo);
+		M[N - 1][15] = new Long(Math.floor(lenHi), lenLo);
 
 		for (let i = 0; i < N; i++) {
 			const W = new Array(80);
@@ -468,9 +467,9 @@ export class Hashing {
 				W[t] = M[i][t];
 			}
 			for (let t = 16; t < 80; t++) {
-				W[t] = Hashing.σ1(W[t - 2])
+				W[t] = Hashing.Longσ1(W[t - 2])
 					.add(W[t - 7])
-					.add(Hashing.σ0(W[t - 15]))
+					.add(Hashing.Longσ0(W[t - 15]))
 					.add(W[t - 16]);
 			}
 
@@ -485,11 +484,11 @@ export class Hashing {
 
 			for (let t = 0; t < 80; t++) {
 				const T1 = h
-					.add(Hashing.Σ1(e))
-					.add(Hashing.Choice(e, f, g))
+					.add(Hashing.LongΣ1(e))
+					.add(Hashing.LongChoice(e, f, g))
 					.add(K[t])
 					.add(W[t]);
-				const T2 = Hashing.Σ0(a).add(Hashing.Majority(a, b, c));
+				const T2 = Hashing.LongΣ0(a).add(Hashing.LongMajority(a, b, c));
 				h = g;
 				g = f;
 				f = e;
@@ -511,16 +510,17 @@ export class Hashing {
 		}
 
 		for (let h = 0; h < H.length; h++) {
+			// @ts-ignore
 			H[h] = H[h].toString();
 		}
 
-		const separator = options.outFormat == 'hex-w' ? ' ' : '';
+		const separator = options.outputFormat == 'hex-w' ? ' ' : '';
 
 		return H.join(separator);
 
 		/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 
-		function utf8Encode(str) {
+		function utf8Encode(str: string) {
 			try {
 				return new TextEncoder()
 					.encode(str)
@@ -547,44 +547,88 @@ export class Hashing {
 	static f(s, x, y, z) {
 		switch (s) {
 			case 0:
-				return (x & y) ^ (~x & z); // Ch()
+				return (x & y) ^ (~x & z);
 			case 1:
-				return x ^ y ^ z; // Parity()
+				return x ^ y ^ z;
 			case 2:
-				return (x & y) ^ (x & z) ^ (y & z); // Maj()
+				return (x & y) ^ (x & z) ^ (y & z);
 			case 3:
-				return x ^ y ^ z; // Parity()
+				return x ^ y ^ z;
 		}
 	}
 
-	static ROTR(n, x) {
+	static ROTR(n: number, x: number): number {
 		return (x >>> n) | (x << (32 - n));
 	}
 
-	static ROTL(x, n) {
+	static ROTL(x: number, n: number) {
 		return (x << n) | (x >>> (32 - n));
 	}
 
-	static Σ0(x) {
+	static Σ0(x: number): number {
 		return Hashing.ROTR(2, x) ^ Hashing.ROTR(13, x) ^ Hashing.ROTR(22, x);
 	}
-	static Σ1(x) {
+	static Σ1(x: number): number {
 		return Hashing.ROTR(6, x) ^ Hashing.ROTR(11, x) ^ Hashing.ROTR(25, x);
 	}
 
-	static σ0(x) {
+	static σ0(x: number): number {
 		return Hashing.ROTR(7, x) ^ Hashing.ROTR(18, x) ^ (x >>> 3);
 	}
 
-	static σ1(x) {
+	static σ1(x: number): number {
 		return Hashing.ROTR(17, x) ^ Hashing.ROTR(19, x) ^ (x >>> 10);
 	}
 
-	static Choice(x, y, z) {
+	static Choice(x: number, y: number, z: number): number {
 		return (x & y) ^ (~x & z);
 	}
 
-	static Majority(x, y, z) {
+	static Majority(x: number, y: number, z: number): number {
 		return (x & y) ^ (x & z) ^ (y & z);
+	}
+
+	static LongROTR(x: Long, n: number): Long {
+		// emulates (x >>> n) | (x << (64-n)
+		if (n == 0) return x;
+		if (n == 32) return new Long(x.lo, x.hi);
+
+		let hi = x.hi,
+			lo = x.lo;
+
+		if (n > 32) {
+			[lo, hi] = [hi, lo]; // swap hi/lo
+			n -= 32;
+		}
+
+		const hi1 = (hi >>> n) | (lo << (32 - n));
+		const lo1 = (lo >>> n) | (hi << (32 - n));
+
+		return new Long(hi1, lo1);
+	}
+
+	static LongΣ0(x: Long) {
+		return Hashing.LongROTR(x, 28)
+			.xor(Hashing.LongROTR(x, 34))
+			.xor(Hashing.LongROTR(x, 39));
+	}
+	static LongΣ1(x: Long) {
+		return Hashing.LongROTR(x, 14)
+			.xor(Hashing.LongROTR(x, 18))
+			.xor(Hashing.LongROTR(x, 41));
+	}
+	static Longσ0(x: Long) {
+		return Hashing.LongROTR(x, 1).xor(Hashing.LongROTR(x, 8)).xor(x.shr(7));
+	}
+	static Longσ1(x: Long) {
+		return Hashing.LongROTR(x, 19)
+			.xor(Hashing.LongROTR(x, 61))
+			.xor(x.shr(6));
+	}
+	static LongChoice(x: Long, y: Long, z: Long) {
+		return x.and(y).xor(x.not().and(z));
+	}
+	static LongMajority(x: Long, y: Long, z: Long) {
+		return x.and(y).xor(x.and(z)).xor(y.and(z));
 	}
 }

@@ -1,5 +1,5 @@
-import { arrayReplace } from '../dist/index.js';
+import { hashing } from '../dist/index.js';
 
-test('Array Replace', () => {
-	expect(arrayReplace([1, 2, 3], [1] , 0, 1)).toStrictEqual([1, 3]);
+test('SHA512', () => {
+	console.log(hashing.SHA512('123'));
 });
