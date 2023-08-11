@@ -108,7 +108,6 @@ export class SignalProcessing {
 	 * @returns {Complex[]} The Fourier series coefficients.
 	 */
 	calculateFourierSeries(signal: number[]): Complex[] {
-		const n = signal.length;
 		const complexSignal = signal.map((value) => new Complex(value, 0));
 		return this.fastFourierTransform(complexSignal);
 	}

@@ -157,7 +157,7 @@ export class NumberRange {
  * @param {any} target - The target value to count occurrences of.
  * @return {number} The number of occurrences of the target value.
  */
-export function find(array: Array<any> | string, target: any) {
+export function findCount(array: Array<any> | string, target: any) {
 	let count = 0;
 	if (Array.isArray(array)) {
 		for (let i = 0; i < array.length; i++) {
@@ -176,6 +176,25 @@ export function find(array: Array<any> | string, target: any) {
 	return count;
 }
 
+export function findWhere(array: Array<any> | string, target: any) {
+	const indices = [];
+	if (Array.isArray(array)) {
+		for (let i = 0; i < array.length; i++) {
+			if (array[i] === target) {
+				indices.push(i);
+			}
+		}
+	} else if (typeof array === 'string') {
+		array = array.split('');
+		for (let i = 0; i < array.length; i++) {
+			if (array[i] === target) {
+				indices.push(i);
+			}
+		}
+	}
+	return indices;
+}
+
 /**
  * Checks if the given object exists in all of the arrays.
  *
@@ -185,7 +204,7 @@ export function find(array: Array<any> | string, target: any) {
  */
 export function isInAllArrays(object: any, arrays: any[][]): boolean {
 	for (const array of arrays) {
-		if (find(array, object) === 0) {
+		if (findCount(array, object) === 0) {
 			return false;
 		}
 	}
@@ -214,7 +233,8 @@ export function arrayReplace(
  * Rounds a number down to the specified number of decimal places.
  *
  * @param {number} number - The number to round down.
- * @param {number} decimalPlaces - The number of decimal places to round down to. Default is 0.
+ * @param {number} decimalPlaces - The number of decimal places to round down to.
+ * Default is 1. Set to 0 remove decimal places.
  * @return {number} The rounded number.
  */
 export function floorDP(number: number, decimalPlaces = 0) {
@@ -236,10 +256,45 @@ export function floorSF(number: number, significantFigures = 3) {
 	return Number(String(number).slice(0, significantFigures));
 }
 
-export function cielDP(number: number, decimalPlaces = 0) {}
+export function cielDP(number: number, decimalPlaces = 0) {
+	// TODO
+}
 
-export function cielSF(number: number, significantFigures = 3) {}
+export function cielSF(number: number, significantFigures = 3) {
+	// TODO
+}
 
-export function roundDP(number: number, decimalPlaces = 0) {}
+export function roundDP(number: number, decimalPlaces = 0) {
+	// TODO
+}
 
-export function roundSF(number: number, significantFigures = 3) {}
+export function roundSF(number: number, significantFigures = 3) {
+	// TODO
+}
+
+export function round(number: number) {}
+
+export function roundUP(number: number) {}
+
+export function roundDown(number: number) {}
+
+/**
+ * Splits an array into subarrays based on a target value.
+ *
+ * @param {any[]} array - The array to be split.
+ * @param {any} target - The value used to split the array.
+ * @return {any[][]} An array of subarrays.
+ */
+export function splitArray(array: any[], target: any) {
+	const result = [];
+	let lastSplit = 0;
+
+	for (let i = 0; i < array.length; i++) {
+		if (array[i] === target) {
+			result.push(array.slice(lastSplit, i));
+			lastSplit = i + 1;
+		}
+	}
+
+	return result;
+}
