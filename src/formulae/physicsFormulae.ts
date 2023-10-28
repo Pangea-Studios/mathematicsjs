@@ -1,1 +1,1 @@
-export class physicsFormulae {}
+export class PhysicsFormulae {}

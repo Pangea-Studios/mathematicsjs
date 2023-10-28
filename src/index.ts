@@ -18,4 +18,4 @@ export * from './statistics/Graphs';
 export * from './tensors/Vectors';
 export * from './bezier/Bezier';
 export * from './tensors/CustomTensors';
-export * from './cryptography/hashing';
+export * from './cryptography/Hashing';

@@ -3,10 +3,10 @@ import { StatisticalOperations as SO } from '../statistics/StatisticalOperations
 import { Absolute as abs } from '../core/operations';
 /**
  *
- * Class to create and manipulate Polynomials up to 4th degree
+ * Class to create and manipulate Polynomials
  */
 
-export class polynomial {
+export class Polynomial {
 	readonly coefficients: number[];
 	readonly degree: number;
 	readonly string: string;
@@ -57,7 +57,7 @@ export class polynomial {
 	 * @param {polynomial} addend - The polynomial to be added.
 	 * @return {polynomial} The resulting polynomial after addition.
 	 */
-	addPolynomial(addend: polynomial): polynomial {
+	addPolynomial(addend: Polynomial): Polynomial {
 		const maxLength = SO.max([
 			this.coefficients.length,
 			addend.coefficients.length,
@@ -68,16 +68,16 @@ export class polynomial {
 			const addendCoefficient = addend.coefficients[i] || 0;
 			resultCoefficients[i] = thisCoefficient + addendCoefficient;
 		}
-		return new polynomial(resultCoefficients);
+		return new Polynomial(resultCoefficients);
 	}
 
 	/**
-	 * Subtracts a polynomial from another polynomial and returns the result.
+	 * Subtracts a Polynomial from another Polynomial and returns the result.
 	 *
-	 * @param {polynomial} subtrahend - The polynomial to subtract from this polynomial.
-	 * @return {polynomial} The resulting polynomial after subtraction.
+	 * @param {Polynomial} subtrahend - The Polynomial to subtract from this Polynomial.
+	 * @return {Polynomial} The resulting Polynomial after subtraction.
 	 */
-	subtractPolynomial(subtrahend: polynomial): polynomial {
+	subtractPolynomial(subtrahend: Polynomial): Polynomial {
 		const maxLength = SO.max([
 			this.coefficients.length,
 			subtrahend.coefficients.length,
@@ -88,16 +88,16 @@ export class polynomial {
 			const subtrahendCoefficient = subtrahend.coefficients[i] || 0;
 			resultCoefficients[i] = thisCoefficient - subtrahendCoefficient;
 		}
-		return new polynomial(resultCoefficients);
+		return new Polynomial(resultCoefficients);
 	}
 
 	/**
-	 * Multiplies two polynomials.
+	 * Multiplies two Polynomials.
 	 *
-	 * @param {polynomial} multiplier - The polynomial to multiply with.
-	 * @return {polynomial} The product of the two polynomials.
+	 * @param {Polynomial} multiplier - The Polynomial to multiply with.
+	 * @return {Polynomial} The product of the two Polynomials.
 	 */
-	multiplyPolynomial(multiplier: polynomial): polynomial {
+	multiplyPolynomial(multiplier: Polynomial): Polynomial {
 		const resultDegree = this.degree + multiplier.degree;
 		const resultCoefficients = new Array(resultDegree + 1).fill(0);
 		for (let i = 0; i <= this.degree; i++) {
@@ -106,21 +106,21 @@ export class polynomial {
 					this.coefficients[i] * multiplier.coefficients[j];
 			}
 		}
-		return new polynomial(resultCoefficients);
+		return new Polynomial(resultCoefficients);
 	}
 
 	/**
-	 * Divides the polynomial by the given divisor polynomial.
+	 * Divides the Polynomial by the given divisor Polynomial.
 	 *
-	 * @param {polynomial} divisor - The polynomial to divide by.
-	 * @return {polynomial} The quotient of the division.
+	 * @param {Polynomial} divisor - The Polynomial to divide by.
+	 * @return {Polynomial} The quotient of the division.
 	 */
-	dividePolynomial(divisor: polynomial): polynomial {
+	dividePolynomial(divisor: Polynomial): Polynomial {
 		if (divisor.isZero()) {
-			throw new Error('Division by zero polynomial');
+			throw new Error('Division by zero Polynomial');
 		}
 
-		let remainder: polynomial;
+		let remainder: Polynomial;
 		const quotientDegree = this.degree - divisor.degree;
 		const quotientCoefficients = new Array(quotientDegree + 1).fill(0);
 
@@ -137,29 +137,29 @@ export class polynomial {
 			remainder = this.subtractPolynomial(term);
 		}
 
-		return new polynomial(quotientCoefficients);
+		return new Polynomial(quotientCoefficients);
 	}
 
 	/**
-	 * Multiplies the polynomial by a given number.
+	 * Multiplies the Polynomial by a given number.
 	 *
-	 * @param {number} number - The number to multiply the polynomial by.
-	 * @return {polynomial} - The resulting polynomial after multiplication.
+	 * @param {number} number - The number to multiply the Polynomial by.
+	 * @return {Polynomial} - The resulting Polynomial after multiplication.
 	 */
-	multiplyByNumber(number: number): polynomial {
+	multiplyByNumber(number: number): Polynomial {
 		const resultCoefficients = this.coefficients.map(
 			(coefficient) => coefficient * number,
 		);
-		return new polynomial(resultCoefficients);
+		return new Polynomial(resultCoefficients);
 	}
 
 	/**
-	 * Divides the polynomial by a given number.
+	 * Divides the Polynomial by a given number.
 	 *
-	 * @param {number} number - The number to divide the polynomial by.
-	 * @return {polynomial} The resulting polynomial after division.
+	 * @param {number} number - The number to divide the Polynomial by.
+	 * @return {Polynomial} The resulting Polynomial after division.
 	 */
-	divideByNumber(number: number): polynomial {
+	divideByNumber(number: number): Polynomial {
 		if (number === 0) {
 			throw new Error('Division by zero');
 		}
@@ -167,7 +167,7 @@ export class polynomial {
 		const resultCoefficients = this.coefficients.map(
 			(coefficient) => coefficient / number,
 		);
-		return new polynomial(resultCoefficients);
+		return new Polynomial(resultCoefficients);
 	}
 
 	/**
@@ -180,10 +180,10 @@ export class polynomial {
 	}
 
 	/**
-	 * Calculates the polynomial differences of a given sequence.
+	 * Calculates the Polynomial differences of a given sequence.
 	 *
 	 * @param {number[]} sequence - The sequence to calculate the differences for.
-	 * @return {number[][]} An array of arrays representing the polynomial differences.
+	 * @return {number[][]} An array of arrays representing the Polynomial differences.
 	 */
 	static calculatePolynomialDifferences(sequence: number[]): number[][] {
 		function calculateDifferences(sequence: number[]): number[] {
@@ -195,24 +195,24 @@ export class polynomial {
 
 			return differences;
 		}
-		const polynomialDifferences: number[][] = [];
+		const PolynomialDifferences: number[][] = [];
 
-		polynomialDifferences.push(sequence);
+		PolynomialDifferences.push(sequence);
 		let differences = calculateDifferences(
-			polynomialDifferences[polynomialDifferences.length - 1],
+			PolynomialDifferences[PolynomialDifferences.length - 1],
 		);
 		while (differences.length !== 0) {
 			differences = calculateDifferences(
-				polynomialDifferences[polynomialDifferences.length - 1],
+				PolynomialDifferences[PolynomialDifferences.length - 1],
 			);
 
 			if (differences.length === 0) {
 				break;
 			}
-			polynomialDifferences.push(differences);
+			PolynomialDifferences.push(differences);
 		}
 
-		return polynomialDifferences;
+		return PolynomialDifferences;
 	}
 
 	/**
@@ -231,12 +231,12 @@ export class polynomial {
 	}
 
 	/**
-	 * Calculates a polynomial based on a given sequence.
+	 * Calculates a Polynomial based on a given sequence.
 	 *
 	 * @param {number[]} sequence - The input sequence of numbers.
-	 * @return {polynomial} The calculated polynomial.
+	 * @return {Polynomial} The calculated Polynomial.
 	 */
-	static sequenceToPolynomial(sequence: number[]): polynomial {
+	static sequenceToPolynomial(sequence: number[]): Polynomial {
 		let a: [number, number][];
 		for (let i = 0; i < sequence.length; i++) {
 			a.push([i, sequence[i]]);
@@ -245,20 +245,20 @@ export class polynomial {
 	}
 
 	/**
-	 * Returns a factorized string representation of a polynomial.
+	 * Returns a factorized string representation of a Polynomial.
 	 *
-	 * @return {string} The factorized string representation of the polynomial.
+	 * @return {string} The factorized string representation of the Polynomial.
 	 */
 	factorizePolynomial(): string {
 		const factors: string[] = [];
-		let polynomialString = '';
+		let PolynomialString = '';
 
 		for (let i = this.degree; i >= 0; i--) {
 			const coefficient = this.coefficients[i];
 			if (coefficient !== 0) {
 				const term = `${abs(coefficient)}x^${i}`;
 				factors.push(term);
-				polynomialString +=
+				PolynomialString +=
 					coefficient < 0 ? ` - ${term}` : ` + ${term}`;
 			}
 		}
@@ -279,15 +279,15 @@ export class polynomial {
 		return factorizedString;
 	}
 	/**
-	 * Reverts factorization of a given factorized string and returns a polynomial.
+	 * Reverts factorization of a given factorized string and returns a Polynomial.
 	 *
 	 * @param {string} factorizedString - The factorized string to be reverted.
-	 * @return {polynomial} - The resulting polynomial after reverting the factorization.
+	 * @return {Polynomial} - The resulting Polynomial after reverting the factorization.
 	 */
-	static revertFactorization(factorizedString: string): polynomial {
+	static revertFactorization(factorizedString: string): Polynomial {
 		const factors = factorizedString;
 		const factorRegex = /\(([^)]+)\)/g;
-		const polynomialCoefficients: number[] = [];
+		const PolynomialCoefficients: number[] = [];
 
 		let match;
 		while ((match = factorRegex.exec(factors)) !== null) {
@@ -298,24 +298,24 @@ export class polynomial {
 				const coefficient = parseFloat(factorParts[0]);
 				const power = parseInt(factorParts[1].substring(1));
 				if (!isNaN(coefficient) && !isNaN(power)) {
-					polynomialCoefficients[power] = coefficient;
+					PolynomialCoefficients[power] = coefficient;
 				}
 			}
 		}
 
-		return new polynomial(polynomialCoefficients.reverse());
+		return new Polynomial(PolynomialCoefficients.reverse());
 	}
 
 	/**
-	 * Returns the roots of a polynomial.
+	 * Returns the roots of a Polynomial.
 	 *
-	 * @return {(number | string)[]} - An array containing the roots of the polynomial.
+	 * @return {(number | string)[]} - An array containing the roots of the Polynomial.
 	 */
 	roots(): (number | string)[] {
 		const roots: (number | string)[] = [];
 
 		if (this.degree === 0) {
-			return roots; // No roots for constant polynomial
+			return roots; // No roots for constant Polynomial
 		}
 
 		const coefficients = this.coefficients.slice().reverse(); // Reverse coefficients
@@ -342,7 +342,7 @@ export class polynomial {
 				);
 			}
 		} else {
-			// Use numerical methods for finding roots of higher-degree polynomials
+			// Use numerical methods for finding roots of higher-degree Polynomials
 			const epsilon = 1e-10; // Error tolerance for convergence
 			const maxIterations = 100; // Maximum number of iterations
 
@@ -368,26 +368,26 @@ export class polynomial {
 	}
 
 	/**
-	 * Calculate the derivative of the polynomial.
+	 * Calculate the derivative of the Polynomial.
 	 *
-	 * @return {polynomial} The derivative of the polynomial.
+	 * @return {Polynomial} The derivative of the Polynomial.
 	 */
-	derivative(): polynomial {
+	derivative(): Polynomial {
 		const derivativeCoefficients: number[] = [];
 
 		for (let i = 1; i < this.coefficients.length; i++) {
 			derivativeCoefficients.push(this.coefficients[i] * i);
 		}
 
-		return new polynomial(derivativeCoefficients);
+		return new Polynomial(derivativeCoefficients);
 	}
 
 	/**
-	 * Calculates the integral of the polynomial.
+	 * Calculates the integral of the Polynomial.
 	 *
-	 * @return {polynomial} The polynomial representing the integral.
+	 * @return {Polynomial} The Polynomial representing the integral.
 	 */
-	integral(): polynomial {
+	integral(): Polynomial {
 		const integralCoefficients: number[] = [];
 
 		for (let i = 0; i < this.coefficients.length; i++) {
@@ -396,7 +396,7 @@ export class polynomial {
 
 		integralCoefficients.push(0);
 
-		return new polynomial(integralCoefficients);
+		return new Polynomial(integralCoefficients);
 	}
 
 	/**
@@ -405,7 +405,7 @@ export class polynomial {
 	 * @param {Array<[number, number]>} points - An array of points, where each point is a tuple of x and y coordinates.
 	 * @return {polynomial} - The interpolated polynomial.
 	 */
-	static interpolatePolynomial(points: [number, number][]): polynomial {
+	static interpolatePolynomial(points: [number, number][]): Polynomial {
 		const n = points.length;
 		const xValues = points.map(([x, _]) => x);
 		const yValues = points.map(([_, y]) => y);
@@ -440,7 +440,7 @@ export class polynomial {
 			);
 		}
 
-		return new polynomial(coefficients);
+		return new Polynomial(coefficients);
 	}
 
 	/**
@@ -453,7 +453,7 @@ export class polynomial {
 	static polynomialRegression(
 		points: [number, number][],
 		degree: number,
-	): polynomial {
+	): Polynomial {
 		const xValues = points.map(([x, _]) => x);
 		const yValues = points.map(([_, y]) => y);
 
@@ -496,6 +496,6 @@ export class polynomial {
 			resultCoefficients.push(resultMatrix.values[0][i]);
 		}
 
-		return new polynomial(resultCoefficients.reverse());
+		return new Polynomial(resultCoefficients.reverse());
 	}
 }

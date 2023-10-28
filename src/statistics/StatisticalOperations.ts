@@ -1,5 +1,5 @@
 import { add } from '../core/operations';
-import { find, isInAllArrays } from '../util';
+import { findCount , isInAllArrays } from '../util';
 
 /**
  * Class to find averages of an array of numbers
@@ -89,7 +89,7 @@ export class StatisticalOperations {
 		let result: number[];
 		for (let i = 0; i < arrays.length; i++) {
 			for (let j = 0; j < arrays[i].length; j++) {
-				if (find(result, arrays[i][j]) === 0) {
+				if (findCount(result, arrays[i][j]) === 0) {
 					result.push(arrays[i][j]);
 				}
 			}
@@ -108,7 +108,7 @@ export class StatisticalOperations {
 		for (let i = 0; i < arrays.length; i++) {
 			for (let j = 0; j < arrays[i].length; j++) {
 				if (
-					find(result, arrays[i][j]) === 0 &&
+					findCount(result, arrays[i][j]) === 0 &&
 					isInAllArrays(arrays[i][j], arrays)
 				) {
 					result.push(arrays[i][j]);

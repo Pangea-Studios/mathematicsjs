@@ -48,6 +48,9 @@ class Long {
 	}
 }
 
+/**
+ * Class for irreversible ciphers
+ */
 export class Hashing {
 	/**
 	 * Calculates the SHA256 hash of the input.
@@ -164,7 +167,6 @@ export class Hashing {
 		}
 
 		for (let h = 0; h < H.length; h++)
-			// @ts-ignore
 			H[h] = ('00000000' + H[h].toString(16)).slice(-8);
 
 		const separator = options.outputFormat == 'hex-w' ? ' ' : '';
@@ -217,10 +219,10 @@ export class Hashing {
 		switch (options.inputFormat) {
 			default:
 			case 'string':
-				input = utf8Encode(input);
+				input = Hashing.utf8Encode(input);
 				break;
 			case 'hex-bytes':
-				input = hexBytesToString(input);
+				input = Hashing.hexBytesToString(input);
 				break;
 		}
 
@@ -288,37 +290,22 @@ export class Hashing {
 			H[4] = (H[4] + e) >>> 0;
 		}
 		for (let h = 0; h < H.length; h++)
-			// @ts-ignore
 			H[h] = ('00000000' + H[h].toString(16)).slice(-8);
 
 		const separator = options.outputFormat == 'hex-w' ? ' ' : '';
 
 		return H.join(separator);
-
-		function utf8Encode(str: string) {
-			try {
-				return new TextEncoder()
-					.encode(str)
-					.reduce(
-						(prev, curr) => prev + String.fromCharCode(curr),
-						'',
-					);
-			} catch (e) {
-				return decodeURIComponent(encodeURIComponent(str));
-			}
-		}
-
-		function hexBytesToString(hexStr) {
-			const str = hexStr.replace(' ', '');
-			return str == ''
-				? ''
-				: str
-						.match(/.{2}/g)
-						.map((byte) => String.fromCharCode(parseInt(byte, 16)))
-						.join('');
-		}
 	}
 
+	/**
+	 * Calculates the SHA512 hash of the given input string.
+	 *
+	 * @param {string} input - The input string to be hashed.
+	 * @param {object} options - The options for input and output format.
+	 * @param {string} options.inputFormat - The format of the input string. Can be 'string' or 'hex-bytes'.
+	 * @param {string} options.outputFormat - The format of the output hash. Can be 'hex' or 'hex-w'.
+	 * @returns {string} - The SHA512 hash of the input string in the specified output format.
+	 */
 	static SHA512(
 		input: string,
 		options: {
@@ -329,10 +316,10 @@ export class Hashing {
 		switch (options.inputFormat) {
 			default:
 			case 'string':
-				input = utf8Encode(input);
+				input = Hashing.utf8Encode(input);
 				break;
 			case 'hex-bytes':
-				input = hexBytesToString(input);
+				input = Hashing.hexBytesToString(input);
 				break;
 		}
 
@@ -510,17 +497,132 @@ export class Hashing {
 		}
 
 		for (let h = 0; h < H.length; h++) {
-			// @ts-ignore
 			H[h] = H[h].toString();
 		}
 
 		const separator = options.outputFormat == 'hex-w' ? ' ' : '';
 
 		return H.join(separator);
+	}
+
+	/**
+	 * Generates SHA-3 / Keccak hash of message M.
+	 *
+	 * @param   {number} r - Bitrate 'r' (b−c)
+	 * @param   {number} c - Capacity 'c' (b−r), md length × 2
+	 * @param   {string} M - Message
+	 * @param   {Object} options - padding: sha-3 / keccak; inputFormat: string / hex; outFormat: hex / hex-b / hex-w.
+	 * @returns {string} Hash as hex-encoded string.
+	 *
+	 */
+	static keccak1600(
+		bitrate: number,
+		capacity: number,
+		input: string,
+		options: {
+			padding: 'sha-3' | 'keccak';
+			inputFormat: 'string' | 'hex-bytes';
+			outFormat: 'hex' | 'hex-b' | 'hex-w';
+		} = { padding: 'sha-3', inputFormat: 'string', outFormat: 'hex' },
+	): string {
+		const l = capacity / 2; // message digest output length in bits
+
+		let string = null;
+		switch (options.inputFormat) {
+			default: // convert string to UTF-8 to ensure all characters fit within single byte
+			case 'string':
+				string = utf8Encode(input);
+				break;
+			case 'hex-bytes':
+				string = hexBytesToString(input);
+				break; // mostly for NIST test vectors
+		}
+
+		/**
+		 * Keccak state is a 5 × 5 x w array of bits (w=64 for keccak-f[1600] / SHA-3).
+		 *
+		 * Here, it is implemented as a 5 × 5 array of BigInt. The first subscript (x) defines the
+		 * sheet, the second (y) defines the plane, together they define a lane. Slices, columns,
+		 * and individual bits are obtained by bit operations on the BigInt representing the lane
+		 * (note BigInt is the JavaScript equivalent of Int64 / long).
+		 */
+		const state = [[], [], [], [], []];
+		for (let x = 0; x < 5; x++) {
+			for (let y = 0; y < 5; y++) {
+				state[x][y] = 0;
+			}
+		}
+
+		// append padding (for SHA-3 the domain is 01 hence M||0110*1) [FIPS §B.2]
+		const q = bitrate / 8 - (string.length % (bitrate / 8));
+		if (q == 1) {
+			string += String.fromCharCode(
+				options.padding == 'keccak' ? 0x81 : 0x86,
+			);
+		} else {
+			string += String.fromCharCode(
+				options.padding == 'keccak' ? 0x01 : 0x06,
+			);
+			string += String.fromCharCode(0x00).repeat(q - 2);
+			string += String.fromCharCode(0x80);
+		}
+
+		// absorbing phase: work through input message in blocks of r bits (r/64 longs, r/8 bytes)
+
+		const w = 64; // for keccak-f[1600]
+		const blocksize = (bitrate / w) * 8; // block size in bytes (≡ utf-8 characters)
+
+		for (let i = 0; i < string.length; i += blocksize) {
+			for (let j = 0; j < bitrate / w; j++) {
+				const i64 =
+					(BigInt(string.charCodeAt(i + j * 8 + 0)) << 0n) +
+					(BigInt(string.charCodeAt(i + j * 8 + 1)) << 8n) +
+					(BigInt(string.charCodeAt(i + j * 8 + 2)) << 16n) +
+					(BigInt(string.charCodeAt(i + j * 8 + 3)) << 24n) +
+					(BigInt(string.charCodeAt(i + j * 8 + 4)) << 32n) +
+					(BigInt(string.charCodeAt(i + j * 8 + 5)) << 40n) +
+					(BigInt(string.charCodeAt(i + j * 8 + 6)) << 48n) +
+					(BigInt(string.charCodeAt(i + j * 8 + 7)) << 56n);
+				const x = j % 5;
+				const y = Math.floor(j / 5);
+				state[x][y] = state[x][y] ^ i64;
+			}
+			Hashing.keccak_f_1600(state);
+		}
+
+		// squeezing phase: first l bits of state are message digest
+
+		// transpose state, concatenate (little-endian) hex values, & truncate to l bits
+		let md = transpose(state)
+			.map((plane) =>
+				plane
+					.map((lane) =>
+						lane
+							.toString(16)
+							.padStart(16, '0')
+							.match(/.{2}/g)
+							.reverse()
+							.join(''),
+					)
+					.join(''),
+			)
+			.join('')
+			.slice(0, l / 4);
+
+		// if required, group message digest into bytes or words
+		if (options.outFormat == 'hex-b') md = md.match(/.{2}/g).join(' ');
+		if (options.outFormat == 'hex-w') md = md.match(/.{8,16}/g).join(' ');
+
+		return md;
 
 		/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 
-		function utf8Encode(str: string) {
+		function transpose(array) {
+			// to iterate across y (columns) before x (rows)
+			return array.map((row, r) => array.map((col) => col[r]));
+		}
+
+		function utf8Encode(str) {
 			try {
 				return new TextEncoder()
 					.encode(str)
@@ -529,12 +631,14 @@ export class Hashing {
 						'',
 					);
 			} catch (e) {
-				return decodeURIComponent(encodeURIComponent(str));
+				// no TextEncoder available?
+				return unescape(encodeURIComponent(str)); // monsur.hossa.in/2012/07/20/utf-8-in-javascript.html
 			}
 		}
 
 		function hexBytesToString(hexStr) {
-			const str = hexStr.replace(' ', '');
+			// convert string of hex numbers to a string of chars (eg '616263' -> 'abc').
+			const str = hexStr.replace(' ', ''); // allow space-separated groups
 			return str == ''
 				? ''
 				: str
@@ -543,6 +647,123 @@ export class Hashing {
 						.join('');
 		}
 	}
+
+	/**
+	 * Applies permutation Keccak-f[1600] to state a.
+	 *
+	 * @param {BigInt[][]} a - State to be permuted (5 × 5 array of BigInt).
+	 *
+	 * @private
+	 */
+	static keccak_f_1600(a) {
+		const nRounds = 24;
+		const RC = [
+			0x0000000000000001n,
+			0x0000000000008082n,
+			0x800000000000808an,
+			0x8000000080008000n,
+			0x000000000000808bn,
+			0x0000000080000001n,
+			0x8000000080008081n,
+			0x8000000000008009n,
+			0x000000000000008an,
+			0x0000000000000088n,
+			0x0000000080008009n,
+			0x000000008000000an,
+			0x000000008000808bn,
+			0x800000000000008bn,
+			0x8000000000008089n,
+			0x8000000000008003n,
+			0x8000000000008002n,
+			0x8000000000000080n,
+			0x000000000000800an,
+			0x800000008000000an,
+			0x8000000080008081n,
+			0x8000000000008080n,
+			0x0000000080000001n,
+			0x8000000080008008n,
+		];
+
+		for (let r = 0; r < nRounds; r++) {
+			const C = [],
+				D = [];
+			for (let x = 0; x < 5; x++) {
+				C[x] = a[x][0];
+				for (let y = 1; y < 5; y++) {
+					C[x] = C[x] ^ a[x][y];
+				}
+			}
+			for (let x = 0; x < 5; x++) {
+				D[x] = C[(x + 4) % 5] ^ ROT(C[(x + 1) % 5], 1);
+				for (let y = 0; y < 5; y++) {
+					a[x][y] = a[x][y] ^ D[x];
+				}
+			}
+
+			let [x, y] = [1, 0];
+			let current = a[x][y];
+			for (let t = 0; t < 24; t++) {
+				const [X, Y] = [y, (2 * x + 3 * y) % 5];
+				const tmp = a[X][Y];
+				a[X][Y] = ROT(current, (((t + 1) * (t + 2)) / 2) % 64);
+				current = tmp;
+				[x, y] = [X, Y];
+			}
+
+			for (let y = 0; y < 5; y++) {
+				const C = [];
+				for (let x = 0; x < 5; x++) C[x] = a[x][y];
+				for (let x = 0; x < 5; x++) {
+					a[x][y] = C[x] ^ (~C[(x + 1) % 5] & C[(x + 2) % 5]);
+				}
+			}
+
+			a[0][0] = a[0][0] ^ RC[r];
+		}
+
+		function ROT(a, d) {
+			return BigInt.asUintN(64, (a << BigInt(d)) | (a >> BigInt(64 - d)));
+		}
+
+		function debugNist(s) {
+			const d = transpose(s)
+				.map((plane) =>
+					plane
+						.map((lane) =>
+							lane
+								.toString(16)
+								.padStart(16, '0')
+								.match(/.{2}/g)
+								.reverse()
+								.join(''),
+						)
+						.join(''),
+				)
+				.join('')
+				.match(/.{2}/g)
+				.join(' ')
+				.match(/.{23,48}/g)
+				.join('\n');
+			console.info(d);
+		}
+
+		function debug5x5(s) {
+			const d = transpose(s)
+				.map((plane) =>
+					plane
+						.map((lane) => lane.toString(16).padStart(16, '0'))
+						.join(' '),
+				)
+				.join('\n');
+			console.info(d);
+		}
+
+		function transpose(array) {
+			return array.map((row, r) => array.map((col) => col[r]));
+		}
+	}
+
+	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 
 	static f(s, x, y, z) {
 		switch (s) {
@@ -630,5 +851,37 @@ export class Hashing {
 	}
 	static LongMajority(x: Long, y: Long, z: Long) {
 		return x.and(y).xor(x.and(z)).xor(y.and(z));
+	}
+
+	/**
+	 * Encodes a given string to UTF-8 format.
+	 *
+	 * @param {string} str - The string to be encoded.
+	 * @return {string} The encoded string in UTF-8 format.
+	 */
+	static utf8Encode(str: string) {
+		try {
+			return new TextEncoder()
+				.encode(str)
+				.reduce((prev, curr) => prev + String.fromCharCode(curr), '');
+		} catch (e) {
+			return decodeURIComponent(encodeURIComponent(str));
+		}
+	}
+
+	/**
+	 * Converts a hexadecimal string to a string of ASCII characters.
+	 *
+	 * @param {string} hexStr - The hexadecimal string to convert.
+	 * @return {string} The converted string of ASCII characters.
+	 */
+	static hexBytesToString(hexStr) {
+		const str = hexStr.replace(' ', '');
+		return str == ''
+			? ''
+			: str
+					.match(/.{2}/g)
+					.map((byte) => String.fromCharCode(parseInt(byte, 16)))
+					.join('');
 	}
 }
