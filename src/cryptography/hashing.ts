@@ -168,6 +168,7 @@ export class Hashing {
 
 		for (let h = 0; h < H.length; h++)
 			H[h] = ('00000000' + H[h].toString(16)).slice(-8);
+		// attempt to remove the warning here and die
 
 		const separator = options.outputFormat == 'hex-w' ? ' ' : '';
 
@@ -723,43 +724,6 @@ export class Hashing {
 
 		function ROT(a, d) {
 			return BigInt.asUintN(64, (a << BigInt(d)) | (a >> BigInt(64 - d)));
-		}
-
-		function debugNist(s) {
-			const d = transpose(s)
-				.map((plane) =>
-					plane
-						.map((lane) =>
-							lane
-								.toString(16)
-								.padStart(16, '0')
-								.match(/.{2}/g)
-								.reverse()
-								.join(''),
-						)
-						.join(''),
-				)
-				.join('')
-				.match(/.{2}/g)
-				.join(' ')
-				.match(/.{23,48}/g)
-				.join('\n');
-			console.info(d);
-		}
-
-		function debug5x5(s) {
-			const d = transpose(s)
-				.map((plane) =>
-					plane
-						.map((lane) => lane.toString(16).padStart(16, '0'))
-						.join(' '),
-				)
-				.join('\n');
-			console.info(d);
-		}
-
-		function transpose(array) {
-			return array.map((row, r) => array.map((col) => col[r]));
 		}
 	}
 

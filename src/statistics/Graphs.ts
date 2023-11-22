@@ -1,6 +1,5 @@
 import { Color } from '../util';
 import { NumberRange } from '../util';
-import { Logarithms } from '../equations/Logarithms';
 import { MathsConstants } from '../units/Constants';
 export class PieChart {
 	public Sections: { [key: string]: { percent: number; color: Color } };
@@ -201,8 +200,8 @@ export class DistributionGraph {
 	 */
 	static normalPD(mean: number, stdDev: number, x: number): number {
 		const exponent = -((x - mean) ** 2) / (2 * stdDev ** 2);
-		const denominator = stdDev * ((2 * MathsConstants.pi.value) ** 0.5);
-		return MathsConstants.e.value**(exponent) / denominator;
+		const denominator = stdDev * (2 * MathsConstants.pi.value) ** 0.5;
+		return MathsConstants.e.value ** exponent / denominator;
 	}
 
 	/**
@@ -214,8 +213,11 @@ export class DistributionGraph {
 	 * @return {number} The value of the CDF at the given x value.
 	 */
 	static normalCD(mean: number, stdDev: number, x: number): number {
-		const z = (x - mean) / (stdDev * (2**0.5));
-		return 0.5 * (1 + Math.sign(z) * (1 - (MathsConstants.e.value ** ((-z) ** 2))));
+		const z = (x - mean) / (stdDev * 2 ** 0.5);
+		return (
+			0.5 *
+			(1 + Math.sign(z) * (1 - MathsConstants.e.value ** ((-z) ** 2)))
+		);
 	}
 
 	/**

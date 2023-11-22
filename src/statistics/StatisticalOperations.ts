@@ -1,5 +1,5 @@
 import { add } from '../core/operations';
-import { findCount , isInAllArrays } from '../util';
+import { findCount, isInAllArrays } from '../util';
 
 /**
  * Class to find averages of an array of numbers

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Matrix } from '../tensors/Matrices';
 import { StatisticalOperations as SO } from '../statistics/StatisticalOperations';
 import { Absolute as abs } from '../core/operations';

@@ -99,6 +99,11 @@ export class Color {
 		this.blue = blue;
 		this.alpha = alpha;
 	}
+
+	blend(b : Color, weightA : number, weightB : number) {
+		const totalMass = weightA + weightB
+		return new Color((this.red * weightA + b.red * weightB) / totalMass, (this.green * weightA + b.green * weightB) / totalMass, (this.blue * weightA + b.blue * weightB) / totalMass, (this.alpha * weightA + b.alpha * weightB) / totalMass)
+	}
 }
 
 export class NumberRange {
@@ -246,37 +251,94 @@ export function floorDP(number: number, decimalPlaces = 0) {
 }
 
 /**
- * Rounds a number down to a specified number of significant figures.
+ * Rounds a number to a specified number of significant figures.
  *
  * @param {number} number - The number to be rounded.
- * @param {number} significantFigures - The number of significant figures to round to. Defaults to 3.
+ * @param {number} significantFigures - The number of significant figures to round to. Default is 3.
  * @return {number} - The rounded number.
  */
-export function floorSF(number: number, significantFigures = 3) {
-	return Number(String(number).slice(0, significantFigures));
+export function floorSF(number, significantFigures = 3) {
+	const multiplier = 10 ** (significantFigures - 1);
+	return floor(number * multiplier) / multiplier;
 }
 
-export function cielDP(number: number, decimalPlaces = 0) {
-	// TODO
+/**
+ * Rounds a number up to a specified number of decimal places.
+ *
+ * @param {number} number - The number to round.
+ * @param {number} decimalPlaces - The number of decimal places to round to. Default is 0.
+ * @return {number} - The rounded number.
+ */
+export function ceilDP(number, decimalPlaces = 0) {
+	const multiplier = 10 ** decimalPlaces;
+	return ceil(number * multiplier) / multiplier;
 }
 
-export function cielSF(number: number, significantFigures = 3) {
-	// TODO
+/**
+ * Calculates the ceiling value of a number with a specified number of significant figures.
+ *
+ * @param {number} number - The number to calculate the ceiling value for.
+ * @param {number} significantFigures - The number of significant figures (default: 3).
+ * @return {number} The ceiling value of the input number with the specified number of significant figures.
+ */
+export function ceilSF(number, significantFigures = 3) {
+	const multiplier = 10 ** (significantFigures - 1);
+	return ceil(number * multiplier) / multiplier;
 }
 
-export function roundDP(number: number, decimalPlaces = 0) {
-	// TODO
+/**
+ * Rounds a number to the specified decimal places.
+ *
+ * @param {number} number - The number to round.
+ * @param {number} decimalPlaces - The number of decimal places to round to. Default is 0.
+ * @return {number} - The rounded number.
+ */
+export function roundDP(number, decimalPlaces = 0) {
+	const multiplier = 10 ** decimalPlaces;
+	return round(number * multiplier) / multiplier;
 }
 
-export function roundSF(number: number, significantFigures = 3) {
-	// TODO
+/**
+ * Rounds a given number to a specified number of significant figures.
+ *
+ * @param {number} number - The number to be rounded.
+ * @param {number} significantFigures - The number of significant figures to round to. Default is 3.
+ * @return {number} The rounded number.
+ */
+export function roundSF(number, significantFigures = 3) {
+	const multiplier = 10 ** (significantFigures - 1);
+	return round(number * multiplier) / multiplier;
 }
 
-export function round(number: number) {}
+/**
+ * Rounds a given number to the nearest integer.
+ *
+ * @param {number} number - The number to be rounded.
+ * @return {number} The rounded number.
+ */
+export function round(number: number): number {
+	return floor(number + 0.5);
+}
 
-export function roundUP(number: number) {}
+/**
+ * Calculates the smallest integer greater than or equal to a given number.
+ *
+ * @param {number} number - The number to calculate the ceiling of.
+ * @return {number} The smallest integer greater than or equal to the given number.
+ */
+export function ceil(number: number): number {
+	return floor(number) + 1;
+}
 
-export function roundDown(number: number) {}
+/**
+ * Rounds a number down to the nearest integer.
+ *
+ * @param {number} number - The number to round down.
+ * @return {number} The rounded down number.
+ */
+export function floor(number: number): number {
+	return Number(number.toFixed(0));
+}
 
 /**
  * Splits an array into subarrays based on a target value.
