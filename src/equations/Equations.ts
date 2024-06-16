@@ -691,7 +691,7 @@ export class Equations {
 
 	
 
-	// Old dodgy work
+	// Old dodgy work - needs finishing
 	static simplify(expression: string): string {
 		const result = this.parseEquation(expression);
 		while (Equations.find(result, '(') > 0) {
